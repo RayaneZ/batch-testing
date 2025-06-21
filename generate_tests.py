@@ -1,63 +1,10 @@
-import re
+from parser import Parser
+
 
 def parse_test_in_natural_language(test_description):
-    """
-    Cette fonction analyse la description en langage naturel du test et 
-    extrait les étapes nécessaires pour créer un playbook Ansible, y compris 
-    les chemins des fichiers logs, les scripts SQL, les commandes touch pour les dates,
-    et l'action pour afficher le contenu d'un fichier.
-    """
-    actions = {
-        "initialization": [],
-        "execution": [],
-        "validation": [],
-        "logs_check": [],
-        "arguments": {},
-        "log_paths": [],
-        "sql_scripts": [],
-        "file_operations": [],
-        "cat_files": []  # Pour l'action cat (afficher le contenu d'un fichier)
-    }
-
-    # Expressions régulières pour détecter les actions
-    if re.search(r"(initialiser|créer|configurer)", test_description, re.IGNORECASE):
-        actions["initialization"].append(test_description)
-
-    if re.search(r"(exécuter|lancer|traiter)", test_description, re.IGNORECASE):
-        actions["execution"].append(test_description)
-
-    if re.search(r"(vérifier|valider)", test_description, re.IGNORECASE):
-        actions["validation"].append(test_description)
-
-    if re.search(r"(logs|erreurs|fichiers de logs)", test_description, re.IGNORECASE):
-        actions["logs_check"].append(test_description)
-
-    # Recherche des arguments pour le batch
-    match = re.search(r"(argument|paramètre) (.*)=(.*)", test_description)
-    if match:
-        actions["arguments"][match.group(2).strip()] = match.group(3).strip()
-
-    # Recherche des chemins de logs spécifiés dans le test
-    log_paths_matches = re.findall(r"(chemin|path) des logs\s*=\s*(\S+)", test_description, re.IGNORECASE)
-    if log_paths_matches:
-        actions["log_paths"] = [path for _, path in log_paths_matches]
-
-    # Recherche des scripts SQL pour Oracle
-    sql_scripts = re.findall(r"(script sql) = (.*\.sql)", test_description, re.IGNORECASE)
-    if sql_scripts:
-        actions["sql_scripts"] = [script for _, script in sql_scripts]
-
-    # Recherche des opérations sur les fichiers et dossiers avec les droits Unix
-    file_operations = re.findall(r"(créer|mettre à jour) (fichier|dossier)\s*=\s*(\S+)\s*(avec les droits|mode)\s*=\s*(\S+)", test_description, re.IGNORECASE)
-    if file_operations:
-        actions["file_operations"] = [(op, path, mode) for op, _, path, _, mode in file_operations]
-
-    # Recherche de l'action "cat" (afficher le contenu d'un fichier)
-    cat_files = re.findall(r"afficher le contenu du fichier\s*=\s*(\S+)", test_description, re.IGNORECASE)
-    if cat_files:
-        actions["cat_files"] = cat_files
-
-    return actions
+    """Analyse la description du test en utilisant le parseur modulaire."""
+    parser = Parser()
+    return parser.parse(test_description)
 
 def generate_ansible_playbook_with_args(actions):
     """
