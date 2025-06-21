@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Grammaire du langage de tests</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 2em; }
+h1 { color: #333; }
+code { background: #f4f4f4; padding: 2px 4px; }
+pre { background: #f4f4f4; padding: 1em; }
+</style>
+</head>
+<body>
+<h1>Rédiger des tests fonctionnels en langage naturel</h1>
+<p>Ce projet permet de décrire des scénarios de tests dans un français simple puis de générer un script shell correspondant. Chaque ligne d'un fichier de test suit la forme&nbsp;:</p>
+<pre><code>Action: &lt;description de l'&eacute;tape&gt; ; Resultat: &lt;r&eacute;sultat attendu&gt;</code></pre>
+<h2>Verbes et &eacute;l&eacute;ments reconnus</h2>
+<ul>
+  <li><strong>Initialisation</strong> : <code>initialiser</code>, <code>créer</code>, <code>configurer</code></li>
+  <li><strong>Ex&eacute;cution</strong> : <code>exécuter</code>, <code>lancer</code>, <code>traiter</code></li>
+  <li><strong>Validation</strong> : <code>vérifier</code>, <code>valider</code></li>
+  <li><strong>Fichiers</strong> : <code>toucher</code>, <code>cat</code>, <code>créer fichier/dossier</code></li>
+</ul>
+<p>Des param&egrave;tres optionnels peuvent &ecirc;tre ajout&eacute;s sur les lignes&nbsp;:</p>
+<ul>
+  <li><code>argument NOM=VALEUR</code> &ndash; ajoute un argument au batch</li>
+  <li><code>chemin des logs = /chemin/fichier.log</code></li>
+  <li><code>script sql = fichier.sql</code></li>
+  <li><code>créer ou mettre à jour fichier/dossier = CHEMIN avec les droits = MODE</code></li>
+  <li><code>toucher le fichier CHEMIN [-t TIMESTAMP]</code></li>
+</ul>
+<h2>Exemple complet</h2>
+<pre><code>Action: toucher le fichier /tmp/init.flag 202501010000 ; Resultat: fichier initialisé
+Action: exécuter /opt/batch/traitement.sh avec argument produit=42 ; Resultat: traitement réalisé
+Action: vérifier qu'il n'y a pas d'erreurs dans les logs ; Resultat: aucun message d'erreur</code></pre>
+<h2>Utilisation</h2>
+<ol>
+  <li>Cr&eacute;ez vos fichiers de test dans le dossier <code>tests/</code> en suivant la forme ci-dessus.</li>
+  <li>Lancez <code>python generate_tests.py --batch-path /chemin/vers/batch.sh</code>. Chaque fichier <code>.txt</code> g&eacute;n&egrave;re un script shell dans le dossier <code>output/</code>.</li>
+  <li>Ex&eacute;cutez ensuite le script shell g&eacute;n&eacute;r&eacute; pour reproduire les &eacute;tapes.</li>
+</ol>
+<p>Un fichier <code>syntaxes/nltest.tmLanguage.json</code> est fourni pour ajouter une coloration syntaxique dans Visual Studio Code.</p>
+</body>
+</html>

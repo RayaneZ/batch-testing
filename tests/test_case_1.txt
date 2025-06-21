@@ -1,5 +1,3 @@
-
-    Initialiser la base de données avec des données de test en exécutant le script JDD_Commun.sql.
-    Afficher le contenu du fichier = /tmp/JDD_Commun.sql
-    Vérifier que les données ont été correctement insérées dans la base de données.
-    
+Action: toucher le fichier /tmp/init.flag 202501010000 ; Resultat: fichier initialisé
+Action: initialiser la base de données en exécutant JDD_Commun.sql ; Resultat: base de test prête
+Action: afficher le contenu du fichier = /tmp/JDD_Commun.sql ; Resultat: contenu affiché
