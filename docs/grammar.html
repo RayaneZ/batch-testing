@@ -53,114 +53,100 @@ pre, code {
 <p>Les expressions sont interprétées par le parseur défini dans <code>parser.py</code>.</p>
 
 <h2>Détails des mots clés et alias</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Mot clé / Alias</th>
-      <th>Description</th>
-      <th>Arguments</th>
-      <th>Exemple</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>créer</code>, <code>configurer</code></td>
-      <td>Prépare l’environnement de test.</td>
-      <td>aucun</td>
-      <td><code>Action: configurer la base ; Resultat: OK</code></td>
-    </tr>
-    <tr>
-      <td><code>exécuter</code>, <code>lancer</code>, <code>traiter</code></td>
-      <td>Lance le traitement du batch.</td>
-      <td>aucun</td>
-      <td><code>Action: exécuter ; Resultat: retour 0</code></td>
-    </tr>
-    <tr>
-      <td><code>exécuter /chemin/script.sh</code></td>
-      <td>Définit le chemin du script batch à utiliser.</td>
-      <td>chemin vers le script</td>
-      <td><code>Action: exécuter /opt/proc.sh ; Resultat: retour 0</code></td>
-    </tr>
-    <tr>
-      <td><code>argument</code>, <code>paramètre</code></td>
-      <td>Ajoute un argument à passer au batch.</td>
-      <td><code>NOM</code> et <code>VALEUR</code></td>
-      <td><code>Action: argument MODE=demo ; Resultat: OK</code></td>
-    </tr>
-    <tr>
-      <td><code>chemin des logs</code></td>
-      <td>Spécifie où chercher les journaux.</td>
-      <td>chemin vers le fichier</td>
-      <td><code>Action: chemin des logs = /tmp/app.log ; Resultat: OK</code></td>
-    </tr>
-    <tr>
-      <td><code>script sql</code></td>
-      <td>Exécute un script SQL avant le test.</td>
-      <td>fichier .sql</td>
-      <td><code>Action: script sql = init.sql ; Resultat: retour 0</code></td>
-    </tr>
-    <tr>
-      <td><code>créer</code>/<code>mettre à jour</code> <code>fichier</code>/<code>dossier</code></td>
-      <td>Crée ou modifie un fichier ou dossier avec un mode donné.</td>
-      <td>chemin et mode</td>
-      <td><code>Action: créer fichier=/tmp/a.txt avec les droits=644 ; Resultat: OK</code></td>
-    </tr>
-    <tr>
-      <td><code>toucher le fichier</code></td>
-      <td>Met à jour la date d’un fichier.</td>
-      <td>chemin et option <code>-t</code> pour la date</td>
-      <td><code>Action: toucher le fichier /tmp/a.txt -t 20240601 ; Resultat: OK</code></td>
-    </tr>
-    <tr>
-      <td><code>copier le fichier</code>, <code>copier le dossier</code></td>
-      <td>Copie un fichier ou un dossier vers une nouvelle destination.</td>
-      <td>source et destination</td>
-      <td><code>Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Resultat: le fichier est copié</code></td>
-    </tr>
-    <tr>
-      <td><code>afficher le contenu du fichier</code>, <code>cat le fichier</code></td>
-      <td>Affiche le contenu d’un fichier sur la sortie standard.</td>
-      <td>chemin du fichier</td>
-      <td><code>Action: afficher le contenu du fichier=/tmp/info.log ; Resultat: OK</code></td>
-    </tr>
-    <tr>
-      <td><code>logs</code>, <code>erreurs</code>, <code>fichiers de logs</code></td>
-      <td>Recherche des erreurs dans les journaux.</td>
-      <td>chemin spécifié via <code>chemin des logs</code></td>
-      <td><code>Action: logs ; Resultat: stdout contient ERROR</code></td>
-    </tr>
-    <tr>
-      <td><code>Step</code>, <code>Etape</code>, <code>Étape</code></td>
-      <td>Débute une nouvelle étape du test.</td>
-      <td>nom de l’étape</td>
-      <td><code>Step: Initialisation</code></td>
-    </tr>
-    <tr>
-      <td><code>retour</code></td>
-      <td>Vérifie le code de sortie.</td>
-      <td>nombre attendu</td>
-      <td><code>Resultat: retour 0</code></td>
-    </tr>
-    <tr>
-      <td><code>stdout</code> / <code>stderr</code></td>
-      <td>Compare ou cherche un motif dans les sorties standard ou d'erreur.</td>
-      <td>valeur exacte ou motif</td>
-      <td><code>Resultat: stdout contient OK</code></td>
-    </tr>
-    <tr>
-      <td>Alias&nbsp;: «&nbsp;Le script retourne un code N »</td>
-      <td>Equivalent à <code>retour N</code>.</td>
-      <td>N</td>
-      <td><code>Resultat: Le script retourne un code 0</code></td>
-    </tr>
-    <tr>
-      <td>Alias&nbsp;: «&nbsp;Le script affiche un code "N" »</td>
-      <td>Equivalent à <code>stdout contient N</code>.</td>
-      <td>N</td>
-      <td><code>Resultat: Le script affiche un code "030"</code></td>
-    </tr>
-  </tbody>
-</table>
+<div class="keyword">
+<h3><code>créer</code></h3>
+<p><strong>Alias&nbsp;:</strong> <code>configurer</code></p>
+<p>Prépare l’environnement de test. Le verbe est détecté lorsqu’il apparaît seul au début de la partie Action&nbsp;: <code>(créer|configurer)</code>. Évitez les formulations plus longues.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: configurer la base ; Resultat: OK</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>exécuter</code></h3>
+<p><strong>Alias&nbsp;:</strong> <code>lancer</code>, <code>traiter</code></p>
+<p>Lance le traitement du batch. Le mot clé est reconnu via <code>(exécuter|lancer|traiter)</code> au début de la phrase.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: exécuter ; Resultat: retour 0</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>exécuter /chemin/script.sh</code></h3>
+<p>Définit le chemin du script batch à utiliser. Le chemin est capturé avec <code>exécuter\s+(\/\S+\.sh)</code>.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: exécuter /opt/proc.sh ; Resultat: retour 0</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>argument</code></h3>
+<p><strong>Alias&nbsp;:</strong> <code>paramètre</code></p>
+<p>Ajoute un argument au batch en utilisant la forme <code>argument NOM=VALEUR</code>. Le parser cherche <code>(argument|paramètre)\s+(\S+)=\s*(\S+)</code>.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: argument MODE=demo ; Resultat: OK</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>chemin des logs</code></h3>
+<p>Spécifie le fichier de logs via <code>chemin des logs = FICHIER</code>. Le mot est détecté avec <code>(?:chemin|path) des logs\s*=\s*(\S+)</code>.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: chemin des logs = /tmp/app.log ; Resultat: OK</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>script sql</code></h3>
+<p>Exécute un script SQL avant le test. Le fichier est reconnu grâce à <code>script sql\s*=\s*(.*?\.sql)</code>.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: script sql = init.sql ; Resultat: retour 0</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>créer/mettre à jour fichier/dossier</code></h3>
+<p>Crée ou modifie un fichier ou un dossier&nbsp;: <code>(créer|mettre à jour) (fichier|dossier)=CHEMIN avec les droits=MODE</code>.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: créer fichier=/tmp/a.txt avec les droits=644 ; Resultat: OK</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>toucher le fichier</code></h3>
+<p>Met à jour la date d’un fichier via <code>toucher le fichier CHEMIN -t TIMESTAMP</code>. Le timestamp est optionnel mais doit suivre immédiatement.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: toucher le fichier /tmp/a.txt -t 20240601 ; Resultat: OK</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>copier le fichier</code> / <code>copier le dossier</code></h3>
+<p>Copie un fichier ou un dossier en utilisant <code>copier (fichier|dossier) SRC vers DEST</code>. L’ordre doit être respecté pour être détecté.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Resultat: le fichier est copié</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>afficher le contenu du fichier</code></h3>
+<p><strong>Alias&nbsp;:</strong> <code>cat le fichier</code></p>
+<p>Affiche le contenu d’un fichier. Le motif <code>(afficher le contenu du fichier|cat le fichier)\s*=\s*(\S+)</code> est utilisé.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: afficher le contenu du fichier=/tmp/info.log ; Resultat: OK</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>logs</code></h3>
+<p><strong>Alias&nbsp;:</strong> <code>erreurs</code>, <code>fichiers de logs</code></p>
+<p>Recherche des erreurs dans les journaux. Le parser détecte <code>(logs|erreurs|fichiers de logs)</code> seul dans la ligne d’action.</p>
+<p><em>Exemple&nbsp;:</em> <code>Action: logs ; Resultat: stdout contient ERROR</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>Step</code></h3>
+<p><strong>Alias&nbsp;:</strong> <code>Etape</code>, <code>Étape</code></p>
+<p>Marque une nouvelle étape&nbsp;: <code>(Étape|Etape|Step)\s*:\s*nom</code>. Le mot doit précéder un nom d’étape.</p>
+<p><em>Exemple&nbsp;:</em> <code>Step: Initialisation</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>retour</code></h3>
+<p>Vérifie le code de sortie avec la forme <code>retour N</code>.</p>
+<p><em>Exemple&nbsp;:</em> <code>Resultat: retour 0</code></p>
+</div>
+
+<div class="keyword">
+<h3><code>stdout</code> / <code>stderr</code></h3>
+<p>Compare ou recherche un motif dans les sorties. Les syntaxes <code>stdout=VALEUR</code>, <code>stderr=VALEUR</code>, <code>stdout contient MOTIF</code> ou <code>stderr contient MOTIF</code> sont détectées via des expressions régulières dédiées.</p>
+<p><em>Exemple&nbsp;:</em> <code>Resultat: stdout contient OK</code></p>
+</div>
+
+<div class="keyword">
+<h3>Alias naturels</h3>
+<p>Des phrases comme «&nbsp;Le script retourne un code N&nbsp;» ou «&nbsp;Le script affiche un code "N"&nbsp;» sont transformées respectivement en <code>retour N</code> et <code>stdout contient N</code>.</p>
+</div>
 
 <h2>Créer vos propres fichiers de tests</h2>
 <p>Pour écrire un scénario, créez un fichier se terminant par <code>.shtest</code> dans le dossier <code>tests/</code>. Chaque ligne doit respecter la syntaxe ci-dessus.</p>
