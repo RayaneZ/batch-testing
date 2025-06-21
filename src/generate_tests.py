@@ -3,12 +3,22 @@ from string import Template
 import argparse
 import os
 from glob import glob
+import re
 
 
 def parse_test_in_natural_language(test_description: str):
     """Analyse la description du test en utilisant le parseur modulaire."""
     parser = Parser()
     return parser.parse(test_description)
+
+
+def parse_test_file(contents: str):
+    """Parse line by line and preserve ordering of actions/results."""
+    parser = Parser()
+    parsed_lines = []
+    for line in contents.splitlines():
+        parsed_lines.append(parser.parse(line))
+    return parsed_lines
 
 
 TEMPLATES = {
@@ -25,10 +35,20 @@ TEMPLATES = {
 }
 
 
-def generate_shell_script(actions, batch_path: str):
-    """Génère un script shell à partir des actions extraites."""
+def generate_shell_script(actions_list, batch_path: str):
+    """Génère un script shell à partir de la liste ordonnée d'actions."""
     lines = [
         "#!/bin/bash",
+        "",
+        "run_cmd() {",
+        "  local _stdout=$(mktemp)",
+        "  local _stderr=$(mktemp)",
+        "  bash -c \"$1\" >\"$_stdout\" 2>\"$_stderr\"",
+        "  last_ret=$?",
+        "  last_stdout=$(cat \"$_stdout\")",
+        "  last_stderr=$(cat \"$_stderr\")",
+        "  rm -f \"$_stdout\" \"$_stderr\"",
+        "}",
         "",
         "log_diff() {",
         "  expected=\"$1\"",
@@ -42,102 +62,99 @@ def generate_shell_script(actions, batch_path: str):
         "",
     ]
 
-    steps = actions.get("steps", [])
-    step_idx = 0
+    last_file = None
+    for actions in actions_list:
+        if actions["steps"]:
+            lines.append(f"# ---- {actions['steps'][0]} ----")
+            continue
 
-    def maybe_step():
-        nonlocal step_idx
-        if step_idx < len(steps):
-            lines.append(f"# ---- {steps[step_idx]} ----")
-            step_idx += 1
+        if actions["initialization"]:
+            lines.append("# Initialisation")
+            for action in actions["initialization"]:
+                lines.append(f"run_cmd \"echo '{action}'\"  # TODO")
 
-    if actions["initialization"]:
-        maybe_step()
-        lines.append("# Initialisation")
-        for action in actions["initialization"]:
-            lines.append(f"echo '{action}'  # TODO: implémenter la commande")
-        lines.append("")
+        if actions["execution"]:
+            arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
+            actual_path = actions.get("batch_path") or batch_path
+            for action in actions["execution"]:
+                lines.append(f"run_cmd \"{TEMPLATES['process_batch'].substitute(path=actual_path, args=arg_str)}\"")
 
-    if actions["execution"]:
-        maybe_step()
-        lines.append("# Exécution du batch")
-        arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
-        actual_path = actions.get("batch_path") or batch_path
-        for action in actions["execution"]:
-            lines.append(f"echo '{action}'")
-            lines.append(TEMPLATES["process_batch"].substitute(path=actual_path, args=arg_str))
-        lines.append("")
+        if actions["sql_scripts"]:
+            for script in actions["sql_scripts"]:
+                lines.append(f"run_cmd \"{TEMPLATES['execute_sql'].substitute(script=script)}\"")
 
-    if actions["sql_scripts"]:
-        maybe_step()
-        lines.append("# Exécution des scripts SQL")
-        for script in actions["sql_scripts"]:
-            lines.append(TEMPLATES["execute_sql"].substitute(script=script))
-        lines.append("")
+        if actions["file_operations"]:
+            for operation, ftype, path, mode in actions["file_operations"]:
+                if ftype.lower() == "dossier":
+                    cmd = TEMPLATES["create_dir"].substitute(path=path, mode=mode)
+                else:
+                    cmd = TEMPLATES["create_file"].substitute(path=path, mode=mode)
+                lines.append(f"run_cmd \"{cmd}\"")
+                lines.append(f"run_cmd \"{TEMPLATES['update_file'].substitute(path=path)}\"")
 
-    if actions["file_operations"]:
-        maybe_step()
-        lines.append("# Opérations sur les fichiers et dossiers")
-        for operation, ftype, path, mode in actions["file_operations"]:
-            if ftype.lower() == "dossier":
-                lines.append(TEMPLATES["create_dir"].substitute(path=path, mode=mode))
-            if ftype.lower() == "fichier":
-                lines.append(TEMPLATES["create_file"].substitute(path=path, mode=mode))
-            lines.append(TEMPLATES["update_file"].substitute(path=path))
-        lines.append("")
+        if actions.get("copy_operations"):
+            for ftype, src, dest in actions["copy_operations"]:
+                if ftype.lower() == "dossier":
+                    cmd = TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
+                else:
+                    cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
+                lines.append(f"run_cmd \"{cmd}\"")
 
-    if actions.get("copy_operations"):
-        maybe_step()
-        lines.append("# Copies de fichiers et dossiers")
-        for ftype, src, dest in actions["copy_operations"]:
-            if ftype.lower() == "dossier":
-                lines.append(TEMPLATES["copy_dir"].substitute(src=src, dest=dest))
-            else:
-                lines.append(TEMPLATES["copy_file"].substitute(src=src, dest=dest))
-        lines.append("")
+        if actions.get("touch_files"):
+            for entry in actions["touch_files"]:
+                path, ts = entry if isinstance(entry, tuple) else (entry, None)
+                if ts:
+                    cmd = TEMPLATES["touch_ts"].substitute(path=path, ts=ts)
+                else:
+                    cmd = TEMPLATES["update_file"].substitute(path=path)
+                lines.append(f"run_cmd \"{cmd}\"")
 
-    if actions.get("touch_files"):
-        maybe_step()
-        lines.append("# Mise à jour de fichiers")
-        for entry in actions["touch_files"]:
-            if isinstance(entry, tuple):
-                path, ts = entry
-            else:
-                path, ts = entry, None
-            if ts:
-                lines.append(TEMPLATES["touch_ts"].substitute(path=path, ts=ts))
-            else:
-                lines.append(TEMPLATES["update_file"].substitute(path=path))
-        lines.append("")
+        if actions["cat_files"]:
+            for file in actions["cat_files"]:
+                lines.append(f"run_cmd \"{TEMPLATES['cat_file'].substitute(file=file)}\"")
 
-    if actions["cat_files"]:
-        maybe_step()
-        lines.append("# Affichage du contenu des fichiers")
-        for file in actions["cat_files"]:
-            lines.append(TEMPLATES["cat_file"].substitute(file=file))
-        lines.append("")
+        if actions["logs_check"]:
+            for path in actions["log_paths"]:
+                lines.append(f"run_cmd \"{TEMPLATES['grep_log'].substitute(path=path)}\"")
 
-    if actions["logs_check"]:
-        maybe_step()
-        lines.append("# Vérification des logs")
-        for path in actions["log_paths"]:
-            lines.append(TEMPLATES["grep_log"].substitute(path=path))
-        lines.append("")
+        if actions["validation"]:
+            lines.append("# Validation des résultats")
+            for expected in actions["validation"]:
+                lines.append(f"# Attendu : {expected}")
+                m = re.search(r"le fichier (\S+) existe", expected)
+                if m:
+                    last_file = m.group(1)
+                    lines.append("actual=\"command non implémentée\"")
+                elif expected == "fichier présent" and last_file:
+                    lines.append(f"if [ -e {last_file} ]; then actual=\"fichier présent\"; else actual=\"fichier absent\"; fi")
+                else:
+                    ret_match = re.search(r"retour\s*(\d+)", expected)
+                    if ret_match:
+                        lines.append("actual=\"$last_ret\"")
+                        lines.append(f"expected=\"{ret_match.group(1)}\"")
+                        lines.append("log_diff \"$expected\" \"$actual\"")
+                        continue
+                    stdout_match = re.search(r"stdout\s*=\s*(.*)", expected)
+                    if stdout_match:
+                        lines.append("actual=\"$last_stdout\"")
+                        lines.append(f"expected=\"{stdout_match.group(1)}\"")
+                        lines.append("log_diff \"$expected\" \"$actual\"")
+                        continue
+                    stderr_match = re.search(r"stderr\s*=\s*(.*)", expected)
+                    if stderr_match:
+                        lines.append("actual=\"$last_stderr\"")
+                        lines.append(f"expected=\"{stderr_match.group(1)}\"")
+                        lines.append("log_diff \"$expected\" \"$actual\"")
+                        continue
+                    lines.append("actual=\"non vérifié\"")
+                lines.append(f"expected=\"{expected}\"")
+                lines.append("log_diff \"$expected\" \"$actual\"")
 
-    if actions["validation"]:
-        maybe_step()
-        lines.append("# Validation des résultats")
-        for expected in actions["validation"]:
-            lines.append(f"# Attendu : {expected}")
-            lines.append("actual=\"<commande à implémenter>\"")
-            lines.append(f"expected=\"{expected}\"")
-            lines.append("log_diff \"$expected\" \"$actual\"")
-            lines.append("")
 
     return "\n".join(lines)
 
 
-INPUT_DIR = "tests"
+INPUT_DIR = "src/tests"
 OUTPUT_DIR = "output"
 
 
@@ -150,7 +167,7 @@ def main():
     for txt_file in glob(os.path.join(INPUT_DIR, "*.shtest")):
         with open(txt_file, encoding="utf-8") as f:
             test_description = f.read()
-        actions = parse_test_in_natural_language(test_description)
+        actions = parse_test_file(test_description)
         script = generate_shell_script(actions, batch_path=args.batch_path)
         out_name = os.path.splitext(os.path.basename(txt_file))[0] + ".sh"
         out_path = os.path.join(OUTPUT_DIR, out_name)
