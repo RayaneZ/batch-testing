@@ -97,8 +97,9 @@ class Parser:
                        lambda m, a: a["logs_check"].append(m.string.strip()))
 
         # Dynamic extractions
-        self._register(r"(?:argument|paramètre)\s+(\S+)\s*=\s*(\S+)",
-                       lambda m, a: a["arguments"].__setitem__(m.group(1).strip(), m.group(2).strip()))
+        self.arg_pattern = re.compile(r"(?:argument|paramètre|et\s+(?:l['ae]\s+|l')?)\s*(\S+)=\s*(\S+)", re.IGNORECASE)
+        self._register(self.arg_pattern.pattern,
+                       self._handle_arguments)
         self._register(r"(?:chemin|path) des logs\s*=\s*(\S+)",
                        lambda m, a: a["log_paths"].append(m.group(1)))
         self._register(r"script sql\s*=\s*(.*?\.sql)",
@@ -115,6 +116,11 @@ class Parser:
                        lambda m, a: a.__setitem__("batch_path", m.group(1)))
         self._register(r"(?:afficher le contenu du fichier|cat le fichier)\s*=\s*(\S+)",
                        lambda m, a: a["cat_files"].append(m.group(1)))
+
+    def _handle_arguments(self, match: re.Match, actions: Dict[str, List]) -> None:
+        """Extract all key=value pairs from an argument expression."""
+        for m in self.arg_pattern.finditer(match.string):
+            actions["arguments"][m.group(1).strip()] = m.group(2).strip()
 
     def _handle_action_result(self, match: re.Match, actions: Dict[str, List]) -> None:
         """Parse a line written as 'Action: ... Resultat: ...'."""

@@ -63,9 +63,20 @@ python src/generate_tests.py --batch-path ./process_batch.sh
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
 
+Generated scripts use `/bin/sh` for portability.
+
 ### Options
 
 - `--batch-path PATH` – path to the script to run for each test (default: `./process_batch.sh`)
+
+To pass arguments to the batch script, use `argument NOM=VALEUR` in your action
+lines and chain additional pairs with `et`:
+
+```text
+Action: Exécuter mon_batch.sh avec l'argument produit=42 et la quantité=10 ;
+```
+
+The generated command will be `mon_batch.sh produit=42 quantité=10`.
 
 ## Checking results
 
