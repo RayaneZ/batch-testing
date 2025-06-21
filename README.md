@@ -13,6 +13,8 @@ An example line looks like:
 Action: configurer la base ; Resultat: base prête
 ```
 
+Trailing periods or semicolons in the result are ignored by the parser.
+
 Several examples can be found in `src/tests/` and the detailed grammar is
 available in `docs/documentation.html`.
 
@@ -64,6 +66,8 @@ The scripts will be created in the `output/` directory with the same name as
 their source test files.
 
 Generated scripts use `/bin/sh` for portability.
+
+Initialization lines that reference `*.sql` files will execute those scripts automatically.
 
 ### Options
 

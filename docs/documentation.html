@@ -52,6 +52,7 @@
     <h2>Syntaxe Générale</h2>
     <p>Chaque ligne suit le format&nbsp;:</p>
     <pre><code>Action: &lt;description&gt; ; Resultat: &lt;résultat attendu&gt;</code></pre>
+    <p>Les points ou point-virgules finaux du résultat sont ignorés.</p>
   </div>
 
   <div class="section">
@@ -64,6 +65,21 @@
       <tr><td><code>exécuter</code></td><td><code>lancer</code>, <code>traiter</code></td><td>Lancement du traitement</td></tr>
       <tr><td><code>exécuter /chemin/script.sh</code></td><td>-</td><td>Spécifie un script à exécuter</td></tr>
       <tr><td><code>Step: NOM</code></td><td><code>Étape</code>, <code>Etape</code></td><td>Démarre une nouvelle étape</td></tr>
+      <tr><td><code>initialiser fichier.sql</code></td><td>-</td><td>Exécute un script SQL de préparation</td></tr>
+    </table>
+    <h4>Résultats compatibles</h4>
+    <table>
+      <tr><th>Syntaxe</th><th>Alias</th><th>Description</th></tr>
+      <tr><td><code>retour N</code></td><td><code>Le script retourne un code N</code></td><td>Vérifie le code de retour</td></tr>
+      <tr><td><code>stdout=VALEUR</code></td><td><code>La sortie standard est VALEUR</code></td><td>Compare la sortie standard</td></tr>
+      <tr><td><code>stderr=VALEUR</code></td><td><code>La sortie d'erreur est VALEUR</code></td><td>Compare la sortie d'erreur</td></tr>
+      <tr><td><code>stdout contient MOTIF</code></td><td><code>La sortie standard contient MOTIF</code>, <code>Le script affiche un code "MOTIF"</code></td><td>Recherche motif dans stdout</td></tr>
+      <tr><td><code>stderr contient MOTIF</code></td><td><code>La sortie d'erreur contient MOTIF</code></td><td>Recherche motif dans stderr</td></tr>
+      <tr><td><code>le fichier /chemin existe</code></td><td><code>Le fichier /chemin est présent</code></td><td>Vérifie l'existence d'un fichier</td></tr>
+      <tr><td><code>Le fichier est présent</code></td><td>-</td><td>Validation de la présence du dernier fichier manipulé</td></tr>
+      <tr><td><code>le fichier est copié</code></td><td>-</td><td>Vérifie la copie d'un fichier</td></tr>
+      <tr><td><code>le dossier est copié</code></td><td>-</td><td>Vérifie la copie d'un dossier</td></tr>
+      <tr><td><code>retour 0 et (stdout contient OK ou stderr contient WARNING)</code></td><td>-</td><td>Validation logique combinée</td></tr>
     </table>
 
     <h3>Manipulation de fichiers</h3>
@@ -77,6 +93,21 @@
       <tr><td><code>afficher le contenu du fichier=CHEMIN</code></td><td><code>cat le fichier</code></td><td>Affiche le contenu d’un fichier</td></tr>
     </table>
 
+    <h4>Résultats compatibles</h4>
+    <table>
+      <tr><th>Syntaxe</th><th>Alias</th><th>Description</th></tr>
+      <tr><td><code>retour N</code></td><td><code>Le script retourne un code N</code></td><td>Vérifie le code de retour</td></tr>
+      <tr><td><code>stdout=VALEUR</code></td><td><code>La sortie standard est VALEUR</code></td><td>Compare la sortie standard</td></tr>
+      <tr><td><code>stderr=VALEUR</code></td><td><code>La sortie d'erreur est VALEUR</code></td><td>Compare la sortie d'erreur</td></tr>
+      <tr><td><code>stdout contient MOTIF</code></td><td><code>La sortie standard contient MOTIF</code>, <code>Le script affiche un code "MOTIF"</code></td><td>Recherche motif dans stdout</td></tr>
+      <tr><td><code>stderr contient MOTIF</code></td><td><code>La sortie d'erreur contient MOTIF</code></td><td>Recherche motif dans stderr</td></tr>
+      <tr><td><code>le fichier /chemin existe</code></td><td><code>Le fichier /chemin est présent</code></td><td>Vérifie l'existence d'un fichier</td></tr>
+      <tr><td><code>Le fichier est présent</code></td><td>-</td><td>Validation de la présence du dernier fichier manipulé</td></tr>
+      <tr><td><code>le fichier est copié</code></td><td>-</td><td>Vérifie la copie d'un fichier</td></tr>
+      <tr><td><code>le dossier est copié</code></td><td>-</td><td>Vérifie la copie d'un dossier</td></tr>
+      <tr><td><code>retour 0 et (stdout contient OK ou stderr contient WARNING)</code></td><td>-</td><td>Validation logique combinée</td></tr>
+    </table>
+
     <h3>Paramètres supplémentaires</h3>
     <table>
       <tr><th>Syntaxe</th><th>Alias</th><th>Description</th></tr>
@@ -84,6 +115,21 @@
       <tr><td><code>chemin des logs = /chemin/fichier.log</code></td><td><code>path des logs</code></td><td>Spécifie le fichier log</td></tr>
       <tr><td><code>script sql = fichier.sql</code></td><td>-</td><td>Exécute un script SQL</td></tr>
       <tr><td><code>logs</code></td><td><code>erreurs</code>, <code>fichiers de logs</code></td><td>Recherche d'erreurs dans les journaux</td></tr>
+    </table>
+
+    <h4>Résultats compatibles</h4>
+    <table>
+      <tr><th>Syntaxe</th><th>Alias</th><th>Description</th></tr>
+      <tr><td><code>retour N</code></td><td><code>Le script retourne un code N</code></td><td>Vérifie le code de retour</td></tr>
+      <tr><td><code>stdout=VALEUR</code></td><td><code>La sortie standard est VALEUR</code></td><td>Compare la sortie standard</td></tr>
+      <tr><td><code>stderr=VALEUR</code></td><td><code>La sortie d'erreur est VALEUR</code></td><td>Compare la sortie d'erreur</td></tr>
+      <tr><td><code>stdout contient MOTIF</code></td><td><code>La sortie standard contient MOTIF</code>, <code>Le script affiche un code "MOTIF"</code></td><td>Recherche motif dans stdout</td></tr>
+      <tr><td><code>stderr contient MOTIF</code></td><td><code>La sortie d'erreur contient MOTIF</code></td><td>Recherche motif dans stderr</td></tr>
+      <tr><td><code>le fichier /chemin existe</code></td><td><code>Le fichier /chemin est présent</code></td><td>Vérifie l'existence d'un fichier</td></tr>
+      <tr><td><code>Le fichier est présent</code></td><td>-</td><td>Validation de la présence du dernier fichier manipulé</td></tr>
+      <tr><td><code>le fichier est copié</code></td><td>-</td><td>Vérifie la copie d'un fichier</td></tr>
+      <tr><td><code>le dossier est copié</code></td><td>-</td><td>Vérifie la copie d'un dossier</td></tr>
+      <tr><td><code>retour 0 et (stdout contient OK ou stderr contient WARNING)</code></td><td>-</td><td>Validation logique combinée</td></tr>
     </table>
   </div>
 
