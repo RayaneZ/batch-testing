@@ -4,6 +4,18 @@ This repository contains scripts and VS Code assets for working with a small
 shell testing language. The VS Code extension located in `vscode/` provides
 basic syntax highlighting for files ending in `.shtest`.
 
+## Writing tests
+
+Test scenarios are written in plain text using the `Action:`/`Resultat:` format.
+An example line looks like:
+
+```text
+Action: initialiser la base ; Resultat: base prête
+```
+
+Several examples can be found in `src/tests/` and the detailed grammar is
+available in `docs/grammar.html`.
+
 ## Rebuilding the VS Code extension
 
 The packaged extension (`.vsix`) is not stored in the repository. If you have
@@ -34,3 +46,14 @@ python src/export_to_excel.py --input-dir src/tests --output tests_summary.xlsx
 ```
 
 This generates `tests_summary.xlsx` in the current directory.
+
+## Generating shell scripts
+
+Use `generate_tests.py` to convert `.shtest` files into executable shell scripts.
+
+```bash
+python src/generate_tests.py --batch-path ./process_batch.sh
+```
+
+The scripts will be created in the `output/` directory with the same name as
+their source test files.
