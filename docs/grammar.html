@@ -52,6 +52,116 @@ pre, code {
 </ul>
 <p>Les expressions sont interprétées par le parseur défini dans <code>parser.py</code>.</p>
 
+<h2>Détails des mots clés et alias</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Mot clé / Alias</th>
+      <th>Description</th>
+      <th>Arguments</th>
+      <th>Exemple</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>initialiser</code>, <code>créer</code>, <code>configurer</code></td>
+      <td>Prépare l’environnement de test.</td>
+      <td>aucun</td>
+      <td><code>Action: initialiser la base ; Resultat: OK</code></td>
+    </tr>
+    <tr>
+      <td><code>exécuter</code>, <code>lancer</code>, <code>traiter</code></td>
+      <td>Lance le traitement du batch.</td>
+      <td>aucun</td>
+      <td><code>Action: exécuter ; Resultat: retour 0</code></td>
+    </tr>
+    <tr>
+      <td><code>exécuter /chemin/script.sh</code></td>
+      <td>Définit le chemin du script batch à utiliser.</td>
+      <td>chemin vers le script</td>
+      <td><code>Action: exécuter /opt/proc.sh ; Resultat: retour 0</code></td>
+    </tr>
+    <tr>
+      <td><code>argument</code>, <code>paramètre</code></td>
+      <td>Ajoute un argument à passer au batch.</td>
+      <td><code>NOM</code> et <code>VALEUR</code></td>
+      <td><code>Action: argument MODE=demo ; Resultat: OK</code></td>
+    </tr>
+    <tr>
+      <td><code>chemin des logs</code></td>
+      <td>Spécifie où chercher les journaux.</td>
+      <td>chemin vers le fichier</td>
+      <td><code>Action: chemin des logs = /tmp/app.log ; Resultat: OK</code></td>
+    </tr>
+    <tr>
+      <td><code>script sql</code></td>
+      <td>Exécute un script SQL avant le test.</td>
+      <td>fichier .sql</td>
+      <td><code>Action: script sql = init.sql ; Resultat: retour 0</code></td>
+    </tr>
+    <tr>
+      <td><code>créer</code>/<code>mettre à jour</code> <code>fichier</code>/<code>dossier</code></td>
+      <td>Crée ou modifie un fichier ou dossier avec un mode donné.</td>
+      <td>chemin et mode</td>
+      <td><code>Action: créer fichier=/tmp/a.txt avec les droits=644 ; Resultat: OK</code></td>
+    </tr>
+    <tr>
+      <td><code>toucher le fichier</code></td>
+      <td>Met à jour la date d’un fichier.</td>
+      <td>chemin et option <code>-t</code> pour la date</td>
+      <td><code>Action: toucher le fichier /tmp/a.txt -t 20240601 ; Resultat: OK</code></td>
+    </tr>
+    <tr>
+      <td><code>copier le fichier</code>, <code>copier le dossier</code></td>
+      <td>Copie un fichier ou un dossier vers une nouvelle destination.</td>
+      <td>source et destination</td>
+      <td><code>Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Resultat: le fichier est copié</code></td>
+    </tr>
+    <tr>
+      <td><code>afficher le contenu du fichier</code>, <code>cat le fichier</code></td>
+      <td>Affiche le contenu d’un fichier sur la sortie standard.</td>
+      <td>chemin du fichier</td>
+      <td><code>Action: afficher le contenu du fichier=/tmp/info.log ; Resultat: OK</code></td>
+    </tr>
+    <tr>
+      <td><code>logs</code>, <code>erreurs</code>, <code>fichiers de logs</code></td>
+      <td>Recherche des erreurs dans les journaux.</td>
+      <td>chemin spécifié via <code>chemin des logs</code></td>
+      <td><code>Action: logs ; Resultat: stdout contient ERROR</code></td>
+    </tr>
+    <tr>
+      <td><code>Step</code>, <code>Etape</code>, <code>Étape</code></td>
+      <td>Débute une nouvelle étape du test.</td>
+      <td>nom de l’étape</td>
+      <td><code>Step: Initialisation</code></td>
+    </tr>
+    <tr>
+      <td><code>retour</code></td>
+      <td>Vérifie le code de sortie.</td>
+      <td>nombre attendu</td>
+      <td><code>Resultat: retour 0</code></td>
+    </tr>
+    <tr>
+      <td><code>stdout</code> / <code>stderr</code></td>
+      <td>Compare ou cherche un motif dans les sorties standard ou d'erreur.</td>
+      <td>valeur exacte ou motif</td>
+      <td><code>Resultat: stdout contient OK</code></td>
+    </tr>
+    <tr>
+      <td>Alias&nbsp;: «&nbsp;Le script retourne un code N »</td>
+      <td>Equivalent à <code>retour N</code>.</td>
+      <td>N</td>
+      <td><code>Resultat: Le script retourne un code 0</code></td>
+    </tr>
+    <tr>
+      <td>Alias&nbsp;: «&nbsp;Le script affiche un code "N" »</td>
+      <td>Equivalent à <code>stdout contient N</code>.</td>
+      <td>N</td>
+      <td><code>Resultat: Le script affiche un code "030"</code></td>
+    </tr>
+  </tbody>
+</table>
+
 <h2>Créer vos propres fichiers de tests</h2>
 <p>Pour écrire un scénario, créez un fichier se terminant par <code>.shtest</code> dans le dossier <code>tests/</code>. Chaque ligne doit respecter la syntaxe ci-dessus.</p>
 
