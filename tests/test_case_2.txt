@@ -1,4 +1,3 @@
-Exécuter le script de traitement des commandes avec argument produit=123 et quantité=10.
-Vérifier que la commande est marquée comme traitée dans la base de données.
-Vérifier qu'il n'y a pas d'erreurs dans les logs.
-Chemin des logs = /var/log/system.log
+Action: exécuter /opt/batch/traitement.sh avec argument produit=123 et quantité=10 ; Resultat: commande traitée
+Action: vérifier qu'il n'y a pas d'erreurs dans les logs ; Resultat: aucun message d'erreur
+Action: chemin des logs = /var/log/system.log ; Resultat: logs accessibles

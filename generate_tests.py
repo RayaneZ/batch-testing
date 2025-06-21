@@ -1,5 +1,6 @@
 from parser import Parser
 from string import Template
+import argparse
 import os
 from glob import glob
 
@@ -11,17 +12,18 @@ def parse_test_in_natural_language(test_description: str):
 
 
 TEMPLATES = {
-    "process_batch": Template("./process_batch.sh ${args}"),
+    "process_batch": Template("${path} ${args}"),
     "grep_log": Template("grep 'ERROR' ${path}"),
     "execute_sql": Template("sqlplus -S user/password@db @${script}"),
     "create_dir": Template("mkdir -p ${path} && chmod ${mode} ${path}"),
     "create_file": Template("touch ${path} && chmod ${mode} ${path}"),
     "update_file": Template("touch ${path}"),
+    "touch_ts": Template("touch -t ${ts} ${path}"),
     "cat_file": Template("cat ${file}"),
 }
 
 
-def generate_shell_script(actions):
+def generate_shell_script(actions, batch_path: str):
     """Génère un script shell à partir des actions extraites."""
     lines = [
         "#!/bin/bash",
@@ -47,9 +49,10 @@ def generate_shell_script(actions):
     if actions["execution"]:
         lines.append("# Exécution du batch")
         arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
+        actual_path = actions.get("batch_path") or batch_path
         for action in actions["execution"]:
             lines.append(f"echo '{action}'")
-            lines.append(TEMPLATES["process_batch"].substitute(args=arg_str))
+            lines.append(TEMPLATES["process_batch"].substitute(path=actual_path, args=arg_str))
         lines.append("")
 
     if actions["sql_scripts"]:
@@ -70,8 +73,15 @@ def generate_shell_script(actions):
 
     if actions.get("touch_files"):
         lines.append("# Mise à jour de fichiers")
-        for path in actions["touch_files"]:
-            lines.append(TEMPLATES["update_file"].substitute(path=path))
+        for entry in actions["touch_files"]:
+            if isinstance(entry, tuple):
+                path, ts = entry
+            else:
+                path, ts = entry, None
+            if ts:
+                lines.append(TEMPLATES["touch_ts"].substitute(path=path, ts=ts))
+            else:
+                lines.append(TEMPLATES["update_file"].substitute(path=path))
         lines.append("")
 
     if actions["cat_files"]:
@@ -103,12 +113,16 @@ OUTPUT_DIR = "output"
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--batch-path", default="./process_batch.sh", help="Chemin vers le script batch")
+    args = parser.parse_args()
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     for txt_file in glob(os.path.join(INPUT_DIR, "*.txt")):
         with open(txt_file, encoding="utf-8") as f:
             test_description = f.read()
         actions = parse_test_in_natural_language(test_description)
-        script = generate_shell_script(actions)
+        script = generate_shell_script(actions, batch_path=args.batch_path)
         out_name = os.path.splitext(os.path.basename(txt_file))[0] + ".sh"
         out_path = os.path.join(OUTPUT_DIR, out_name)
         with open(out_path, "w", encoding="utf-8") as f:

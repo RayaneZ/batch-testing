@@ -1,5 +1,4 @@
-Créer le dossier = /tmp/data avec les droits = 0755
-Créer fichier = /tmp/output.txt avec les droits = 0644
-Mettre à jour la date du fichier /tmp/output.txt
-Cat le fichier = /tmp/output.txt
-Vérifier que le fichier contient les données attendues.
+Action: créer le dossier = /tmp/data avec les droits = 0755 ; Resultat: dossier créé
+Action: créer fichier = /tmp/output.txt avec les droits = 0644 ; Resultat: fichier présent
+Action: mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Resultat: date modifiée
+Action: cat le fichier = /tmp/output.txt ; Resultat: contenu correct
