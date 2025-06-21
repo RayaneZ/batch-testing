@@ -29,5 +29,15 @@ code { background: #f4f4f4; padding: 2px 4px; }
 <li><code>toucher le fichier CHEMIN [-t TIMESTAMP]</code></li>
 </ul>
 <p>Les expressions sont interprétées par le parseur défini dans <code>parser.py</code>.</p>
+
+<h2>Créer vos propres fichiers de tests</h2>
+<p>Pour écrire un scénario, créez un fichier se terminant par <code>.shtest</code> dans le dossier <code>tests/</code>. Chaque ligne doit respecter la syntaxe ci-dessus.</p>
+
+<pre><code>Action: initialiser le contexte ; Resultat: OK
+Action: exécuter mon_batch.sh ; Resultat: retour 0</code></pre>
+
+<p>Ensuite, générez les scripts correspondants en exécutant&nbsp;:</p>
+<pre><code>python src/generate_tests.py --batch-path ./mon_batch.sh</code></pre>
+<p>Les scripts produits seront placés dans le dossier <code>output/</code>.</p>
 </body>
 </html>
