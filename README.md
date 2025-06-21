@@ -14,7 +14,7 @@ Action: configurer la base ; Resultat: base prête
 ```
 
 Several examples can be found in `src/tests/` and the detailed grammar is
-available in `docs/grammar.html`.
+available in `docs/documentation.html`.
 
 ## Rebuilding the VS Code extension
 
@@ -80,3 +80,7 @@ Several validations can be combined in one expression using the keywords `et` an
 ```text
 Resultat: retour 0 et (stdout contient OK ou stderr contient WARNING)
 ```
+
+Additional checks exist for file operations:
+- `le fichier /chemin existe` or `Le fichier est présent` to validate presence.
+- `le fichier est copié` / `le dossier est copié` to assert copy success.
