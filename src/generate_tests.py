@@ -3,6 +3,7 @@ from string import Template
 import argparse
 import os
 from glob import glob
+import re
 
 
 def parse_test_in_natural_language(test_description: str):
@@ -127,9 +128,20 @@ def generate_shell_script(actions, batch_path: str):
     if actions["validation"]:
         maybe_step()
         lines.append("# Validation des résultats")
+        last_file = None
         for expected in actions["validation"]:
             lines.append(f"# Attendu : {expected}")
-            lines.append("actual=\"<commande à implémenter>\"")
+            # Detect path from a previous 'le fichier <path> existe' entry
+            m = re.search(r"le fichier (\S+) existe", expected)
+            if m:
+                last_file = m.group(1)
+                lines.append("actual=\"<commande à implémenter>\"")
+            elif expected == "fichier présent" and last_file:
+                lines.append(
+                    f"if [ -e {last_file} ]; then actual=\"fichier présent\"; else actual=\"fichier absent\"; fi"
+                )
+            else:
+                lines.append("actual=\"<commande à implémenter>\"")
             lines.append(f"expected=\"{expected}\"")
             lines.append("log_diff \"$expected\" \"$actual\"")
             lines.append("")
