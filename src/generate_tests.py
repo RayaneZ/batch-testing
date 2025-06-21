@@ -1,4 +1,4 @@
-from parser import Parser
+from parser import Parser, AliasResolver
 from string import Template
 import argparse
 import os
@@ -33,6 +33,117 @@ TEMPLATES = {
     "copy_file": Template("cp ${src} ${dest}"),
     "copy_dir": Template("cp -r ${src} ${dest}"),
 }
+
+
+def _tokenize_expression(expr: str):
+    tokens = [t.strip() for t in re.split(r"(\bet\b|\bou\b|\(|\))", expr) if t.strip()]
+    return tokens
+
+
+def _to_postfix(tokens):
+    precedence = {"et": 2, "ou": 1}
+    output = []
+    stack = []
+    for tok in tokens:
+        ltok = tok.lower()
+        if ltok in precedence:
+            while stack and stack[-1].lower() in precedence and precedence[stack[-1].lower()] >= precedence[ltok]:
+                output.append(stack.pop())
+            stack.append(ltok)
+        elif tok == "(":
+            stack.append(tok)
+        elif tok == ")":
+            while stack and stack[-1] != "(":
+                output.append(stack.pop())
+            if stack and stack[-1] == "(":
+                stack.pop()
+        else:
+            output.append(tok)
+    while stack:
+        output.append(stack.pop())
+    return output
+
+
+def _compile_atomic(expected: str, varname: str, last_file_var: list):
+    lines = [f"# Attendu : {expected}"]
+    m = re.search(r"le fichier (\S+) existe", expected, re.IGNORECASE)
+    if m:
+        last_file_var[0] = m.group(1)
+        lines.append(f"if [ -e {last_file_var[0]} ]; then actual=\"le fichier {last_file_var[0]} existe\"; else actual=\"le fichier {last_file_var[0]} absent\"; fi")
+        lines.append(f"expected=\"le fichier {last_file_var[0]} existe\"")
+    elif re.search(r"(?:le\s+)?fichier\s+est\s+présent", expected, re.IGNORECASE) and last_file_var[0]:
+        lines.append(f"if [ -e {last_file_var[0]} ]; then actual=\"Le fichier est présent\"; else actual=\"fichier absent\"; fi")
+        lines.append("expected=\"Le fichier est présent\"")
+    elif re.search(r"le\s+(fichier|dossier)\s+est\s+copié", expected, re.IGNORECASE):
+        lines.append(f"if [ $last_ret -eq 0 ]; then actual=\"{expected}\"; else actual=\"échec copie\"; fi")
+        lines.append(f"expected=\"{expected}\"")
+    else:
+        ret_match = re.search(r"retour\s*(\d+)", expected)
+        if ret_match:
+            lines.append("actual=\"$last_ret\"")
+            lines.append(f"expected=\"{ret_match.group(1)}\"")
+        else:
+            stdout_match = re.search(r"stdout\s*=\s*(.*)", expected)
+            if stdout_match:
+                lines.append("actual=\"$last_stdout\"")
+                lines.append(f"expected=\"{stdout_match.group(1)}\"")
+            else:
+                stdout_grep = re.search(r"stdout\s+contient\s+(.*)", expected)
+                if stdout_grep:
+                    pattern = stdout_grep.group(1)
+                    lines.append(f"if echo \"$last_stdout\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
+                    lines.append(f"expected={pattern!r}")
+                else:
+                    stderr_match = re.search(r"stderr\s*=\s*(.*)", expected)
+                    if stderr_match:
+                        lines.append("actual=\"$last_stderr\"")
+                        lines.append(f"expected=\"{stderr_match.group(1)}\"")
+                    else:
+                        stderr_grep = re.search(r"stderr\s+contient\s+(.*)", expected)
+                        if stderr_grep:
+                            pattern = stderr_grep.group(1)
+                            lines.append(f"if echo \"$last_stderr\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
+                            lines.append(f"expected={pattern!r}")
+                        else:
+                            lines.append("actual=\"non vérifié\"")
+                            lines.append(f"expected=\"{expected}\"")
+    lines.append("log_diff \"$expected\" \"$actual\"")
+    lines.append(f"if [ \"$expected\" = \"$actual\" ]; then {varname}=1; else {varname}=0; fi")
+    return lines
+
+
+def _compile_validation(expression: str):
+    if re.search(r"\bet\b|\bou\b|\(|\)", expression):
+        resolver = AliasResolver()
+        tokens = _tokenize_expression(expression)
+        tokens = [resolver.resolve(t)[0] if t not in ("et", "ou", "(", ")") else t for t in tokens]
+        postfix = _to_postfix(tokens)
+        lines = []
+        stack = []
+        counter = 0
+        last_file_var = [None]
+        for tok in postfix:
+            if tok in ("et", "ou"):
+                b = stack.pop()
+                a = stack.pop()
+                counter += 1
+                var = f"cond{counter}"
+                op = "&&" if tok == "et" else "||"
+                lines.append(f"if [ ${{{a}}} -eq 1 ] {op} [ ${{{b}}} -eq 1 ]; then {var}=1; else {var}=0; fi")
+                stack.append(var)
+            else:
+                counter += 1
+                var = f"cond{counter}"
+                lines.extend(_compile_atomic(tok, var, last_file_var))
+                stack.append(var)
+        final_var = stack.pop()
+        lines.append(f"if [ ${{{final_var}}} -eq 1 ]; then actual=\"OK\"; else actual=\"KO\"; fi")
+        lines.append("expected=\"OK\"")
+        lines.append("log_diff \"$expected\" \"$actual\"")
+        return lines
+    else:
+        last_file_var = [None]
+        return _compile_atomic(expression, "cond0", last_file_var)
 
 
 def generate_shell_script(actions_list, batch_path: str):
@@ -120,51 +231,7 @@ def generate_shell_script(actions_list, batch_path: str):
         if actions["validation"]:
             lines.append("# Validation des résultats")
             for expected in actions["validation"]:
-                lines.append(f"# Attendu : {expected}")
-                m = re.search(r"le fichier (\S+) existe", expected, re.IGNORECASE)
-                if m:
-                    last_file = m.group(1)
-                    lines.append(f"if [ -e {last_file} ]; then actual=\"le fichier {last_file} existe\"; else actual=\"le fichier {last_file} absent\"; fi")
-                elif re.search(r"(?:le\s+)?fichier\s+est\s+présent", expected, re.IGNORECASE) and last_file:
-                    lines.append(f"if [ -e {last_file} ]; then actual=\"Le fichier est présent\"; else actual=\"fichier absent\"; fi")
-                elif re.search(r"le\s+(fichier|dossier)\s+est\s+copié", expected, re.IGNORECASE):
-                    lines.append(f"if [ $last_ret -eq 0 ]; then actual=\"{expected}\"; else actual=\"échec copie\"; fi")
-                else:
-                    ret_match = re.search(r"retour\s*(\d+)", expected)
-                    if ret_match:
-                        lines.append("actual=\"$last_ret\"")
-                        lines.append(f"expected=\"{ret_match.group(1)}\"")
-                        lines.append("log_diff \"$expected\" \"$actual\"")
-                        continue
-                    stdout_match = re.search(r"stdout\s*=\s*(.*)", expected)
-                    if stdout_match:
-                        lines.append("actual=\"$last_stdout\"")
-                        lines.append(f"expected=\"{stdout_match.group(1)}\"")
-                        lines.append("log_diff \"$expected\" \"$actual\"")
-                        continue
-                    stdout_grep = re.search(r"stdout\s+contient\s+(.*)", expected)
-                    if stdout_grep:
-                        pattern = stdout_grep.group(1)
-                        lines.append(f"if echo \"$last_stdout\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
-                        lines.append(f"expected={pattern!r}")
-                        lines.append("log_diff \"$expected\" \"$actual\"")
-                        continue
-                    stderr_match = re.search(r"stderr\s*=\s*(.*)", expected)
-                    if stderr_match:
-                        lines.append("actual=\"$last_stderr\"")
-                        lines.append(f"expected=\"{stderr_match.group(1)}\"")
-                        lines.append("log_diff \"$expected\" \"$actual\"")
-                        continue
-                    stderr_grep = re.search(r"stderr\s+contient\s+(.*)", expected)
-                    if stderr_grep:
-                        pattern = stderr_grep.group(1)
-                        lines.append(f"if echo \"$last_stderr\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
-                        lines.append(f"expected={pattern!r}")
-                        lines.append("log_diff \"$expected\" \"$actual\"")
-                        continue
-                    lines.append("actual=\"non vérifié\"")
-                lines.append(f"expected=\"{expected}\"")
-                lines.append("log_diff \"$expected\" \"$actual\"")
+                lines.extend(_compile_validation(expected))
 
 
     return "\n".join(lines)

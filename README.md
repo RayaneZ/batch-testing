@@ -74,3 +74,9 @@ to check the exit status. To compare exact output, write `stdout=VALEUR` or
 `stderr=VALEUR`.
 
 You can also search for patterns with `stdout contient MOTIF` or `stderr contient MOTIF`. Phrases like "Le script retourne un code 0" or "Le script affiche un code \"030\"" are automatically interpreted as validations.
+
+Several validations can be combined in one expression using the keywords `et` and `ou`. Parentheses are supported and parsed with the shunting-yard algorithm. For example:
+
+```text
+Resultat: retour 0 et (stdout contient OK ou stderr contient WARNING)
+```

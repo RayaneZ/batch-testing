@@ -144,6 +144,12 @@ pre, code {
 </div>
 
 <div class="keyword">
+<h3>Expressions composées</h3>
+<p>Plusieurs validations peuvent être combinées avec <code>et</code> ou <code>ou</code>. Les parenthèses sont interprétées grâce à l’algorithme de shunting yard.</p>
+<p><em>Exemple&nbsp;:</em> <code>Resultat: retour 0 et (stdout contient OK ou stderr contient WARNING)</code></p>
+</div>
+
+<div class="keyword">
 <h3>Alias naturels</h3>
 <p>Des phrases comme «&nbsp;Le script retourne un code N&nbsp;» ou «&nbsp;Le script affiche un code "N"&nbsp;» sont transformées respectivement en <code>retour N</code> et <code>stdout contient N</code>.</p>
 </div>
