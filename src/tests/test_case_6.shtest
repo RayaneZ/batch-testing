@@ -1,3 +1,8 @@
-Action: Créer le dossier = /tmp/test_folder avec les droits = 0700 ; Résultat: Le dossier est prêt.
-Action: Créer le fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: Le fichier est créé.
-Action: Afficher le contenu du fichier = /tmp/test_folder/test.txt ; Résultat: Le contenu est lisible.
+Step: preparation
+Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié.
+Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: le dossier est copié.
+Step: execution
+Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient "Succès complet" ou stderr contient WARNING).
+Step: verification
+Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier est présent et (le fichier /tmp/dest.txt existe ; ou stderr contient "Erreur de copie").
+Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: le script affiche un code "030".
