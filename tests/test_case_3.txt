@@ -1,0 +1,5 @@
+
+    Initialiser la base de données en exécutant JDD_Commun.sql et ajouter des données supplémentaires avec JDD_Extra.sql.
+    Vérifier que les données ont été insérées dans la base et que la base de données est prête pour le test.
+    Afficher le contenu du fichier = /tmp/JDD_Extra.sql
+    

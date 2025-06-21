@@ -1,0 +1,7 @@
+
+    Créer un dossier temporaire pour les tests dans /tmp/test_folder avec les droits = 0700.
+    Créer un fichier temporaire de test dans /tmp/test_folder/test.txt avec les droits = 0600.
+    Afficher le contenu du fichier = /tmp/test_folder/test.txt
+    Cat le fichier = /tmp/test_folder/test.txt
+    Vérifier que le fichier contient les informations correctes pour le test.
+    
