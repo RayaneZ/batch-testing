@@ -47,6 +47,11 @@ python src/export_to_excel.py --input-dir src/tests --output tests_summary.xlsx
 
 This generates `tests_summary.xlsx` in the current directory.
 
+### Options
+
+- `--input-dir DIR` – directory containing `.shtest` files (default: `tests`)
+- `--output FILE` – path to the resulting Excel file (default: `tests_summary.xlsx`)
+
 ## Generating shell scripts
 
 Use `generate_tests.py` to convert `.shtest` files into executable shell scripts.
@@ -57,6 +62,10 @@ python src/generate_tests.py --batch-path ./process_batch.sh
 
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
+
+### Options
+
+- `--batch-path PATH` – path to the script to run for each test (default: `./process_batch.sh`)
 
 ## Checking results
 

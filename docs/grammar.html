@@ -4,9 +4,22 @@
 <meta charset="UTF-8">
 <title>Grammaire du langage de tests</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 2em; }
-h1 { color: #333; }
-code { background: #f4f4f4; padding: 2px 4px; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 2em;
+  background: #222;
+  color: #eee;
+}
+h1 {
+  color: #fff;
+  text-shadow: 1px 1px 3px #000;
+}
+pre, code {
+  background: #333;
+  padding: 2px 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
 </style>
 </head>
 <body>
@@ -29,11 +42,13 @@ code { background: #f4f4f4; padding: 2px 4px; }
 <li><code>toucher le fichier CHEMIN [-t TIMESTAMP]</code></li>
 <li><code>copier le fichier SRC vers DEST</code></li>
 <li><code>copier le dossier SRC vers DEST</code></li>
+<li><code>afficher le contenu du fichier = CHEMIN</code></li>
+<li><code>exécuter /chemin/vers/script.sh</code> &ndash; définit le script batch à utiliser</li>
 <li><code>Step: NOM_DE_STEP</code> &ndash; démarre une nouvelle étape pour grouper les actions suivantes</li>
 <li><code>retour N</code> &ndash; vérifie le code de sortie de la commande</li>
 <li><code>stdout=VALEUR</code> / <code>stderr=VALEUR</code> &ndash; compare la sortie standard ou d'erreur</li>
 <li><code>stdout contient MOTIF</code> / <code>stderr contient MOTIF</code> &ndash; cherche le motif dans la sortie avec <code>grep</code></li>
-<li>Des formulations naturelles telles que « Le script retourne un code&nbsp;0 » ou « Le script affiche un code&nbsp;"030" » sont également comprises.</li>
+<li>Formulations naturelles comme « Le script retourne un code&nbsp;0 » ou « Le script affiche un code&nbsp;"030" » sont aussi reconnues.</li>
 </ul>
 <p>Les expressions sont interprétées par le parseur défini dans <code>parser.py</code>.</p>
 
