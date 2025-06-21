@@ -1,0 +1,20 @@
+{
+    "contributes": {
+        "languages": [
+            {
+            "id": "shtest",
+            "extensions": [".shtest"],
+            "aliases": ["Shell Test"],
+            "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+            "language": "shtest",
+            "scopeName": "source.shtest",
+            "path": "./syntaxes/shtest.tmLanguage.json"
+            }
+        ]
+    }
+
+}

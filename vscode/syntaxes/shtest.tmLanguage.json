@@ -1,5 +1,5 @@
 {
-  "scopeName": "source.nltest",
+  "scopeName": "source.shtest",
   "patterns": [
     {"match": "\\bAction\\b", "name": "keyword.other.action.nltest"},
     {"match": "\\b(Résultat|Resultat)\\b", "name": "keyword.other.result.nltest"},

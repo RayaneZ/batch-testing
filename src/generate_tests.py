@@ -118,7 +118,7 @@ def main():
     args = parser.parse_args()
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    for txt_file in glob(os.path.join(INPUT_DIR, "*.txt")):
+    for txt_file in glob(os.path.join(INPUT_DIR, "*.shtest")):
         with open(txt_file, encoding="utf-8") as f:
             test_description = f.read()
         actions = parse_test_in_natural_language(test_description)
