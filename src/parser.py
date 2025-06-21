@@ -27,6 +27,10 @@ class Parser:
         self.action_result_re = re.compile(pattern, re.IGNORECASE)
         self._register(pattern, self._handle_action_result)
 
+        # Step markers
+        self._register(r"(?:Étape|Etape|Step)\s*:\s*(.*)",
+                       lambda m, a: a["steps"].append(m.group(1).strip()))
+
         # Simple actions
         self._register(r"(initialiser|créer|configurer)",
                        lambda m, a: a["initialization"].append(m.string.strip()))
@@ -50,6 +54,8 @@ class Parser:
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
         self._register(r"touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)(?:\s+(?:-t\s*)?(\d{8,14}))?",
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
+        self._register(r"copier\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)",
+                       lambda m, a: a["copy_operations"].append((m.group(1) or "fichier", m.group(2), m.group(3))))
         self._register(r"exécuter\s+(\/\S+\.sh)",
                        lambda m, a: a.__setitem__("batch_path", m.group(1)))
         self._register(r"(?:afficher le contenu du fichier|cat le fichier)\s*=\s*(\S+)",
@@ -80,8 +86,10 @@ class Parser:
             "log_paths": [],
             "sql_scripts": [],
             "file_operations": [],
+            "copy_operations": [],
             "cat_files": [],
             "touch_files": [],
+            "steps": [],
             "batch_path": None,
         }
 

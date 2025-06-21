@@ -20,6 +20,8 @@ TEMPLATES = {
     "update_file": Template("touch ${path}"),
     "touch_ts": Template("touch -t ${ts} ${path}"),
     "cat_file": Template("cat ${file}"),
+    "copy_file": Template("cp ${src} ${dest}"),
+    "copy_dir": Template("cp -r ${src} ${dest}"),
 }
 
 
@@ -40,13 +42,24 @@ def generate_shell_script(actions, batch_path: str):
         "",
     ]
 
+    steps = actions.get("steps", [])
+    step_idx = 0
+
+    def maybe_step():
+        nonlocal step_idx
+        if step_idx < len(steps):
+            lines.append(f"# ---- {steps[step_idx]} ----")
+            step_idx += 1
+
     if actions["initialization"]:
+        maybe_step()
         lines.append("# Initialisation")
         for action in actions["initialization"]:
             lines.append(f"echo '{action}'  # TODO: implémenter la commande")
         lines.append("")
 
     if actions["execution"]:
+        maybe_step()
         lines.append("# Exécution du batch")
         arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
         actual_path = actions.get("batch_path") or batch_path
@@ -56,12 +69,14 @@ def generate_shell_script(actions, batch_path: str):
         lines.append("")
 
     if actions["sql_scripts"]:
+        maybe_step()
         lines.append("# Exécution des scripts SQL")
         for script in actions["sql_scripts"]:
             lines.append(TEMPLATES["execute_sql"].substitute(script=script))
         lines.append("")
 
     if actions["file_operations"]:
+        maybe_step()
         lines.append("# Opérations sur les fichiers et dossiers")
         for operation, ftype, path, mode in actions["file_operations"]:
             if ftype.lower() == "dossier":
@@ -71,7 +86,18 @@ def generate_shell_script(actions, batch_path: str):
             lines.append(TEMPLATES["update_file"].substitute(path=path))
         lines.append("")
 
+    if actions.get("copy_operations"):
+        maybe_step()
+        lines.append("# Copies de fichiers et dossiers")
+        for ftype, src, dest in actions["copy_operations"]:
+            if ftype.lower() == "dossier":
+                lines.append(TEMPLATES["copy_dir"].substitute(src=src, dest=dest))
+            else:
+                lines.append(TEMPLATES["copy_file"].substitute(src=src, dest=dest))
+        lines.append("")
+
     if actions.get("touch_files"):
+        maybe_step()
         lines.append("# Mise à jour de fichiers")
         for entry in actions["touch_files"]:
             if isinstance(entry, tuple):
@@ -85,18 +111,21 @@ def generate_shell_script(actions, batch_path: str):
         lines.append("")
 
     if actions["cat_files"]:
+        maybe_step()
         lines.append("# Affichage du contenu des fichiers")
         for file in actions["cat_files"]:
             lines.append(TEMPLATES["cat_file"].substitute(file=file))
         lines.append("")
 
     if actions["logs_check"]:
+        maybe_step()
         lines.append("# Vérification des logs")
         for path in actions["log_paths"]:
             lines.append(TEMPLATES["grep_log"].substitute(path=path))
         lines.append("")
 
     if actions["validation"]:
+        maybe_step()
         lines.append("# Validation des résultats")
         for expected in actions["validation"]:
             lines.append(f"# Attendu : {expected}")
