@@ -1,5 +1,5 @@
 Step: preparation
-Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Resultat: fichier copié
-Action: copier le dossier /tmp/data vers /tmp/backup ; Resultat: dossier copié
+Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié.
+Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: Le dossier est copié.
 Step: verification
-Action: vérifier que le fichier /tmp/dest.txt existe ; Resultat: fichier présent
+Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier est présent.
