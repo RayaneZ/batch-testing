@@ -121,12 +121,14 @@ def generate_shell_script(actions_list, batch_path: str):
             lines.append("# Validation des résultats")
             for expected in actions["validation"]:
                 lines.append(f"# Attendu : {expected}")
-                m = re.search(r"le fichier (\S+) existe", expected)
+                m = re.search(r"le fichier (\S+) existe", expected, re.IGNORECASE)
                 if m:
                     last_file = m.group(1)
-                    lines.append("actual=\"command non implémentée\"")
-                elif expected == "fichier présent" and last_file:
-                    lines.append(f"if [ -e {last_file} ]; then actual=\"fichier présent\"; else actual=\"fichier absent\"; fi")
+                    lines.append(f"if [ -e {last_file} ]; then actual=\"le fichier {last_file} existe\"; else actual=\"le fichier {last_file} absent\"; fi")
+                elif re.search(r"(?:le\s+)?fichier\s+est\s+présent", expected, re.IGNORECASE) and last_file:
+                    lines.append(f"if [ -e {last_file} ]; then actual=\"Le fichier est présent\"; else actual=\"fichier absent\"; fi")
+                elif re.search(r"le\s+(fichier|dossier)\s+est\s+copié", expected, re.IGNORECASE):
+                    lines.append(f"if [ $last_ret -eq 0 ]; then actual=\"{expected}\"; else actual=\"échec copie\"; fi")
                 else:
                     ret_match = re.search(r"retour\s*(\d+)", expected)
                     if ret_match:
