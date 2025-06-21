@@ -26,8 +26,8 @@ class Parser:
                        lambda m, a: a["initialization"].append(m.string.strip()))
         self._register(r"(exécuter|lancer|traiter)",
                        lambda m, a: a["execution"].append(m.string.strip()))
-        self._register(r"(vérifier|valider)",
-                       lambda m, a: a["validation"].append(m.string.strip()))
+        self._register(r"(?:vérifier|valider)\s+que\s+(.*)",
+                       lambda m, a: a["validation"].append(m.group(1).rstrip('.').strip()))
         self._register(r"(logs|erreurs|fichiers de logs)",
                        lambda m, a: a["logs_check"].append(m.string.strip()))
 
