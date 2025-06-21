@@ -4,6 +4,29 @@ from dataclasses import dataclass
 from typing import Callable, Dict, List, Tuple, Optional, Any
 import re
 
+
+class AliasResolver:
+    """Convert literary phrases into canonical validation tokens."""
+
+    def __init__(self) -> None:
+        self.aliases: List[Tuple[re.Pattern, Callable[[re.Match], List[str]]]] = [
+            (
+                re.compile(r"le script retourne un code\s*(\d+)", re.IGNORECASE),
+                lambda m: [f"retour {m.group(1)}"],
+            ),
+            (
+                re.compile(r"le script affiche un code\s*\"?(\d+)\"?", re.IGNORECASE),
+                lambda m: [f"stdout contient {m.group(1)}"],
+            ),
+        ]
+
+    def resolve(self, text: str) -> List[str]:
+        for pattern, handler in self.aliases:
+            m = pattern.search(text)
+            if m:
+                return handler(m)
+        return [text]
+
 @dataclass
 class Rule:
     pattern: re.Pattern
@@ -74,7 +97,9 @@ class Parser:
                 actions[key].extend(value)
         result = match.group(2).rstrip('.').strip()
         if result:
-            actions["validation"].append(result)
+            resolver = AliasResolver()
+            for res in resolver.resolve(result):
+                actions["validation"].append(res)
 
     def parse(self, description: str) -> Dict[str, Any]:
         actions: Dict[str, List] = {

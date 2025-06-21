@@ -140,10 +140,24 @@ def generate_shell_script(actions_list, batch_path: str):
                         lines.append(f"expected=\"{stdout_match.group(1)}\"")
                         lines.append("log_diff \"$expected\" \"$actual\"")
                         continue
+                    stdout_grep = re.search(r"stdout\s+contient\s+(.*)", expected)
+                    if stdout_grep:
+                        pattern = stdout_grep.group(1)
+                        lines.append(f"if echo \"$last_stdout\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
+                        lines.append(f"expected={pattern!r}")
+                        lines.append("log_diff \"$expected\" \"$actual\"")
+                        continue
                     stderr_match = re.search(r"stderr\s*=\s*(.*)", expected)
                     if stderr_match:
                         lines.append("actual=\"$last_stderr\"")
                         lines.append(f"expected=\"{stderr_match.group(1)}\"")
+                        lines.append("log_diff \"$expected\" \"$actual\"")
+                        continue
+                    stderr_grep = re.search(r"stderr\s+contient\s+(.*)", expected)
+                    if stderr_grep:
+                        pattern = stderr_grep.group(1)
+                        lines.append(f"if echo \"$last_stderr\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
+                        lines.append(f"expected={pattern!r}")
                         lines.append("log_diff \"$expected\" \"$actual\"")
                         continue
                     lines.append("actual=\"non vérifié\"")
