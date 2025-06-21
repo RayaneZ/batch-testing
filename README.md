@@ -24,3 +24,13 @@ vsce package
 
 This will create `shtest-syntax-0.0.1.vsix` which can then be installed in VS
 Code.
+
+## Exporting tests to Excel
+
+Use `export_to_excel.py` to convert `.shtest` files into an Excel summary. Each row corresponds to a step of a test with columns for the test name, actions, expected results and actual results.
+
+```bash
+python src/export_to_excel.py --input-dir src/tests --output tests_summary.xlsx
+```
+
+This generates `tests_summary.xlsx` in the current directory.
