@@ -57,3 +57,11 @@ python src/generate_tests.py --batch-path ./process_batch.sh
 
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
+
+## Checking results
+
+Validation steps can verify the return code and command outputs. Use `retour N`
+to check the exit status. To compare exact output, write `stdout=VALEUR` or
+`stderr=VALEUR`.
+
+You can also search for patterns with `stdout contient MOTIF` or `stderr contient MOTIF`. Phrases like "Le script retourne un code 0" or "Le script affiche un code \"030\"" are automatically interpreted as validations.

@@ -32,6 +32,8 @@ code { background: #f4f4f4; padding: 2px 4px; }
 <li><code>Step: NOM_DE_STEP</code> &ndash; démarre une nouvelle étape pour grouper les actions suivantes</li>
 <li><code>retour N</code> &ndash; vérifie le code de sortie de la commande</li>
 <li><code>stdout=VALEUR</code> / <code>stderr=VALEUR</code> &ndash; compare la sortie standard ou d'erreur</li>
+<li><code>stdout contient MOTIF</code> / <code>stderr contient MOTIF</code> &ndash; cherche le motif dans la sortie avec <code>grep</code></li>
+<li>Des formulations naturelles telles que « Le script retourne un code&nbsp;0 » ou « Le script affiche un code&nbsp;"030" » sont également comprises.</li>
 </ul>
 <p>Les expressions sont interprétées par le parseur défini dans <code>parser.py</code>.</p>
 
