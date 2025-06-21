@@ -163,7 +163,16 @@ pre, code {
 
 <div class="keyword">
 <h3>Alias naturels</h3>
-<p class="description">Des phrases comme «&nbsp;Le script retourne un code N&nbsp;» ou «&nbsp;Le script affiche un code "N"&nbsp;» sont transformées respectivement en <code>retour N</code> et <code>stdout contient N</code>.</p>
+<p class="description">Les formulations suivantes sont converties automatiquement :</p>
+<ul class="description">
+<li>« Le script retourne un code N » → <code>retour N</code></li>
+<li>« Le script affiche un code "N" » → <code>stdout contient N</code></li>
+<li>« La sortie standard est VALEUR » → <code>stdout=VALEUR</code></li>
+<li>« La sortie standard contient MOTIF » → <code>stdout contient MOTIF</code></li>
+<li>« La sortie d'erreur est VALEUR » → <code>stderr=VALEUR</code></li>
+<li>« La sortie d'erreur contient MOTIF » → <code>stderr contient MOTIF</code></li>
+<li>« Le fichier /chemin existe » ou « Le fichier /chemin est présent » → <code>le fichier /chemin existe</code></li>
+</ul>
 </div>
 
 <h2>Créer vos propres fichiers de tests</h2>
