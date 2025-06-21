@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Grammaire du langage de tests</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 2em; }
+h1 { color: #333; }
+code { background: #f4f4f4; padding: 2px 4px; }
+</style>
+</head>
+<body>
+<h1>Grammaire du langage de tests</h1>
+<p>Chaque ligne d'un fichier de test utilise la forme&nbsp;:</p>
+<pre><code>Action: &lt;description&gt; ; Resultat: &lt;résultat attendu&gt;</code></pre>
+<p>Les verbes principaux reconnus sont&nbsp;:</p>
+<ul>
+<li><code>initialiser</code>, <code>créer</code>, <code>configurer</code></li>
+<li><code>exécuter</code>, <code>lancer</code>, <code>traiter</code></li>
+<li><code>vérifier</code>, <code>valider</code></li>
+<li>opérations sur fichiers&nbsp;: <code>toucher</code>, <code>cat</code></li>
+</ul>
+<p>Des paramètres spécifiques peuvent être indiqués&nbsp;:</p>
+<ul>
+<li><code>argument NOM=VALEUR</code> &ndash; ajoute un argument au batch</li>
+<li><code>chemin des logs = /chemin/fichier.log</code></li>
+<li><code>script sql = fichier.sql</code></li>
+<li><code>créer/mettre à jour fichier/dossier = CHEMIN avec les droits = MODE</code></li>
+<li><code>toucher le fichier CHEMIN [-t TIMESTAMP]</code></li>
+</ul>
+<p>Les expressions sont interprétées par le parseur défini dans <code>parser.py</code>.</p>
+</body>
+</html>
