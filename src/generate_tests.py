@@ -182,7 +182,12 @@ def generate_shell_script(actions_list, batch_path: str):
         if actions["initialization"]:
             lines.append("# Initialisation")
             for action in actions["initialization"]:
-                lines.append(f"run_cmd \"echo '{action}'\"  # TODO")
+                scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
+                if scripts:
+                    for script in scripts:
+                        lines.append(f"run_cmd \"{TEMPLATES['execute_sql'].substitute(script=script)}\"")
+                else:
+                    lines.append(f"run_cmd \"echo '{action}'\"")
 
         if actions["execution"]:
             arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])

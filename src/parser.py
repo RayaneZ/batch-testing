@@ -89,6 +89,8 @@ class Parser:
         # Simple actions
         self._register(r"(créer|configurer)",
                        lambda m, a: a["initialization"].append(m.string.strip()))
+        self._register(r"initialiser.*?\.sql",
+                       self._handle_init_sql)
         self._register(r"(exécuter|lancer|traiter)",
                        lambda m, a: a["execution"].append(m.string.strip()))
         self._register(r"(?:vérifier|valider)\s+que\s+(.*)",
@@ -121,6 +123,10 @@ class Parser:
         """Extract all key=value pairs from an argument expression."""
         for m in self.arg_pattern.finditer(match.string):
             actions["arguments"][m.group(1).strip()] = m.group(2).strip()
+
+    def _handle_init_sql(self, match: re.Match, actions: Dict[str, List]) -> None:
+        """Handle initialization phrases that reference SQL scripts."""
+        actions["initialization"].append(match.string.rstrip(';').strip())
 
     def _handle_action_result(self, match: re.Match, actions: Dict[str, List]) -> None:
         """Parse a line written as 'Action: ... Resultat: ...'."""
