@@ -10,7 +10,7 @@ Test scenarios are written in plain text using the `Action:`/`Resultat:` format.
 An example line looks like:
 
 ```text
-Action: initialiser la base ; Resultat: base prête
+Action: configurer la base ; Resultat: base prête
 ```
 
 Several examples can be found in `src/tests/` and the detailed grammar is
@@ -47,6 +47,11 @@ python src/export_to_excel.py --input-dir src/tests --output tests_summary.xlsx
 
 This generates `tests_summary.xlsx` in the current directory.
 
+### Options
+
+- `--input-dir DIR` – directory containing `.shtest` files (default: `tests`)
+- `--output FILE` – path to the resulting Excel file (default: `tests_summary.xlsx`)
+
 ## Generating shell scripts
 
 Use `generate_tests.py` to convert `.shtest` files into executable shell scripts.
@@ -58,6 +63,10 @@ python src/generate_tests.py --batch-path ./process_batch.sh
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
 
+### Options
+
+- `--batch-path PATH` – path to the script to run for each test (default: `./process_batch.sh`)
+
 ## Checking results
 
 Validation steps can verify the return code and command outputs. Use `retour N`
@@ -65,3 +74,9 @@ to check the exit status. To compare exact output, write `stdout=VALEUR` or
 `stderr=VALEUR`.
 
 You can also search for patterns with `stdout contient MOTIF` or `stderr contient MOTIF`. Phrases like "Le script retourne un code 0" or "Le script affiche un code \"030\"" are automatically interpreted as validations.
+
+Several validations can be combined in one expression using the keywords `et` and `ou`. Parentheses are supported and parsed with the shunting-yard algorithm. For example:
+
+```text
+Resultat: retour 0 et (stdout contient OK ou stderr contient WARNING)
+```

@@ -1,3 +1,0 @@
-Action: Exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0.
-Action: Vérifier la sortie standard ; Résultat: stdout contient Succès complet.
-Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: Le script affiche un code "030".

@@ -18,6 +18,38 @@ class AliasResolver:
                 re.compile(r"le script affiche un code\s*\"?(\d+)\"?", re.IGNORECASE),
                 lambda m: [f"stdout contient {m.group(1)}"],
             ),
+            (
+                re.compile(r"la sortie standard est\s*(.+)", re.IGNORECASE),
+                lambda m: [f"stdout={m.group(1).strip()}"]
+            ),
+            (
+                re.compile(r"la sortie standard contient\s*(.+)", re.IGNORECASE),
+                lambda m: [f"stdout contient {m.group(1).strip()}"]
+            ),
+            (
+                re.compile(r"la sortie d'?erreur est\s*(.+)", re.IGNORECASE),
+                lambda m: [f"stderr={m.group(1).strip()}"]
+            ),
+            (
+                re.compile(r"la sortie d'?erreur contient\s*(.+)", re.IGNORECASE),
+                lambda m: [f"stderr contient {m.group(1).strip()}"]
+            ),
+            (
+                re.compile(r"le fichier\s+(\S+)\s+(?:existe|est présent)", re.IGNORECASE),
+                lambda m: [f"le fichier {m.group(1)} existe"]
+            ),
+            (
+                re.compile(r"le fichier\s+est\s+présent", re.IGNORECASE),
+                lambda m: ["Le fichier est présent"]
+            ),
+            (
+                re.compile(r"le fichier\s+est\s+copié", re.IGNORECASE),
+                lambda m: ["le fichier est copié"]
+            ),
+            (
+                re.compile(r"le dossier\s+est\s+copié", re.IGNORECASE),
+                lambda m: ["le dossier est copié"]
+            ),
         ]
 
     def resolve(self, text: str) -> List[str]:
@@ -55,7 +87,7 @@ class Parser:
                        lambda m, a: a["steps"].append(m.group(1).strip()))
 
         # Simple actions
-        self._register(r"(initialiser|créer|configurer)",
+        self._register(r"(créer|configurer)",
                        lambda m, a: a["initialization"].append(m.string.strip()))
         self._register(r"(exécuter|lancer|traiter)",
                        lambda m, a: a["execution"].append(m.string.strip()))
