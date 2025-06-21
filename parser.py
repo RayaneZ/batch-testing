@@ -38,8 +38,12 @@ class Parser:
                        lambda m, a: a["log_paths"].append(m.group(1)))
         self._register(r"script sql\s*=\s*(.*?\.sql)",
                        lambda m, a: a["sql_scripts"].append(m.group(1)))
-        self._register(r"(créer|mettre à jour) (fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
-                       lambda m, a: a["file_operations"].append((m.group(1), m.group(3), m.group(4))))
+        self._register(r"(créer|mettre à jour) (?:le\s+)?(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
+                       lambda m, a: a["file_operations"].append((m.group(1), m.group(2), m.group(3), m.group(4))))
+        self._register(r"mettre à jour la date du fichier\s*(\S+)",
+                       lambda m, a: a["touch_files"].append(m.group(1)))
+        self._register(r"touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)",
+                       lambda m, a: a["touch_files"].append(m.group(1)))
         self._register(r"(?:afficher le contenu du fichier|cat le fichier)\s*=\s*(\S+)",
                        lambda m, a: a["cat_files"].append(m.group(1)))
 
@@ -54,6 +58,7 @@ class Parser:
             "sql_scripts": [],
             "file_operations": [],
             "cat_files": [],
+            "touch_files": [],
         }
 
         for line in description.splitlines():

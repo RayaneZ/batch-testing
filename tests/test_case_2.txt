@@ -1,6 +1,4 @@
-
-    Exécuter le script de traitement des commandes avec argument produit=123 et quantité=10.
-    Vérifier que la commande est marquée comme traitée dans la base de données.
-    Vérifier qu'il n'y a pas d'erreurs dans les logs.
-    Chemin des logs = /var/log/system.log
-    
+Exécuter le script de traitement des commandes avec argument produit=123 et quantité=10.
+Vérifier que la commande est marquée comme traitée dans la base de données.
+Vérifier qu'il n'y a pas d'erreurs dans les logs.
+Chemin des logs = /var/log/system.log

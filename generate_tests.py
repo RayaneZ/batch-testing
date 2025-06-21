@@ -1,5 +1,7 @@
 from parser import Parser
 from string import Template
+import os
+from glob import glob
 
 
 def parse_test_in_natural_language(test_description: str):
@@ -58,11 +60,17 @@ def generate_shell_script(actions):
 
     if actions["file_operations"]:
         lines.append("# Opérations sur les fichiers et dossiers")
-        for operation, path, mode in actions["file_operations"]:
-            if "dossier" in operation.lower():
+        for operation, ftype, path, mode in actions["file_operations"]:
+            if ftype.lower() == "dossier":
                 lines.append(TEMPLATES["create_dir"].substitute(path=path, mode=mode))
-            if "fichier" in operation.lower():
+            if ftype.lower() == "fichier":
                 lines.append(TEMPLATES["create_file"].substitute(path=path, mode=mode))
+            lines.append(TEMPLATES["update_file"].substitute(path=path))
+        lines.append("")
+
+    if actions.get("touch_files"):
+        lines.append("# Mise à jour de fichiers")
+        for path in actions["touch_files"]:
             lines.append(TEMPLATES["update_file"].substitute(path=path))
         lines.append("")
 
@@ -90,12 +98,22 @@ def generate_shell_script(actions):
     return "\n".join(lines)
 
 
+INPUT_DIR = "tests"
+OUTPUT_DIR = "output"
+
+
 def main():
-    with open('tests/test_case_1.txt', encoding='utf-8') as f:
-        test_description = f.read()
-    actions = parse_test_in_natural_language(test_description)
-    script = generate_shell_script(actions)
-    print(script)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    for txt_file in glob(os.path.join(INPUT_DIR, "*.txt")):
+        with open(txt_file, encoding="utf-8") as f:
+            test_description = f.read()
+        actions = parse_test_in_natural_language(test_description)
+        script = generate_shell_script(actions)
+        out_name = os.path.splitext(os.path.basename(txt_file))[0] + ".sh"
+        out_path = os.path.join(OUTPUT_DIR, out_name)
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(script)
+        print(f"Generated {out_path}")
 
 
 if __name__ == '__main__':
