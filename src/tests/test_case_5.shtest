@@ -1,0 +1,4 @@
+Action: initialiser le serveur avec les configurations par défaut ; Resultat: serveur démarré
+Action: exécuter /opt/batch/traitement.sh avec argument produit=567 et quantité=20 ; Resultat: traitement réalisé
+Action: afficher les logs d'exécution = /var/log/batch.log ; Resultat: logs affichés
+Action: vérifier que l'API renvoie le bon statut ; Resultat: statut OK

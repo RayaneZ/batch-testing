@@ -1,0 +1,3 @@
+Action: toucher le fichier /tmp/init.flag 202501010000 ; Resultat: fichier initialisé
+Action: initialiser la base de données en exécutant JDD_Commun.sql ; Resultat: base de test prête
+Action: afficher le contenu du fichier = /tmp/JDD_Commun.sql ; Resultat: contenu affiché

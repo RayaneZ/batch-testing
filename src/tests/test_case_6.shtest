@@ -1,0 +1,3 @@
+Action: créer le dossier = /tmp/test_folder avec les droits = 0700 ; Resultat: dossier prêt
+Action: créer fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Resultat: fichier créé
+Action: cat le fichier = /tmp/test_folder/test.txt ; Resultat: contenu lisible

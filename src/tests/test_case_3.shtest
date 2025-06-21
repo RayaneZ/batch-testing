@@ -1,0 +1,2 @@
+Action: initialiser la base avec JDD_Commun.sql puis JDD_Extra.sql ; Resultat: base prête pour le test
+Action: afficher le contenu du fichier = /tmp/JDD_Extra.sql ; Resultat: script affiché
