@@ -14,7 +14,7 @@ Action: configurer la base ; Resultat: base prête
 ```
 
 Several examples can be found in `src/tests/` and the detailed grammar is
-available in `docs/grammar.html`.
+available in `docs/documentation.html`.
 
 ## Rebuilding the VS Code extension
 
@@ -63,9 +63,20 @@ python src/generate_tests.py --batch-path ./process_batch.sh
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
 
+Generated scripts use `/bin/sh` for portability.
+
 ### Options
 
 - `--batch-path PATH` – path to the script to run for each test (default: `./process_batch.sh`)
+
+To pass arguments to the batch script, use `argument NOM=VALEUR` in your action
+lines and chain additional pairs with `et`:
+
+```text
+Action: Exécuter mon_batch.sh avec l'argument produit=42 et la quantité=10 ;
+```
+
+The generated command will be `mon_batch.sh produit=42 quantité=10`.
 
 ## Checking results
 
@@ -80,3 +91,7 @@ Several validations can be combined in one expression using the keywords `et` an
 ```text
 Resultat: retour 0 et (stdout contient OK ou stderr contient WARNING)
 ```
+
+Additional checks exist for file operations:
+- `le fichier /chemin existe` or `Le fichier est présent` to validate presence.
+- `le fichier est copié` / `le dossier est copié` to assert copy success.

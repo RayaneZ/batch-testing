@@ -71,6 +71,7 @@
       <tr><th>Syntaxe</th><th>Alias</th><th>Description</th></tr>
       <tr><td><code>créer fichier=CHEMIN avec les droits=MODE</code></td><td><code>mettre à jour</code></td><td>Crée ou modifie un fichier</td></tr>
       <tr><td><code>toucher le fichier CHEMIN -t TIMESTAMP</code></td><td>-</td><td>Met à jour la date (timestamp optionnel)</td></tr>
+      <tr><td><code>mettre à jour la date du fichier CHEMIN TIMESTAMP</code></td><td>-</td><td>Met à jour la date du fichier</td></tr>
       <tr><td><code>copier le fichier SRC vers DEST</code></td><td>-</td><td>Copie un fichier</td></tr>
       <tr><td><code>copier le dossier SRC vers DEST</code></td><td>-</td><td>Copie un dossier</td></tr>
       <tr><td><code>afficher le contenu du fichier=CHEMIN</code></td><td><code>cat le fichier</code></td><td>Affiche le contenu d’un fichier</td></tr>
@@ -79,7 +80,7 @@
     <h3>Paramètres supplémentaires</h3>
     <table>
       <tr><th>Syntaxe</th><th>Alias</th><th>Description</th></tr>
-      <tr><td><code>argument NOM=VALEUR</code></td><td><code>paramètre NOM=VALEUR</code></td><td>Ajoute un argument au batch</td></tr>
+      <tr><td><code>argument NOM=VALEUR [et NOM2=VALEUR2]</code></td><td><code>paramètre NOM=VALEUR</code></td><td>Ajoute un ou plusieurs arguments au batch (chaînez-les avec <code>et</code>)</td></tr>
       <tr><td><code>chemin des logs = /chemin/fichier.log</code></td><td><code>path des logs</code></td><td>Spécifie le fichier log</td></tr>
       <tr><td><code>script sql = fichier.sql</code></td><td>-</td><td>Exécute un script SQL</td></tr>
       <tr><td><code>logs</code></td><td><code>erreurs</code>, <code>fichiers de logs</code></td><td>Recherche d'erreurs dans les journaux</td></tr>
@@ -96,6 +97,9 @@
       <tr><td><code>stdout contient MOTIF</code></td><td><code>La sortie standard contient MOTIF</code>, <code>Le script affiche un code "MOTIF"</code></td><td>Recherche motif dans stdout</td></tr>
       <tr><td><code>stderr contient MOTIF</code></td><td><code>La sortie d'erreur contient MOTIF</code></td><td>Recherche motif dans stderr</td></tr>
       <tr><td><code>le fichier /chemin existe</code></td><td><code>Le fichier /chemin est présent</code></td><td>Vérifie l'existence d'un fichier</td></tr>
+      <tr><td><code>Le fichier est présent</code></td><td>-</td><td>Validation de la présence du dernier fichier manipulé</td></tr>
+      <tr><td><code>le fichier est copié</code></td><td>-</td><td>Vérifie la copie d'un fichier</td></tr>
+      <tr><td><code>le dossier est copié</code></td><td>-</td><td>Vérifie la copie d'un dossier</td></tr>
       <tr><td><code>retour 0 et (stdout contient OK ou stderr contient WARNING)</code></td><td>-</td><td>Validation logique combinée</td></tr>
     </table>
   </div>

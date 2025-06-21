@@ -149,12 +149,12 @@ def _compile_validation(expression: str):
 def generate_shell_script(actions_list, batch_path: str):
     """Génère un script shell à partir de la liste ordonnée d'actions."""
     lines = [
-        "#!/bin/bash",
+        "#!/bin/sh",
         "",
         "run_cmd() {",
         "  local _stdout=$(mktemp)",
         "  local _stderr=$(mktemp)",
-        "  bash -c \"$1\" >\"$_stdout\" 2>\"$_stderr\"",
+        "  sh -c \"$1\" >\"$_stdout\" 2>\"$_stderr\"",
         "  last_ret=$?",
         "  last_stdout=$(cat \"$_stdout\")",
         "  last_stderr=$(cat \"$_stderr\")",
