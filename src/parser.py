@@ -55,7 +55,7 @@ class Parser:
                        lambda m, a: a["steps"].append(m.group(1).strip()))
 
         # Simple actions
-        self._register(r"(initialiser|créer|configurer)",
+        self._register(r"(créer|configurer)",
                        lambda m, a: a["initialization"].append(m.string.strip()))
         self._register(r"(exécuter|lancer|traiter)",
                        lambda m, a: a["execution"].append(m.string.strip()))

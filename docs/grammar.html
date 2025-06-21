@@ -28,7 +28,7 @@ pre, code {
 <pre><code>Action: &lt;description&gt; ; Resultat: &lt;résultat attendu&gt;</code></pre>
 <p>Les verbes principaux reconnus sont&nbsp;:</p>
 <ul>
-<li><code>initialiser</code>, <code>créer</code>, <code>configurer</code></li>
+<li><code>créer</code>, <code>configurer</code></li>
 <li><code>exécuter</code>, <code>lancer</code>, <code>traiter</code></li>
 <li><code>vérifier</code>, <code>valider</code></li>
 <li>opérations sur fichiers&nbsp;: <code>toucher</code>, <code>cat</code></li>
@@ -64,10 +64,10 @@ pre, code {
   </thead>
   <tbody>
     <tr>
-      <td><code>initialiser</code>, <code>créer</code>, <code>configurer</code></td>
+      <td><code>créer</code>, <code>configurer</code></td>
       <td>Prépare l’environnement de test.</td>
       <td>aucun</td>
-      <td><code>Action: initialiser la base ; Resultat: OK</code></td>
+      <td><code>Action: configurer la base ; Resultat: OK</code></td>
     </tr>
     <tr>
       <td><code>exécuter</code>, <code>lancer</code>, <code>traiter</code></td>
@@ -165,7 +165,7 @@ pre, code {
 <h2>Créer vos propres fichiers de tests</h2>
 <p>Pour écrire un scénario, créez un fichier se terminant par <code>.shtest</code> dans le dossier <code>tests/</code>. Chaque ligne doit respecter la syntaxe ci-dessus.</p>
 
-<pre><code>Action: initialiser le contexte ; Resultat: OK
+<pre><code>Action: configurer le contexte ; Resultat: OK
 Action: exécuter mon_batch.sh ; Resultat: retour 0</code></pre>
 
 <p>Ensuite, générez les scripts correspondants en exécutant&nbsp;:</p>

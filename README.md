@@ -10,7 +10,7 @@ Test scenarios are written in plain text using the `Action:`/`Resultat:` format.
 An example line looks like:
 
 ```text
-Action: initialiser la base ; Resultat: base prête
+Action: configurer la base ; Resultat: base prête
 ```
 
 Several examples can be found in `src/tests/` and the detailed grammar is
