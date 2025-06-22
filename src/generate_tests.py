@@ -1,3 +1,5 @@
+"""Utilities to transform ``.shtest`` files into executable shell scripts."""
+
 from parser import Parser, AliasResolver
 from string import Template
 import argparse
@@ -14,9 +16,13 @@ def parse_test_in_natural_language(test_description: str):
 
 def parse_test_file(contents: str):
     """Parse line by line and preserve ordering of actions/results."""
+
     parser = Parser()
     parsed_lines = []
     for line in contents.splitlines():
+        # ``Parser.parse`` only deals with a single line. We keep the list
+        # of results in order so that the generated script mirrors the
+        # original description.
         parsed_lines.append(parser.parse(line))
     return parsed_lines
 
@@ -32,15 +38,20 @@ TEMPLATES = {
     "cat_file": Template("cat ${file}"),
     "copy_file": Template("cp ${src} ${dest}"),
     "copy_dir": Template("cp -r ${src} ${dest}"),
+    "move": Template("mv ${src} ${dest}"),
 }
 
 
 def _tokenize_expression(expr: str):
+    """Split a validation expression into tokens."""
+
     tokens = [t.strip() for t in re.split(r"(\bet\b|\bou\b|\(|\))", expr) if t.strip()]
     return tokens
 
 
 def _to_postfix(tokens):
+    """Convert infix tokens to postfix notation using the shunting-yard algorithm."""
+
     precedence = {"et": 2, "ou": 1}
     output = []
     stack = []
@@ -65,6 +76,8 @@ def _to_postfix(tokens):
 
 
 def _compile_atomic(expected: str, varname: str, last_file_var: list):
+    """Compile a single validation expression into shell code."""
+
     lines = [f"# Attendu : {expected}"]
     m = re.search(r"le fichier (\S+) existe", expected, re.IGNORECASE)
     if m:
@@ -113,6 +126,8 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
 
 
 def _compile_validation(expression: str):
+    """Compile a complex validation expression into shell instructions."""
+
     if re.search(r"\bet\b|\bou\b|\(|\)", expression):
         resolver = AliasResolver()
         tokens = _tokenize_expression(expression)
@@ -147,7 +162,11 @@ def _compile_validation(expression: str):
 
 
 def generate_shell_script(actions_list, batch_path: str):
-    """Génère un script shell à partir de la liste ordonnée d'actions."""
+    """Génère un script shell à partir de la liste ordonnée d'actions.
+
+    Each item in *actions_list* corresponds to a line of the original
+    ``.shtest`` file as produced by :func:`parse_test_file`.
+    """
     lines = [
         "#!/bin/sh",
         "",
@@ -193,7 +212,8 @@ def generate_shell_script(actions_list, batch_path: str):
             arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
             actual_path = actions.get("batch_path") or batch_path
             for action in actions["execution"]:
-                lines.append(f"run_cmd \"{TEMPLATES['process_batch'].substitute(path=actual_path, args=arg_str)}\"")
+                cmd = actual_path if not arg_str else f"{actual_path} {arg_str}"
+                lines.append(f"run_cmd \"{cmd}\"")
 
         if actions["sql_scripts"]:
             for script in actions["sql_scripts"]:
@@ -209,11 +229,14 @@ def generate_shell_script(actions_list, batch_path: str):
                 lines.append(f"run_cmd \"{TEMPLATES['update_file'].substitute(path=path)}\"")
 
         if actions.get("copy_operations"):
-            for ftype, src, dest in actions["copy_operations"]:
-                if ftype.lower() == "dossier":
-                    cmd = TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
+            for op, ftype, src, dest in actions["copy_operations"]:
+                if op.lower().startswith("d\xe9placer"):
+                    cmd = TEMPLATES["move"].substitute(src=src, dest=dest)
                 else:
-                    cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
+                    if ftype.lower() == "dossier":
+                        cmd = TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
+                    else:
+                        cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
                 lines.append(f"run_cmd \"{cmd}\"")
 
         if actions.get("touch_files"):
@@ -247,8 +270,13 @@ OUTPUT_DIR = "output"
 
 
 def main():
+    # Command-line interface for the generator
     parser = argparse.ArgumentParser()
-    parser.add_argument("--batch-path", default="./process_batch.sh", help="Chemin vers le script batch")
+    parser.add_argument(
+        "--batch-path",
+        default="./process_batch.sh",
+        help="Chemin vers le script batch",
+    )
     args = parser.parse_args()
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -261,6 +289,7 @@ def main():
         out_path = os.path.join(OUTPUT_DIR, out_name)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(script)
+        # Inform the user about the newly created script
         print(f"Generated {out_path}")
 
 

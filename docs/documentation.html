@@ -65,7 +65,7 @@
       <tr><td><code>exécuter</code></td><td><code>lancer</code>, <code>traiter</code></td><td>Lancement du traitement</td></tr>
       <tr><td><code>exécuter /chemin/script.sh</code></td><td>-</td><td>Spécifie un script à exécuter</td></tr>
       <tr><td><code>Step: NOM</code></td><td><code>Étape</code>, <code>Etape</code></td><td>Démarre une nouvelle étape</td></tr>
-      <tr><td><code>initialiser fichier.sql</code></td><td>-</td><td>Exécute un script SQL de préparation</td></tr>
+      <tr><td><code>exécuter le script SQL fichier.sql</code></td><td>-</td><td>Exécute un script SQL de préparation</td></tr>
     </table>
     <h4>Résultats compatibles</h4>
     <table>
@@ -164,6 +164,25 @@ Action: exécuter mon_batch.sh ; Resultat: retour 0</code></pre>
     <p>Générez les scripts :</p>
     <pre><code>python src/generate_tests.py --batch-path ./mon_batch.sh</code></pre>
     <p>Les résultats sont disponibles dans le dossier <code>output/</code>.</p>
+  </div>
+
+  <div class="section">
+    <h2>Tutoriel&nbsp;: scénario complet en 5&nbsp;étapes</h2>
+    <p>Ce tutoriel illustre un fichier <code>.shtest</code> plus élaboré&nbsp;:</p>
+    <pre><code>Step: step&nbsp;1
+Action: Ex&eacute;cuter le script SQL = purge.sql ; Resultat: base pr&ecirc;te
+
+Step: step&nbsp;2
+Action: D&eacute;placer config.cfg vers /app/sgda/conf/config.cfg ; Resultat: le fichier est copi&eacute;
+
+Step: step&nbsp;3
+Action: Cr&eacute;er le dossier = /app/sgda/tmp ; Resultat: le dossier est cr&eacute;&eacute;
+
+Step: step&nbsp;4
+Action: Ex&eacute;cuter /app/sgda/data/arbo/batches/purge/purge.sh ; Resultat: retour 0
+
+Step: step&nbsp;5
+Action: Lire le fichier = /app/sgda/logs/purge.log ; Resultat: stdout contient "Purge effectu&eacute;e avec succ&egrave;s. Le batch &agrave; retourn&eacute; un code 000"</code></pre>
   </div>
 </body>
 </html>

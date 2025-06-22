@@ -1,2 +1,2 @@
-Action: Initialiser la base avec JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test.
+Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test.
 Action: Afficher le contenu du fichier = /tmp/JDD_Extra.sql ; Résultat: Le script est affiché.
