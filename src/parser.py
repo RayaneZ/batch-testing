@@ -116,8 +116,10 @@ class Parser:
                        lambda m, a: a["steps"].append(m.group(1).strip()))
 
         # Simple actions
-        self._register(r"(créer|configurer)",
-                       lambda m, a: a["initialization"].append(m.string.strip()))
+        self._register(
+            r"(créer|configurer)(?!.*(?:dossier|fichier|=))",
+            lambda m, a: a["initialization"].append(m.string.strip()),
+        )
         self._register(r"initialiser.*?\.sql",
                        self._handle_init_sql)
         self._register(r"(exécuter|lancer|traiter)",
@@ -133,19 +135,25 @@ class Parser:
                        self._handle_arguments)
         self._register(r"(?:chemin|path) des logs\s*=\s*(\S+)",
                        lambda m, a: a["log_paths"].append(m.group(1)))
-        self._register(r"script sql\s*=\s*(.*?\.sql)",
-                       lambda m, a: a["sql_scripts"].append(m.group(1)))
+        self._register(
+            r"script sql\s*=\s*(.*?\.sql)",
+            lambda m, a: a["sql_scripts"].append(m.group(1))
+            if m.group(1) not in a["sql_scripts"] else None,
+        )
         self._register(r"(créer|mettre à jour) (?:le\s+)?(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
                        lambda m, a: a["file_operations"].append((m.group(1), m.group(2), m.group(3), m.group(4))))
+        # Simple directory creation without explicit mode
+        self._register(r"créer\s+le\s+dossier\s*=?\s*(\S+)",
+                       lambda m, a: a["file_operations"].append(("créer", "dossier", m.group(1), "0755")))
         self._register(r"mettre à jour la date du fichier\s*(\S+)\s*(\d{8,14})?",
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
         self._register(r"touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)(?:\s+(?:-t\s*)?(\d{8,14}))?",
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
-        self._register(r"copier\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)",
-                       lambda m, a: a["copy_operations"].append((m.group(1) or "fichier", m.group(2), m.group(3))))
+        self._register(r"(copier|d\xE9placer)\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)",
+                       lambda m, a: a["copy_operations"].append((m.group(1), m.group(2) or "fichier", m.group(3), m.group(4))))
         self._register(r"exécuter\s+(\/\S+\.sh)",
                        lambda m, a: a.__setitem__("batch_path", m.group(1)))
-        self._register(r"(?:afficher le contenu du fichier|cat le fichier)\s*=\s*(\S+)",
+        self._register(r"(?:afficher le contenu du fichier|cat le fichier|lire le fichier)\s*=?\s*(\S+)",
                        lambda m, a: a["cat_files"].append(m.group(1)))
 
     def _handle_arguments(self, match: re.Match, actions: Dict[str, List]) -> None:
@@ -155,7 +163,12 @@ class Parser:
 
     def _handle_init_sql(self, match: re.Match, actions: Dict[str, List]) -> None:
         """Handle initialization phrases that reference SQL scripts."""
-        actions["initialization"].append(match.string.rstrip(';').strip())
+        # Only register the SQL script so that the generator executes it once.
+        script = re.search(r"(\S+\.sql)", match.string, re.IGNORECASE)
+        if script:
+            path = script.group(1)
+            if path not in actions["sql_scripts"]:
+                actions["sql_scripts"].append(path)
 
     def _handle_action_result(self, match: re.Match, actions: Dict[str, List]) -> None:
         """Parse a line written as 'Action: ... Resultat: ...'."""

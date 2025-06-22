@@ -38,6 +38,7 @@ TEMPLATES = {
     "cat_file": Template("cat ${file}"),
     "copy_file": Template("cp ${src} ${dest}"),
     "copy_dir": Template("cp -r ${src} ${dest}"),
+    "move": Template("mv ${src} ${dest}"),
 }
 
 
@@ -211,7 +212,8 @@ def generate_shell_script(actions_list, batch_path: str):
             arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
             actual_path = actions.get("batch_path") or batch_path
             for action in actions["execution"]:
-                lines.append(f"run_cmd \"{TEMPLATES['process_batch'].substitute(path=actual_path, args=arg_str)}\"")
+                cmd = actual_path if not arg_str else f"{actual_path} {arg_str}"
+                lines.append(f"run_cmd \"{cmd}\"")
 
         if actions["sql_scripts"]:
             for script in actions["sql_scripts"]:
@@ -227,11 +229,14 @@ def generate_shell_script(actions_list, batch_path: str):
                 lines.append(f"run_cmd \"{TEMPLATES['update_file'].substitute(path=path)}\"")
 
         if actions.get("copy_operations"):
-            for ftype, src, dest in actions["copy_operations"]:
-                if ftype.lower() == "dossier":
-                    cmd = TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
+            for op, ftype, src, dest in actions["copy_operations"]:
+                if op.lower().startswith("d\xe9placer"):
+                    cmd = TEMPLATES["move"].substitute(src=src, dest=dest)
                 else:
-                    cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
+                    if ftype.lower() == "dossier":
+                        cmd = TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
+                    else:
+                        cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
                 lines.append(f"run_cmd \"{cmd}\"")
 
         if actions.get("touch_files"):
