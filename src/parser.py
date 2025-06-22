@@ -120,8 +120,17 @@ class Parser:
             r"(créer|configurer)(?!.*(?:dossier|fichier|=))",
             lambda m, a: a["initialization"].append(m.string.strip()),
         )
-        self._register(r"initialiser.*?\.sql",
-                       self._handle_init_sql)
+        # Connection setup instructions commonly start with "initialiser".
+        # We only capture them as initialization when they don't reference
+        # a SQL script which would be executed explicitly.
+        self._register(
+            r"initialiser(?!.*?\.sql)",
+            lambda m, a: a["initialization"].append(m.string.strip()),
+        )
+        # SQL scripts are executed via an explicit instruction such as
+        # "Exécuter le script SQL = nom.sql".
+        self._register(r"exécuter.*?\.sql",
+                       self._handle_sql_script)
         self._register(r"(exécuter|lancer|traiter)",
                        lambda m, a: a["execution"].append(m.string.strip()))
         self._register(r"(?:vérifier|valider)\s+que\s+(.*)",
@@ -161,8 +170,8 @@ class Parser:
         for m in self.arg_pattern.finditer(match.string):
             actions["arguments"][m.group(1).strip()] = m.group(2).strip()
 
-    def _handle_init_sql(self, match: re.Match, actions: Dict[str, List]) -> None:
-        """Handle initialization phrases that reference SQL scripts."""
+    def _handle_sql_script(self, match: re.Match, actions: Dict[str, List]) -> None:
+        """Register the SQL script referenced in the instruction."""
         # Only register the SQL script so that the generator executes it once.
         script = re.search(r"(\S+\.sql)", match.string, re.IGNORECASE)
         if script:
