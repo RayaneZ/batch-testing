@@ -1,3 +1,5 @@
+"""Utilities to transform ``.shtest`` files into executable shell scripts."""
+
 from parser import Parser, AliasResolver
 from string import Template
 import argparse
@@ -14,9 +16,13 @@ def parse_test_in_natural_language(test_description: str):
 
 def parse_test_file(contents: str):
     """Parse line by line and preserve ordering of actions/results."""
+
     parser = Parser()
     parsed_lines = []
     for line in contents.splitlines():
+        # ``Parser.parse`` only deals with a single line. We keep the list
+        # of results in order so that the generated script mirrors the
+        # original description.
         parsed_lines.append(parser.parse(line))
     return parsed_lines
 
@@ -36,11 +42,15 @@ TEMPLATES = {
 
 
 def _tokenize_expression(expr: str):
+    """Split a validation expression into tokens."""
+
     tokens = [t.strip() for t in re.split(r"(\bet\b|\bou\b|\(|\))", expr) if t.strip()]
     return tokens
 
 
 def _to_postfix(tokens):
+    """Convert infix tokens to postfix notation using the shunting-yard algorithm."""
+
     precedence = {"et": 2, "ou": 1}
     output = []
     stack = []
@@ -65,6 +75,8 @@ def _to_postfix(tokens):
 
 
 def _compile_atomic(expected: str, varname: str, last_file_var: list):
+    """Compile a single validation expression into shell code."""
+
     lines = [f"# Attendu : {expected}"]
     m = re.search(r"le fichier (\S+) existe", expected, re.IGNORECASE)
     if m:
@@ -113,6 +125,8 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
 
 
 def _compile_validation(expression: str):
+    """Compile a complex validation expression into shell instructions."""
+
     if re.search(r"\bet\b|\bou\b|\(|\)", expression):
         resolver = AliasResolver()
         tokens = _tokenize_expression(expression)
@@ -147,7 +161,11 @@ def _compile_validation(expression: str):
 
 
 def generate_shell_script(actions_list, batch_path: str):
-    """Génère un script shell à partir de la liste ordonnée d'actions."""
+    """Génère un script shell à partir de la liste ordonnée d'actions.
+
+    Each item in *actions_list* corresponds to a line of the original
+    ``.shtest`` file as produced by :func:`parse_test_file`.
+    """
     lines = [
         "#!/bin/sh",
         "",
@@ -247,8 +265,13 @@ OUTPUT_DIR = "output"
 
 
 def main():
+    # Command-line interface for the generator
     parser = argparse.ArgumentParser()
-    parser.add_argument("--batch-path", default="./process_batch.sh", help="Chemin vers le script batch")
+    parser.add_argument(
+        "--batch-path",
+        default="./process_batch.sh",
+        help="Chemin vers le script batch",
+    )
     args = parser.parse_args()
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -261,6 +284,7 @@ def main():
         out_path = os.path.join(OUTPUT_DIR, out_name)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(script)
+        # Inform the user about the newly created script
         print(f"Generated {out_path}")
 
 

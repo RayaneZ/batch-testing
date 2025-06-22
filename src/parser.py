@@ -1,4 +1,9 @@
-"""Utility module to parse natural language test descriptions."""
+"""Utility module to parse natural language test descriptions.
+
+This module exposes a :class:`Parser` capable of reading test scenarios
+written in a French-like language and turning them into a structured
+dictionary describing all actions to perform and validations to check.
+"""
 
 from dataclasses import dataclass
 from typing import Callable, Dict, List, Tuple, Optional, Any
@@ -6,18 +11,25 @@ import re
 
 
 class AliasResolver:
-    """Convert literary phrases into canonical validation tokens."""
+    """Convert literary phrases into canonical validation tokens.
+
+    The generator only understands a small set of validation expressions
+    (``retour N``, ``stdout=...`` etc.).  This class maps more verbose
+    sentences found in ``.shtest`` files to those atomic forms.
+    """
 
     def __init__(self) -> None:
+        # Each entry associates a regex with a function returning canonical
+        # strings. The first match wins.
         self.aliases: List[Tuple[re.Pattern, Callable[[re.Match], List[str]]]] = [
             (
                 re.compile(r"le script retourne un code\s*(\d+)", re.IGNORECASE),
                 lambda m: [f"retour {m.group(1)}"],
-            ),
+            ),  # "Le script retourne un code 0" -> "retour 0"
             (
                 re.compile(r"le script affiche un code\s*\"?(\d+)\"?", re.IGNORECASE),
                 lambda m: [f"stdout contient {m.group(1)}"],
-            ),
+            ),  # "affiche un code 030" -> "stdout contient 030"
             (
                 re.compile(r"la sortie standard est\s*(.+)", re.IGNORECASE),
                 lambda m: [f"stdout={m.group(1).strip()}"]
@@ -73,10 +85,27 @@ class Parser:
         self._register_default_rules()
 
     def _register(self, pattern: str, handler: Callable[[re.Match, Dict[str, List]], None]) -> None:
+        """Register a new parsing rule.
+
+        Parameters
+        ----------
+        pattern: str
+            Regular expression describing the rule.
+        handler: Callable
+            Function called when the pattern matches a line. It must mutate
+            the ``actions`` dictionary passed to :meth:`parse`.
+        """
         compiled = re.compile(pattern, re.IGNORECASE)
         self.rules.append(Rule(compiled, handler))
 
     def _register_default_rules(self) -> None:
+        """Populate the parser with all built-in regex rules.
+
+        The order of registration matters: some expressions are subsets of
+        others and must therefore be checked first.  The very first rule
+        handles the ``Action: ... Resultat: ...`` form which may itself
+        contain nested actions.
+        """
         # Action/Result grammar should be evaluated first
         pattern = r"Action\s*:\s*(.*?)\s*(?:Résultat|Resultat)\s*:?\s*(.*)"
         self.action_result_re = re.compile(pattern, re.IGNORECASE)
@@ -146,6 +175,10 @@ class Parser:
                 actions["validation"].append(res)
 
     def parse(self, description: str) -> Dict[str, Any]:
+        """Parse a block of text and return a dictionary of actions."""
+
+        # Structure accumulating all recognized actions. Lists are used so
+        # that order is preserved when generating shell scripts.
         actions: Dict[str, List] = {
             "initialization": [],
             "execution": [],
@@ -163,10 +196,14 @@ class Parser:
         }
 
         for line in description.splitlines():
+            # Apply each rule to the current line. Some rules may also
+            # trigger nested parsing (see ``_handle_action_result``).
             for rule in self.rules:
                 match = rule.pattern.search(line)
                 if match:
                     rule.handler(match, actions)
+                    # Once "Action ... Resultat" has matched we stop
+                    # evaluating other patterns for this line.
                     if self.action_result_re and rule.pattern.pattern == self.action_result_re.pattern:
                         break
 
