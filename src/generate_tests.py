@@ -67,7 +67,11 @@ def generate_shell_script(actions_list, batch_path: str):
                 scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
                 if scripts:
                     for script in scripts:
-                        lines.append(f"run_cmd \"{TEMPLATES['execute_sql'].substitute(script=script)}\"")
+                        cmd = TEMPLATES['execute_sql'].substitute(
+                            script=script,
+                            conn='${SQL_CONN:-user/password@db}'
+                        )
+                        lines.append(f"run_cmd \"{cmd}\"")
                 else:
                     lines.append(f"run_cmd \"echo '{action}'\"")
 
@@ -80,7 +84,11 @@ def generate_shell_script(actions_list, batch_path: str):
 
         if actions["sql_scripts"]:
             for script in actions["sql_scripts"]:
-                lines.append(f"run_cmd \"{TEMPLATES['execute_sql'].substitute(script=script)}\"")
+                cmd = TEMPLATES['execute_sql'].substitute(
+                    script=script,
+                    conn='${SQL_CONN:-user/password@db}'
+                )
+                lines.append(f"run_cmd \"{cmd}\"")
 
         if actions["file_operations"]:
             for operation, ftype, path, mode in actions["file_operations"]:
