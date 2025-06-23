@@ -1,0 +1,3 @@
+Action: Créer le dossier = /tmp/newdir ; Résultat: dossier créé.
+Action: Créer le dossier = /tmp/newdir ; Résultat: Le dossier est créé.
+Action: Créer le dossier = /tmp/newdir ; Résultat: le dossier est prêt.

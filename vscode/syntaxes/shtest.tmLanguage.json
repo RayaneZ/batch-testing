@@ -1,0 +1,12 @@
+{
+  "scopeName": "source.shtest",
+  "patterns": [
+    {"match": "\\bAction\\b", "name": "keyword.other.action.nltest"},
+    {"match": "\\b(Résultat|Resultat)\\b", "name": "keyword.other.result.nltest"},
+    {"match": "\\b(Étape|Etape|Step)\\b", "name": "keyword.other.step.nltest"},
+    {"match": "\\b(créer|configurer|exécuter|lancer|traiter|vérifier|valider|toucher|copier|déplacer|deplacer|afficher|initialiser|mettre|cat)\\b", "name": "keyword.control.nltest"},
+    {"match": "\\b(argument|paramètre|chemin|path|script sql)\\b", "name": "storage.type.nltest"},
+    {"match": "\\b\\d{8,14}\\b", "name": "constant.numeric.timestamp.nltest"},
+    {"match": "/[\\w/\\.\\-]+", "name": "string.unquoted.path.nltest"}
+  ]
+}

@@ -1,0 +1,4 @@
+Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.
+Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.

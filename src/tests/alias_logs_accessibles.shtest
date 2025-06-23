@@ -1,0 +1,2 @@
+Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: logs accessibles.
+Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: les logs sont accessibles.
