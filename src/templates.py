@@ -1,7 +1,6 @@
 from string import Template
 
 TEMPLATES = {
-    "process_batch": Template("${path} ${args}"),
     "grep_log": Template("grep 'ERROR' ${path}"),
     "execute_sql": Template("sqlplus -S user/password@db @${script}"),
     "create_dir": Template("mkdir -p ${path} && chmod ${mode} ${path}"),
