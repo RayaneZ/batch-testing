@@ -3,3 +3,5 @@ output/
 # Ignore packaged VS Code extensions and encoded archives
 vscode/*.vsix
 vscode/shtest-syntax-*.txt
+
+tests_summary.xlsx
