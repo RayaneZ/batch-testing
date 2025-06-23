@@ -68,6 +68,13 @@ their source test files.
 Generated scripts use `/bin/sh` for portability.
 
 Initialization lines that reference `*.sql` files will execute those scripts automatically.
+Set the `SQL_CONN` environment variable to override the SQL connection used by
+`execute_sql`. For example:
+
+```bash
+export SQL_CONN="sqlplus -S myuser/mypass@mydb"
+```
+If `SQL_CONN` is unset, `sqlplus -S user/password@db` is used.
 
 ### Options
 
