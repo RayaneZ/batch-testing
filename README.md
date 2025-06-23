@@ -65,6 +65,19 @@ python src/generate_tests.py --batch-path ./process_batch.sh
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
 
+Default directories and the batch path can also be configured via
+`config.ini` at the repository root:
+
+```ini
+[application]
+input_dir = src/tests
+output_dir = output
+batch_path = ./process_batch.sh
+```
+
+`generate_tests.py` will read this file if present and use the values as
+defaults for `--batch-path` and where test files are located.
+
 Generated scripts use `/bin/sh` for portability.
 
 Initialization lines that reference `*.sql` files will execute those scripts automatically.
