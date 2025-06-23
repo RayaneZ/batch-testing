@@ -7,6 +7,18 @@ import argparse
 import os
 from glob import glob
 import re
+import configparser
+
+
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.ini")
+config = configparser.ConfigParser()
+config.read(CONFIG_PATH)
+
+INPUT_DIR = config.get("application", "input_dir", fallback="src/tests")
+OUTPUT_DIR = config.get("application", "output_dir", fallback="output")
+DEFAULT_BATCH_PATH = config.get(
+    "application", "batch_path", fallback="./process_batch.sh"
+)
 
 
 def parse_test_file(contents: str):
@@ -136,8 +148,6 @@ def generate_shell_script(actions_list, batch_path: str):
     return "\n".join(lines)
 
 
-INPUT_DIR = "src/tests"
-OUTPUT_DIR = "output"
 
 
 def main():
@@ -145,7 +155,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--batch-path",
-        default="./process_batch.sh",
+        default=DEFAULT_BATCH_PATH,
         help="Chemin vers le script batch",
     )
     args = parser.parse_args()
