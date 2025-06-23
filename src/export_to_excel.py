@@ -45,6 +45,15 @@ def canonicalize_result(result: str) -> str:
 # Excel workbook summarising each test case.
 
 
+def sanitize_action(action: str) -> str:
+    """Remove credential-like strings from an action."""
+    return re.sub(
+        r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@[A-Za-z0-9_.-]+",
+        "<credentials>",
+        action,
+    )
+
+
 def parse_shtest_file(path: str):
     """Parse a ``.shtest`` file and return a list of steps."""
 
@@ -55,6 +64,7 @@ def parse_shtest_file(path: str):
     )
     steps = []
     current = {"name": "", "actions": [], "obtained": []}
+    step_count = 1
     with open(path, encoding="utf-8") as f:
         for line in f:
             line = line.strip()
@@ -64,7 +74,10 @@ def parse_shtest_file(path: str):
             m = step_re.match(line)
             if m:
                 if current["actions"]:
+                    if not current["name"]:
+                        current["name"] = f"Step {step_count}"
                     steps.append(current)
+                    step_count += 1
                 current = {
                     "name": m.group(1).strip(),
                     "actions": [],
@@ -73,8 +86,14 @@ def parse_shtest_file(path: str):
                 continue
             m = action_re.match(line)
             if m:
-                current["actions"].append(m.group(1).strip())
+                action = sanitize_action(m.group(1).strip())
+                current["actions"].append(action)
+                result = m.group(2).strip()
+                if result:
+                    current["obtained"].append(canonicalize_result(result))
     if current["actions"]:
+        if not current["name"]:
+            current["name"] = f"Step {step_count}"
         steps.append(current)
     return steps
 
