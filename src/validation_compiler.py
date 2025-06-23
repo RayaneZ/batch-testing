@@ -17,8 +17,11 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
         last_file_var[0] = m.group(1)
         lines.append(f"if [ -e {last_file_var[0]} ]; then actual=\"le fichier {last_file_var[0]} existe\"; else actual=\"le fichier {last_file_var[0]} absent\"; fi")
         lines.append(f"expected=\"le fichier {last_file_var[0]} existe\"")
-    elif re.search(r"(?:le\s+)?fichier\s+est\s+présent", expected, re.IGNORECASE) and last_file_var[0]:
-        lines.append(f"if [ -e {last_file_var[0]} ]; then actual=\"Le fichier est présent\"; else actual=\"fichier absent\"; fi")
+    elif re.search(r"(?:le\s+)?fichier\s+est\s+pr[eé]sent", expected, re.IGNORECASE):
+        if last_file_var[0]:
+            lines.append(f"if [ -e {last_file_var[0]} ]; then actual=\"Le fichier est présent\"; else actual=\"fichier absent\"; fi")
+        else:
+            lines.append("if [ $last_ret -eq 0 ]; then actual=\"Le fichier est présent\"; else actual=\"fichier absent\"; fi")
         lines.append("expected=\"Le fichier est présent\"")
     elif re.search(r"le\s+(fichier|dossier)\s+est\s+copié", expected, re.IGNORECASE):
         lines.append(f"if [ $last_ret -eq 0 ]; then actual=\"{expected}\"; else actual=\"échec copie\"; fi")
@@ -61,6 +64,9 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
     elif expected.lower() == "dossier créé":
         lines.append("if [ $last_ret -eq 0 ]; then actual=\"dossier créé\"; else actual=\"échec création\"; fi")
         lines.append("expected=\"dossier créé\"")
+    elif expected.lower() == "fichier cree":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"fichier cree\"; else actual=\"échec création\"; fi")
+        lines.append("expected=\"fichier cree\"")
     elif expected.lower() == "date modifiée":
         lines.append("if [ $last_ret -eq 0 ]; then actual=\"date modifiée\"; else actual=\"date inchangée\"; fi")
         lines.append("expected=\"date modifiée\"")
