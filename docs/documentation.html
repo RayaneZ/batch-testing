@@ -215,5 +215,55 @@ Action: Ex&eacute;cuter /app/sgda/data/arbo/batches/purge/purge.sh ; Resultat: r
 Step: step&nbsp;5
 Action: Lire le fichier = /app/sgda/logs/purge.log ; Resultat: stdout contient "Purge effectu&eacute;e avec succ&egrave;s. Le batch &agrave; retourn&eacute; un code 000"</code></pre>
   </div>
+  <div class="section">
+    <h2>Interaction avec les scripts Python</h2>
+    <p>Les fichiers <code>.shtest</code> sont d'abord analysés par
+    <code>parser.py</code> qui applique une série d'expressions régulières pour
+    extraire les actions et les validations. Les phrases naturelles sont
+    normalisées par <code>AliasResolver</code> afin de produire un dictionnaire
+    homogène.</p>
+    <p>Ce dictionnaire est ensuite utilisé par
+    <code>generate_tests.py</code> pour écrire un script shell. Chaque action est
+    convertie à l'aide des gabarits définis dans <code>templates.py</code> puis
+    les validations sont traduites en instructions conditionnelles par
+    <code>validation_compiler.py</code>.</p>
+    <p>Enfin, <code>export_to_excel.py</code> peut parcourir ces mêmes fichiers et
+    générer un tableau récapitulatif au format Excel.</p>
+  </div>
+  <div class="section">
+    <h2>Architecture interne des scripts</h2>
+    <p>Cette partie détaille la réaction des différents modules vis-à-vis des
+    entrées du langage.</p>
+
+    <h3>parser.py</h3>
+    <p>Chaque ligne est comparée à des expressions régulières puis traduite en
+    dictionnaire structuré. Les phrases naturelles comme
+    <code>Le script retourne un code 0</code> sont converties en
+    <code>retour 0</code>. Les clés du dictionnaire (&laquo;
+    initialization&nbsp;&raquo;, &laquo;&nbsp;execution&nbsp;&raquo;, etc.)
+    servent de base à la génération ultérieure.</p>
+
+    <h3>generate_tests.py</h3>
+    <p>Une fois les fichiers analysés, ce module sélectionne pour chaque action
+    le gabarit approprié dans <code>templates.py</code>. Les scripts SQL
+    mentionnés sont lancés via la commande
+    <code>sqlplus -S ${SQL_CONN:-user/password@db} @script.sql</code>.</p>
+
+    <h3>validation_compiler.py</h3>
+    <p>Les validations composées sont transformées en arbre de syntaxe puis en
+    instructions shell. Par exemple
+    <code>retour 0 et stdout contient OK</code> devient une série de tests
+    stockant leur résultat dans des variables intermédiaires.</p>
+
+    <h3>export_to_excel.py</h3>
+    <p>Pour chaque fichier <code>.shtest</code>, un onglet Excel est créé avec les
+    actions et les validations canonicalisées. Cela facilite la revue manuelle
+    des scénarios.</p>
+
+    <h3>config.ini</h3>
+    <p>Les chemins d'entr&eacute;e et de sortie par d&eacute;faut sont d&eacute;finis
+    dans ce fichier. S'il est absent, les scripts utilisent
+    <code>src/tests</code> et <code>output</code>.</p>
+  </div>
 </body>
 </html>
