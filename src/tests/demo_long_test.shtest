@@ -1,0 +1,13 @@
+Etape: Preparation
+Action: Creer le dossier = demo_env ; Resultat: le dossier est cree.
+Action: Creer le fichier = demo_env/initial.txt ; Resultat: le fichier est cree.
+
+Etape: Ancien fichier
+Action: toucher le fichier demo_env/old.txt -t 202201010000 ; Resultat: date modifiee.
+
+Etape: Nouveau fichier
+Action: Creer le fichier = demo_env/newfile.txt ; Resultat: fichier cree.
+Action: Mettre a jour la date du fichier demo_env/newfile.txt 202401010101 ; Resultat: date modifiee.
+
+Etape: Export Excel
+Action: Exporter les tests vers Excel ; Resultat: l'Excel est genere.
