@@ -3,6 +3,7 @@ import os
 import re
 from glob import glob
 from openpyxl import Workbook
+import configparser
 from validation_ast import (
     Atomic,
     BinaryOp,
@@ -11,6 +12,14 @@ from validation_ast import (
 
 
 _PREC = {"et": 2, "ou": 1}
+
+
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.ini")
+config = configparser.ConfigParser()
+config.read(CONFIG_PATH)
+
+DEFAULT_INPUT_DIR = config.get("application", "input_dir", fallback="src/tests")
+DEFAULT_OUTPUT_FILE = "tests_summary.xlsx"
 
 
 def _ast_to_str(node: BinaryOp | Atomic, parent_op: str | None = None) -> str:
@@ -45,7 +54,7 @@ def parse_shtest_file(path: str):
         re.IGNORECASE,
     )
     steps = []
-    current = {"name": "", "actions": [], "expected": [], "obtained": []}
+    current = {"name": "", "actions": [], "obtained": []}
     with open(path, encoding="utf-8") as f:
         for line in f:
             line = line.strip()
@@ -54,21 +63,18 @@ def parse_shtest_file(path: str):
             # Lines starting with "Étape:" mark a new logical step
             m = step_re.match(line)
             if m:
-                if current["actions"] or current["expected"]:
+                if current["actions"]:
                     steps.append(current)
                 current = {
                     "name": m.group(1).strip(),
                     "actions": [],
-                    "expected": [],
                     "obtained": [],
                 }
                 continue
             m = action_re.match(line)
             if m:
                 current["actions"].append(m.group(1).strip())
-                result = canonicalize_result(m.group(2).strip())
-                current["expected"].append(result)
-    if current["actions"] or current["expected"]:
+    if current["actions"]:
         steps.append(current)
     return steps
 
@@ -77,20 +83,17 @@ def export_tests_to_excel(input_dir: str, output_file: str) -> None:
     """Generate an Excel summary from all ``.shtest`` files in *input_dir*."""
 
     wb = Workbook()
-    ws = wb.active
-    ws.title = "Tests"
-    ws.append(["Test Name", "Actions", "Expected Results", "Actual Results"])
+    # Remove the automatically created sheet so each test gets its own
+    wb.remove(wb.active)
 
-    for path in glob(os.path.join(input_dir, "*.shtest")):
+    for path in sorted(glob(os.path.join(input_dir, "*.shtest"))):
         test_name = os.path.splitext(os.path.basename(path))[0]
+        ws = wb.create_sheet(title=test_name)
+        ws.append(["Step", "Actions", "Actual Results"])
         for step in parse_shtest_file(path):
             actions = "\n".join(step["actions"])
-            if step["name"]:
-                # Prepend the step name when available
-                actions = f"Step: {step['name']}\n" + actions
-            expected = "\n".join(step["expected"])
             obtained = "\n".join(step["obtained"])
-            ws.append([test_name, actions, expected, obtained])
+            ws.append([step["name"], actions, obtained])
 
     wb.save(output_file)
 
@@ -100,10 +103,14 @@ if __name__ == "__main__":
         description="Export .shtest files to an Excel summary"
     )
     parser.add_argument(
-        "--input-dir", default="tests", help="Directory containing .shtest files"
+        "--input-dir",
+        default=DEFAULT_INPUT_DIR,
+        help="Directory containing .shtest files",
     )
     parser.add_argument(
-        "--output", default="tests_summary.xlsx", help="Path to the output Excel file"
+        "--output",
+        default=DEFAULT_OUTPUT_FILE,
+        help="Path to the output Excel file",
     )
     args = parser.parse_args()
 
