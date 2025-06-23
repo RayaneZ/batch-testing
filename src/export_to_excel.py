@@ -3,6 +3,34 @@ import os
 import re
 from glob import glob
 from openpyxl import Workbook
+from validation_ast import (
+    Atomic,
+    BinaryOp,
+    parse_validation_expression,
+)
+
+
+_PREC = {"et": 2, "ou": 1}
+
+
+def _ast_to_str(node: BinaryOp | Atomic, parent_op: str | None = None) -> str:
+    """Return a canonical string representation of a validation AST node."""
+    if isinstance(node, Atomic):
+        return node.value
+    if isinstance(node, BinaryOp):
+        left = _ast_to_str(node.left, node.op)
+        right = _ast_to_str(node.right, node.op)
+        expr = f"{left} {node.op} {right}"
+        if parent_op and _PREC[node.op] < _PREC[parent_op]:
+            return f"({expr})"
+        return expr
+    return ""
+
+
+def canonicalize_result(result: str) -> str:
+    """Convert a result expression to its alias-only canonical form."""
+    ast = parse_validation_expression(result.rstrip('.;').strip())
+    return _ast_to_str(ast)
 
 # This script reads all ``.shtest`` files in a directory and produces an
 # Excel workbook summarising each test case.
@@ -38,7 +66,8 @@ def parse_shtest_file(path: str):
             m = action_re.match(line)
             if m:
                 current["actions"].append(m.group(1).strip())
-                current["expected"].append(m.group(2).strip())
+                result = canonicalize_result(m.group(2).strip())
+                current["expected"].append(result)
     if current["actions"] or current["expected"]:
         steps.append(current)
     return steps
