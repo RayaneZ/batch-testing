@@ -16,9 +16,6 @@ config.read(CONFIG_PATH)
 
 INPUT_DIR = config.get("application", "input_dir", fallback="src/tests")
 OUTPUT_DIR = config.get("application", "output_dir", fallback="output")
-DEFAULT_BATCH_PATH = config.get(
-    "application", "batch_path", fallback="./process_batch.sh"
-)
 
 
 def parse_test_file(contents: str):
@@ -36,7 +33,7 @@ def parse_test_file(contents: str):
 
 
 
-def generate_shell_script(actions_list, batch_path: str):
+def generate_shell_script(actions_list):
     """Génère un script shell à partir de la liste ordonnée d'actions.
 
     Each item in *actions_list* corresponds to a line of the original
@@ -89,7 +86,7 @@ def generate_shell_script(actions_list, batch_path: str):
 
         if actions["execution"]:
             arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
-            actual_path = actions.get("batch_path") or batch_path
+            actual_path = actions.get("batch_path")
             for action in actions["execution"]:
                 cmd = actual_path if not arg_str else f"{actual_path} {arg_str}"
                 lines.append(f"run_cmd \"{cmd}\"")
@@ -153,11 +150,6 @@ def generate_shell_script(actions_list, batch_path: str):
 def main():
     # Command-line interface for the generator
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--batch-path",
-        default=DEFAULT_BATCH_PATH,
-        help="Chemin vers le script batch",
-    )
     args = parser.parse_args()
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -165,7 +157,7 @@ def main():
         with open(txt_file, encoding="utf-8") as f:
             test_description = f.read()
         actions = parse_test_file(test_description)
-        script = generate_shell_script(actions, batch_path=args.batch_path)
+        script = generate_shell_script(actions)
         out_name = os.path.splitext(os.path.basename(txt_file))[0] + ".sh"
         out_path = os.path.join(OUTPUT_DIR, out_name)
         with open(out_path, "w", encoding="utf-8") as f:
