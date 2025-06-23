@@ -89,8 +89,10 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
             else:
                 stdout_grep = re.search(r"stdout\s+contient\s+(.*)", expected)
                 if stdout_grep:
-                    pattern = stdout_grep.group(1)
-                    lines.append(f"if echo \"$last_stdout\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
+                    pattern = stdout_grep.group(1).strip().strip('"\'')
+                    lines.append(
+                        f"if echo \"$last_stdout\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi"
+                    )
                     lines.append(f"expected={pattern!r}")
                 else:
                     stderr_match = re.search(r"stderr\s*=\s*(.*)", expected)
@@ -100,8 +102,10 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
                     else:
                         stderr_grep = re.search(r"stderr\s+contient\s+(.*)", expected)
                         if stderr_grep:
-                            pattern = stderr_grep.group(1)
-                            lines.append(f"if echo \"$last_stderr\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi")
+                            pattern = stderr_grep.group(1).strip().strip('"\'')
+                            lines.append(
+                                f"if echo \"$last_stderr\" | grep -q {pattern!r}; then actual={pattern!r}; else actual=\"\"; fi"
+                            )
                             lines.append(f"expected={pattern!r}")
                         else:
                             lines.append("actual=\"non vérifié\"")

@@ -85,8 +85,8 @@ expected="0"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
 # Attendu : stdout contient "Succès complet"
-if echo "$last_stdout" | grep -q '"Succès complet"'; then actual='"Succès complet"'; else actual=""; fi
-expected='"Succès complet"'
+if echo "$last_stdout" | grep -q 'Succès complet'; then actual='Succès complet'; else actual=""; fi
+expected='Succès complet'
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
 # Attendu : stderr contient WARNING
