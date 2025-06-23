@@ -1,0 +1,13 @@
+Etape: Step 1 - Preparation
+Action: Creer le dossier = ./qualification/demo_env ; Resultat: le dossier est cree.
+Action: Creer le fichier = ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree.
+
+Etape: Step 2 - Ancien fichier
+Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee.
+
+Etape: Step 3 - Nouveau fichier
+Action: Creer le fichier = ./qualification/demo_env/newfile.txt ; Resultat: fichier cree.
+Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee.
+
+Etape: Step 4 - Execution du batch
+Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING).

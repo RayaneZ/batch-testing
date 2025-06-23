@@ -51,7 +51,7 @@ class AliasResolver:
                 lambda m: [f"le fichier {m.group(1)} existe"]
             ),
             (
-                re.compile(r"le fichier\s+est\s+présent", re.IGNORECASE),
+                re.compile(r"le fichier\s+est\s+pr[eé]sent", re.IGNORECASE),
                 lambda m: ["Le fichier est présent"]
             ),
             (
@@ -67,8 +67,12 @@ class AliasResolver:
                 lambda m: ["Le fichier est présent"]
             ),
             (
-                re.compile(r"le fichier\s+est\s+cr[ée]", re.IGNORECASE),
+                re.compile(r"le fichier\s+est\s+cr[eé]{1,2}e?", re.IGNORECASE),
                 lambda m: ["Le fichier est présent"]
+            ),
+            (
+                re.compile(r"fichier\s+cr[eé]{1,2}e?", re.IGNORECASE),
+                lambda m: ["fichier cree"]
             ),
             (
                 re.compile(r"la base(?: de test)?\s+est\s+pr[êe]te(?:\s+pour le test)?", re.IGNORECASE),
@@ -83,7 +87,7 @@ class AliasResolver:
                 lambda m: ["contenu affiché"]
             ),
             (
-                re.compile(r"le dossier\s+est\s+cr[ée]", re.IGNORECASE),
+                re.compile(r"le dossier\s+est\s+cr[eé]{1,2}e?", re.IGNORECASE),
                 lambda m: ["dossier créé"]
             ),
             (
@@ -91,7 +95,11 @@ class AliasResolver:
                 lambda m: ["dossier créé"]
             ),
             (
-                re.compile(r"la date\s+est\s+modifi[ée]", re.IGNORECASE),
+                re.compile(r"la date\s+est\s+modifi[eé]e?", re.IGNORECASE),
+                lambda m: ["date modifiée"]
+            ),
+            (
+                re.compile(r"date\s+modifi[eé]e?", re.IGNORECASE),
                 lambda m: ["date modifiée"]
             ),
             (
@@ -199,12 +207,14 @@ class Parser:
             lambda m, a: a["sql_scripts"].append(m.group(1))
             if m.group(1) not in a["sql_scripts"] else None,
         )
-        self._register(r"(créer|mettre à jour) (?:le\s+)?(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
+        self._register(r"(cr[ée]er|mettre\s+(?:à|a)\s+jour) (?:le\s+)?(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
                        lambda m, a: a["file_operations"].append((m.group(1), m.group(2), m.group(3), m.group(4))))
         # Simple directory creation without explicit mode
-        self._register(r"créer\s+le\s+dossier\s*=?\s*(\S+)",
+        self._register(r"cr[ée]er\s+le\s+dossier\s*=?\s*(\S+)",
                        lambda m, a: a["file_operations"].append(("créer", "dossier", m.group(1), "0755")))
-        self._register(r"mettre à jour la date du fichier\s*(\S+)\s*(\d{8,14})?",
+        self._register(r"cr[ée]er\s+le\s+fichier\s*=?\s*(\S+)",
+                       lambda m, a: a["file_operations"].append(("créer", "fichier", m.group(1), "0644")))
+        self._register(r"mettre\s+(?:à|a)\s+jour\s+la\s+date\s+du\s+fichier\s*(\S+)\s*(\d{8,14})?",
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
         self._register(r"touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)(?:\s+(?:-t\s*)?(\d{8,14}))?",
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
@@ -240,9 +250,12 @@ class Parser:
                 actions[key].extend(value)
         result = match.group(2).rstrip('.;').strip()
         if result:
-            resolver = AliasResolver()
-            for res in resolver.resolve(result):
-                actions["validation"].append(res)
+            if re.search(r"\bet\b|\bou\b|\(|\)", result):
+                actions["validation"].append(result)
+            else:
+                resolver = AliasResolver()
+                for res in resolver.resolve(result):
+                    actions["validation"].append(res)
 
     def parse(self, description: str) -> Dict[str, Any]:
         """Parse a block of text and return a dictionary of actions."""
