@@ -1,20 +1,28 @@
 {
+    "name": "shtest-syntax",
+    "displayName": "Shell Test Syntax",
+    "description": "Syntax highlighting for .shtest files",
+    "version": "0.1.0",
+    "publisher": "codex",
+    "engines": {
+        "vscode": "^1.80.0"
+    },
+    "categories": ["Programming Languages"],
     "contributes": {
         "languages": [
             {
-            "id": "shtest",
-            "extensions": [".shtest"],
-            "aliases": ["Shell Test"],
-            "configuration": "./language-configuration.json"
+                "id": "shtest",
+                "extensions": [".shtest"],
+                "aliases": ["Shell Test"],
+                "configuration": "./language-configuration.json"
             }
         ],
         "grammars": [
             {
-            "language": "shtest",
-            "scopeName": "source.shtest",
-            "path": "./syntaxes/shtest.tmLanguage.json"
+                "language": "shtest",
+                "scopeName": "source.shtest",
+                "path": "./syntaxes/shtest.tmLanguage.json"
             }
         ]
     }
-
 }
