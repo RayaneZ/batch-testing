@@ -59,24 +59,23 @@ This generates `tests_summary.xlsx` in the current directory.
 Use `generate_tests.py` to convert `.shtest` files into executable shell scripts.
 
 ```bash
-python src/generate_tests.py --batch-path ./process_batch.sh
+python src/generate_tests.py
 ```
 
 The scripts will be created in the `output/` directory with the same name as
 their source test files.
 
-Default directories and the batch path can also be configured via
+Default directories can also be configured via
 `config.ini` at the repository root:
 
 ```ini
 [application]
 input_dir = src/tests
 output_dir = output
-batch_path = ./process_batch.sh
 ```
 
 `generate_tests.py` will read this file if present and use the values as
-defaults for `--batch-path` and where test files are located.
+defaults for where test files are located.
 
 Generated scripts use `/bin/sh` for portability.
 
@@ -89,9 +88,9 @@ export SQL_CONN="sqlplus -S myuser/mypass@mydb"
 ```
 If `SQL_CONN` is unset, `sqlplus -S user/password@db` is used.
 
-### Options
+### Notes
 
-- `--batch-path PATH` – path to the script to run for each test (default: `./process_batch.sh`)
+The path to the batch script must be provided directly in each `.shtest` file.
 
 To pass arguments to the batch script, use `argument NOM=VALEUR` in your action
 lines and chain additional pairs with `et`:

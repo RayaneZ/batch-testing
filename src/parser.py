@@ -179,6 +179,8 @@ class Parser:
         # "Exécuter le script SQL = nom.sql".
         self._register(r"exécuter.*?\.sql",
                        self._handle_sql_script)
+        self._register(r"(?:exécuter|lancer|traiter)\s+(\S+\.sh)",
+                       lambda m, a: a.__setitem__("batch_path", m.group(1)))
         self._register(r"(exécuter|lancer|traiter)",
                        lambda m, a: a["execution"].append(m.string.strip()))
         self._register(r"(?:vérifier|valider)\s+que\s+(.*)",
@@ -208,8 +210,6 @@ class Parser:
                        lambda m, a: a["touch_files"].append((m.group(1), m.group(2))))
         self._register(r"(copier|d\xE9placer)\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)",
                        lambda m, a: a["copy_operations"].append((m.group(1), m.group(2) or "fichier", m.group(3), m.group(4))))
-        self._register(r"exécuter\s+(\/\S+\.sh)",
-                       lambda m, a: a.__setitem__("batch_path", m.group(1)))
         self._register(r"(?:afficher le contenu du fichier|cat le fichier|lire le fichier)\s*=?\s*(\S+)",
                        lambda m, a: a["cat_files"].append(m.group(1)))
 
