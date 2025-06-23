@@ -1,0 +1,8 @@
+Action: Vérifier que le fichier /tmp/test.log existe ; Résultat: le fichier /tmp/test.log existe.
+Action: Vérifier que le fichier /tmp/test.log a les droits 0644 ; Résultat: le fichier /tmp/test.log a les droits 0644.
+Action: Vérifier que le fichier /tmp/test.log contient OK ; Résultat: le fichier /tmp/test.log contient OK.
+Action: Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD ; Résultat: le fichier /tmp/test.log contient exactement ALLGOOD.
+Action: Vérifier que le dossier /tmp/testdir existe ; Résultat: le dossier /tmp/testdir existe.
+Action: Vérifier que le dossier /tmp/testdir a les droits 0755 ; Résultat: le dossier /tmp/testdir a les droits 0755.
+Action: Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt ; Résultat: le dossier /tmp/testdir contient 2 fichiers *.txt.
+Action: Vérifier que la date du fichier /tmp/test.log est 202501010000 ; Résultat: la date du fichier /tmp/test.log est 202501010000.
