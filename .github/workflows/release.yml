@@ -19,7 +19,8 @@ jobs:
 
       - name: Install vsce
         run: npm install -g @vscode/vsce
-
+      - name: Copy license
+        run: cp LICENSE vscode/LICENSE.txt
       - name: Package VSIX
         run: vsce package -o ../shtest-syntax.vsix
         working-directory: vscode

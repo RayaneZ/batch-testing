@@ -2,4 +2,4 @@ __pycache__/
 output/
 # Ignore packaged VS Code extensions and encoded archives
 vscode/*.vsix
-vscode/*.txt
+vscode/shtest-syntax-*.txt
