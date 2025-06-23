@@ -62,6 +62,54 @@ class AliasResolver:
                 re.compile(r"le dossier\s+est\s+copié", re.IGNORECASE),
                 lambda m: ["le dossier est copié"]
             ),
+            (
+                re.compile(r"le fichier\s+est\s+initialis[ée]", re.IGNORECASE),
+                lambda m: ["Le fichier est présent"]
+            ),
+            (
+                re.compile(r"le fichier\s+est\s+cr[ée]", re.IGNORECASE),
+                lambda m: ["Le fichier est présent"]
+            ),
+            (
+                re.compile(r"la base(?: de test)?\s+est\s+pr[êe]te(?:\s+pour le test)?", re.IGNORECASE),
+                lambda m: ["base prête"]
+            ),
+            (
+                re.compile(r"le contenu\s+est\s+affich[ée]", re.IGNORECASE),
+                lambda m: ["contenu affiché"]
+            ),
+            (
+                re.compile(r"le script\s+est\s+affich[ée]", re.IGNORECASE),
+                lambda m: ["contenu affiché"]
+            ),
+            (
+                re.compile(r"le dossier\s+est\s+cr[ée]", re.IGNORECASE),
+                lambda m: ["dossier créé"]
+            ),
+            (
+                re.compile(r"le dossier\s+est\s+pr[êe]t", re.IGNORECASE),
+                lambda m: ["dossier créé"]
+            ),
+            (
+                re.compile(r"la date\s+est\s+modifi[ée]", re.IGNORECASE),
+                lambda m: ["date modifiée"]
+            ),
+            (
+                re.compile(r"le contenu\s+est\s+correct", re.IGNORECASE),
+                lambda m: ["contenu correct"]
+            ),
+            (
+                re.compile(r"le contenu\s+est\s+lisible", re.IGNORECASE),
+                lambda m: ["contenu affiché"]
+            ),
+            (
+                re.compile(r"aucun message d'?erreur", re.IGNORECASE),
+                lambda m: ["stderr="]
+            ),
+            (
+                re.compile(r"les logs sont accessibles", re.IGNORECASE),
+                lambda m: ["logs accessibles"]
+            ),
         ]
 
     def resolve(self, text: str) -> List[str]:
