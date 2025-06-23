@@ -52,6 +52,24 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
             search = "-type f"
         lines.append(f"actual=$(find {path} -maxdepth 1 {search} | wc -l)")
         lines.append(f"expected={count}")
+    elif expected.lower() == "base prête":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"base prête\"; else actual=\"base non prête\"; fi")
+        lines.append("expected=\"base prête\"")
+    elif expected.lower() == "contenu affiché":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"contenu affiché\"; else actual=\"contenu non affiché\"; fi")
+        lines.append("expected=\"contenu affiché\"")
+    elif expected.lower() == "dossier créé":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"dossier créé\"; else actual=\"échec création\"; fi")
+        lines.append("expected=\"dossier créé\"")
+    elif expected.lower() == "date modifiée":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"date modifiée\"; else actual=\"date inchangée\"; fi")
+        lines.append("expected=\"date modifiée\"")
+    elif expected.lower() == "contenu correct":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"contenu correct\"; else actual=\"contenu incorrect\"; fi")
+        lines.append("expected=\"contenu correct\"")
+    elif expected.lower() == "logs accessibles":
+        lines.append("if [ $last_ret -eq 0 ]; then actual=\"logs accessibles\"; else actual=\"logs inaccessibles\"; fi")
+        lines.append("expected=\"logs accessibles\"")
     else:
         ret_match = re.search(r"retour\s*(\d+)", expected)
         if ret_match:

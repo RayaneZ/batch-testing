@@ -9,12 +9,6 @@ from glob import glob
 import re
 
 
-def parse_test_in_natural_language(test_description: str):
-    """Analyse la description du test en utilisant le parseur modulaire."""
-    parser = Parser()
-    return parser.parse(test_description)
-
-
 def parse_test_file(contents: str):
     """Parse line by line and preserve ordering of actions/results."""
 
