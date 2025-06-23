@@ -118,3 +118,69 @@ Resultat: retour 0 et (stdout contient OK ou stderr contient WARNING)
 Additional checks exist for file operations:
 - `le fichier /chemin existe` or `Le fichier est présent` to validate presence.
 - `le fichier est copié` / `le dossier est copié` to assert copy success.
+
+## Project architecture
+
+This section explains how each Python module reacts to the `.shtest` files and
+how the pieces fit together. See `docs/documentation.html` for a complete
+grammar reference and an HTML version of this overview.
+
+### `parser.py`
+
+The parser reads one line at a time and matches it against a set of regular
+expressions. Phrases such as `Le script retourne un code 0` are normalised by
+`AliasResolver` into atomic forms like `retour 0`. The resulting dictionary
+contains keys for `initialization`, `execution`, `file_operations`,
+`validation`, and more. Preserving the order of the original lines guarantees
+that generated scripts mirror the input description.
+
+Example output for a single line:
+
+```python
+{
+    "initialization": [],
+    "execution": ["exécuter purge.sh"],
+    "validation": ["retour 0"],
+}
+```
+
+### `generate_tests.py`
+
+This script loops over all `.shtest` files in the configured directory. Each
+file is parsed and transformed into shell code through the templates found in
+`templates.py`. If an action references a `.sql` file, the generated command is
+similar to:
+
+```sh
+run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @purge.sql"
+```
+
+Helper functions capture the command output so validations can compare the
+expected and actual values.
+
+### `validation_compiler.py`
+
+Validation expressions form a small language with operators `et` and `ou`.
+They are first parsed into an abstract syntax tree so that parentheses and
+precedence are honoured. Each atomic check (e.g. `stdout contient OK`) becomes a
+few shell lines updating a boolean variable. The final variable is then used to
+print `OK` or `KO`.
+
+### `export_to_excel.py`
+
+For reporting purposes this utility converts the parsed structure of each test
+into an Excel workbook. Every `.shtest` file becomes a worksheet listing each
+step, the normalised actions and the expected results. This helps reviewing long
+scenarios without reading shell scripts.
+
+### Configuration file
+
+`config.ini` at the repository root stores the default input and output
+directories. If the file is missing, `generate_tests.py` falls back to
+`src/tests` for input and `output` for generated scripts.
+
+Overall the workflow is:
+
+1. parse the text files;
+2. generate the shell scripts;
+3. optionally export the same information to Excel.
