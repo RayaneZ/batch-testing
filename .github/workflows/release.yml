@@ -1,0 +1,49 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Copy license
+        run: cp LICENSE vscode/LICENSE.txt
+
+      - name: Package VSIX
+        run: vsce package -o ../shtest-syntax.vsix
+        working-directory: vscode
+
+      - name: Zip application
+        run: zip -r app.zip src docs README.md
+
+      - name: Push tag
+        run: |
+          VERSION=$(node -p "require('./vscode/package.json').version")
+          if ! git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git tag -a "v$VERSION" -m "Release v$VERSION"
+            git push origin "v$VERSION"
+          fi
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            app.zip
+            shtest-syntax.vsix
+
