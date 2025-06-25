@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 <link href="assets/images/favicon.png" rel="icon" />
-<title>Documentation | Your ThemeForest item Name</title>
-<meta name="description" content="Your ThemeForest item Name and description">
-<meta name="author" content="harnishdesign.net">
+<title>Documentation | Batch Testing</title>
+<meta name="description" content="Guide d'utilisation du projet Batch Testing">
+<meta name="author" content="Batch Testing">
 
 <!-- Stylesheet
 ============================== -->
@@ -155,25 +155,25 @@
         <!-- Getting Started
 		============================ -->
         <section id="idocs_start">
-        <h1>Documentation</h1>
-        <h2>Your ThemeForest Item Name Here</h2>
-        <p class="lead">Thank you so much for purchasing our item from themeforest.</p>
-		<hr>
-		<div class="row">
-			<div class="col-sm-6 col-lg-4">
-				<ul class="list-unstyled">
-					<li><strong>Version:</strong> 1.0</li>
-					<li><strong>Author:</strong> <a href="http://www.harnishdesign.net" target="_blank">Harnish Design</a></li>
-				</ul>
-			</div>
-			<div class="col-sm-6 col-lg-4">
-				<ul class="list-unstyled">
-					<li><strong class="font-weight-700">Created:</strong> 8 April, 2020</li>
-					<li><strong>Update:</strong> 12 May, 2020</li>
-				</ul>
-			</div>
-		</div>
-        <p class="alert alert-info">If you have any questions that are beyond the scope of this help file, Please feel free to email via <a target="_blank" href="https://themeforest.net/user/harnishdesign/#contact?ref=HarnishDesign">Item Support Page</a>.</p>
+        <h1>Batch Testing</h1>
+        <h2>Documentation</h2>
+        <p class="lead">Utilisez ce guide pour transformer vos fichiers <code>.shtest</code> en scripts shell exécutables.</p>
+                <hr>
+                <div class="row">
+                        <div class="col-sm-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                        <li><strong>Version:</strong> 1.0</li>
+                                        <li><strong>Auteur:</strong> Équipe Batch Testing</li>
+                                </ul>
+                        </div>
+                </div>
+        <p>Pour démarrer rapidement&nbsp;:</p>
+        <ol>
+          <li>Créez vos scénarios dans <code>src/tests</code> au format <code>.shtest</code>.</li>
+          <li>Exécutez <code>python src/generate_tests.py</code> pour produire les scripts dans <code>output/</code>.</li>
+          <li>Optionnel&nbsp;: lancez <code>python src/export_to_excel.py</code> pour générer un résumé Excel.</li>
+        </ol>
+        <p>Consultez également la <a href="grammar.html">grammaire</a> pour la syntaxe complète.</p>
         </section>
         
 		<hr class="divider">
