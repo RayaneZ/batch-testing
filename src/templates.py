@@ -13,5 +13,6 @@ TEMPLATES = {
     "copy_file": Template("cp ${src} ${dest}"),
     "copy_dir": Template("cp -r ${src} ${dest}"),
     "move": Template("mv ${src} ${dest}"),
+    "purge_dir": Template("rm -rf ${path}/* && mkdir -p ${path}"),
 }
 

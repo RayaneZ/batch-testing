@@ -119,6 +119,11 @@ def generate_shell_script(actions_list):
                         cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
                 lines.append(f"run_cmd \"{cmd}\"")
 
+        if actions.get("purge_dirs"):
+            for path in actions["purge_dirs"]:
+                cmd = TEMPLATES["purge_dir"].substitute(path=path)
+                lines.append(f"run_cmd \"{cmd}\"")
+
         if actions.get("touch_files"):
             for entry in actions["touch_files"]:
                 path, ts = entry if isinstance(entry, tuple) else (entry, None)
