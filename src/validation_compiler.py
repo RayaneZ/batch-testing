@@ -30,6 +30,10 @@ def _compile_atomic(expected: str, varname: str, last_file_var: list):
         path = m.group(1)
         lines.append(f"if [ -d {path} ]; then actual=\"le dossier {path} existe\"; else actual=\"le dossier {path} absent\"; fi")
         lines.append(f"expected=\"le dossier {path} existe\"")
+    elif m := re.search(r"fichier_identique\s+(\S+)\s+(\S+)", expected, re.IGNORECASE):
+        src, dest = m.groups()
+        lines.append(f"if diff -q {src} {dest} >/dev/null; then actual=\"fichiers identiques\"; else actual=\"fichiers différents\"; fi")
+        lines.append("expected=\"fichiers identiques\"")
     elif m := re.search(r"le (?:fichier|dossier) (\S+) a(?: pour)?(?: les)? droits\s*(\d+)", expected, re.IGNORECASE):
         path, mode = m.groups()
         lines.append(f"actual=$(stat -c '%a' {path})")

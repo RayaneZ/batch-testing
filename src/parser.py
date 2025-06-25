@@ -63,6 +63,10 @@ class AliasResolver:
                 lambda m: ["le dossier est copié"]
             ),
             (
+                re.compile(r"le fichier\s+(\S+)\s+est identique(?:\s+[àa])?\s*(\S+)", re.IGNORECASE),
+                lambda m: [f"fichier_identique {m.group(1)} {m.group(2)}"]
+            ),
+            (
                 re.compile(r"le fichier\s+est\s+initialis[ée]", re.IGNORECASE),
                 lambda m: ["Le fichier est présent"]
             ),
