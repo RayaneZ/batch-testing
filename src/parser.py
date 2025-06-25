@@ -222,6 +222,8 @@ class Parser:
                        lambda m, a: a["copy_operations"].append((m.group(1), m.group(2) or "fichier", m.group(3), m.group(4))))
         self._register(r"(?:afficher le contenu du fichier|cat le fichier|lire le fichier)\s*=?\s*(\S+)",
                        lambda m, a: a["cat_files"].append(m.group(1)))
+        self._register(r"(?:vider|purger)\s+le\s+(?:r[eé]pertoire|dossier)\s*=?\s*(\S+)",
+                       lambda m, a: a["purge_dirs"].append(m.group(1)))
 
     def _handle_arguments(self, match: re.Match, actions: Dict[str, List]) -> None:
         """Extract all key=value pairs from an argument expression."""
@@ -274,6 +276,7 @@ class Parser:
             "copy_operations": [],
             "cat_files": [],
             "touch_files": [],
+            "purge_dirs": [],
             "steps": [],
             "batch_path": None,
         }
