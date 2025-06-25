@@ -1,0 +1,44 @@
+{
+  "Step": {
+    "prefix": "step",
+    "body": "Step: ${1:name}",
+    "description": "Insert a step heading"
+  },
+  "Etape": {
+    "prefix": "etape",
+    "body": "Etape: ${1:nom}",
+    "description": "Insert a step heading in French without accent"
+  },
+  "Étape": {
+    "prefix": "étape",
+    "body": "Étape: ${1:nom}",
+    "description": "Insert a step heading in French"
+  },
+  "ActionResult": {
+    "prefix": "action",
+    "body": "Action: ${1:commande} ; Résultat: ${2:attendu}",
+    "description": "Insert an action with expected result"
+  },
+  "ActionResultNoAccent": {
+    "prefix": "actionr",
+    "body": "Action: ${1:commande} ; Resultat: ${2:attendu}",
+    "description": "Insert an action with expected result (Resultat without accent)"
+  },
+  "retour": { "prefix": "retour", "body": "retour ${1:0}", "description": "Return code validation" },
+  "stdout contient": { "prefix": "stdoutc", "body": "stdout contient ${1:texte}", "description": "Standard output contains" },
+  "stdout=": { "prefix": "stdout=", "body": "stdout=${1:valeur}", "description": "Standard output equals" },
+  "stderr=": { "prefix": "stderr=", "body": "stderr=${1:valeur}", "description": "Standard error equals" },
+  "stderr contient": { "prefix": "stderrc", "body": "stderr contient ${1:texte}", "description": "Standard error contains" },
+  "le fichier existe": { "prefix": "fileex", "body": "le fichier ${1:chemin} existe", "description": "File existence" },
+  "Le fichier est présent": { "prefix": "filepresent", "body": "Le fichier est présent", "description": "File is present" },
+  "le fichier est copié": { "prefix": "filecopie", "body": "le fichier est copié", "description": "File is copied" },
+  "le dossier est copié": { "prefix": "dircopie", "body": "le dossier est copié", "description": "Directory is copied" },
+  "fichier cree": { "prefix": "fichiercree", "body": "fichier cree", "description": "File created" },
+  "base prête": { "prefix": "baseprete", "body": "base prête", "description": "Database ready" },
+  "contenu affiché": { "prefix": "contenuaffiche", "body": "contenu affiché", "description": "Content displayed" },
+  "dossier créé": { "prefix": "dossiercree", "body": "dossier créé", "description": "Directory created" },
+  "date modifiée": { "prefix": "datemodifiee", "body": "date modifiée", "description": "Date modified" },
+  "contenu correct": { "prefix": "contenucorrect", "body": "contenu correct", "description": "Correct content" },
+  "stderr vide": { "prefix": "stderrempty", "body": "stderr=", "description": "No stderr output" },
+  "logs accessibles": { "prefix": "logsacc", "body": "logs accessibles", "description": "Logs accessible" }
+}

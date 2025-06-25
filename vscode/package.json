@@ -28,6 +28,12 @@
                 "scopeName": "source.shtest",
                 "path": "./syntaxes/shtest.tmLanguage.json"
             }
+        ],
+        "snippets": [
+            {
+                "language": "shtest",
+                "path": "./snippets/shtest.code-snippets"
+            }
         ]
     }
 }
