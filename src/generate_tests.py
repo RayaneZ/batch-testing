@@ -45,7 +45,7 @@ def generate_shell_script(actions_list):
         "run_cmd() {",
         "  local _stdout=$(mktemp)",
         "  local _stderr=$(mktemp)",
-        "  sh -c \"$1\" >\"$_stdout\" 2>\"$_stderr\"",
+        "  /bin/sh -c \"$1\" >\"$_stdout\" 2>\"$_stderr\"",
         "  last_ret=$?",
         "  last_stdout=$(cat \"$_stdout\")",
         "  last_stderr=$(cat \"$_stderr\")",
