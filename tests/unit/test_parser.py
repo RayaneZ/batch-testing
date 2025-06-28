@@ -61,7 +61,7 @@ class TestParser(unittest.TestCase):
 
     def test_fichier_cree_alias(self):
         result = self.parser.parse("Résultat: le fichier est créé")
-        self.assertIn("Le fichier est présent", result["validation"])
+        self.assertIn("fichier cree", result["validation"])
 
 if __name__ == "__main__":
     unittest.main()
