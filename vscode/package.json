@@ -30,14 +30,5 @@
         "path": "./syntaxes/shtest.tmLanguage.json"
       }
     ]
-  },
-  "devDependencies": {
-    "@vscode/vsce": "^3.6.0"
-  },
-  "dependencies": {
-    "css-select": "^5.2.0"
-  },
-  "overrides": {
-    "css-select": "5.2.0"
   }
 }
