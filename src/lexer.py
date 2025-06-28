@@ -1,6 +1,7 @@
-import re
 from dataclasses import dataclass
 from typing import Iterator, Optional
+
+from common_patterns import ACTION_ONLY_RE, ACTION_RESULT_RE, STEP_RE
 
 @dataclass
 class Token:
@@ -10,11 +11,6 @@ class Token:
     result: Optional[str] = None
     original: Optional[str] = None
 
-_STEP_RE = re.compile(r"^(?:Étape|Etape|Step)\s*:\s*(.*)", re.IGNORECASE)
-_ACTION_RESULT_RE = re.compile(
-    r"^Action\s*:\s*(.*?)\s*(?:R[ée]sultat|Resultat)\s*:?\s*(.*)", re.IGNORECASE
-)
-_ACTION_ONLY_RE = re.compile(r"^Action\s*:\s*(.*)", re.IGNORECASE)
 
 def lex(text: str) -> Iterator[Token]:
     """Tokenize the contents of a ``.shtest`` file."""
@@ -22,11 +18,11 @@ def lex(text: str) -> Iterator[Token]:
         stripped = line.strip()
         if not stripped:
             continue
-        m = _STEP_RE.match(stripped)
+        m = STEP_RE.match(stripped)
         if m:
             yield Token("STEP", m.group(1).strip(), lineno, original=line)
             continue
-        m = _ACTION_RESULT_RE.match(stripped)
+        m = ACTION_RESULT_RE.match(stripped)
         if m:
             yield Token(
                 "ACTION_RESULT",
@@ -36,7 +32,7 @@ def lex(text: str) -> Iterator[Token]:
                 original=line,
             )
             continue
-        m = _ACTION_ONLY_RE.match(stripped)
+        m = ACTION_ONLY_RE.match(stripped)
         if m:
             yield Token("ACTION_ONLY", m.group(1).strip(), lineno, original=line)
             continue
