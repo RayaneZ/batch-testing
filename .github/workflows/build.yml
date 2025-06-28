@@ -1,40 +1,37 @@
-name: Build Extension and App
+name: Package VS Code Extension
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  package:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
 
-      - name: Install vsce
-        run: npm install -g @vscode/vsce
-
-      - name: Package VS Code extension
-        run: vsce package -o ../shtest-syntax.vsix
-        working-directory: vscode
-
-      - name: Archive application
-        run: tar czf app.tar.gz src docs
-
-      - name: Bundle artifacts
+      - name: Install dependencies
         run: |
-          mkdir bundle
-          mv shtest-syntax.vsix bundle/
-          mv app.tar.gz bundle/
-          tar czf build-artifacts.tgz bundle
+          cd vscode
+          npm install
+          npm install --save-dev @vscode/vsce
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Package extension
+        run: |
+          cd vscode
+          npx vsce package
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: build
-          path: build-artifacts.tgz
+          name: shtest-syntax.vsix
+          path: vscode/*.vsix
