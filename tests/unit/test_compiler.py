@@ -16,5 +16,9 @@ class TestValidationCompiler(unittest.TestCase):
         lines = compile_validation("le fichier test.txt existe")
         self.assertTrue(any("test.txt" in line for line in lines))
 
+    def test_identifiants_configures(self):
+        lines = compile_validation("identifiants configurés")
+        self.assertTrue(any("SQL_CONN" in line for line in lines))
+
 if __name__ == "__main__":
     unittest.main()

@@ -16,8 +16,12 @@ class TestGenerateShellScript(unittest.TestCase):
         actions = parse_test_file(content)
         script = generate_shell_script(actions)
         self.assertIn(
-            "export SQL_CONN=sqlplus -S user/password@db",
+            'export SQL_CONN="sqlplus -S user/password@db"',
             script.splitlines(),
+        )
+        self.assertIn(
+            'if [ -n "$SQL_CONN" ]; then actual="identifiants configurés"; else actual="non configuré"; fi',
+            script,
         )
 
     def test_skip_none_execution(self):
@@ -26,7 +30,10 @@ class TestGenerateShellScript(unittest.TestCase):
         )
         actions = parse_test_file(content)
         script = generate_shell_script(actions)
-        self.assertNotIn('run_cmd "None"', script)
+        self.assertIn(
+            'run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @init_bdd.sql"',
+            script,
+        )
 
     def test_step_and_sql_validation(self):
         content = (
@@ -39,6 +46,16 @@ class TestGenerateShellScript(unittest.TestCase):
         self.assertIn("# ---- Pr\u00e9paration ----", lines)
         self.assertTrue(any("init.sql" in line for line in lines))
         self.assertTrue(any("log_diff" in line for line in lines))
+
+    def test_unique_condition_numbers(self):
+        content = (
+            "Action: Définir la variable X = 1 ; Résultat: identifiants configurés.\n"
+            "Action: Exécuter /bin/true ; Résultat: retour 0."
+        )
+        actions = parse_test_file(content)
+        script = generate_shell_script(actions)
+        self.assertIn('cond1', script)
+        self.assertIn('cond2', script)
 
 
 if __name__ == "__main__":

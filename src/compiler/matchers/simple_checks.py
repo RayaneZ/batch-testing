@@ -10,5 +10,9 @@ def match(expected, _):
         "date modifiée": shell_condition("date modifiée", "date inchangée", "date modifiée"),
         "contenu correct": shell_condition("contenu correct", "contenu incorrect", "contenu correct"),
         "logs accessibles": shell_condition("logs accessibles", "logs inaccessibles", "logs accessibles"),
+        "identifiants configurés": [
+            'if [ -n "$SQL_CONN" ]; then actual="identifiants configurés"; else actual="non configuré"; fi',
+            'expected="identifiants configurés"',
+        ],
     }
     return lookup.get(normalized)

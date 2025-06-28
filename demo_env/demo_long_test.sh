@@ -35,8 +35,8 @@ run_cmd "touch ./qualification/demo_env/initial.txt && chmod 0644 ./qualificatio
 actual="non vérifié"
 expected="le fichier est cree"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
-if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
+if [ ${cond2} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
 # ---- Step 2 - Ancien fichier ----
@@ -45,8 +45,8 @@ run_cmd "touch -t 202201010000 ./qualification/demo_env/old.txt"
 actual="non vérifié"
 expected="date modifiee"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
-if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+if [ "$expected" = "$actual" ]; then cond3=1; else cond3=0; fi
+if [ ${cond3} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
 # ---- Step 3 - Nouveau fichier ----
@@ -55,8 +55,8 @@ run_cmd "touch ./qualification/demo_env/newfile.txt && chmod 0644 ./qualificatio
 if [ $last_ret -eq 0 ]; then actual="fichier cree"; else actual="échec création"; fi
 expected="fichier cree"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
-if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+if [ "$expected" = "$actual" ]; then cond4=1; else cond4=0; fi
+if [ ${cond4} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
 run_cmd "touch -t 202401010101 ./qualification/demo_env/newfile.txt"
@@ -64,8 +64,8 @@ run_cmd "touch -t 202401010101 ./qualification/demo_env/newfile.txt"
 actual="non vérifié"
 expected="date modifiee"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
-if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+if [ "$expected" = "$actual" ]; then cond5=1; else cond5=0; fi
+if [ ${cond5} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
 # ---- Step 4 - Execution du batch ----
@@ -74,19 +74,19 @@ run_cmd "./qualification/purge.sh"
 actual="non vérifié"
 expected="retour 0"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
+if [ "$expected" = "$actual" ]; then cond6=1; else cond6=0; fi
 # Attendu : stdout contient Succès complet"
 if echo $last_stdout | grep -q 'Succès complet'; then actual='Succès complet'; else actual=""; fi
 expected='Succès complet'
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
+if [ "$expected" = "$actual" ]; then cond7=1; else cond7=0; fi
 # Attendu : stderr contient WARNING
 if echo $last_stderr | grep -q 'WARNING'; then actual='WARNING'; else actual=""; fi
 expected='WARNING'
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond3=1; else cond3=0; fi
-if [ ${cond2} -eq 1 ] || [ ${cond3} -eq 1 ]; then cond4=1; else cond4=0; fi
-if [ ${cond1} -eq 1 ] && [ ${cond4} -eq 1 ]; then cond5=1; else cond5=0; fi
-if [ ${cond5} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+if [ "$expected" = "$actual" ]; then cond8=1; else cond8=0; fi
+if [ ${cond7} -eq 1 ] || [ ${cond8} -eq 1 ]; then cond9=1; else cond9=0; fi
+if [ ${cond6} -eq 1 ] && [ ${cond9} -eq 1 ]; then cond10=1; else cond10=0; fi
+if [ ${cond10} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
