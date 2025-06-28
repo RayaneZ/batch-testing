@@ -15,4 +15,4 @@ Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un cod
 
 Step: Step 5 - Vérifier la table en base
 Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès.
-Action: Vérifier le fichier ./output.txt ; Résultat: Le fichier est identique à ./output_attendu.txt
+Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques

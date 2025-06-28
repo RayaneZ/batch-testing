@@ -117,9 +117,9 @@ verdict="KO"
 if [ ${cond12} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
-# Attendu : Le fichier est identique à ./output_attendu.txt
+# Attendu : Les fichiers sont identiques
 actual="non vérifié"
-expected="Le fichier est identique à ./output_attendu.txt"
+expected="Les fichiers sont identiques"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond13=1; else cond13=0; fi
 verdict="KO"
