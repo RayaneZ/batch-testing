@@ -23,7 +23,7 @@ jobs:
         run: |
           cd vscode
           npm install
-          npm install --save-dev @vscode/vsce
+          npm install --save-dev @vscode/vsce@2.21.0
 
       - name: Package extension
         run: |
