@@ -1,0 +1,22 @@
+
+site_name: Batch Testing Documentation
+theme:
+  name: material
+nav:
+  - Accueil: index.md
+  - Scénarios:
+      - bdd_example: bdd_example.md
+      - demo_long_test: demo_long_test.md
+
+
+extra_css:
+  - assets/vendor/highlight.js/styles/monokai.css
+  - assets/vendor/magnific-popup/magnific-popup.css
+
+extra_javascript:
+  - assets/vendor/jquery/jquery.min.js
+  - assets/vendor/highlight.js/lib/utils.js
+  - assets/vendor/highlight.js/lib/highlight.js
+  - assets/vendor/magnific-popup/jquery.magnific-popup.min.js
+
+  - Guide de style: style-guide.md
