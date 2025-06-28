@@ -3,7 +3,7 @@ import sys
 import tempfile
 import unittest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 import verify_syntax
 from parser.parser import Parser
@@ -35,6 +35,14 @@ class TestVerifySyntax(unittest.TestCase):
         finally:
             os.unlink(path)
         self.assertTrue(any(':1:' in e and 'étape sans action' in e for e in errors))
+
+    def test_action_without_step(self):
+        path = self._write_temp("Action: echo 1\n")
+        try:
+            errors = verify_syntax.check_file(path, self.parser)
+        finally:
+            os.unlink(path)
+        self.assertTrue(any('action sans étape' in e for e in errors))
 
 
 if __name__ == '__main__':
