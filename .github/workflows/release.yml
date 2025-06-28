@@ -18,7 +18,7 @@ jobs:
           node-version: 24
 
       - name: Install vsce
-        run: npm install -g @vscode/vsce
+        run: npm install -g @vscode/vsce@3.5.0
       - name: Copy license
         run: cp LICENSE vscode/LICENSE.txt
       - name: Package VSIX

@@ -17,7 +17,7 @@ jobs:
           node-version: 18
 
       - name: Install vsce
-        run: npm install -g @vscode/vsce
+        run: npm install -g @vscode/vsce@3.5.0
 
       - name: Package VS Code extension
         run: vsce package -o ../shtest-syntax.vsix
