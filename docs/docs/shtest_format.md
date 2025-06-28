@@ -30,13 +30,13 @@ Action: Exécuter le script SQL init_bdd.sql ; Résultat: base prête.
 Les scripts sont appelés en utilisant la variable `SQL_CONN` de votre environnement.
 Définissez-la dans le scénario si nécessaire :
 ```text
-Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.
+Action: Définir la variable SQL_CONN = user/password@db ; Résultat: identifiants configurés.
 ```
 
 ## Manipulation de fichiers
 Créez, copiez ou mettez à jour des fichiers en décrivant simplement l'opération :
 ```text
-Action: créer le fichier = /tmp/test.txt avec les droits =0600 ; Résultat: Le fichier est présent.
+Action: créer le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent.
 Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
 ```
 Vous pouvez également vérifier qu'un fichier est identique à une référence avec

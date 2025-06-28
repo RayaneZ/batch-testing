@@ -1,123 +1,132 @@
-# 🔄 Compatibilité entre Actions et Résultats
+# Guide des règles de reconnaissance (Regex)
 
-Cette section décrit, pour chaque **action**, les **résultats** compatibles attendus.
+Ce document décrit les expressions régulières utilisées pour interpréter automatiquement les instructions d’un scénario `.shtest`.
 
-## 1. Exécution de Scripts
-
-### Action :
-- `exécuter.*?\\.sql`
-- `(?:exécuter|lancer|traiter)`
-- `(?:exécuter|lancer|traiter)\\s+(\\S+\\.sh)`
-
-### Résultats compatibles :
-- `le script retourne un code`
-- `le script affiche un code`
-- `le script s'exécute avec succès`
-- `stdout contient ...`
-- `stdout=...`
-- `stderr=...`
-- `retour 0`
-- `aucun message d'erreur`
+Chaque ligne de scénario peut déclencher une **action**, une **définition de variable**, ou une **validation de résultat**. Les regex permettent de les reconnaître.
 
 ---
 
-## 2. Définition de Variables
+## 💡 Exemples simples
 
-### Action :
-- `définir la variable ...`
-
-### Résultats compatibles :
-- `identifiants configurés`
-
----
-
-## 3. Fichiers
-
-### Action :
-- `créer le fichier ...`
-- `fichier créé`
-- `mettre à jour la date du fichier`
-- `touch ...`
-
-### Résultats compatibles :
-- `le fichier est présent`
-- `le fichier ... existe`
-- `fichier créé`
-- `le fichier est initialisé`
+```text
+Action: exécuter le script setup.sql ; Résultat: retour 0
+Action: créer le fichier /tmp/test.log ; Résultat: le fichier est présent
+Action: définir la variable ENV = prod
+```
 
 ---
 
-## 4. Dossiers
+## 🛠️ Actions reconnues
 
-### Action :
-- `créer le dossier ...`
-- `dossier créé`
-- `vider/purger le dossier`
+Ces expressions déclenchent des actions de script ou de préparation.
 
-### Résultats compatibles :
-- `le dossier est prêt`
-- `le dossier est copié`
-- `le dossier est créé`
+### Exécution de scripts
 
----
+```text
+exécuter mon_script.sql
+lancer clean.sh
+traiter le script init.sh
+```
 
-## 5. Comparaison de fichiers
+Reconnaît :
+- `.sql` → exécution SQL
+- `.sh` → script shell
+- toute action sans extension → générique
 
-### Action :
-- `comparer le fichier A avec B`
+### Initialisation
 
-### Résultats compatibles :
-- `le fichier A est identique à B`
-- `les fichiers sont identiques`
-
----
-
-## 6. Déplacement et copie
-
-### Action :
-- `copier|déplacer fichier|dossier`
-
-### Résultats compatibles :
-- `le fichier est copié`
-- `le dossier est copié`
-- `le fichier est présent`
+```text
+initialiser les paramètres
+configurer l’environnement
+```
 
 ---
 
-## 7. Lecture de fichiers
+## 🧾 Variables et arguments
 
-### Action :
-- `lire/afficher/cat le fichier`
+```text
+définir la variable ENV = prod
+définir la variable port = 5432
+```
 
-### Résultats compatibles :
-- `le contenu est affiché`
-- `le contenu est lisible`
-- `contenu correct`
-
----
-
-## 8. Logs
-
-### Action :
-- `logs|fichiers de logs`
-- `chemin des logs = ...`
-
-### Résultats compatibles :
-- `les logs sont accessibles`
-- `aucun message d'erreur`
-- `le fichier ... existe`
+Les variables sont extraites et injectées dans les scripts générés.
 
 ---
 
-## 9. Validation et Résultat
+## 📁 Fichiers et dossiers
 
-### Action :
-- `valider que ...`
-- `résultat : ...`
+### Création
 
-### Résultats compatibles :
-- `stdout=...`
-- `stderr=...`
-- `retour ...`
-- `identifiants configurés`
-- `base prête`
+```text
+créer le fichier = /etc/app.conf
+créer le dossier = /var/data
+```
+
+Avec droits :
+```text
+créer dossier = /tmp/logs avec les droits = 0755
+```
+
+### Touch / Date
+
+```text
+mettre à jour la date du fichier /tmp/test.txt 20250628143000
+touch /tmp/file.log -t 20250628120000
+```
+
+### Lecture
+
+```text
+lire le fichier = /etc/hosts
+```
+
+### Copie / Déplacement
+
+```text
+copier le fichier /tmp/a vers /var/b
+déplacer le dossier /data vers /backup
+```
+
+---
+
+## ✅ Résultats attendus
+
+Ces expressions servent à valider l’état après une action.
+
+```text
+le script retourne un code 0
+le script affiche un code "1"
+la sortie standard est success
+la sortie d’erreur contient erreur fatale
+```
+
+Alias pris en charge :
+- `retour 0` = le script a bien été exécuté
+- `stdout contient "..."`, `stderr=...`
+
+### Autres validations
+
+```text
+le fichier /tmp/x existe
+le dossier est prêt
+le fichier est initialisé
+les identifiants sont configurés
+```
+
+---
+
+## 🔗 Compatibilités Action ↔ Résultat
+
+### Exemples
+
+```text
+Action: exécuter init.sql ; Résultat: retour 0
+Action: créer le fichier /etc/app.conf ; Résultat: le fichier est présent
+Action: définir la variable mode = debug ; Résultat: identifiants configurés
+```
+
+Chaque action a des résultats compatibles automatiquement reconnus.
+
+---
+
+Pour plus de détails, consultez les fichiers de configuration du moteur de parsing.
