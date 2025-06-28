@@ -21,7 +21,7 @@ log_diff() {
 }
 
 # ---- preparation ----
-export SQL_CONN="sqlplus -S rootme/ffDDD584R@base_name"
+export SQL_CONN="rootme/ffDDD584R@base_name"
 # Attendu : identifiants configurés
 if [ -n "$SQL_CONN" ]; then actual="identifiants configurés"; else actual="non configuré"; fi
 expected="identifiants configurés"
@@ -31,9 +31,9 @@ if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
 run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @init_bdd.sql"
-# Attendu : base prête
-if [ $last_ret -eq 0 ]; then actual="base prête"; else actual="base non prête"; fi
-expected="base prête"
+# Attendu : La base est prête pour le test
+actual="non vérifié"
+expected="La base est prête pour le test"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
 if [ ${cond2} -eq 1 ]; then actual="OK"; else actual="KO"; fi
@@ -51,9 +51,9 @@ expected="OK"
 log_diff "$expected" "$actual"
 # ---- verification ----
 run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @verification.sql"
-# Attendu : base prête
-if [ $last_ret -eq 0 ]; then actual="base prête"; else actual="base non prête"; fi
-expected="base prête"
+# Attendu : Le script s'execute avec succès
+actual="non vérifié"
+expected="Le script s'execute avec succès"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond4=1; else cond4=0; fi
 if [ ${cond4} -eq 1 ]; then actual="OK"; else actual="KO"; fi

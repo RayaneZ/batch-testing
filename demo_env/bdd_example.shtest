@@ -1,7 +1,7 @@
 Step: preparation
-Action: Définir la variable SQL_CONN = sqlplus -S rootme/ffDDD584R@base_name ; Résultat: identifiants configurés.
-Action: Exécuter le script SQL init_bdd.sql ; Résultat: La base de test est prête.
+Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés.
+Action: Exécuter le script SQL init_bdd.sql ; Résultat: La base est prête pour le test.
 Step: execution
-Action: Exécuter /opt/batch/migration.sh ; Résultat: retour 0.
+Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0.
 Step: verification
-Action: Exécuter le script SQL verification.sql ; Résultat: base prête.
+Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès

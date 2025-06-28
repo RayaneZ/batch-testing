@@ -75,7 +75,7 @@ actual="non vérifié"
 expected="retour 0"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond6=1; else cond6=0; fi
-# Attendu : stdout contient Succès complet"
+# Attendu : stdout contient "Succès complet"
 if echo $last_stdout | grep -q 'Succès complet'; then actual='Succès complet'; else actual=""; fi
 expected='Succès complet'
 log_diff "$expected" "$actual"
@@ -88,5 +88,32 @@ if [ "$expected" = "$actual" ]; then cond8=1; else cond8=0; fi
 if [ ${cond7} -eq 1 ] || [ ${cond8} -eq 1 ]; then cond9=1; else cond9=0; fi
 if [ ${cond6} -eq 1 ] && [ ${cond9} -eq 1 ]; then cond10=1; else cond10=0; fi
 if [ ${cond10} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+expected="OK"
+log_diff "$expected" "$actual"
+run_cmd "/opt/batch/migration.sh"
+# Attendu : retour 0
+actual="non vérifié"
+expected="retour 0"
+log_diff "$expected" "$actual"
+if [ "$expected" = "$actual" ]; then cond11=1; else cond11=0; fi
+if [ ${cond11} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+expected="OK"
+log_diff "$expected" "$actual"
+# ---- Step 5 - Vérifier la table en base ----
+run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @verification.sql"
+# Attendu : Le script s'execute avec succès
+actual="non vérifié"
+expected="Le script s'execute avec succès"
+log_diff "$expected" "$actual"
+if [ "$expected" = "$actual" ]; then cond12=1; else cond12=0; fi
+if [ ${cond12} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+expected="OK"
+log_diff "$expected" "$actual"
+# Attendu : Le fichier est identique à ./output_attendu.txt
+actual="non vérifié"
+expected="Le fichier est identique à ./output_attendu.txt"
+log_diff "$expected" "$actual"
+if [ "$expected" = "$actual" ]; then cond13=1; else cond13=0; fi
+if [ ${cond13} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"
