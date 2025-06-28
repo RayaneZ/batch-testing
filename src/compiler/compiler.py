@@ -9,8 +9,9 @@ def compile_validation(expression: str, counter=None):
     lines, final_var = compile_ast(ast, counter, last_file_var)
 
     lines.extend([
-        f"if [ ${{{final_var}}} -eq 1 ]; then actual=\"OK\"; else actual=\"KO\"; fi",
+        f"verdict=\"KO\"",
+        f"if [ ${{{final_var}}} -eq 1 ]; then verdict=\"OK\"; fi",
         "expected=\"OK\"",
-        "log_diff \"$expected\" \"$actual\""
+        "log_diff \"$expected\" \"$verdict\""
     ])
     return lines

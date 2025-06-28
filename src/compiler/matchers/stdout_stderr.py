@@ -12,6 +12,6 @@ def match(expected, _):
         if m:
             val = m.group(1).strip().strip('"\'\'')
             if "contient" in pattern:
-                return [f"if echo {var} | grep -q {val!r}; then actual={val!r}; else actual=\"\"; fi", f"expected={val!r}"]
-            return [f"actual={var}", f"expected=\"{val}\""]
+                return [f"if echo \"{var}\" | grep -q {val!r}; then actual={val!r}; else actual=\"\"; fi", f"expected={val!r}"]
+            return [f"actual=\"{var}\"", f"expected=\"{val}\""]
     return None
