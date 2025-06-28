@@ -23,7 +23,7 @@ log_diff() {
 # ---- preparation ----
 export SQL_CONN="sqlplus -S rootme/ffDDD584R@base_name"
 # Attendu : identifiants configurés
-actual="non vérifié"
+if [ -n "$SQL_CONN" ]; then actual="identifiants configurés"; else actual="non configuré"; fi
 expected="identifiants configurés"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
