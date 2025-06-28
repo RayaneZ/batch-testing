@@ -1,41 +1,25 @@
 {
-    "name": "shtest-syntax",
-    "displayName": "Shell Test Syntax",
-    "description": "Syntax highlighting for .shtest files",
-    "version": "0.1.0",
-    "publisher": "codex",
-    "license": "GPL-3.0-or-later",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/RayaneZ/batch-testing"
-    },
-    "engines": {
-        "vscode": "^1.80.0"
-    },
-    "categories": ["Programming Languages"],
-    "keywords": ["syntax", "highlighting", "shell", "test", "shtest"],
-    "main": "./out/extension.js",
-    "contributes": {
-        "languages": [
-            {
-                "id": "shtest",
-                "extensions": [".shtest"],
-                "aliases": ["Shell Test"],
-                "configuration": "./language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "shtest",
-                "scopeName": "source.shtest",
-                "path": "./syntaxes/shtest.tmLanguage.json"
-            }
-        ],
-        "snippets": [
-            {
-                "language": "shtest",
-                "path": "./snippets/shtest.code-snippets"
-            }
-        ]
-    }
+  "name": "shtest",
+  "displayName": "Shell Testing Language",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "shtest",
+      "aliases": ["Shell Test", "shtest"],
+      "extensions": [".shtest"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "shtest",
+      "scopeName": "",
+      "path": "./syntaxes/shtest.tmLanguage.json"
+    }]
+  }
 }

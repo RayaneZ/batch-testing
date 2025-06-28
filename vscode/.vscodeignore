@@ -1,1 +1,4 @@
-# Ignore nothing for now
+.vscode/**
+.vscode-test/**
+.gitignore
+vsc-extension-quickstart.md

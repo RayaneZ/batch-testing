@@ -1,61 +1,131 @@
 {
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Shell Test",
   "scopeName": "source.shtest",
   "patterns": [
-    {
-      "match": "\\b(Étape|Etape|Step)\\b",
-      "name": "keyword.other.step.nltest"
-    },
-    {
-      "match": "\\b(créer|configurer|exécuter|lancer|traiter|vérifier|valider|toucher|copier|déplacer|deplacer|afficher|initialiser|mettre|cat)\\b",
-      "name": "keyword.control.nltest"
-    },
-    {
-      "match": "\\b(argument|paramètre|chemin|path|script sql)\\b",
-      "name": "storage.type.nltest"
-    },
-    {
-      "match": "\\b\\d{8,14}\\b",
-      "name": "constant.numeric.timestamp.nltest"
-    },
-    {
-      "match": "\\/[\\w\\.\\/\\-]+",
-      "name": "string.unquoted.path.nltest"
-    },
-    {
-      "match": "\\b(et|ou)\\b",
-      "name": "keyword.operator.logical.nltest"
-    },
-    {
-      "match": "[()]",
-      "name": "punctuation.section.parens.nltest"
-    },
-    {
-      "begin": "Action\\s*:\\s*",
-      "beginCaptures": {
-        "0": { "name": "keyword.control.action.prefix.nltest" }
-      },
-      "end": "(?=\\s*(Résultat|Resultat)\\s*:?)",
-      "name": "string.quoted.action.content.nltest",
+    { "include": "#keywords" },
+    { "include": "#strings" },
+    { "include": "#steps" },
+    { "include": "#actions" },
+    { "include": "#results" },
+    { "include": "#control" },
+    { "include": "#types" },
+    { "include": "#timestamps" },
+    { "include": "#paths" },
+    { "include": "#logic" },
+    { "include": "#parens" }
+  ],
+  "repository": {
+    "keywords": {
       "patterns": [
         {
-          "match": ".+",
-          "name": "string.quoted.action.content.nltest"
+          "name": "keyword.control.shtest",
+          "match": "\\b(if|while|for|return)\\b"
         }
       ]
     },
-    {
-      "begin": "R[ée]sultat\\s*:?",
-      "beginCaptures": {
-        "0": { "name": "keyword.control.result.prefix.nltest" }
-      },
-      "end": "$",
-      "name": "string.quoted.result.content.nltest",
+    "strings": {
+      "name": "string.quoted.double.shtest",
+      "begin": "\"",
+      "end": "\"",
       "patterns": [
         {
-          "match": ".+",
-          "name": "string.quoted.result.content.nltest"
+          "name": "constant.character.escape.shtest",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "steps": {
+      "patterns": [
+        {
+          "match": "\\b(Étape|Etape|Step)\\b",
+          "name": "keyword.other.step.nltest"
+        }
+      ]
+    },
+    "control": {
+      "patterns": [
+        {
+          "match": "\\b(créer|configurer|exécuter|lancer|traiter|vérifier|valider|toucher|copier|déplacer|deplacer|afficher|initialiser|mettre|cat)\\b",
+          "name": "keyword.control.nltest"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "match": "\\b(argument|paramètre|chemin|path|script sql)\\b",
+          "name": "storage.type.nltest"
+        }
+      ]
+    },
+    "timestamps": {
+      "patterns": [
+        {
+          "match": "\\b\\d{8,14}\\b",
+          "name": "constant.numeric.timestamp.nltest"
+        }
+      ]
+    },
+    "paths": {
+      "patterns": [
+        {
+          "match": "\\/[\\w\\.\\/\\-]+",
+          "name": "string.unquoted.path.nltest"
+        }
+      ]
+    },
+    "logic": {
+      "patterns": [
+        {
+          "match": "\\b(et|ou)\\b",
+          "name": "keyword.operator.logical.nltest"
+        }
+      ]
+    },
+    "parens": {
+      "patterns": [
+        {
+          "match": "[()]",
+          "name": "punctuation.section.parens.nltest"
+        }
+      ]
+    },
+    "actions": {
+      "patterns": [
+        {
+          "begin": "Action\\s*:\\s*",
+          "beginCaptures": {
+            "0": { "name": "keyword.control.action.prefix.nltest" }
+          },
+          "end": "(?=\\s*(Résultat|Resultat)\\s*:?)",
+          "name": "string.quoted.action.content.nltest",
+          "patterns": [
+            {
+              "match": ".+",
+              "name": "string.quoted.action.content.nltest"
+            }
+          ]
+        }
+      ]
+    },
+    "results": {
+      "patterns": [
+        {
+          "begin": "R[ée]sultat\\s*:?",
+          "beginCaptures": {
+            "0": { "name": "keyword.control.result.prefix.nltest" }
+          },
+          "end": "$",
+          "name": "string.quoted.result.content.nltest",
+          "patterns": [
+            {
+              "match": ".+",
+              "name": "string.quoted.result.content.nltest"
+            }
+          ]
         }
       ]
     }
-  ]
+  }
 }
