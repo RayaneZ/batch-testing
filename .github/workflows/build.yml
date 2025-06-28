@@ -17,18 +17,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: Install dependencies
-        run: |
-          cd vscode
-          npm install
-          npm install --save-dev @vscode/vsce@2.21.0
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+      - name: Copy license
+        run: cp LICENSE vscode/LICENSE.txt
+      - name: Package VSIX
+        run: vsce package -o ../shtest-syntax.vsix
+        working-directory: vscode
 
-      - name: Package extension
-        run: |
-          cd vscode
-          npx vsce package
 
       - name: Upload VSIX artifact
         uses: actions/upload-artifact@v4
