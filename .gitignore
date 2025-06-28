@@ -7,3 +7,5 @@ vscode/shtest-syntax-*.txt
 tests_summary.xlsx
 node_modules/
 *.tgz
+
+package-lock.json
