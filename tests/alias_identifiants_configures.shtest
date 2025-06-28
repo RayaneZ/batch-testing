@@ -1,0 +1,2 @@
+Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.
+Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: Les identifiants sont configurés.
