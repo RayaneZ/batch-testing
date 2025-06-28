@@ -1,30 +1,13 @@
-import argparse
 import os
 import re
 from glob import glob
 from openpyxl import Workbook
-import configparser
 from lexer import lex_file
-from parser.shunting_yard import (
-    Atomic,
-    BinaryOp,
-    parse_validation_expression,
-)
-
+from parser.shunting_yard import Atomic, BinaryOp, parse_validation_expression
 
 _PREC = {"et": 2, "ou": 1}
 
-
-CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.ini")
-config = configparser.ConfigParser()
-config.read(CONFIG_PATH)
-
-DEFAULT_INPUT_DIR = config.get("application", "input_dir", fallback="src/tests")
-DEFAULT_OUTPUT_FILE = "tests_summary.xlsx"
-
-
 def _ast_to_str(node: BinaryOp | Atomic, parent_op: str | None = None) -> str:
-    """Return a canonical string representation of a validation AST node."""
     if isinstance(node, Atomic):
         return node.value
     if isinstance(node, BinaryOp):
@@ -36,28 +19,18 @@ def _ast_to_str(node: BinaryOp | Atomic, parent_op: str | None = None) -> str:
         return expr
     return ""
 
-
 def canonicalize_result(result: str) -> str:
-    """Convert a result expression to its alias-only canonical form."""
     ast = parse_validation_expression(result.rstrip('.;').strip())
     return _ast_to_str(ast)
 
-# This script reads all ``.shtest`` files in a directory and produces an
-# Excel workbook summarising each test case.
-
-
 def sanitize_action(action: str) -> str:
-    """Remove credential-like strings from an action."""
     return re.sub(
         r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@[A-Za-z0-9_.-]+",
         "<credentials>",
         action,
     )
 
-
 def parse_shtest_file(path: str):
-    """Parse a ``.shtest`` file and return a list of steps."""
-
     steps = []
     current = {"name": "", "actions": [], "obtained": []}
     step_count = 1
@@ -68,11 +41,7 @@ def parse_shtest_file(path: str):
                     current["name"] = f"Step {step_count}"
                 steps.append(current)
                 step_count += 1
-            current = {
-                "name": token.value,
-                "actions": [],
-                "obtained": [],
-            }
+            current = {"name": token.value, "actions": [], "obtained": []}
         elif token.kind in ("ACTION_RESULT", "ACTION_ONLY"):
             action = sanitize_action(token.value)
             current["actions"].append(action)
@@ -84,14 +53,9 @@ def parse_shtest_file(path: str):
         steps.append(current)
     return steps
 
-
 def export_tests_to_excel(input_dir: str, output_file: str) -> None:
-    """Generate an Excel summary from all ``.shtest`` files in *input_dir*."""
-
     wb = Workbook()
-    # Remove the automatically created sheet so each test gets its own
     wb.remove(wb.active)
-
     for path in sorted(glob(os.path.join(input_dir, "*.shtest"))):
         test_name = os.path.splitext(os.path.basename(path))[0]
         ws = wb.create_sheet(title=test_name)
@@ -100,25 +64,4 @@ def export_tests_to_excel(input_dir: str, output_file: str) -> None:
             actions = "\n".join(step["actions"])
             obtained = "\n".join(step["obtained"])
             ws.append([step["name"], actions, obtained])
-
     wb.save(output_file)
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Export .shtest files to an Excel summary"
-    )
-    parser.add_argument(
-        "--input-dir",
-        default=DEFAULT_INPUT_DIR,
-        help="Directory containing .shtest files",
-    )
-    parser.add_argument(
-        "--output",
-        default=DEFAULT_OUTPUT_FILE,
-        help="Path to the output Excel file",
-    )
-    args = parser.parse_args()
-
-    # Build the workbook from the provided directory
-    export_tests_to_excel(args.input_dir, args.output)
