@@ -26,6 +26,7 @@ class AliasResolver:
             (re.compile(r"le contenu\s+est\s+(?:affich[ée]|correct|lisible)", re.I), lambda m: ["contenu affiché" if "lisible" in m[0] or "affich" in m[0] else "contenu correct"]),
             (re.compile(r"aucun message d'?erreur", re.I), lambda m: ["stderr="]),
             (re.compile(r"les logs sont accessibles", re.I), lambda m: ["logs accessibles"]),
+            (re.compile(r"les?\s+identifiants?\s+(?:sont\s+)?configur[ée]s", re.I), lambda m: ["identifiants configurés"]),
         ]
 
     def resolve(self, text: str) -> List[str]:

@@ -37,6 +37,8 @@ class Parser:
             (r"(?:vérifier|valider)\s+que\s+(.*)", lambda m, a: a["validation"].append(m[1].rstrip('.;').strip())),
             (r"(logs|erreurs|fichiers de logs)", lambda m, a: a["logs_check"].append(m.string.strip())),
             (self.arg_pattern.pattern, self._handle_arguments),
+            (r"d[ée]finir la variable\s+(\w+)\s*=\s*([^;]+)", self._handle_variable),
+            (r"R[ée]sultat\s*:\s*(.*)", self._handle_result_only),
             (r"(?:chemin|path) des logs\s*=\s*(\S+)", lambda m, a: a["log_paths"].append(m[1])),
             (r"script sql\s*=\s*(.*?\.sql)", lambda m, a: a["sql_scripts"].append(m[1]) if m[1] not in a["sql_scripts"] else None),
             (r"(cr[ée]er|mettre\s+(?:à|a)\s+jour)\s+(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
@@ -60,10 +62,18 @@ class Parser:
         for m in self.arg_pattern.finditer(match.string):
             actions["arguments"][m[1].strip()] = m[2].strip()
 
+    def _handle_variable(self, match: re.Match, actions: Dict[str, Any]) -> None:
+        actions["arguments"][match[1].strip()] = match[2].strip()
+
+    def _handle_result_only(self, match: re.Match, actions: Dict[str, Any]) -> None:
+        result = match[1].rstrip('.;').strip()
+        if result:
+            resolver = AliasResolver()
+            actions["validation"].extend(resolver.resolve(result))
+
     def _handle_sql_script(self, match: re.Match, actions: Dict[str, Any]) -> None:
-        script = re.search(r"(\S+\.sql)", match.string, re.I)
-        if script:
-            path = script[1]
+        scripts = re.findall(r"\S+\.sql", match.string, re.I)
+        for path in scripts:
             if path not in actions["sql_scripts"]:
                 actions["sql_scripts"].append(path)
 

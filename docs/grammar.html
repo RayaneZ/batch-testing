@@ -101,6 +101,7 @@ Résultat: le script retourne un code 0
             <li><code>le contenu est lisible</code> → <code>contenu affiché</code></li>
             <li><code>aucun message d'erreur</code> → <code>stderr=</code></li>
             <li><code>les logs sont accessibles</code> → <code>logs accessibles</code></li>
+            <li><code>les identifiants sont configurés</code> → <code>identifiants configurés</code></li>
           </ul>
           <p>Combinez plusieurs validations avec «&nbsp;et&nbsp;» ou «&nbsp;ou&nbsp;». Les expressions non reconnues sont laissées telles quelles.</p>
         </section>
@@ -110,8 +111,9 @@ Résultat: le script retourne un code 0
           <h2>Manipulations SQL</h2>
           <p>Vous pouvez préparer ou vérifier la base en exécutant des scripts SQL.</p>
           <pre><code>Action: Exécuter le script SQL init_bdd.sql ; Résultat: base prête.</code></pre>
-          <p>Les scripts listés sont appelés avec la variable <code>SQL_CONN</code> configurée dans votre environnement.</p>
-            <p>Chaque fichier SQL est exécuté une seule fois. Utilisez ensuite des validations comme <code>base prête</code> pour confirmer que l'initialisation a réussi.</p>
+          <p>Les scripts listés sont appelés avec la variable <code>SQL_CONN</code> configurée dans votre environnement. Vous pouvez aussi la définir dans le scénario&nbsp;:</p>
+          <pre><code>Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.</code></pre>
+            <p>Chaque fichier SQL est exécuté une seule fois, même si plusieurs sont mentionnés sur la même ligne. Utilisez ensuite des validations comme <code>base prête</code> pour confirmer que l'initialisation a réussi.</p>
         </section>
 
         <hr class="divider">

@@ -36,5 +36,19 @@ class TestParser(unittest.TestCase):
         result = self.parser.parse("Résultat: le contenu est affiché")
         self.assertIn("contenu affiché", result["validation"])
 
+    def test_variable_assignment(self):
+        result = self.parser.parse("Définir la variable SQL_CONN = sqlplus -S user/password@db")
+        self.assertEqual(result["arguments"].get("SQL_CONN"), "sqlplus -S user/password@db")
+
+    def test_multiple_sql_scripts(self):
+        text = "Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ;"
+        result = self.parser.parse(text)
+        self.assertIn("JDD_Commun.sql", result["sql_scripts"])
+        self.assertIn("JDD_Extra.sql", result["sql_scripts"])
+
+    def test_identifiants_alias(self):
+        result = self.parser.parse("Résultat: Les identifiants sont configurés")
+        self.assertIn("identifiants configurés", result["validation"])
+
 if __name__ == "__main__":
     unittest.main()
