@@ -4,6 +4,7 @@ import re
 from glob import glob
 from openpyxl import Workbook
 import configparser
+from lexer import lex_file
 from parser.shunting_yard import (
     Atomic,
     BinaryOp,
@@ -57,40 +58,26 @@ def sanitize_action(action: str) -> str:
 def parse_shtest_file(path: str):
     """Parse a ``.shtest`` file and return a list of steps."""
 
-    step_re = re.compile(r"^(?:Étape|Etape|Step)\s*:\s*(.*)", re.IGNORECASE)
-    action_re = re.compile(
-        r"^Action\s*:\s*(.*?)\s*;\s*(?:Résultat|Resultat)\s*:?\s*(.*)",
-        re.IGNORECASE,
-    )
     steps = []
     current = {"name": "", "actions": [], "obtained": []}
     step_count = 1
-    with open(path, encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            # Lines starting with "Étape:" mark a new logical step
-            m = step_re.match(line)
-            if m:
-                if current["actions"]:
-                    if not current["name"]:
-                        current["name"] = f"Step {step_count}"
-                    steps.append(current)
-                    step_count += 1
-                current = {
-                    "name": m.group(1).strip(),
-                    "actions": [],
-                    "obtained": [],
-                }
-                continue
-            m = action_re.match(line)
-            if m:
-                action = sanitize_action(m.group(1).strip())
-                current["actions"].append(action)
-                result = m.group(2).strip()
-                if result:
-                    current["obtained"].append(canonicalize_result(result))
+    for token in lex_file(path):
+        if token.kind == "STEP":
+            if current["actions"]:
+                if not current["name"]:
+                    current["name"] = f"Step {step_count}"
+                steps.append(current)
+                step_count += 1
+            current = {
+                "name": token.value,
+                "actions": [],
+                "obtained": [],
+            }
+        elif token.kind in ("ACTION_RESULT", "ACTION_ONLY"):
+            action = sanitize_action(token.value)
+            current["actions"].append(action)
+            if token.kind == "ACTION_RESULT" and token.result:
+                current["obtained"].append(canonicalize_result(token.result))
     if current["actions"]:
         if not current["name"]:
             current["name"] = f"Step {step_count}"
