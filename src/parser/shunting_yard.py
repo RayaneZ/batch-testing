@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 import re
-from parser import AliasResolver
+from parser.parser import AliasResolver
 
 @dataclass
 class ASTNode:

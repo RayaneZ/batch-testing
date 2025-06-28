@@ -3,7 +3,7 @@
 run_cmd() {
   local _stdout=$(mktemp)
   local _stderr=$(mktemp)
-  sh -c "$1" >"$_stdout" 2>"$_stderr"
+  /bin/sh -c "$1" >"$_stdout" 2>"$_stderr"
   last_ret=$?
   last_stdout=$(cat "$_stdout")
   last_stderr=$(cat "$_stderr")
@@ -24,9 +24,9 @@ log_diff() {
 run_cmd "mkdir -p ./qualification/demo_env && chmod 0755 ./qualification/demo_env"
 run_cmd "touch ./qualification/demo_env"
 # Validation des résultats
-# Attendu : dossier créé
-if [ $last_ret -eq 0 ]; then actual="dossier créé"; else actual="échec création"; fi
-expected="dossier créé"
+# Attendu : le dossier est cree
+actual="non vérifié"
+expected="le dossier est cree"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
 if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
@@ -35,9 +35,9 @@ log_diff "$expected" "$actual"
 run_cmd "touch ./qualification/demo_env/initial.txt && chmod 0644 ./qualification/demo_env/initial.txt"
 run_cmd "touch ./qualification/demo_env/initial.txt"
 # Validation des résultats
-# Attendu : Le fichier est présent
-if [ $last_ret -eq 0 ]; then actual="Le fichier est présent"; else actual="fichier absent"; fi
-expected="Le fichier est présent"
+# Attendu : le fichier est cree
+actual="non vérifié"
+expected="le fichier est cree"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
 if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
@@ -46,9 +46,9 @@ log_diff "$expected" "$actual"
 # ---- Step 2 - Ancien fichier ----
 run_cmd "touch -t 202201010000 ./qualification/demo_env/old.txt"
 # Validation des résultats
-# Attendu : date modifiée
-if [ $last_ret -eq 0 ]; then actual="date modifiée"; else actual="date inchangée"; fi
-expected="date modifiée"
+# Attendu : date modifiee
+actual="non vérifié"
+expected="date modifiee"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
 if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
@@ -68,9 +68,9 @@ expected="OK"
 log_diff "$expected" "$actual"
 run_cmd "touch -t 202401010101 ./qualification/demo_env/newfile.txt"
 # Validation des résultats
-# Attendu : date modifiée
-if [ $last_ret -eq 0 ]; then actual="date modifiée"; else actual="date inchangée"; fi
-expected="date modifiée"
+# Attendu : date modifiee
+actual="non vérifié"
+expected="date modifiee"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
 if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
@@ -80,22 +80,10 @@ log_diff "$expected" "$actual"
 run_cmd "./qualification/purge.sh"
 # Validation des résultats
 # Attendu : retour 0
-actual="$last_ret"
-expected="0"
+actual="non vérifié"
+expected="retour 0"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
-# Attendu : stdout contient "Succès complet"
-if echo "$last_stdout" | grep -q 'Succès complet'; then actual='Succès complet'; else actual=""; fi
-expected='Succès complet'
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
-# Attendu : stderr contient WARNING
-if echo "$last_stderr" | grep -q 'WARNING'; then actual='WARNING'; else actual=""; fi
-expected='WARNING'
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond3=1; else cond3=0; fi
-if [ ${cond2} -eq 1 ] || [ ${cond3} -eq 1 ]; then cond4=1; else cond4=0; fi
-if [ ${cond1} -eq 1 ] && [ ${cond4} -eq 1 ]; then cond5=1; else cond5=0; fi
-if [ ${cond5} -eq 1 ]; then actual="OK"; else actual="KO"; fi
+if [ ${cond1} -eq 1 ]; then actual="OK"; else actual="KO"; fi
 expected="OK"
 log_diff "$expected" "$actual"

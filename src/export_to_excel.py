@@ -4,7 +4,7 @@ import re
 from glob import glob
 from openpyxl import Workbook
 import configparser
-from validation_ast import (
+from parser.shunting_yard import (
     Atomic,
     BinaryOp,
     parse_validation_expression,

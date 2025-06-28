@@ -1,8 +1,8 @@
 """Utilities to transform ``.shtest`` files into executable shell scripts."""
 
-from parser import Parser
+from parser.parser import Parser
 from templates import TEMPLATES
-from validation_compiler import _compile_validation
+from compiler.compiler import compile_validation
 import argparse
 import os
 from glob import glob
@@ -64,13 +64,12 @@ def generate_shell_script(actions_list):
         "",
     ]
 
-    last_file = None
     for actions in actions_list:
-        if actions["steps"]:
+        if actions.get("steps"):
             lines.append(f"# ---- {actions['steps'][0]} ----")
             continue
 
-        if actions["initialization"]:
+        if actions.get("initialization"):
             lines.append("# Initialisation")
             for action in actions["initialization"]:
                 scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
@@ -84,14 +83,14 @@ def generate_shell_script(actions_list):
                 else:
                     lines.append(f"run_cmd \"echo '{action}'\"")
 
-        if actions["execution"]:
-            arg_str = ' '.join([f'{k}={v}' for k, v in actions["arguments"].items()])
+        if actions.get("execution"):
+            arg_str = ' '.join([f'{k}={v}' for k, v in actions.get("arguments", {}).items()])
             actual_path = actions.get("batch_path")
             for action in actions["execution"]:
                 cmd = actual_path if not arg_str else f"{actual_path} {arg_str}"
                 lines.append(f"run_cmd \"{cmd}\"")
 
-        if actions["sql_scripts"]:
+        if actions.get("sql_scripts"):
             for script in actions["sql_scripts"]:
                 cmd = TEMPLATES['execute_sql'].substitute(
                     script=script,
@@ -99,24 +98,26 @@ def generate_shell_script(actions_list):
                 )
                 lines.append(f"run_cmd \"{cmd}\"")
 
-        if actions["file_operations"]:
+        if actions.get("file_operations"):
             for operation, ftype, path, mode in actions["file_operations"]:
-                if ftype.lower() == "dossier":
-                    cmd = TEMPLATES["create_dir"].substitute(path=path, mode=mode)
-                else:
-                    cmd = TEMPLATES["create_file"].substitute(path=path, mode=mode)
+                cmd = (
+                    TEMPLATES["create_dir"].substitute(path=path, mode=mode)
+                    if ftype.lower() == "dossier"
+                    else TEMPLATES["create_file"].substitute(path=path, mode=mode)
+                )
                 lines.append(f"run_cmd \"{cmd}\"")
                 lines.append(f"run_cmd \"{TEMPLATES['update_file'].substitute(path=path)}\"")
 
         if actions.get("copy_operations"):
             for op, ftype, src, dest in actions["copy_operations"]:
-                if op.lower().startswith("d\xe9placer"):
+                if op.lower().startswith("déplacer"):
                     cmd = TEMPLATES["move"].substitute(src=src, dest=dest)
                 else:
-                    if ftype.lower() == "dossier":
-                        cmd = TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
-                    else:
-                        cmd = TEMPLATES["copy_file"].substitute(src=src, dest=dest)
+                    cmd = (
+                        TEMPLATES["copy_dir"].substitute(src=src, dest=dest)
+                        if ftype.lower() == "dossier"
+                        else TEMPLATES["copy_file"].substitute(src=src, dest=dest)
+                    )
                 lines.append(f"run_cmd \"{cmd}\"")
 
         if actions.get("purge_dirs"):
@@ -127,25 +128,25 @@ def generate_shell_script(actions_list):
         if actions.get("touch_files"):
             for entry in actions["touch_files"]:
                 path, ts = entry if isinstance(entry, tuple) else (entry, None)
-                if ts:
-                    cmd = TEMPLATES["touch_ts"].substitute(path=path, ts=ts)
-                else:
-                    cmd = TEMPLATES["update_file"].substitute(path=path)
+                cmd = (
+                    TEMPLATES["touch_ts"].substitute(path=path, ts=ts)
+                    if ts
+                    else TEMPLATES["update_file"].substitute(path=path)
+                )
                 lines.append(f"run_cmd \"{cmd}\"")
 
-        if actions["cat_files"]:
+        if actions.get("cat_files"):
             for file in actions["cat_files"]:
                 lines.append(f"run_cmd \"{TEMPLATES['cat_file'].substitute(file=file)}\"")
 
-        if actions["logs_check"]:
-            for path in actions["log_paths"]:
+        if actions.get("logs_check"):
+            for path in actions.get("log_paths", []):
                 lines.append(f"run_cmd \"{TEMPLATES['grep_log'].substitute(path=path)}\"")
 
-        if actions["validation"]:
+        if actions.get("validation"):
             lines.append("# Validation des résultats")
             for expected in actions["validation"]:
-                lines.extend(_compile_validation(expected))
-
+                lines.extend(compile_validation(expected))
 
     return "\n".join(lines)
 
