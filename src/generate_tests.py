@@ -41,13 +41,14 @@ def generate_shell_script(actions_list):
         "  fi", "}", ""
     ]
 
+    counter = [0]
     for actions in actions_list:
         if actions.get("steps"):
             lines.append(f"# ---- {actions['steps'][0]} ----")
             continue
         if actions.get("arguments"):
             for key, value in actions["arguments"].items():
-                lines.append(f"export {key}={value}")
+                lines.append(f"export {key}=\"{value}\"")
         if actions.get("initialization"):
             lines.append("# Initialisation")
             for action in actions["initialization"]:
@@ -62,6 +63,12 @@ def generate_shell_script(actions_list):
             arg_str = ' '.join([f'{k}={v}' for k, v in actions.get("arguments", {}).items()])
             actual_path = actions.get("batch_path")
             for action in actions["execution"]:
+                scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
+                if scripts:
+                    for script in scripts:
+                        cmd = TEMPLATES['execute_sql'].substitute(script=script, conn='${SQL_CONN:-user/password@db}')
+                        lines.append(f"run_cmd \"{cmd}\"")
+                    continue
                 if actual_path is None:
                     lines.append(f"echo '{action}'")
                     continue
@@ -101,7 +108,7 @@ def generate_shell_script(actions_list):
                 lines.append(f"run_cmd \"{cmd}\"")
         if actions.get("validation"):
             for v in actions["validation"]:
-                lines.extend(compile_validation(v))
+                lines.extend(compile_validation(v, counter))
 
     return "\n".join(lines)
 

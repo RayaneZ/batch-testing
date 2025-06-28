@@ -1,9 +1,10 @@
 from .ast_compiler import compile_ast
 from parser.shunting_yard import parse_validation_expression
 
-def compile_validation(expression: str):
+def compile_validation(expression: str, counter=None):
     ast = parse_validation_expression(expression)
-    counter = [0]
+    if counter is None:
+        counter = [0]
     last_file_var = [None]
     lines, final_var = compile_ast(ast, counter, last_file_var)
 
