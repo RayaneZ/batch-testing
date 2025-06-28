@@ -10,4 +10,4 @@ Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichie
 Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee.
 
 Etape: Step 4 - Execution du batch
-Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING).
+Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient Succès complet" ou la sortie d'erreur contient WARNING).
