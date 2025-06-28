@@ -2,6 +2,7 @@ import re
 from dataclasses import dataclass
 from typing import Callable, Dict, List, Optional, Any
 from parser.alias_resolver import AliasResolver
+from common_patterns import ACTION_RESULT_RE, STEP_RE
 
 
 
@@ -24,11 +25,11 @@ class Parser:
         self.rules.append(Rule(re.compile(pattern, re.I), handler))
 
     def _register_default_rules(self) -> None:
-        self.action_result_re = re.compile(r"Action\s*:\s*(.*?)\s*(?:R[ée]sultat)\s*:?\s*(.*)", re.I)
+        self.action_result_re = ACTION_RESULT_RE
         self._register(self.action_result_re.pattern, self._handle_action_result)
 
         simple_rules = [
-            (r"(?:Étape|Etape|Step)\s*:\s*(.*)", lambda m, a: a["steps"].append(m[1].strip())),
+            (STEP_RE.pattern, lambda m, a: a["steps"].append(m[1].strip())),
             (r"(créer|configurer)(?!.*(?:dossier|fichier|=))", lambda m, a: a["initialization"].append(m.string.strip())),
             (r"initialiser(?!.*?\.sql)", lambda m, a: a["initialization"].append(m.string.strip())),
             (r"d\xE9finir la variable\s*(\S+)\s*=\s*(.+?)(?:;|$)", lambda m, a: a["arguments"].update({m[1]: m[2].strip()})),
