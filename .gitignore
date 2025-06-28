@@ -5,3 +5,5 @@ vscode/*.vsix
 vscode/shtest-syntax-*.txt
 
 tests_summary.xlsx
+node_modules/
+*.tgz

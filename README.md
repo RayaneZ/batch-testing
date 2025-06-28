@@ -32,7 +32,14 @@ python src/export_to_excel.py --input-dir src/tests --output tests.xlsx
 Use the options above to override the default locations.
 
 ## VS Code Extension
-The `vscode/` folder contains a minimal syntax highlighter for `.shtest` files. Package it with `vsce package` (requires Node.js and `vsce`) and install the generated `.vsix` file in Visual Studio Code.
+The `vscode/` folder contains a minimal syntax highlighter for `.shtest` files. To create the extension package, run the following commands:
+
+```bash
+npm install  # installs `vsce` with a compatible dependency set
+npx vsce package
+```
+
+The `package.json` at the repository root pins `css-select@5.0.0` via `overrides` to avoid a packaging error in newer versions of `vsce`. Install the generated `.vsix` file in Visual Studio Code once the package is created.
 
 ## License
 This project and the bundled documentation template are released under the MIT License.
