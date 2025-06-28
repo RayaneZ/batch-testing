@@ -7,7 +7,8 @@ The HTML documentation in [`docs/`](docs/index.html) is generated from the [iDoc
 ## Quick Start
 1. Create your `.shtest` scenarios inside `src/tests`.
 2. Run `python src/generate_tests.py` to produce shell scripts in `output/`.
-3. Optionally run `python src/export_to_excel.py` to create an Excel summary.
+3. Optionally run `python src/verify_syntax.py` to validate the scenarios.
+4. Optionally run `python src/export_to_excel.py` to create an Excel summary.
 
 Default directories can be adjusted in `config.ini`.
 
@@ -21,6 +22,16 @@ python src/generate_tests.py
 ```
 
 Paths can be customised via `config.ini`.
+
+### `verify_syntax.py`
+Checks `.shtest` files for syntax errors using the built-in parser.
+
+```bash
+python src/verify_syntax.py src/tests
+```
+
+Provide directories or files as arguments. The script exits with a non-zero
+status if issues are found.
 
 ### `export_to_excel.py`
 Creates an Excel workbook summarising each scenario.
