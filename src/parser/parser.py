@@ -81,7 +81,8 @@ class Parser:
 
     def _handle_action_result(self, match: re.Match, actions: Dict[str, Any]) -> None:
         sub_parser = Parser()
-        sub_actions = sub_parser.parse(match[1])
+        action_text = match[1].rstrip(" ;")
+        sub_actions = sub_parser.parse(action_text)
 
         for key, value in sub_actions.items():
             if key == "batch_path" and value:

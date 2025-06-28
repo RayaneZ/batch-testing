@@ -30,8 +30,10 @@ class AliasResolver:
         ]
 
     def resolve(self, text: str) -> List[str]:
+        """Return canonical tokens for *text* if it matches a known alias."""
+        cleaned = text.strip().rstrip('.;')
         for pattern, handler in self.aliases:
-            match = pattern.search(text)
+            match = pattern.fullmatch(cleaned)
             if match:
                 return handler(match)
-        return [text]
+        return [cleaned]
