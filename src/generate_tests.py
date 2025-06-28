@@ -1,6 +1,7 @@
 """Utilities to transform ``.shtest`` files into executable shell scripts."""
 
 from parser.parser import Parser
+from lexer import lex
 from templates import TEMPLATES
 from compiler.compiler import compile_validation
 import argparse
@@ -19,14 +20,19 @@ OUTPUT_DIR = config.get("application", "output_dir", fallback="output")
 
 
 def parse_test_file(contents: str):
-    """Parse line by line and preserve ordering of actions/results."""
+    """Parse a ``.shtest`` file and preserve the line ordering."""
 
     parser = Parser()
     parsed_lines = []
-    for line in contents.splitlines():
-        # ``Parser.parse`` only deals with a single line. We keep the list
-        # of results in order so that the generated script mirrors the
-        # original description.
+    for token in lex(contents):
+        if token.kind == "STEP":
+            line = f"Étape: {token.value}"
+        elif token.kind == "ACTION_RESULT":
+            line = f"Action: {token.value} ; Résultat: {token.result}"
+        elif token.kind == "ACTION_ONLY":
+            line = f"Action: {token.value}"
+        else:
+            line = token.value
         parsed_lines.append(parser.parse(line))
     return parsed_lines
 
