@@ -3,24 +3,99 @@
   "name": "Shell Test",
   "scopeName": "source.shtest",
   "patterns": [
-    { "include": "#keywords" },
-    { "include": "#strings" },
-    { "include": "#steps" },
-    { "include": "#actions" },
-    { "include": "#results" },
-    { "include": "#control" },
-    { "include": "#types" },
-    { "include": "#timestamps" },
-    { "include": "#paths" },
-    { "include": "#logic" },
-    { "include": "#parens" }
+    {
+      "include": "#step_blocks"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#paths"
+    },
+    {
+      "include": "#control"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#timestamps"
+    },
+    {
+      "include": "#logic"
+    },
+    {
+      "include": "#parens"
+    }
   ],
   "repository": {
+    "step_blocks": {
+      "patterns": [
+        {
+          "begin": "^(\u00c9tape|Etape|Step)\\s*:",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.other.step.shtest"
+            }
+          },
+          "end": "^(?=\u00c9tape|Etape|Step|$)",
+          "patterns": [
+            {
+              "include": "#actions"
+            },
+            {
+              "include": "#results"
+            }
+          ]
+        }
+      ]
+    },
+    "actions": {
+      "patterns": [
+        {
+          "begin": "^Action\\s*:\\s*",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.action.prefix.shtest"
+            }
+          },
+          "end": "(?=^\\s*(R\u00e9sultat|Resultat)\\s*:)|;",
+          "patterns": [
+            {
+              "match": "[^;]+",
+              "name": "string.quoted.action.content.shtest"
+            }
+          ]
+        }
+      ]
+    },
+    "results": {
+      "patterns": [
+        {
+          "begin": "^R[\u00e9e]sultat\\s*:?\\s*",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.result.prefix.shtest"
+            }
+          },
+          "end": "$",
+          "patterns": [
+            {
+              "match": ".*",
+              "name": "string.quoted.result.content.shtest"
+            }
+          ]
+        }
+      ]
+    },
     "keywords": {
       "patterns": [
         {
-          "name": "keyword.control.shtest",
-          "match": "\\b(if|while|for|return)\\b"
+          "match": "\\b(if|while|for|return)\\b",
+          "name": "keyword.control.shtest"
         }
       ]
     },
@@ -30,32 +105,24 @@
       "end": "\"",
       "patterns": [
         {
-          "name": "constant.character.escape.shtest",
-          "match": "\\\\."
-        }
-      ]
-    },
-    "steps": {
-      "patterns": [
-        {
-          "match": "\\b(Étape|Etape|Step)\\b",
-          "name": "keyword.other.step.nltest"
+          "match": "\\\\.",
+          "name": "constant.character.escape.shtest"
         }
       ]
     },
     "control": {
       "patterns": [
         {
-          "match": "\\b(créer|configurer|exécuter|lancer|traiter|vérifier|valider|toucher|copier|déplacer|deplacer|afficher|initialiser|mettre|cat)\\b",
-          "name": "keyword.control.nltest"
+          "match": "\\b(cr\u00e9er|configurer|ex\u00e9cuter|lancer|traiter|v\u00e9rifier|valider|toucher|copier|d\u00e9placer|afficher|initialiser|mettre|cat)\\b",
+          "name": "keyword.control.shtest"
         }
       ]
     },
     "types": {
       "patterns": [
         {
-          "match": "\\b(argument|paramètre|chemin|path|script sql)\\b",
-          "name": "storage.type.nltest"
+          "match": "\\b(argument|param\u00e8tre|chemin|path|script sql)\\b",
+          "name": "storage.type.shtest"
         }
       ]
     },
@@ -63,7 +130,7 @@
       "patterns": [
         {
           "match": "\\b\\d{8,14}\\b",
-          "name": "constant.numeric.timestamp.nltest"
+          "name": "constant.numeric.timestamp.shtest"
         }
       ]
     },
@@ -71,7 +138,7 @@
       "patterns": [
         {
           "match": "\\/[\\w\\.\\/\\-]+",
-          "name": "string.unquoted.path.nltest"
+          "name": "string.unquoted.path.shtest"
         }
       ]
     },
@@ -79,7 +146,7 @@
       "patterns": [
         {
           "match": "\\b(et|ou)\\b",
-          "name": "keyword.operator.logical.nltest"
+          "name": "keyword.operator.logical.shtest"
         }
       ]
     },
@@ -87,43 +154,7 @@
       "patterns": [
         {
           "match": "[()]",
-          "name": "punctuation.section.parens.nltest"
-        }
-      ]
-    },
-    "actions": {
-      "patterns": [
-        {
-          "begin": "Action\\s*:\\s*",
-          "beginCaptures": {
-            "0": { "name": "keyword.control.action.prefix.nltest" }
-          },
-          "end": "(?=\\s*(Résultat|Resultat)\\s*:?)",
-          "name": "string.quoted.action.content.nltest",
-          "patterns": [
-            {
-              "match": ".+",
-              "name": "string.quoted.action.content.nltest"
-            }
-          ]
-        }
-      ]
-    },
-    "results": {
-      "patterns": [
-        {
-          "begin": "R[ée]sultat\\s*:?",
-          "beginCaptures": {
-            "0": { "name": "keyword.control.result.prefix.nltest" }
-          },
-          "end": "$",
-          "name": "string.quoted.result.content.nltest",
-          "patterns": [
-            {
-              "match": ".+",
-              "name": "string.quoted.result.content.nltest"
-            }
-          ]
+          "name": "punctuation.section.parens.shtest"
         }
       ]
     }
