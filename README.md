@@ -2,7 +2,15 @@
 
 This repository contains utilities for writing automated shell tests using a simple Action/Resultat syntax. It also ships a VS Code extension for `.shtest` files.
 
-The HTML documentation in [`docs/`](docs/index.html) is generated from the [iDocs](https://github.com/harnishdesign/iDocs) template and explains the language grammar and available tools.
+Full documentation lives in [`docs/`](docs/index.md) and can be served locally using [MkDocs](https://www.mkdocs.org/).
+Launch a development server with:
+
+```bash
+mkdocs serve
+```
+
+This command starts a local site on `http://127.0.0.1:8000/` so you can browse the guide and CLI reference.
+The existing HTML pages generated from the [iDocs](https://github.com/harnishdesign/iDocs) template remain available under the same folder.
 
 ## Quick Start
 1. Create your `.shtest` scenarios inside `src/tests`.
@@ -41,6 +49,15 @@ python src/export_to_excel.py --input-dir src/tests --output tests.xlsx
 ```
 
 Use the options above to override the default locations.
+
+### `run_all.py`
+Convenience script that chains syntax checks, shell script generation and Excel export.
+
+```bash
+python src/run_all.py --input src/tests --output output --excel tests.xlsx
+```
+
+Disable steps with `--no-shell` or `--no-excel`.
 
 ## VS Code Extension
 The `vscode/` folder contains a minimal syntax highlighter for `.shtest` files. Package it with `vsce package` (requires Node.js and `vsce`) and install the generated `.vsix` file in Visual Studio Code.
