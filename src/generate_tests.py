@@ -67,7 +67,41 @@ def generate_shell_script(actions_list):
                     continue
                 cmd = actual_path if not arg_str else f"{actual_path} {arg_str}"
                 lines.append(f"run_cmd \"{cmd}\"")
-        # Other action categories truncated for brevity...
+        if actions.get("file_operations"):
+            for op, typ, path, mode in actions["file_operations"]:
+                if op.startswith("cr") and typ == "dossier":
+                    cmd = TEMPLATES["create_dir"].substitute(path=path, mode=mode)
+                elif op.startswith("cr") and typ == "fichier":
+                    cmd = TEMPLATES["create_file"].substitute(path=path, mode=mode)
+                else:
+                    cmd = TEMPLATES["update_file"].substitute(path=path)
+                lines.append(f"run_cmd \"{cmd}\"")
+        if actions.get("touch_files"):
+            for path, ts in actions["touch_files"]:
+                if ts:
+                    cmd = TEMPLATES["touch_ts"].substitute(path=path, ts=ts)
+                else:
+                    cmd = TEMPLATES["update_file"].substitute(path=path)
+                lines.append(f"run_cmd \"{cmd}\"")
+        if actions.get("purge_dirs"):
+            for path in actions["purge_dirs"]:
+                cmd = TEMPLATES["purge_dir"].substitute(path=path)
+                lines.append(f"run_cmd \"{cmd}\"")
+        if actions.get("copy_operations"):
+            for op, typ, src, dest in actions["copy_operations"]:
+                if op.startswith("copier"):
+                    key = "copy_dir" if typ == "dossier" else "copy_file"
+                    cmd = TEMPLATES[key].substitute(src=src, dest=dest)
+                else:
+                    cmd = TEMPLATES["move"].substitute(src=src, dest=dest)
+                lines.append(f"run_cmd \"{cmd}\"")
+        if actions.get("cat_files"):
+            for f in actions["cat_files"]:
+                cmd = TEMPLATES["cat_file"].substitute(file=f)
+                lines.append(f"run_cmd \"{cmd}\"")
+        if actions.get("validation"):
+            for v in actions["validation"]:
+                lines.extend(compile_validation(v))
 
     return "\n".join(lines)
 
