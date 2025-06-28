@@ -1,6 +1,7 @@
 Etape: Step 1 - Preparation
 Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree.
 Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree.
+Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés.
 
 Etape: Step 2 - Ancien fichier
 Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee.

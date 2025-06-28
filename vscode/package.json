@@ -26,8 +26,15 @@
     "grammars": [
       {
         "language": "shtest",
-        "scopeName": "",
+        "scopeName": "source.shtest",
         "path": "./syntaxes/shtest.tmLanguage.json"
+      }
+    ],
+    "themes": [
+      {
+        "label": "Shell Test Color Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/shellTest.colorTheme.json"
       }
     ]
   }

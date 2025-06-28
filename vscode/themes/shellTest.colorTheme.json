@@ -1,0 +1,113 @@
+{
+  "name": "Shell Test Color Theme",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#1e1e1e",
+    "editor.foreground": "#d4d4d4"
+  },
+  "tokenColors": [
+    {
+      "name": "Étape",
+      "scope": "keyword.other.step.shtest",
+      "settings": {
+        "foreground": "#FFD700", 
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Action (préfixe)",
+      "scope": "keyword.control.action.prefix.shtest",
+      "settings": {
+        "foreground": "#FFA07A",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Action (contenu)",
+      "scope": "string.quoted.action.content.shtest",
+      "settings": {
+        "foreground": "#ADFF2F"
+      }
+    },
+    {
+      "name": "Résultat (préfixe)",
+      "scope": "keyword.control.result.prefix.shtest",
+      "settings": {
+        "foreground": "#00CED1",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Résultat (contenu)",
+      "scope": "string.quoted.result.content.shtest",
+      "settings": {
+        "foreground": "#00FA9A"
+      }
+    },
+    {
+      "name": "Mots-clés de contrôle",
+      "scope": "keyword.control.shtest",
+      "settings": {
+        "foreground": "#FF6347",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "name": "Chaînes",
+      "scope": "string.quoted.double.shtest",
+      "settings": {
+        "foreground": "#87CEFA"
+      }
+    },
+    {
+      "name": "Chemins",
+      "scope": "string.unquoted.path.shtest",
+      "settings": {
+        "foreground": "#DAA520"
+      }
+    },
+    {
+      "name": "Types",
+      "scope": "storage.type.shtest",
+      "settings": {
+        "foreground": "#BA55D3",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "name": "Timestamps",
+      "scope": "constant.numeric.timestamp.shtest",
+      "settings": {
+        "foreground": "#7FFFD4"
+      }
+    },
+    {
+      "name": "Logique",
+      "scope": "keyword.operator.logical.shtest",
+      "settings": {
+        "foreground": "#FF8C00"
+      }
+    },
+    {
+      "name": "Parenthèses",
+      "scope": "punctuation.section.parens.shtest",
+      "settings": {
+        "foreground": "#D3D3D3"
+      }
+    },
+    {
+      "scope": "variable.other.assignment.name.shtest",
+      "settings": {
+        "foreground": "#FFD700",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": "keyword.operator.assignment.shtest",
+      "settings": {
+        "foreground": "#FF69B4",
+        "fontStyle": ""
+      }
+    }
+  ]
+}

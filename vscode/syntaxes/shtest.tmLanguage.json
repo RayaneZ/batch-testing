@@ -2,53 +2,35 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "Shell Test",
   "scopeName": "source.shtest",
+  "fileTypes": ["shtest"],
   "patterns": [
-    {
-      "include": "#step_blocks"
-    },
-    {
-      "include": "#keywords"
-    },
-    {
-      "include": "#strings"
-    },
-    {
-      "include": "#paths"
-    },
-    {
-      "include": "#control"
-    },
-    {
-      "include": "#types"
-    },
-    {
-      "include": "#timestamps"
-    },
-    {
-      "include": "#logic"
-    },
-    {
-      "include": "#parens"
-    }
+    { "include": "#step_blocks" },
+    { "include": "#actions" },
+    { "include": "#results" },
+    { "include": "#keywords" },
+    { "include": "#strings" },
+    { "include": "#paths" },
+    { "include": "#assignments" },
+    { "include": "#control" },
+    { "include": "#verbs" },
+    { "include": "#types" },
+    { "include": "#timestamps" },
+    { "include": "#logic" },
+    { "include": "#parens" },
+    { "include": "#comments" }
   ],
   "repository": {
     "step_blocks": {
       "patterns": [
         {
-          "begin": "^(\u00c9tape|Etape|Step)\\s*:",
+          "begin": "^ *(\\u00c9tape|Etape|Step)\\s*:\\s*",
           "beginCaptures": {
-            "1": {
-              "name": "keyword.other.step.shtest"
-            }
+            "1": { "name": "keyword.other.step.shtest" }
           },
-          "end": "^(?=\u00c9tape|Etape|Step|$)",
+          "end": "(?=^\\s*$|^\\s*(Action|R[\u00e9e]sultat)\\s*:)",
           "patterns": [
-            {
-              "include": "#actions"
-            },
-            {
-              "include": "#results"
-            }
+            { "include": "#actions" },
+            { "include": "#results" }
           ]
         }
       ]
@@ -56,16 +38,18 @@
     "actions": {
       "patterns": [
         {
-          "begin": "^Action\\s*:\\s*",
+          "begin": "^ *Action\\s*:\\s*",
           "beginCaptures": {
-            "0": {
-              "name": "keyword.control.action.prefix.shtest"
-            }
+            "0": { "name": "keyword.control.action.prefix.shtest" }
           },
-          "end": "(?=^\\s*(R\u00e9sultat|Resultat)\\s*:)|;",
+          "end": ";|(?=^\\s*(R[ée]sultat|Resultat)\\s*:|^\\s*$)",
           "patterns": [
+            { "include": "#paths" },
+            { "include": "#timestamps" },
+            { "include": "#verbs" },
+            { "include": "#control" },
             {
-              "match": "[^;]+",
+              "match": "[^;\\n]+",
               "name": "string.quoted.action.content.shtest"
             }
           ]
@@ -75,16 +59,26 @@
     "results": {
       "patterns": [
         {
-          "begin": "^R[\u00e9e]sultat\\s*:?\\s*",
-          "beginCaptures": {
-            "0": {
+          "match": "(R[ée]sultat)\\s*:",
+          "captures": {
+            "1": {
               "name": "keyword.control.result.prefix.shtest"
             }
+          }
+        },
+        {
+          "begin": "^ *(R[ée]sultat)\\s*:?",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.result.prefix.shtest" }
           },
           "end": "$",
           "patterns": [
+            { "include": "#paths" },
+            { "include": "#timestamps" },
+            { "include": "#verbs" },
+            { "include": "#control" },
             {
-              "match": ".*",
+              "match": ".+",
               "name": "string.quoted.result.content.shtest"
             }
           ]
@@ -100,9 +94,9 @@
       ]
     },
     "strings": {
-      "name": "string.quoted.double.shtest",
       "begin": "\"",
       "end": "\"",
+      "name": "string.quoted.double.shtest",
       "patterns": [
         {
           "match": "\\\\.",
@@ -113,15 +107,23 @@
     "control": {
       "patterns": [
         {
-          "match": "\\b(cr\u00e9er|configurer|ex\u00e9cuter|lancer|traiter|v\u00e9rifier|valider|toucher|copier|d\u00e9placer|afficher|initialiser|mettre|cat)\\b",
+          "match": "\\b(cr[ée]er|configurer|traiter|valider|toucher|copier|d[ée]placer|afficher|initialiser|mettre|cat)\\b",
           "name": "keyword.control.shtest"
+        }
+      ]
+    },
+    "verbs": {
+      "patterns": [
+        {
+          "match": "\\b(Ex[ée]cuter|Comparer|V[ée]rifier|Mettre|Creer|Créer)\\b",
+          "name": "support.function.builtin.shtest"
         }
       ]
     },
     "types": {
       "patterns": [
         {
-          "match": "\\b(argument|param\u00e8tre|chemin|path|script sql)\\b",
+          "match": "\\b(argument|param[èe]tre|chemin|path|script sql)\\b",
           "name": "storage.type.shtest"
         }
       ]
@@ -137,7 +139,7 @@
     "paths": {
       "patterns": [
         {
-          "match": "\\/[\\w\\.\\/\\-]+",
+          "match": "(\\.|\\~)?\\/?([\\w\\.-]+\\/)*[\\w\\.-]+",
           "name": "string.unquoted.path.shtest"
         }
       ]
@@ -155,6 +157,29 @@
         {
           "match": "[()]",
           "name": "punctuation.section.parens.shtest"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "match": "#.*$",
+          "name": "comment.line.number-sign.shtest"
+        }
+      ]
+    },
+    "assignments": {
+      "patterns": [
+        {
+          "match": "\\b([A-Z_][A-Z0-9_]+)(=)",
+          "captures": {
+            "1": {
+              "name": "variable.other.assignment.name.shtest"
+            },
+            "2": {
+              "name": "keyword.operator.assignment.shtest"
+            }
+          }
         }
       ]
     }
