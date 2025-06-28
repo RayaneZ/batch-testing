@@ -31,7 +31,7 @@ class TestGenerateShellScript(unittest.TestCase):
         actions = parse_test_file(content)
         script = generate_shell_script(actions)
         self.assertIn(
-            'run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @init_bdd.sql"',
+            "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'",
             script,
         )
 

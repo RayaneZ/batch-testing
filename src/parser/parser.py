@@ -49,6 +49,7 @@ class Parser:
             (r"cr[ée]er\s+le\s+fichier\s*=?\s*(\S+)", lambda m, a: a["file_operations"].append(("créer", "fichier", m[1], "0644"))),
             (r"mettre\s+(?:à|a)\s+jour\s+la\s+date\s+du\s+fichier\s*(\S+)\s*(\d{8,14})?", lambda m, a: a["touch_files"].append((m[1], m[2]))),
             (r"touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)(?:\s+(?:-t\s*)?(\d{8,14}))?", lambda m, a: a["touch_files"].append((m[1], m[2]))),
+            (r"comparer\s+le\s+fichier\s*(\S+)\s+avec\s*(\S+)", lambda m, a: a["compare_files"].append((m[1], m[2]))),
             (r"(copier|d\xE9placer)\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)",
              lambda m, a: a["copy_operations"].append((m[1], m[2] or "fichier", m[3], m[4]))),
             (r"(?:afficher le contenu du fichier|cat le fichier|lire le fichier)\s*=?\s*(\S+)",
@@ -95,14 +96,19 @@ class Parser:
         result = match[2].rstrip('.;').strip()
         if result:
             resolver = AliasResolver()
-            actions["validation"].extend(resolver.resolve(result))
+            resolved = resolver.resolve(result)
+            if sub_actions.get("compare_files") and any(r.lower() == "les fichiers sont identiques" for r in resolved):
+                src, dest = sub_actions["compare_files"][-1]
+                actions["validation"].append(f"fichier_identique {src} {dest}")
+            else:
+                actions["validation"].extend(resolved)
 
     def parse(self, description: str) -> Dict[str, Any]:
         actions = {
             "initialization": [], "execution": [], "validation": [],
             "logs_check": [], "arguments": {}, "log_paths": [],
             "sql_scripts": [], "file_operations": [], "copy_operations": [],
-            "cat_files": [], "touch_files": [], "purge_dirs": [],
+            "cat_files": [], "touch_files": [], "purge_dirs": [], "compare_files": [],
             "steps": [], "batch_path": None,
         }
 

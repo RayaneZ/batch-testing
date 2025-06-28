@@ -1,10 +1,20 @@
 import re
 
 def match(expected, last_file_var):
-    for fn in [_match_file_exists, _match_file_contains_exact, _match_file_contains, _match_dir_file_count]:
+    for fn in [_match_files_identical, _match_file_exists, _match_file_contains_exact, _match_file_contains, _match_dir_file_count]:
         result = fn(expected, last_file_var)
         if result:
             return result
+    return None
+
+def _match_files_identical(expected, _):
+    m = re.search(r"fichier_identique\s+(\S+)\s+(\S+)", expected, re.IGNORECASE)
+    if m:
+        src, dest = m.groups()
+        return [
+            f"if diff -q {src} {dest} >/dev/null; then actual=\"Les fichiers sont identiques\"; else actual=\"Les fichiers sont différents\"; fi",
+            "expected=\"Les fichiers sont identiques\"",
+        ]
     return None
 
 def _match_file_exists(expected, last_file_var):
