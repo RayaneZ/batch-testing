@@ -55,5 +55,13 @@ class TestParser(unittest.TestCase):
         result = self.parser.parse("Résultat: Les identifiants sont configurés")
         self.assertIn("identifiants configurés", result["validation"])
 
+    def test_dossier_cree_alias(self):
+        result = self.parser.parse("Résultat: Le dossier est créé")
+        self.assertIn("dossier créé", result["validation"])
+
+    def test_fichier_cree_alias(self):
+        result = self.parser.parse("Résultat: le fichier est créé")
+        self.assertIn("Le fichier est présent", result["validation"])
+
 if __name__ == "__main__":
     unittest.main()
