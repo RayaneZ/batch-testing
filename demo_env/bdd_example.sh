@@ -31,7 +31,10 @@ verdict="KO"
 if [ ${cond1} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
-run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @init_bdd.sql"
+run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'
+WHENEVER SQLERROR EXIT 1;
+@init_bdd.sql
+EOF"
 # Attendu : La base est prête pour le test
 actual="non vérifié"
 expected="La base est prête pour le test"
@@ -53,7 +56,10 @@ if [ ${cond3} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
 # ---- verification ----
-run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @verification.sql"
+run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'
+WHENEVER SQLERROR EXIT 1;
+@verification.sql
+EOF"
 # Attendu : retour 0
 if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
 expected="retour 0"

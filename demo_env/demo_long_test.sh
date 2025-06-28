@@ -107,7 +107,10 @@ if [ ${cond11} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
 # ---- Step 5 - Vérifier la table en base ----
-run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} @verification.sql"
+run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'
+WHENEVER SQLERROR EXIT 1;
+@verification.sql
+EOF"
 # Attendu : retour 0
 if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
 expected="retour 0"
@@ -117,8 +120,8 @@ verdict="KO"
 if [ ${cond12} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
-# Attendu : Les fichiers sont identiques
-actual="non vérifié"
+# Attendu : fichier_identique ./output.txt ./output_attendu.txt
+if diff -q ./output.txt ./output_attendu.txt >/dev/null; then actual="Les fichiers sont identiques"; else actual="Les fichiers sont différents"; fi
 expected="Les fichiers sont identiques"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond13=1; else cond13=0; fi
