@@ -69,6 +69,10 @@ def generate_shell_script(actions_list):
             lines.append(f"# ---- {actions['steps'][0]} ----")
             continue
 
+        if actions.get("arguments"):
+            for key, value in actions["arguments"].items():
+                lines.append(f"export {key}={value}")
+
         if actions.get("initialization"):
             lines.append("# Initialisation")
             for action in actions["initialization"]:
@@ -87,6 +91,9 @@ def generate_shell_script(actions_list):
             arg_str = ' '.join([f'{k}={v}' for k, v in actions.get("arguments", {}).items()])
             actual_path = actions.get("batch_path")
             for action in actions["execution"]:
+                if actual_path is None:
+                    lines.append(f"echo '{action}'")
+                    continue
                 cmd = actual_path if not arg_str else f"{actual_path} {arg_str}"
                 lines.append(f"run_cmd \"{cmd}\"")
 
