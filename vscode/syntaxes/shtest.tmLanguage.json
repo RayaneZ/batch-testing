@@ -1,28 +1,61 @@
 {
   "scopeName": "source.shtest",
   "patterns": [
-    {"match": "\\b(Étape|Etape|Step)\\b", "name": "keyword.other.step.nltest"},
-    {"match": "\\b(créer|configurer|exécuter|lancer|traiter|vérifier|valider|toucher|copier|déplacer|deplacer|afficher|initialiser|mettre|cat)\\b", "name": "keyword.control.nltest"},
-    {"match": "\\b(argument|paramètre|chemin|path|script sql)\\b", "name": "storage.type.nltest"},
-    {"match": "\\b\\d{8,14}\\b", "name": "constant.numeric.timestamp.nltest"},
-    {"match": "/[\\w/\\.\\-]+", "name": "string.unquoted.path.nltest"},
-    {"match": "\\b(et|ou)\\b", "name": "keyword.operator.logical.nltest"},
-    {"match": "[()]", "name": "punctuation.section.parens.nltest"},
     {
-      "match": "Action\\s*:\\s*",
-      "name": "keyword.control.action.prefix.nltest"
+      "match": "\\b(Étape|Etape|Step)\\b",
+      "name": "keyword.other.step.nltest"
     },
     {
-      "match": "(?<=Action\\s*:\\s*)(.*?)(?=\\s*(R[ée]sultat|Resultat)\\s*:?)",
-      "name": "string.quoted.action.content.nltest"
+      "match": "\\b(créer|configurer|exécuter|lancer|traiter|vérifier|valider|toucher|copier|déplacer|deplacer|afficher|initialiser|mettre|cat)\\b",
+      "name": "keyword.control.nltest"
     },
     {
-      "match": "R[ée]sultat\\s*:?",
-      "name": "keyword.control.result.prefix.nltest"
+      "match": "\\b(argument|paramètre|chemin|path|script sql)\\b",
+      "name": "storage.type.nltest"
     },
     {
-      "match": "(?<=R[ée]sultat\\s*:?\\s*)(.*)",
-      "name": "string.quoted.result.content.nltest"
+      "match": "\\b\\d{8,14}\\b",
+      "name": "constant.numeric.timestamp.nltest"
+    },
+    {
+      "match": "\\/[\\w\\.\\/\\-]+",
+      "name": "string.unquoted.path.nltest"
+    },
+    {
+      "match": "\\b(et|ou)\\b",
+      "name": "keyword.operator.logical.nltest"
+    },
+    {
+      "match": "[()]",
+      "name": "punctuation.section.parens.nltest"
+    },
+    {
+      "begin": "Action\\s*:\\s*",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.action.prefix.nltest" }
+      },
+      "end": "(?=\\s*(Résultat|Resultat)\\s*:?)",
+      "name": "string.quoted.action.content.nltest",
+      "patterns": [
+        {
+          "match": ".+",
+          "name": "string.quoted.action.content.nltest"
+        }
+      ]
+    },
+    {
+      "begin": "R[ée]sultat\\s*:?",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.result.prefix.nltest" }
+      },
+      "end": "$",
+      "name": "string.quoted.result.content.nltest",
+      "patterns": [
+        {
+          "match": ".+",
+          "name": "string.quoted.result.content.nltest"
+        }
+      ]
     }
-    ]
-  }
+  ]
+}

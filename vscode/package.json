@@ -7,12 +7,14 @@
     "license": "GPL-3.0-or-later",
     "repository": {
         "type": "git",
-        "url": "https://github.com/your-org/batch-testing"
+        "url": "https://github.com/RayaneZ/batch-testing"
     },
     "engines": {
         "vscode": "^1.80.0"
     },
     "categories": ["Programming Languages"],
+    "keywords": ["syntax", "highlighting", "shell", "test", "shtest"],
+    "main": "./out/extension.js",
     "contributes": {
         "languages": [
             {
