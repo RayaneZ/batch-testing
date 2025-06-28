@@ -1,8 +1,0 @@
-site_name: Batch Testing
-nav:
-  - Accueil: index.md
-  - Outils CLI: cli.md
-  - Configuration: configuration.md
-  - Format des .shtest: shtest_format.md
-
-docs_dir: docs
