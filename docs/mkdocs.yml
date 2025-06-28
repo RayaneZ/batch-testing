@@ -3,11 +3,15 @@ site_name: Batch Testing Documentation
 theme:
   name: material
 nav:
-  - Accueil: index.md
+  - Accueil: docs/index.md
   - Scénarios:
       - bdd_example: bdd_example.md
       - demo_long_test: demo_long_test.md
-
+  - Guide de style: docs/style-guide.md
+  - Documentation regex: docs/regex_documentation.md
+  - Outils CLI: docs/cli.md
+  - Configuration: docs/configuration.md
+  - Format .shtest: docs/shtest_format.md
 
 extra_css:
   - assets/vendor/highlight.js/styles/monokai.css
@@ -19,4 +23,3 @@ extra_javascript:
   - assets/vendor/highlight.js/lib/highlight.js
   - assets/vendor/magnific-popup/jquery.magnific-popup.min.js
 
-  - Guide de style: style-guide.md
