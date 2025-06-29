@@ -21,7 +21,7 @@ log_diff() {
 }
 
 # ---- preparation ----
-export SQL_CONN="rootme/ffDDD584R@base_name"
+export SQL_DRIVER="mysql"
 # Attendu : identifiants configurés
 if [ -n "$SQL_CONN" ]; then actual="identifiants configurés"; else actual="non configuré"; fi
 expected="identifiants configurés"
@@ -31,17 +31,24 @@ verdict="KO"
 if [ ${cond1} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
-run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'
-WHENEVER SQLERROR EXIT 1;
-@init_bdd.sql
-EOF"
-# Attendu : La base est prête pour le test
-actual="non vérifié"
-expected="La base est prête pour le test"
+export SQL_CONN="rootme/ffDDD584R@base_name"
+# Attendu : identifiants configurés
+if [ -n "$SQL_CONN" ]; then actual="identifiants configurés"; else actual="non configuré"; fi
+expected="identifiants configurés"
 log_diff "$expected" "$actual"
 if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
 verdict="KO"
 if [ ${cond2} -eq 1 ]; then verdict="OK"; fi
+expected="OK"
+log_diff "$expected" "$verdict"
+run_cmd "mysql ${SQL_CONN:-user/password@db} < init_bdd.sql"
+# Attendu : La base est prête pour le test
+actual="non vérifié"
+expected="La base est prête pour le test"
+log_diff "$expected" "$actual"
+if [ "$expected" = "$actual" ]; then cond3=1; else cond3=0; fi
+verdict="KO"
+if [ ${cond3} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
 # ---- execution ----
@@ -50,22 +57,19 @@ run_cmd "/opt/batch/migration.sh"
 if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
 expected="retour 0"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond3=1; else cond3=0; fi
+if [ "$expected" = "$actual" ]; then cond4=1; else cond4=0; fi
 verdict="KO"
-if [ ${cond3} -eq 1 ]; then verdict="OK"; fi
+if [ ${cond4} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
 # ---- verification ----
-run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'
-WHENEVER SQLERROR EXIT 1;
-@verification.sql
-EOF"
+run_cmd "mysql ${SQL_CONN:-user/password@db} < verification.sql"
 # Attendu : retour 0
 if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
 expected="retour 0"
 log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond4=1; else cond4=0; fi
+if [ "$expected" = "$actual" ]; then cond5=1; else cond5=0; fi
 verdict="KO"
-if [ ${cond4} -eq 1 ]; then verdict="OK"; fi
+if [ ${cond5} -eq 1 ]; then verdict="OK"; fi
 expected="OK"
 log_diff "$expected" "$verdict"
