@@ -25,7 +25,7 @@ class AliasResolver:
             (re.compile(r"le script s'?ex[ée]cute\s+avec\s+succ[eè]s", re.I), lambda m: ["retour 0"]),
             (re.compile(r"le fichier\s+(\S+)\s+est identique(?:\s+[àa])?\s*(\S+)", re.I), lambda m: [f"fichier_identique {m[1]} {m[2]}"]),
             (re.compile(r"les?\s+fichiers\s+sont\s+identiques", re.I), lambda m: ["les fichiers sont identiques"]),
-            (re.compile(r"la base(?: de test)?\s+est\s+pr[êe]te", re.I), lambda m: ["base prête"]),
+            (re.compile(r"la base(?: de test)?\s+est\s+pr[êe]te(?:\s+pour\s+le\s+test)?", re.I), lambda m: ["base prête"]),
             (re.compile(r"le contenu\s+est\s+(?:affich[ée]|correct|lisible)", re.I), lambda m: ["contenu affiché" if "lisible" in m[0] or "affich" in m[0] else "contenu correct"]),
             (re.compile(r"aucun message d'?erreur", re.I), lambda m: ["stderr="]),
             (re.compile(r"les logs sont accessibles", re.I), lambda m: ["logs accessibles"]),

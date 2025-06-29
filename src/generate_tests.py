@@ -24,7 +24,10 @@ def parse_test_file(contents: str):
 
 def generate_shell_script(actions_list):
     lines = [
-        "#!/bin/sh", "", "run_cmd() {",
+        "#!/bin/sh",
+        "set -e",
+        "",
+        "run_cmd() {",
         "  local _stdout=$(mktemp)",
         "  local _stderr=$(mktemp)",
         "  /bin/sh -c \"$1\" >\"$_stdout\" 2>\"_stderr\"",
@@ -32,6 +35,9 @@ def generate_shell_script(actions_list):
         "  last_stdout=$(cat \"$_stdout\")",
         "  last_stderr=$(cat \"$_stderr\")",
         "  rm -f \"$_stdout\" \"$_stderr\"",
+        "  if [ $last_ret -ne 0 ]; then",
+        "    echo \"STDERR: $last_stderr\"",
+        "  fi",
         "}", "", "log_diff() {",
         "  expected=\"$1\"",
         "  actual=\"$2\"",
@@ -44,6 +50,8 @@ def generate_shell_script(actions_list):
 
     counter = [0]
     current_driver = os.environ.get("SQL_DRIVER", "oracle")
+    pending_ident = False
+    skip_ident = False
     for actions in actions_list:
         if actions.get("steps"):
             lines.append(f"# ---- {actions['steps'][0]} ----")
@@ -53,6 +61,10 @@ def generate_shell_script(actions_list):
                 lines.append(f"export {key}=\"{value}\"")
                 if key == "SQL_DRIVER":
                     current_driver = value
+            if "SQL_CONN" in actions["arguments"] and pending_ident:
+                lines.extend(compile_validation("identifiants configurés", counter))
+                pending_ident = False
+                skip_ident = True
         if actions.get("initialization"):
             lines.append("# Initialisation")
             for action in actions["initialization"]:
@@ -111,8 +123,18 @@ def generate_shell_script(actions_list):
                 cmd = TEMPLATES["cat_file"].substitute(file=f)
                 lines.append(f"run_cmd \"{cmd}\"")
         if actions.get("validation"):
-            for v in actions["validation"]:
+            vals = actions["validation"]
+            if skip_ident:
+                vals = [v for v in vals if v != "identifiants configurés"]
+                skip_ident = False
+            if "identifiants configurés" in vals and "SQL_CONN" not in actions.get("arguments", {}):
+                pending_ident = True
+                vals = [v for v in vals if v != "identifiants configurés"]
+            for v in vals:
                 lines.extend(compile_validation(v, counter))
+
+    if pending_ident:
+        lines.extend(compile_validation("identifiants configurés", counter))
 
     return "\n".join(lines)
 
