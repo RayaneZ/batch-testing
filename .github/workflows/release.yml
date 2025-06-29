@@ -17,16 +17,29 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install vsce
-        run: npm install -g @vscode/vsce@3.5.0
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install tools
+        run: |
+          npm install -g @vscode/vsce@3.5.0
+          pip install mkdocs
       - name: Copy license
         run: cp LICENSE vscode/LICENSE.txt
       - name: Package VSIX
         run: vsce package -o ../shtest-syntax.vsix
         working-directory: vscode
 
+      - name: Build documentation
+        run: mkdocs build -f docs/mkdocs.yml
+
+      - name: Zip documentation
+        run: zip -r docs_html.zip docs/site
+
       - name: Zip application
-        run: zip -r app.zip src docs README.md
+        run: zip -r app.zip src docs README.md -x 'docs/site/*'
 
       - name: Push tag
         run: |
@@ -43,5 +56,6 @@ jobs:
         with:
           files: |
             app.zip
+            docs_html.zip
             shtest-syntax.vsix
 
