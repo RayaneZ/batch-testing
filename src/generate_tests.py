@@ -1,6 +1,7 @@
 from parser.parser import Parser
 from lexer import lex
 from templates import TEMPLATES
+from compiler.matchers.drivers import get_sql_command
 from compiler.compiler import compile_validation
 import os
 from glob import glob
@@ -42,6 +43,7 @@ def generate_shell_script(actions_list):
     ]
 
     counter = [0]
+    current_driver = os.environ.get("SQL_DRIVER", "oracle")
     for actions in actions_list:
         if actions.get("steps"):
             lines.append(f"# ---- {actions['steps'][0]} ----")
@@ -49,13 +51,15 @@ def generate_shell_script(actions_list):
         if actions.get("arguments"):
             for key, value in actions["arguments"].items():
                 lines.append(f"export {key}=\"{value}\"")
+                if key == "SQL_DRIVER":
+                    current_driver = value
         if actions.get("initialization"):
             lines.append("# Initialisation")
             for action in actions["initialization"]:
                 scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
                 if scripts:
                     for script in scripts:
-                        cmd = TEMPLATES['execute_sql'].substitute(script=script, conn='${SQL_CONN:-user/password@db}')
+                        cmd = get_sql_command(script=script, conn='${SQL_CONN:-user/password@db}', driver=current_driver)
                         lines.append(f"run_cmd \"{cmd}\"")
                 else:
                     lines.append(f"run_cmd \"echo '{action}'\"")
@@ -66,7 +70,7 @@ def generate_shell_script(actions_list):
                 scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
                 if scripts:
                     for script in scripts:
-                        cmd = TEMPLATES['execute_sql'].substitute(script=script, conn='${SQL_CONN:-user/password@db}')
+                        cmd = get_sql_command(script=script, conn='${SQL_CONN:-user/password@db}', driver=current_driver)
                         lines.append(f"run_cmd \"{cmd}\"")
                     continue
                 if actual_path is None:
