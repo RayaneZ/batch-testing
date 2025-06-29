@@ -57,6 +57,18 @@ class TestGenerateShellScript(unittest.TestCase):
         self.assertIn('cond1', script)
         self.assertIn('cond2', script)
 
+    def test_sql_driver_override(self):
+        content = (
+            "Action: Définir la variable SQL_DRIVER = mysql ;\n"
+            "Action: Exécuter le script SQL init.sql ;"
+        )
+        actions = parse_test_file(content)
+        script = generate_shell_script(actions)
+        self.assertIn(
+            "mysql ${SQL_CONN:-user/password@db} < init.sql",
+            script,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
