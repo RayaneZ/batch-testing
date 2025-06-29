@@ -1,0 +1,75 @@
+Step: catalogue
+Action: Afficher le contenu du fichier = /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché.
+Action: Afficher le contenu du fichier = /tmp/JDD_Extra.sql ; Résultat: Le script est affiché.
+Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct.
+Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct.
+Action: Afficher le contenu du fichier = /tmp/output.txt ; Résultat: Le contenu est correct.
+Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le contenu est affiché.
+Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le script est affiché.
+Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.
+Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: le contenu est lisible.
+Action: Afficher le contenu du fichier = /tmp/test_folder/test.txt ; Résultat: le contenu est lisible.
+Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: le dossier est copié.
+Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié.
+Action: Créer le dossier = /tmp/data avec les droits = 0755 ; Résultat: Le dossier est créé.
+Action: Créer le dossier = /tmp/newdir ; Résultat: Le dossier est créé.
+Action: Créer le dossier = /tmp/newdir ; Résultat: dossier créé.
+Action: Créer le dossier = /tmp/newdir ; Résultat: le dossier est prêt.
+Action: Créer dossier = /tmp/test_folder avec les droits = 0700 ; Résultat: le dossier est prêt.
+Action: Créer fichier = /tmp/output.txt avec les droits = 0644 ; Résultat: Le fichier est présent.
+Action: Créer fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: le fichier est créé.
+Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: Les identifiants sont configurés.
+Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.
+Action: Exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0 et (La sortie standard contient "OK" ou La sortie d'erreur contient WARNING).
+Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING).
+Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient "OK" ou stderr contient WARNING).
+Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=123 et la quantité=10 ; Résultat: retour 0.
+Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=567 et la quantité=20 ; Résultat: retour 0 et (stdout contient "Traitement OK" ou stderr contient WARNING).
+Action: Exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête.
+Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test.
+Action: Exécuter script.sh ; Résultat: La base de test est prête.
+Action: Exécuter script.sh ; Résultat: La base est prête pour le test.
+Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique a /tmp/b.txt.
+Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique à /tmp/b.txt.
+Action: Exécuter script.sh ; Résultat: base prête.
+Action: Exécuter script.sh ; Résultat: fichier_identique /tmp/a.txt /tmp/b.txt.
+Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: les logs sont accessibles.
+Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: logs accessibles.
+Action: Indiquer le chemin des logs = /var/log/system.log ; Résultat: les logs sont accessibles.
+Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: La date est modifiée.
+Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: date modifiée.
+Action: Mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Résultat: La date est modifiée.
+Action: Toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé.
+Action: Vider le répertoire /tmp/cache ; Résultat: le dossier est prêt.
+Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: le script affiche un code "030".
+Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: aucun message d'erreur.
+Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: stderr=.
+Action: Vérifier qu'il n'y a pas d'erreurs dans les logs ; Résultat: aucun message d'erreur.
+Action: Vérifier que la date du fichier /tmp/test.log est 202501010000 ; Résultat: la date du fichier /tmp/test.log est 202501010000.
+Action: Vérifier que le dossier /tmp/testdir a les droits 0755 ; Résultat: le dossier /tmp/testdir a les droits 0755.
+Action: Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt ; Résultat: le dossier /tmp/testdir contient 2 fichiers *.txt.
+Action: Vérifier que le dossier /tmp/testdir existe ; Résultat: le dossier /tmp/testdir existe.
+Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier /tmp/dest.txt existe ;
+Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier est présent et (le fichier /tmp/dest.txt existe ; ou la sortie d'erreur contient "Erreur de copie").
+Action: Vérifier que le fichier /tmp/test.log a les droits 0644 ; Résultat: le fichier /tmp/test.log a les droits 0644.
+Action: Vérifier que le fichier /tmp/test.log contient OK ; Résultat: le fichier /tmp/test.log contient OK.
+Action: Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD ; Résultat: le fichier /tmp/test.log contient exactement ALLGOOD.
+Action: Vérifier que le fichier /tmp/test.log existe ; Résultat: le fichier /tmp/test.log existe.
+Action: afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.
+Action: cat le fichier = /tmp/test.txt ; Résultat: contenu affiché.
+Action: configurer le contexte ; Résultat: base prête.
+Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.
+Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+Action: créer le contexte ; Résultat: base prête.
+Action: créer fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.
+Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est déplacé.
+Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est déplacé.
+Action: exécuter dummy.sh ; Résultat: retour 0.
+Action: exécuter traitement.sh ; Résultat: retour 0.
+Action: initialiser le contexte ; Résultat: base prête.
+Action: lancer traitement.sh ; Résultat: retour 0.
+Action: lire le fichier = /tmp/test.txt ; Résultat: contenu affiché.
+Action: mettre à jour la date du fichier /tmp/test.txt 202501010101 ; Résultat: date modifiée.
+Action: mettre à jour fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.
+Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.
+Action: traiter traitement.sh ; Résultat: retour 0.

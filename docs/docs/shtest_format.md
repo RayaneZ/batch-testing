@@ -52,8 +52,8 @@ Ce chapitre couvre la configuration de la connexion à une base de données, ain
 ### Définir la connexion à une base de données
 
 Définissez les variables nécessaires pour accéder à une base de données (driver et chaîne de connexion). 
-KightBatch utilise les variables réservées `SQL_DRIVER` et `SQL_CONN` pour générer des instructions compatibles avec votre moteur de base de données.
-Il est possible de réecrire la variable SQL_DRIVER plusieurs fois dans le même test si vous utilisez plusieurs bases de données.
+KnightBatch utilise les variables réservées `SQL_DRIVER` et `SQL_CONN` pour générer des instructions compatibles avec votre moteur de base de données.
+Il est possible de réécrire la variable SQL_DRIVER plusieurs fois dans le même test si vous utilisez plusieurs bases de données.
 
 Pour définir le moteur de base de données :
 ```text
@@ -85,7 +85,7 @@ log_diff "$expected" "$verdict"
 
 ### Exécuter un script en base de données
 
-Il est possible d'executer des scripts SQL de la manière suivante :
+Il est possible d'exécuter des scripts SQL de la manière suivante :
 
 ```text
 Action: Exécuter le script SQL ./init_bdd.sql ; Résultat: La base est prête pour le test.
@@ -108,7 +108,7 @@ expected="OK"
 log_diff "$expected" "$verdict"
 ```
 
-S'il ne s'agit pas d'une initialisation, il est également possible d'utliiser des alias tels que :
+S'il ne s'agit pas d'une initialisation, il est également possible d'utiliser des alias tels que :
 ```text
 Action: Exécuter le script SQL verification.sql ; Résultat: Le script s’exécute avec succès.
 ```
@@ -130,12 +130,7 @@ expected="OK"
 log_diff "$expected" "$verdict"
 ```
 
-> Note : il est possible d'exporter le resultat d'un select dans un fichier afin de le comparer à un resultat attendu à l'aide des actions de manipulation de fichiers
-
-
-
-
-
+> Note : il est possible d'exporter le résultat d'un `SELECT` dans un fichier afin de le comparer à un résultat attendu à l'aide des actions de manipulation de fichiers.
 ---
 
 ## Manipulation de fichiers
@@ -255,3 +250,134 @@ Action: Purger le contenu du dossier ./temp ; Résultat: dossier vidé.
 Action: Réinitialiser le fichier ./data.json ; Résultat: fichier vide.
 Action: Exécuter le script SQL cleanup.sql ; Résultat: base réinitialisée.
 ```
+
+---
+
+## Catalogue complet des actions
+
+Les exemples ci-dessous récapitulent toutes les actions observées dans le dossier `tests`.
+Elles sont classées par thème et accompagnées du résultat attendu.
+
+### Consultation de fichiers
+- Action: Afficher le contenu du fichier = /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché.
+- Action: Afficher le contenu du fichier = /tmp/JDD_Extra.sql ; Résultat: Le script est affiché.
+- Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct.
+- Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct.
+- Action: Afficher le contenu du fichier = /tmp/output.txt ; Résultat: Le contenu est correct.
+- Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le contenu est affiché.
+- Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le script est affiché.
+- Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.
+- Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: le contenu est lisible.
+- Action: Afficher le contenu du fichier = /tmp/test_folder/test.txt ; Résultat: le contenu est lisible.
+- Action: lire le fichier = /tmp/test.txt ; Résultat: contenu affiché.
+- Action: cat le fichier = /tmp/test.txt ; Résultat: contenu affiché.
+- Action: afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.
+
+### Création et copie de fichiers
+- Action: Créer le fichier = /tmp/output.txt avec les droits = 0644 ; Résultat: Le fichier est présent.
+- Action: Créer le fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: le fichier est créé.
+- Action: créer le fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.
+- Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+- Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+- Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié.
+- Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: le dossier est copié.
+- Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.
+- Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.
+
+### Gestion des dossiers
+- Action: Créer le dossier = /tmp/data avec les droits = 0755 ; Résultat: Le dossier est créé.
+- Action: Créer le dossier = /tmp/newdir ; Résultat: Le dossier est créé.
+- Action: Créer le dossier = /tmp/newdir ; Résultat: dossier créé.
+- Action: Créer le dossier = /tmp/newdir ; Résultat: le dossier est prêt.
+- Action: Créer le dossier = /tmp/test_folder avec les droits = 0700 ; Résultat: le dossier est prêt.
+### Manipulation de dates
+- Action: Toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé.
+- Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.
+- Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.
+- Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: La date est modifiée.
+- Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: date modifiée.
+- Action: Mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Résultat: La date est modifiée.
+- Action: mettre à jour la date du fichier /tmp/test.txt 202501010101 ; Résultat: date modifiée.
+
+### Exécution de scripts et SQL
+- Action: Exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0 et (La sortie standard contient "OK" ou La sortie d'erreur contient WARNING).
+- Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING).
+- Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient "OK" ou stderr contient WARNING).
+- Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=123 et la quantité=10 ; Résultat: retour 0.
+- Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=567 et la quantité=20 ; Résultat: retour 0 et (stdout contient "Traitement OK" ou stderr contient WARNING).
+- Action: exécuter traitement.sh ; Résultat: retour 0.
+- Action: lancer traitement.sh ; Résultat: retour 0.
+- Action: traiter traitement.sh ; Résultat: retour 0.
+- Action: exécuter dummy.sh ; Résultat: retour 0.
+- Action: Exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête.
+- Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test.
+- Action: Exécuter script.sh ; Résultat: La base de test est prête.
+- Action: Exécuter script.sh ; Résultat: La base est prête pour le test.
+- Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique a /tmp/b.txt.
+- Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique à /tmp/b.txt.
+- Action: Exécuter script.sh ; Résultat: base prête.
+- Action: Exécuter script.sh ; Résultat: fichier_identique /tmp/a.txt /tmp/b.txt.
+
+### Paramétrage et contexte
+- Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: Les identifiants sont configurés.
+- Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.
+- Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: les logs sont accessibles.
+- Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: logs accessibles.
+- Action: Indiquer le chemin des logs = /var/log/system.log ; Résultat: les logs sont accessibles.
+- Action: configurer le contexte ; Résultat: base prête.
+- Action: créer le contexte ; Résultat: base prête.
+- Action: initialiser le contexte ; Résultat: base prête.
+
+### Vérifications
+- Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: le script affiche un code "030".
+- Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: aucun message d'erreur.
+- Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: stderr=.
+- Action: Vérifier qu'il n'y a pas d'erreurs dans les logs ; Résultat: aucun message d'erreur.
+- Action: Vérifier que la date du fichier /tmp/test.log est 202501010000 ; Résultat: la date du fichier /tmp/test.log est 202501010000.
+- Action: Vérifier que le dossier /tmp/testdir a les droits 0755 ; Résultat: le dossier /tmp/testdir a les droits 0755.
+- Action: Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt ; Résultat: le dossier /tmp/testdir contient 2 fichiers *.txt.
+- Action: Vérifier que le dossier /tmp/testdir existe ; Résultat: le dossier /tmp/testdir existe.
+- Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier /tmp/dest.txt existe ;
+- Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier est présent et (le fichier /tmp/dest.txt existe ; ou la sortie d'erreur contient "Erreur de copie").
+- Action: Vérifier que le fichier /tmp/test.log a les droits 0644 ; Résultat: le fichier /tmp/test.log a les droits 0644.
+- Action: Vérifier que le fichier /tmp/test.log contient OK ; Résultat: le fichier /tmp/test.log contient OK.
+- Action: Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD ; Résultat: le fichier /tmp/test.log contient exactement ALLGOOD.
+- Action: Vérifier que le fichier /tmp/test.log existe ; Résultat: le fichier /tmp/test.log existe.
+
+### Nettoyage
+- Action: Vider le répertoire /tmp/cache ; Résultat: le dossier est prêt.
+
+### Extrait du script généré
+Pour illustrer la transformation, toutes ces actions ont été réunies dans un unique fichier `.shtest` puis converties en script shell :
+
+```bash
+python src/run_all.py --input docs/catalogue_tests --output docs/catalogue_output --no-excel
+```
+
+Les premières lignes du script obtenu sont :
+
+```sh
+    }
+
+    # ---- catalogue ----
+    run_cmd "cat /tmp/JDD_Commun.sql"
+    # Attendu : contenu affiché
+    if [ $last_ret -eq 0 ]; then actual="contenu affiché"; else actual="contenu non affiché"; fi
+    expected="contenu affiché"
+    log_diff "$expected" "$actual"
+    if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
+    verdict="KO"
+    if [ ${cond1} -eq 1 ]; then verdict="OK"; fi
+    expected="OK"
+    log_diff "$expected" "$verdict"
+    run_cmd "cat /tmp/JDD_Extra.sql"
+    # Attendu : le script est affiché
+    if [ $last_ret -eq 0 ]; then actual="contenu affiché"; else actual="contenu non affiché"; fi
+    expected="contenu affiché"
+    log_diff "$expected" "$actual"
+    if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
+    verdict="KO"
+    if [ ${cond2} -eq 1 ]; then verdict="OK"; fi
+```
+
+Après amélioration des règles de conversion, toutes les validations sont désormais vérifiées dans le script généré.

@@ -10,6 +10,11 @@ def match(expected, _):
         "date modifiee": ("date modifiée", "date inchangée"),
         "contenu correct": ("contenu correct", "contenu incorrect"),
         "logs accessibles": ("logs accessibles", "logs inaccessibles"),
+        "le fichier est present": ("Le fichier est présent", "Le fichier est absent"),
+        "le dossier est copie": ("le dossier est copié", "le dossier non copié"),
+        "le script est affiche": ("contenu affiché", "contenu non affiché"),
+        "le fichier est deplace": ("le fichier est déplacé", "fichier non déplacé"),
+        "le dossier est deplace": ("le dossier est déplacé", "dossier non déplacé"),
     }
 
     if normalized in mapping:
