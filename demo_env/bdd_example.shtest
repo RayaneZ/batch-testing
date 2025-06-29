@@ -1,5 +1,5 @@
 Step: preparation
-Action: Définir la variable SQL_DRIVER = mysql ; Résultat: Les identifiants sont configurés
+Action: Définir la variable SQL_DRIVER = mysql ; Résultat: La variable d'environnement à été définie
 Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés.
 Action: Exécuter le script SQL init_bdd.sql ; Résultat: La base est prête pour le test.
 

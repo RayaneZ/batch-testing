@@ -1,7 +1,12 @@
 
 site_name: KnightBatch Documentation
 theme:
-  name: readthedocs
+  logo: assets/logo.png
+  name: material
+  palette:
+    scheme: slate
+  code:
+    highlighting: monokai
 nav:
   - Accueil: index.md
   - Outils CLI: cli.md
@@ -10,5 +15,17 @@ nav:
     - Prise en main : shtest_format.md
     - Expressions détéctées: regex_documentation.md
   - Guide de style: style-guide.md
-  
+plugins:
+  - search
+  - macros
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
   

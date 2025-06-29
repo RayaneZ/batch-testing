@@ -1,7 +1,8 @@
+
 # Scénarios de Test
 
-Bienvenue dans la documentation des scénarios de test automatisés.  
-Ce site documente l'ensemble des règles, formats et procédures utilisés pour décrire, exécuter et valider des scénarios techniques via des instructions en langage naturel.
+| <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Bienvenue dans la documentation des scénarios de test automatisés. Ce site documente l'ensemble des règles, formats et procédures utilisés pour décrire, exécuter et valider des scénarios techniques via des instructions en langage naturel. |
+| :--: | --- |
 
 ## Objectifs
 
