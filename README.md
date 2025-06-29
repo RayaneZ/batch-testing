@@ -1,4 +1,8 @@
-# Batch Testing Documentation
+<p align="center" style="background:#fff">
+  <img src="logo.png" alt="KnightBatch logo" width="200"/>
+</p>
+
+# Documentation
 
 This repository contains utilities for writing automated shell tests using a simple Action/Resultat syntax. It also ships a VS Code extension for `.shtest` files.
 

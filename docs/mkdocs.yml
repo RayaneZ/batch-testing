@@ -1,7 +1,7 @@
 
-site_name: Batch Testing Documentation
+site_name: KnightBatch Documentation
 theme:
-  name: material
+  name: readthedocs
 nav:
   - Accueil: index.md
   - Outils CLI: cli.md
