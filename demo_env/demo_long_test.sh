@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 run_cmd() {
   local _stdout=$(mktemp)
@@ -8,6 +9,9 @@ run_cmd() {
   last_stdout=$(cat "$_stdout")
   last_stderr=$(cat "$_stderr")
   rm -f "$_stdout" "$_stderr"
+  if [ $last_ret -ne 0 ]; then
+    echo "STDERR: $last_stderr"
+  fi
 }
 
 log_diff() {
