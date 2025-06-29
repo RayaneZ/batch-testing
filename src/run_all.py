@@ -15,7 +15,8 @@ def read_config():
     config.read(CONFIG_PATH)
     input_dir = config.get("application", "input_dir", fallback="tests")
     output_dir = config.get("application", "output_dir", fallback="output")
-    return input_dir, output_dir
+    sql_driver = config.get("application", "sql_driver", fallback="oracle")
+    return input_dir, output_dir, sql_driver
 
 def run_syntax_check(input_dir: str):
     print("[1/3] Vérification de la syntaxe...")
@@ -47,9 +48,11 @@ def main():
     parser.add_argument("--no-excel", action="store_true", help="Ne pas générer le fichier Excel")
     args = parser.parse_args()
 
-    config_input, config_output = read_config()
+    config_input, config_output, config_driver = read_config()
     input_dir = args.input or config_input
     output_dir = args.output or config_output
+    if "SQL_DRIVER" not in os.environ:
+        os.environ["SQL_DRIVER"] = config_driver
     excel_file = args.excel or os.path.join(output_dir, "tests_summary.xlsx")
 
     run_syntax_check(input_dir)

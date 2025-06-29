@@ -18,7 +18,7 @@ The existing HTML pages generated from the [iDocs](https://github.com/harnishdes
 3. Optionally run `python src/verify_syntax.py` to validate the scenarios.
 4. Optionally run `python src/export_to_excel.py` to create an Excel summary.
 
-Default directories can be adjusted in `config.ini`.
+Default directories and the `sql_driver` used for SQL scripts can be adjusted in `config.ini`.
 
 ## Command Reference
 

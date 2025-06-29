@@ -1,6 +1,7 @@
 from parser.parser import Parser
 from lexer import lex
 from templates import TEMPLATES
+from compiler.matchers.drivers import get_sql_command
 from compiler.compiler import compile_validation
 import os
 from glob import glob
@@ -55,7 +56,7 @@ def generate_shell_script(actions_list):
                 scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
                 if scripts:
                     for script in scripts:
-                        cmd = TEMPLATES['execute_sql'].substitute(script=script, conn='${SQL_CONN:-user/password@db}')
+                        cmd = get_sql_command(script=script, conn='${SQL_CONN:-user/password@db}')
                         lines.append(f"run_cmd \"{cmd}\"")
                 else:
                     lines.append(f"run_cmd \"echo '{action}'\"")
@@ -66,7 +67,7 @@ def generate_shell_script(actions_list):
                 scripts = re.findall(r"\S+\.sql", action, re.IGNORECASE)
                 if scripts:
                     for script in scripts:
-                        cmd = TEMPLATES['execute_sql'].substitute(script=script, conn='${SQL_CONN:-user/password@db}')
+                        cmd = get_sql_command(script=script, conn='${SQL_CONN:-user/password@db}')
                         lines.append(f"run_cmd \"{cmd}\"")
                     continue
                 if actual_path is None:
