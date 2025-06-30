@@ -7,3 +7,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Initial release
+
+## [2.0.3] - 2024-05-01
+- Added VS Code snippets for catalogue actions.
