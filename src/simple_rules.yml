@@ -1,0 +1,42 @@
+- pattern: '(créer|configurer)(?!.*(?:dossier|fichier|=)).*'
+  handler: initialization {0}
+- pattern: 'initialiser(?!.*?\.sql).*'
+  handler: initialization {0}
+- pattern: 'd\xE9finir la variable\s*(\S+)\s*=\s*(.+?)(?:;|$)'
+  handler: set_variable {1} {2}
+- pattern: 'exécuter.*?\.sql.*'
+  handler: sql_script {0}
+- pattern: '(?:exécuter|lancer|traiter)\s+(\S+\.sh).*'
+  handler: batch_script {1}
+- pattern: '(exécuter|lancer|traiter).*'
+  handler: execution {0}
+- pattern: '(?:vérifier|valider)\s+que\s+(.*)'
+  handler: validation {1}
+- pattern: '(logs|erreurs|fichiers de logs)'
+  handler: logs_check {0}
+- pattern: '(?:argument|paramètre|et\s+(?:l[''ae]|l''))\s*(\S+)=\s*(\S+)'
+  handler: arguments {1} {2}
+- pattern: 'd[ée]finir la variable\s+(\w+)\s*=\s*([^;]+)'
+  handler: variable {1} {2}
+- pattern: '(?:chemin|path) des logs\s*=\s*(\S+)'
+  handler: log_path {1}
+- pattern: 'script sql\s*=\s*(.*?\.sql)'
+  handler: sql_script_single {1}
+- pattern: '(cr[ée]er|mettre\s+(?:à|a)\s+jour)\s+(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)'
+  handler: file_op {1} {2} {3} {4}
+- pattern: 'cr[ée]er\s+le\s+dossier\s*=?\s*(\S+)'
+  handler: create_dir {1}
+- pattern: 'cr[ée]er\s+le\s+fichier\s*=?\s*(\S+)'
+  handler: create_file {1}
+- pattern: 'mettre\s+(?:à|a)\s+jour\s+la\s+date\s+du\s+fichier\s*(\S+)\s*(\d{8,14})?'
+  handler: touch_date {1} {{2}}
+- pattern: 'touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)(?:\s+(?:-t\s*)?(\d{8,14}))?'
+  handler: touch {1} {{2}}
+- pattern: 'comparer\s+le\s+fichier\s*(\S+)\s+avec\s*(\S+)'
+  handler: compare_files {1} {2}
+- pattern: '(copier|d\xE9placer)\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)'
+  handler: copy_move {1} {{2}} {3} {4}
+- pattern: '(?:afficher le contenu du fichier|cat le fichier|lire le fichier)\s*=?\s*(\S+)'
+  handler: cat {1}
+- pattern: '(?:vider|purger)\s+le\s+(?:r[eé]pertoire|dossier)\s*=?\s*(\S+)'
+  handler: purge_dir {1}

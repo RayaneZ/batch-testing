@@ -2,7 +2,14 @@ import re
 from dataclasses import dataclass
 from typing import Callable, Dict, List, Optional, Any
 from parser.alias_resolver import AliasResolver
-from common_patterns import ACTION_RESULT_RE, STEP_RE
+from common_patterns import (
+    ACTION_RESULT_RE,
+    ACTION_ONLY_RE,
+    RESULT_ONLY_RE,
+    STEP_RE,
+    COMMENT_RE,
+    SIMPLE_RULES,
+)
 
 
 
@@ -17,50 +24,72 @@ class Parser:
 
     def __init__(self) -> None:
         self.rules: List[Rule] = []
-        self.action_result_re: Optional[re.Pattern] = None
-        self.arg_pattern = re.compile(r"(?:argument|paramètre|et\s+(?:l['ae]|l'))\s*(\S+)=\s*(\S+)", re.I)
+        self.arg_pattern = re.compile(
+            r"(?:argument|paramètre|et\s+(?:l['ae]|l'))\s*(\S+)=\s*(\S+)", re.I
+        )
+        self._handler_map = self._build_handler_map()
         self._register_default_rules()
 
     def _register(self, pattern: str, handler: Callable[[re.Match, Dict[str, Any]], None]) -> None:
         self.rules.append(Rule(re.compile(pattern, re.I), handler))
 
     def _register_default_rules(self) -> None:
-        self.action_result_re = ACTION_RESULT_RE
-        self._register(self.action_result_re.pattern, self._handle_action_result)
-
-        simple_rules = [
-            (STEP_RE.pattern, lambda m, a: a["steps"].append(m[1].strip())),
-            (r"(créer|configurer)(?!.*(?:dossier|fichier|=))", lambda m, a: a["initialization"].append(m.string.strip())),
-            (r"initialiser(?!.*?\.sql)", lambda m, a: a["initialization"].append(m.string.strip())),
-            (r"d\xE9finir la variable\s*(\S+)\s*=\s*(.+?)(?:;|$)", lambda m, a: a["arguments"].update({m[1]: m[2].strip()})),
-            (r"exécuter.*?\.sql", self._handle_sql_script),
-            (r"(?:exécuter|lancer|traiter)\s+(\S+\.sh)", lambda m, a: a.update({"batch_path": m[1]})),
-            (r"(exécuter|lancer|traiter)", lambda m, a: a["execution"].append(m.string.strip())),
-            (r"R[eé]sultat\s*:?\s*(.*)", lambda m, a: a["validation"].extend(AliasResolver().resolve(m[1].rstrip('.;').strip()))),
-            (r"(?:vérifier|valider)\s+que\s+(.*)", lambda m, a: a["validation"].append(m[1].rstrip('.;').strip())),
-            (r"(logs|erreurs|fichiers de logs)", lambda m, a: a["logs_check"].append(m.string.strip())),
-            (self.arg_pattern.pattern, self._handle_arguments),
-            (r"d[ée]finir la variable\s+(\w+)\s*=\s*([^;]+)", self._handle_variable),
-            (r"R[ée]sultat\s*:\s*(.*)", self._handle_result_only),
-            (r"(?:chemin|path) des logs\s*=\s*(\S+)", lambda m, a: a["log_paths"].append(m[1])),
-            (r"script sql\s*=\s*(.*?\.sql)", lambda m, a: a["sql_scripts"].append(m[1]) if m[1] not in a["sql_scripts"] else None),
-            (r"(cr[ée]er|mettre\s+(?:à|a)\s+jour)\s+(fichier|dossier)\s*=\s*(\S+)\s*(?:avec les droits|mode)\s*=\s*(\S+)",
-             lambda m, a: a["file_operations"].append((m[1], m[2], m[3], m[4]))),
-            (r"cr[ée]er\s+le\s+dossier\s*=?\s*(\S+)", lambda m, a: a["file_operations"].append(("créer", "dossier", m[1], "0755"))),
-            (r"cr[ée]er\s+le\s+fichier\s*=?\s*(\S+)", lambda m, a: a["file_operations"].append(("créer", "fichier", m[1], "0644"))),
-            (r"mettre\s+(?:à|a)\s+jour\s+la\s+date\s+du\s+fichier\s*(\S+)\s*(\d{8,14})?", lambda m, a: a["touch_files"].append((m[1], m[2]))),
-            (r"touch(?:er)?(?:\s+le\s+fichier)?\s*(\S+)(?:\s+(?:-t\s*)?(\d{8,14}))?", lambda m, a: a["touch_files"].append((m[1], m[2]))),
-            (r"comparer\s+le\s+fichier\s*(\S+)\s+avec\s*(\S+)", lambda m, a: a["compare_files"].append((m[1], m[2]))),
-            (r"(copier|d\xE9placer)\s+(?:le\s+)?(fichier|dossier)?\s*(\S+)\s+vers\s+(\S+)",
-             lambda m, a: a["copy_operations"].append((m[1], m[2] or "fichier", m[3], m[4]))),
-            (r"(?:afficher le contenu du fichier|cat le fichier|lire le fichier)\s*=?\s*(\S+)",
-             lambda m, a: a["cat_files"].append(m[1])),
-            (r"(?:vider|purger)\s+le\s+(?:r[eé]pertoire|dossier)\s*=?\s*(\S+)",
-             lambda m, a: a["purge_dirs"].append(m[1])),
-        ]
-
-        for pattern, handler in simple_rules:
+        for rule in SIMPLE_RULES:
+            pattern = rule["pattern"]
+            handler_spec = rule["handler"]
+            handler = self._make_handler(handler_spec)
             self._register(pattern, handler)
+
+    def _build_handler_map(self) -> Dict[str, Callable[..., None]]:
+        return {
+            "initialization": lambda a, text: a["initialization"].append(text.strip()),
+            "set_variable": lambda a, name, value: a["arguments"].update({name: value.strip()}),
+            "sql_script": lambda a, line: self._handle_sql_script_text(line, a),
+            "batch_script": lambda a, path: a.update({"batch_path": path}),
+            "execution": lambda a, text: a["execution"].append(text.strip()),
+            "validation": lambda a, expr: a["validation"].append(expr.rstrip(".;").strip()),
+            "logs_check": lambda a, text: a["logs_check"].append(text.strip()),
+            "arguments": lambda a, name, value: a["arguments"].update({name.strip(): value.strip()}),
+            "variable": lambda a, name, value: a["arguments"].update({name.strip(): value.strip()}),
+            "log_path": lambda a, path: a["log_paths"].append(path),
+            "sql_script_single": lambda a, script: a["sql_scripts"].append(script) if script not in a["sql_scripts"] else None,
+            "file_op": lambda a, op, typ, path, mode: a["file_operations"].append((op, typ, path, mode)),
+            "create_dir": lambda a, path: a["file_operations"].append(("créer", "dossier", path, "0755")),
+            "create_file": lambda a, path: a["file_operations"].append(("créer", "fichier", path, "0644")),
+            "touch_date": lambda a, path, ts=None: a["touch_files"].append((path, ts)),
+            "touch": lambda a, path, ts=None: a["touch_files"].append((path, ts)),
+            "compare_files": lambda a, src, dest: a["compare_files"].append((src, dest)),
+            "copy_move": lambda a, op, typ, src, dest: a["copy_operations"].append((op, typ or "fichier", src, dest)),
+            "cat": lambda a, path: a["cat_files"].append(path),
+            "purge_dir": lambda a, path: a["purge_dirs"].append(path),
+        }
+
+    def _make_handler(self, spec: str) -> Callable[[re.Match, Dict[str, Any]], None]:
+        tokens = spec.split()
+        name = tokens[0]
+        arg_specs = tokens[1:]
+
+        def get_value(match: re.Match, token: str) -> Optional[str]:
+            if token.startswith("{{") and token.endswith("}}"):
+                idx = int(token[2:-2])
+                return match.group(idx) if idx <= match.lastindex else None
+            if token.startswith("{") and token.endswith("}"):
+                idx = int(token[1:-1])
+                return match.group(idx)
+            return token
+
+        def _handler(match: re.Match, actions: Dict[str, Any]) -> None:
+            args = [get_value(match, t) for t in arg_specs]
+            func = self._handler_map[name]
+            func(actions, *args)
+
+        return _handler
+
+    def _handle_sql_script_text(self, text: str, actions: Dict[str, Any]) -> None:
+        scripts = re.findall(r"\S+\.sql", text, re.I)
+        for path in scripts:
+            if path not in actions["sql_scripts"]:
+                actions["sql_scripts"].append(path)
 
     def _handle_arguments(self, match: re.Match, actions: Dict[str, Any]) -> None:
         for m in self.arg_pattern.finditer(match.string):
@@ -81,11 +110,8 @@ class Parser:
             if path not in actions["sql_scripts"]:
                 actions["sql_scripts"].append(path)
 
-    def _handle_action_result(self, match: re.Match, actions: Dict[str, Any]) -> None:
-        sub_parser = Parser()
-        action_text = match[1].rstrip(" ;")
-        sub_actions = sub_parser.parse(action_text)
-
+    def _merge_actions(self, sub_actions: Dict[str, Any], actions: Dict[str, Any]) -> None:
+        """Merge *sub_actions* dictionary into *actions*."""
         for key, value in sub_actions.items():
             if key == "batch_path" and value:
                 actions[key] = value
@@ -93,6 +119,12 @@ class Parser:
                 actions[key].update(value)
             elif isinstance(value, list):
                 actions[key].extend(value)
+
+    def _handle_action_result(self, match: re.Match, actions: Dict[str, Any]) -> None:
+        sub_parser = Parser()
+        action_text = match[1].rstrip(" ;")
+        sub_actions = sub_parser.parse(action_text)
+        self._merge_actions(sub_actions, actions)
 
         result = match[2].rstrip('.;').strip()
         if result:
@@ -114,10 +146,36 @@ class Parser:
         }
 
         for line in description.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if COMMENT_RE.match(stripped):
+                continue
+
+            m = STEP_RE.match(stripped)
+            if m:
+                actions["steps"].append(m.group(1).strip())
+                continue
+
+            m = ACTION_RESULT_RE.match(stripped)
+            if m:
+                self._handle_action_result(m, actions)
+                continue
+
+            m = ACTION_ONLY_RE.match(stripped)
+            if m:
+                sub_parser = Parser()
+                sub_actions = sub_parser.parse(m.group(1).rstrip(" ;"))
+                self._merge_actions(sub_actions, actions)
+                continue
+
+            m = RESULT_ONLY_RE.match(stripped)
+            if m:
+                self._handle_result_only(m, actions)
+                continue
+
             for rule in self.rules:
-                match = rule.pattern.search(line)
+                match = rule.pattern.search(stripped)
                 if match:
                     rule.handler(match, actions)
-                    if self.action_result_re and rule.pattern.pattern == self.action_result_re.pattern:
-                        break
         return actions

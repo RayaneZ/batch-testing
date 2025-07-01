@@ -1,7 +1,13 @@
 from dataclasses import dataclass
 from typing import Iterator, Optional
 
-from common_patterns import ACTION_ONLY_RE, ACTION_RESULT_RE, STEP_RE
+from common_patterns import (
+    ACTION_ONLY_RE,
+    ACTION_RESULT_RE,
+    RESULT_ONLY_RE,
+    STEP_RE,
+    COMMENT_RE,
+)
 
 @dataclass
 class Token:
@@ -17,6 +23,8 @@ def lex(text: str) -> Iterator[Token]:
     for lineno, line in enumerate(text.splitlines(), start=1):
         stripped = line.strip()
         if not stripped:
+            continue
+        if COMMENT_RE.match(stripped):
             continue
         m = STEP_RE.match(stripped)
         if m:
@@ -35,6 +43,10 @@ def lex(text: str) -> Iterator[Token]:
         m = ACTION_ONLY_RE.match(stripped)
         if m:
             yield Token("ACTION_ONLY", m.group(1).strip(), lineno, original=line)
+            continue
+        m = RESULT_ONLY_RE.match(stripped)
+        if m:
+            yield Token("RESULT_ONLY", m.group(1).strip(), lineno, original=line)
             continue
         yield Token("TEXT", stripped, lineno, original=line)
 
