@@ -47,15 +47,20 @@ def check_file(path: str, parser: Parser) -> List[str]:
                 errors.append(f"{path}:{token.lineno}: ligne non reconnue -> {line}")
             continue
 
-        if token.kind in ("ACTION_RESULT", "ACTION_ONLY"):
+        if token.kind in ("ACTION_RESULT", "ACTION_ONLY", "RESULT_ONLY"):
             if current_step_lineno is None:
+                msg = (
+                    "action sans \u00e9tape"
+                    if token.kind != "RESULT_ONLY"
+                    else "r\u00e9sultat sans \u00e9tape"
+                )
                 errors.append(
-                    f"{path}:{token.lineno}: action sans \u00e9tape -> {token.original or token.value}"
+                    f"{path}:{token.lineno}: {msg} -> {token.original or token.value}"
                 )
             line = (
                 f"Action: {token.value} ; R\u00e9sultat: {token.result}"
                 if token.kind == "ACTION_RESULT"
-                else f"Action: {token.value}"
+                else f"Action: {token.value}" if token.kind == "ACTION_ONLY" else f"R\u00e9sultat: {token.value}"
             )
             actions = parser.parse(line)
             if _is_actions_empty(actions):

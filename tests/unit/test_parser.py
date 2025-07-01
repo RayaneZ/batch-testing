@@ -20,10 +20,15 @@ class TestParser(unittest.TestCase):
         self.assertEqual(result["arguments"].get("fichier"), "test.txt")
 
     def test_action_result_parsing(self):
-        text = "Action: exécuter init.sql Résultat: le script retourne un code 0"
+        text = "Action: exécuter init.sql ; Résultat: le script retourne un code 0"
         result = self.parser.parse(text)
         self.assertIn("init.sql", result["sql_scripts"])
         self.assertIn("retour 0", result["validation"])
+
+    def test_ignore_comment(self):
+        text = "# ceci est un commentaire\nAction: echo test"
+        result = self.parser.parse(text)
+        self.assertEqual(result["execution"], [])
 
     def test_batch_path_detection(self):
         result = self.parser.parse("exécuter mon_script.sh")

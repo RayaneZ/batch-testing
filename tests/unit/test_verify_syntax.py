@@ -44,6 +44,14 @@ class TestVerifySyntax(unittest.TestCase):
             os.unlink(path)
         self.assertTrue(any('action sans étape' in e for e in errors))
 
+    def test_result_without_step(self):
+        path = self._write_temp("Résultat: retour 0\n")
+        try:
+            errors = verify_syntax.check_file(path, self.parser)
+        finally:
+            os.unlink(path)
+        self.assertTrue(any('résultat sans étape' in e for e in errors))
+
 
 if __name__ == '__main__':
     unittest.main()
