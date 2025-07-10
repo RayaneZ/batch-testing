@@ -106,3 +106,44 @@ def check_file(path: str, parser: Parser) -> List[str]:
         )
 
     return errors
+
+
+def main() -> None:
+    """Point d'entrée CLI pour la vérification de syntaxe."""
+    import argparse
+    import os
+    import sys
+
+    parser = argparse.ArgumentParser(
+        description="Vérifie la syntaxe des fichiers .shtest"
+    )
+    parser.add_argument(
+        "path",
+        nargs="?",
+        default="tests",
+        help="Fichier ou dossier à analyser",
+    )
+    args = parser.parse_args()
+
+    parser_obj = Parser()
+    all_errors: List[str] = []
+
+    if os.path.isdir(args.path):
+        for name in os.listdir(args.path):
+            if name.endswith(".shtest"):
+                full = os.path.join(args.path, name)
+                print(f"Vérification de {full}")
+                all_errors.extend(check_file(full, parser_obj))
+    else:
+        print(f"Vérification de {args.path}")
+        all_errors.extend(check_file(args.path, parser_obj))
+
+    if all_errors:
+        print("\n".join(all_errors))
+        sys.exit("❌ Erreurs détectées")
+
+    print("✅ Syntaxe valide")
+
+
+if __name__ == "__main__":
+    main()
