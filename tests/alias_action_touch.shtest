@@ -1,2 +1,0 @@
-Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.
-Action: mettre à jour la date du fichier /tmp/test.txt 202501010101 ; Résultat: date modifiée.

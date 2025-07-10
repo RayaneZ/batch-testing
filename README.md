@@ -2,69 +2,107 @@
   <img src="logo.png" alt="KnightBatch logo" width="200"/>
 </p>
 
-# Documentation
+# KnightBatch - Shell Test Compiler
 
-This repository contains utilities for writing automated shell tests using a simple Action/Resultat syntax. It also ships a VS Code extension for `.shtest` files.
+Ce projet permet de convertir des scénarios `.shtest` en scripts shell exécutables.  
+Il comprend une CLI Python et une extension VS Code pour l’écriture de scénarios compréhensibles de type "Action / Résultat".
 
-Full documentation lives in [`docs/`](docs/index.md) and can be served locally using [MkDocs](https://www.mkdocs.org/).
-Launch a development server with:
+---
 
-```bash
-mkdocs serve
-```
+## 🚀 Installation
 
-This command starts a local site on `http://127.0.0.1:8000/` so you can browse the guide and CLI reference.
-The existing HTML pages generated from the [iDocs](https://github.com/harnishdesign/iDocs) template remain available under the same folder.
-
-## Quick Start
-1. Create your `.shtest` scenarios inside `src/tests`.
-2. Run `python src/generate_tests.py` to produce shell scripts in `output/`.
-3. Optionally run `python src/verify_syntax.py` to validate the scenarios.
-4. Optionally run `python src/export_to_excel.py` to create an Excel summary.
-
-Default directories and the `sql_driver` used for SQL scripts can be adjusted in `config.ini`.
-
-## Command Reference
-
-### `generate_tests.py`
-Converts `.shtest` files into executable shell scripts saved in `output/`.
+Assurez-vous d’avoir Python 3.8 ou supérieur.
 
 ```bash
-python src/generate_tests.py
+python -m venv venv
+source venv/bin/activate  # ou `venv\Scripts\activate` sous Windows
+
+pip install -e .
 ```
 
-Paths can be customised via `config.ini`.
+> Cela installe la commande `shtest` accessible dans le terminal.
 
-### `verify_syntax.py`
-Checks `.shtest` files for syntax errors using the built-in parser.
+---
+
+## 🛠 Commandes principales
+
+### `compile_expr`
+
+Compile une expression logique de validation :
 
 ```bash
-python src/verify_syntax.py src/tests
+shtest compile_expr 'stdout contient OK' --verbose
 ```
 
-Provide directories or files as arguments. The script exits with a non-zero
-status if issues are found.
+- Affiche les instructions shell générées
+- Utilise le parseur et compilateur d'expressions logiques
 
-### `export_to_excel.py`
-Creates an Excel workbook summarising each scenario.
+---
+
+### `compile_file`
+
+Compile un seul fichier `.shtest` en script `.sh`.
 
 ```bash
-python src/export_to_excel.py --input-dir src/tests --output tests.xlsx
+shtest compile_file tests/exemple.shtest --output output/exemple.sh --verbose
 ```
 
-Use the options above to override the default locations.
+---
 
-### `run_all.py`
-Convenience script that chains syntax checks, shell script generation and Excel export.
+### `generate`
+
+Compile tous les fichiers `.shtest` dans un dossier :
 
 ```bash
-python src/run_all.py --input src/tests --output output --excel tests.xlsx
+shtest generate src/tests output/
 ```
 
-Disable steps with `--no-shell` or `--no-excel`.
+- Génére un fichier `.sh` par scénario `.shtest`
+- Crée le dossier `output/` s'il n'existe pas
 
-## VS Code Extension
-The `vscode/` folder contains a minimal syntax highlighter for `.shtest` files. Package it with `vsce package` (requires Node.js and `vsce`) and install the generated `.vsix` file in Visual Studio Code.
+---
 
-## License
-This project and the bundled documentation template are released under the MIT License.
+## 📁 Structure des dossiers
+
+```
+src/
+├── shtest_compiler/
+│   ├── compiler/
+│   ├── parser/
+│   ├── templates/
+│   ├── shtest.py
+│   └── ...
+tests/
+output/
+```
+
+---
+
+## 🧪 Exemple de scénario `.shtest`
+
+```text
+Etant donné le script SQL init.sql
+Quand j'exécute le batch process.sh
+Alors stdout contient OK
+```
+
+---
+
+## 🧩 VS Code Extension
+
+Le dossier `vscode/` contient une extension minimale pour `.shtest`.  
+Pour l’installer :
+
+```bash
+cd vscode
+npm install
+npx vsce package
+```
+
+Puis installe le `.vsix` dans Visual Studio Code.
+
+---
+
+## 📄 License
+
+Ce projet est publié sous licence MIT.

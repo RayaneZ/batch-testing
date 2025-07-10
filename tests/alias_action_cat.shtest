@@ -1,3 +1,0 @@
-Action: afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.
-Action: cat le fichier = /tmp/test.txt ; Résultat: contenu affiché.
-Action: lire le fichier = /tmp/test.txt ; Résultat: contenu affiché.

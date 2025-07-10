@@ -3,5 +3,6 @@ output/
 # Ignore packaged VS Code extensions and encoded archives
 vscode/*.vsix
 vscode/shtest-syntax-*.txt
-
+**/venv/
+**/*.egg-info
 tests_summary.xlsx

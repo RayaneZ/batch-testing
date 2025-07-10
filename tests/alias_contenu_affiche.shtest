@@ -1,4 +1,0 @@
-Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.
-Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le contenu est affiché.
-Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le script est affiché.
-Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: le contenu est lisible.

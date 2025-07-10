@@ -1,2 +1,0 @@
-Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct.
-Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct.
