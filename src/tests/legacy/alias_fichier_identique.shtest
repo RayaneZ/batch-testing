@@ -1,0 +1,3 @@
+Action: Exécuter script.sh ; Résultat: fichier_identique /tmp/a.txt /tmp/b.txt.
+Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique à /tmp/b.txt.
+Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique a /tmp/b.txt.

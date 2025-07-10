@@ -1,0 +1,4 @@
+Step: préparation
+Etape: exécution
+Étape: vérification
+Action: exécuter dummy.sh ; Résultat: retour 0.

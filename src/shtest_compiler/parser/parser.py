@@ -1,9 +1,9 @@
 import re
 from dataclasses import dataclass
 from typing import Callable, Dict, List, Optional, Any
-from parser.alias_resolver import AliasResolver
+from shtest_compiler.parser.alias_utils import AliasResolver
 from .rule_registry import build_handler_map, load_default_rules
-from common_patterns import (
+from shtest_compiler.common_patterns import (
     ACTION_RESULT_RE,
     ACTION_ONLY_RE,
     RESULT_ONLY_RE,
@@ -12,13 +12,10 @@ from common_patterns import (
     SIMPLE_RULES,
 )
 
-
-
 @dataclass
 class Rule:
     pattern: re.Pattern
     handler: Callable[[re.Match, Dict[str, Any]], None]
-
 
 class Parser:
     """Parser for structured French-like test scenario descriptions."""

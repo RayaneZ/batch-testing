@@ -1,2 +1,1 @@
-compiler
-parser
+shtest_compiler

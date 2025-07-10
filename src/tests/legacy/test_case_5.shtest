@@ -1,0 +1,9 @@
+Step: preparation
+Action: Créer le dossier = /tmp/test_folder avec les droits = 0700 ; Résultat: le dossier est prêt.
+Action: Créer le fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: le fichier est créé.
+Action: Afficher le contenu du fichier = /tmp/test_folder/test.txt ; Résultat: le contenu est lisible.
+Step: execution
+Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=567 et la quantité=20 ; Résultat: retour 0 et (stdout contient "Traitement OK" ou stderr contient WARNING).
+Step: verification
+Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié.
+Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier /tmp/dest.txt existe ;
