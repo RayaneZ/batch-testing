@@ -1,4 +1,0 @@
-[console_scripts]
-compile_expr = shtest_compiler.compile_expr:main
-compile_file = shtest_compiler.compile_file:main
-shtest = shtest_compiler.shtest:main

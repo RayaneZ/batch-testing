@@ -1,7 +1,0 @@
-Metadata-Version: 2.4
-Name: shtest_compiler
-Version: 0.1.0
-Summary: Compilation d'expressions de test en shell
-Author-email: Auteur <auteur@example.com>
-Requires-Python: >=3.8
-Requires-Dist: pyyaml
