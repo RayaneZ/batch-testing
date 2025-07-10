@@ -81,12 +81,73 @@ output/
 ## 🧪 Exemple de scénario `.shtest`
 
 ```text
-Etant donné le script SQL init.sql
-Quand j'exécute le batch process.sh
-Alors stdout contient OK
+Etape: Step 1 - Preparation
+Action: Creer le dossier ./qualification/demo_env
+Resultat: le dossier est cree.
+
+Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree.
+
+Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés.
+
+
+Etape: Step 2 - Ancien fichier
+Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee.
+
+
+Etape: Step 3 - Nouveau fichier
+Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier cree.
+Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee.
+
+
+Etape: Step 4 - Execution du batch
+Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING).
+Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0.
+
+
+Step: Step 5 - Vérifier la table en base
+Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès.
+Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques
 ```
 
 ---
+
+## Grammaire
+
+```lisp
+Programme ::= { Ligne }
+
+Ligne ::= Commentaire
+        | Etape
+        | LigneActionResultat
+        | ActionEtResultatSurDeuxLignes
+        | ResultatSeule
+
+Commentaire ::= "#" Texte "\n"
+
+Etape ::= "Step" ":" NomDeStep "\n"
+
+LigneActionResultat ::= "Action" ":" Instruction
+                        ";" "Résultat" ":" ExpressionLogique "\n"
+
+ActionEtResultatSurDeuxLignes ::= "Action" ":" [ "\n" ] Instruction "\n"
+                                  "Résultat" ":" [ "\n" ] ExpressionLogique "\n"
+
+ResultatSeule ::= "Résultat" ":" [ "\n" ] ExpressionLogique "\n"
+
+NomDeStep ::= Texte
+Instruction ::= Texte
+
+ExpressionLogique ::= Terme { OperateurLogique Terme }
+
+Terme ::= ResultatSimple | "(" ExpressionLogique ")"
+ResultatSimple ::= Texte
+
+OperateurLogique ::= "et" | "ou"
+
+Texte ::= { Caractere }
+Caractere ::= ? tout caractère sauf retour à la ligne ?
+
+```
 
 ## 🧩 VS Code Extension
 
