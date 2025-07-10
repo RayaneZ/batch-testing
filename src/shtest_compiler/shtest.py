@@ -1,7 +1,7 @@
 
 import argparse
-from shtest_compiler.compile_expr import main as compile_expr_main
-from shtest_compiler.compile_file import main as compile_file_main
+from shtest_compiler.compile_expr import compile_expr
+from shtest_compiler.compile_file import compile_file
 from shtest_compiler.generate_tests import generate_tests
 
 def main():
@@ -27,9 +27,16 @@ def main():
     args = parser.parse_args()
 
     if args.command == "compile_expr":
-        compile_expr_main()
+        lines = compile_expr(args.expression, verbose=args.verbose)
+        print("\n".join(lines))
     elif args.command == "compile_file":
-        compile_file_main()
+        lines = compile_file(args.file, verbose=args.verbose)
+        if args.output:
+            with open(args.output, "w", encoding="utf-8") as f:
+                f.write("\n".join(lines) + "\n")
+            print(f"[✔] Script sauvegardé dans {args.output}")
+        else:
+            print("\n".join(lines))
     elif args.command == "generate":
         generate_tests(args.input_dir, args.output_dir)
 
