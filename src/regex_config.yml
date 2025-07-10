@@ -3,3 +3,11 @@ action_result: '^Action\s*:\s*(.*?)\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)$'
 action_only: '^Action\s*:\s*(.*)$'
 result_only: '^R[ée]sultat\s*:\s*(.*)$'
 comment: '^\s*#.*$'
+
+line_formats:
+  step: "Étape: {value}"
+  action_result: "Action: {value} ; Résultat: {result}"
+  action_only: "Action: {value}"
+  result_only: "Résultat: {value}"
+
+validation_key: "validation"

@@ -1,0 +1,2 @@
+[console_scripts]
+compile_expr = compile_expr:main

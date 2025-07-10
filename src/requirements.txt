@@ -1,0 +1,14 @@
+__future__
+common_patterns
+compiler
+configparser
+export_to_excel
+generate_tests
+lexer
+openpyxl
+parser
+pytest
+string
+templates
+unicodedata
+verify_syntax

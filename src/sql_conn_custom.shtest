@@ -1,0 +1,7 @@
+
+Étape: Connexion personnalisée
+Action: SQL_CONN=my_user/my_pass@base
+Résultat: variable SQL_CONN vaut my_user/my_pass@base
+
+Action: init_custom.sql
+Résultat: stdout contient OK

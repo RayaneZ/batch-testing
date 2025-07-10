@@ -1,0 +1,4 @@
+
+Étape: variable vaut
+Action: export MON_VAR=42
+Résultat: variable MON_VAR vaut 42

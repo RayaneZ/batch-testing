@@ -192,24 +192,16 @@ class Parser:
         return None
 
     def add_alias_rule(self, pattern: str, factory):
-        import re
-        def rule(text):
-            text = text.strip()
-            m = re.match(pattern, text)
-            if m:
-                return factory(m)
-            return None
-        self.rules.append(rule)
-
     def _register_default_rules(self) -> None:
         from .rules import load_default_rules, build_handler_map
         self._handler_map = build_handler_map()
         self.rules = [Rule(pattern, handler) for pattern, handler in load_default_rules(self._handler_map)]
-
     def resolve_alias(self, text: str):
         text = text.strip()
-        for pattern, factory in self.alias_rules:
             m = pattern.match(text)
             if m:
-                return [factory(m)]
-        return []
+                return factory(m)
+        return None
+
+    def add_alias_rule(self, pattern: str, factory):
+
