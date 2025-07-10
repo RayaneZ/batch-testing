@@ -1,0 +1,8 @@
+
+Étape: Sortie standard
+Action: echo "OK"
+Résultat: stdout contient OK
+
+Étape: Sortie erreur
+Action: echo "KO" 1>&2
+Résultat: stderr contient KO

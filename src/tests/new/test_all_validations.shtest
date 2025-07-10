@@ -1,0 +1,20 @@
+
+Étape: stdout
+Action: echo "Bonjour"
+Résultat: stdout contient Bonjour
+
+Étape: stderr
+Action: echo "Erreur grave" 1>&2
+Résultat: stderr contient Erreur
+
+Étape: fichier contient
+Action: echo "KO" > logs.txt
+Résultat: fichier logs.txt contient KO
+
+Étape: fichier existe
+Action: touch fichier.txt
+Résultat: fichier fichier.txt existe
+
+Étape: fichier vide
+Action: > vide.txt
+Résultat: fichier vide.txt est vide

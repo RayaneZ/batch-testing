@@ -1,0 +1,4 @@
+
+Étape: Initialisation
+Action: init_base.sql
+Résultat: stdout contient OK

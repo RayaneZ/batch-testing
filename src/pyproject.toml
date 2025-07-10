@@ -1,0 +1,16 @@
+[project]
+name = "shtest_compiler"
+version = "0.1.0"
+description = "Compilation d'expressions de test en shell"
+authors = [{ name = "Auteur", email = "auteur@example.com" }]
+dependencies = ["pyyaml"]
+requires-python = ">=3.8"
+
+[project.scripts]
+compile_expr = "shtest_compiler.compile_expr:main"
+compile_file = "shtest_compiler.compile_file:main"
+shtest = "shtest_compiler.shtest:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"

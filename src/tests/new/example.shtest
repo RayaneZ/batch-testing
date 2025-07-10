@@ -1,0 +1,8 @@
+
+Étape: Connexion
+Action: echo "Connexion réussie"
+Résultat: stdout contient "Connexion"
+
+Étape: Vérification
+Action: echo "OK"
+Résultat: stdout contient "OK"

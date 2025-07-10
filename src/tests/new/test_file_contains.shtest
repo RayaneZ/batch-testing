@@ -1,0 +1,4 @@
+
+Étape: Contenu du fichier
+Action: echo "ERREUR" > logs.txt
+Résultat: fichier logs.txt contient ERREUR

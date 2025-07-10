@@ -1,0 +1,372 @@
+{
+  "catalogue_01": {
+    "prefix": "Afficher le contenu du fichier = /tmp/JDD_Commun.sql",
+    "body": "Action: Afficher le contenu du fichier = /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché."
+  },
+  "catalogue_02": {
+    "prefix": "Afficher le contenu du fichier = /tmp/JDD_Extra.sql",
+    "body": "Action: Afficher le contenu du fichier = /tmp/JDD_Extra.sql ; Résultat: Le script est affiché.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/JDD_Extra.sql ; Résultat: Le script est affiché."
+  },
+  "catalogue_03": {
+    "prefix": "Afficher le contenu du fichier = /tmp/file.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct."
+  },
+  "catalogue_04": {
+    "prefix": "Afficher le contenu du fichier = /tmp/file.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct."
+  },
+  "catalogue_05": {
+    "prefix": "Afficher le contenu du fichier = /tmp/output.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/output.txt ; Résultat: Le contenu est correct.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/output.txt ; Résultat: Le contenu est correct."
+  },
+  "catalogue_06": {
+    "prefix": "Afficher le contenu du fichier = /tmp/test.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le contenu est affiché.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le contenu est affiché."
+  },
+  "catalogue_07": {
+    "prefix": "Afficher le contenu du fichier = /tmp/test.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le script est affiché.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: Le script est affiché."
+  },
+  "catalogue_08": {
+    "prefix": "Afficher le contenu du fichier = /tmp/test.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché."
+  },
+  "catalogue_09": {
+    "prefix": "Afficher le contenu du fichier = /tmp/test.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: le contenu est lisible.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/test.txt ; Résultat: le contenu est lisible."
+  },
+  "catalogue_10": {
+    "prefix": "Afficher le contenu du fichier = /tmp/test_folder/test.txt",
+    "body": "Action: Afficher le contenu du fichier = /tmp/test_folder/test.txt ; Résultat: le contenu est lisible.",
+    "description": "Action: Afficher le contenu du fichier = /tmp/test_folder/test.txt ; Résultat: le contenu est lisible."
+  },
+  "catalogue_11": {
+    "prefix": "Copier le dossier /tmp/data vers /tmp/backup",
+    "body": "Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: le dossier est copié.",
+    "description": "Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: le dossier est copié."
+  },
+  "catalogue_12": {
+    "prefix": "Copier le fichier /tmp/src.txt vers /tmp/dest.txt",
+    "body": "Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié.",
+    "description": "Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié."
+  },
+  "catalogue_13": {
+    "prefix": "Créer le dossier = /tmp/data avec les droits = 0755",
+    "body": "Action: Créer le dossier = /tmp/data avec les droits = 0755 ; Résultat: Le dossier est créé.",
+    "description": "Action: Créer le dossier = /tmp/data avec les droits = 0755 ; Résultat: Le dossier est créé."
+  },
+  "catalogue_14": {
+    "prefix": "Créer le dossier = /tmp/newdir",
+    "body": "Action: Créer le dossier = /tmp/newdir ; Résultat: Le dossier est créé.",
+    "description": "Action: Créer le dossier = /tmp/newdir ; Résultat: Le dossier est créé."
+  },
+  "catalogue_15": {
+    "prefix": "Créer le dossier = /tmp/newdir",
+    "body": "Action: Créer le dossier = /tmp/newdir ; Résultat: dossier créé.",
+    "description": "Action: Créer le dossier = /tmp/newdir ; Résultat: dossier créé."
+  },
+  "catalogue_16": {
+    "prefix": "Créer le dossier = /tmp/newdir",
+    "body": "Action: Créer le dossier = /tmp/newdir ; Résultat: le dossier est prêt.",
+    "description": "Action: Créer le dossier = /tmp/newdir ; Résultat: le dossier est prêt."
+  },
+  "catalogue_17": {
+    "prefix": "Créer dossier = /tmp/test_folder avec les droits = 0700",
+    "body": "Action: Créer dossier = /tmp/test_folder avec les droits = 0700 ; Résultat: le dossier est prêt.",
+    "description": "Action: Créer dossier = /tmp/test_folder avec les droits = 0700 ; Résultat: le dossier est prêt."
+  },
+  "catalogue_18": {
+    "prefix": "Créer fichier = /tmp/output.txt avec les droits = 0644",
+    "body": "Action: Créer fichier = /tmp/output.txt avec les droits = 0644 ; Résultat: Le fichier est présent.",
+    "description": "Action: Créer fichier = /tmp/output.txt avec les droits = 0644 ; Résultat: Le fichier est présent."
+  },
+  "catalogue_19": {
+    "prefix": "Créer fichier = /tmp/test_folder/test.txt avec les droits = 0600",
+    "body": "Action: Créer fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: le fichier est créé.",
+    "description": "Action: Créer fichier = /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: le fichier est créé."
+  },
+  "catalogue_20": {
+    "prefix": "Définir la variable SQL_CONN = sqlplus -S user/password@db",
+    "body": "Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: Les identifiants sont configurés.",
+    "description": "Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: Les identifiants sont configurés."
+  },
+  "catalogue_21": {
+    "prefix": "Définir la variable SQL_CONN = sqlplus -S user/password@db",
+    "body": "Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.",
+    "description": "Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés."
+  },
+  "catalogue_22": {
+    "prefix": "Exécuter /opt/batch/traitement.sh",
+    "body": "Action: Exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0 et (La sortie standard contient \"OK\" ou La sortie d'erreur contient WARNING).",
+    "description": "Action: Exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0 et (La sortie standard contient \"OK\" ou La sortie d'erreur contient WARNING)."
+  },
+  "catalogue_23": {
+    "prefix": "Exécuter /opt/batch/traitement.sh",
+    "body": "Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (la sortie standard contient \"Succès complet\" ou la sortie d'erreur contient WARNING).",
+    "description": "Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (la sortie standard contient \"Succès complet\" ou la sortie d'erreur contient WARNING)."
+  },
+  "catalogue_24": {
+    "prefix": "Exécuter /opt/batch/traitement.sh",
+    "body": "Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient \"OK\" ou stderr contient WARNING).",
+    "description": "Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient \"OK\" ou stderr contient WARNING)."
+  },
+  "catalogue_25": {
+    "prefix": "Exécuter /opt/batch/traitement.sh avec l'argument produit=123 et la quantité=10",
+    "body": "Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=123 et la quantité=10 ; Résultat: retour 0.",
+    "description": "Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=123 et la quantité=10 ; Résultat: retour 0."
+  },
+  "catalogue_26": {
+    "prefix": "Exécuter /opt/batch/traitement.sh avec l'argument produit=567 et la quantité=20",
+    "body": "Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=567 et la quantité=20 ; Résultat: retour 0 et (stdout contient \"Traitement OK\" ou stderr contient WARNING).",
+    "description": "Action: Exécuter /opt/batch/traitement.sh avec l'argument produit=567 et la quantité=20 ; Résultat: retour 0 et (stdout contient \"Traitement OK\" ou stderr contient WARNING)."
+  },
+  "catalogue_27": {
+    "prefix": "Exécuter le script SQL JDD_Commun.sql",
+    "body": "Action: Exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête.",
+    "description": "Action: Exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête."
+  },
+  "catalogue_28": {
+    "prefix": "Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql",
+    "body": "Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test.",
+    "description": "Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test."
+  },
+  "catalogue_29": {
+    "prefix": "Exécuter script.sh",
+    "body": "Action: Exécuter script.sh ; Résultat: La base de test est prête.",
+    "description": "Action: Exécuter script.sh ; Résultat: La base de test est prête."
+  },
+  "catalogue_30": {
+    "prefix": "Exécuter script.sh",
+    "body": "Action: Exécuter script.sh ; Résultat: La base est prête pour le test.",
+    "description": "Action: Exécuter script.sh ; Résultat: La base est prête pour le test."
+  },
+  "catalogue_31": {
+    "prefix": "Exécuter script.sh",
+    "body": "Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique a /tmp/b.txt.",
+    "description": "Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique a /tmp/b.txt."
+  },
+  "catalogue_32": {
+    "prefix": "Exécuter script.sh",
+    "body": "Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique à /tmp/b.txt.",
+    "description": "Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique à /tmp/b.txt."
+  },
+  "catalogue_33": {
+    "prefix": "Exécuter script.sh",
+    "body": "Action: Exécuter script.sh ; Résultat: base prête.",
+    "description": "Action: Exécuter script.sh ; Résultat: base prête."
+  },
+  "catalogue_34": {
+    "prefix": "Exécuter script.sh",
+    "body": "Action: Exécuter script.sh ; Résultat: fichier_identique /tmp/a.txt /tmp/b.txt.",
+    "description": "Action: Exécuter script.sh ; Résultat: fichier_identique /tmp/a.txt /tmp/b.txt."
+  },
+  "catalogue_35": {
+    "prefix": "Indiquer le chemin des logs = /var/log/sys.log",
+    "body": "Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: les logs sont accessibles.",
+    "description": "Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: les logs sont accessibles."
+  },
+  "catalogue_36": {
+    "prefix": "Indiquer le chemin des logs = /var/log/sys.log",
+    "body": "Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: logs accessibles.",
+    "description": "Action: Indiquer le chemin des logs = /var/log/sys.log ; Résultat: logs accessibles."
+  },
+  "catalogue_37": {
+    "prefix": "Indiquer le chemin des logs = /var/log/system.log",
+    "body": "Action: Indiquer le chemin des logs = /var/log/system.log ; Résultat: les logs sont accessibles.",
+    "description": "Action: Indiquer le chemin des logs = /var/log/system.log ; Résultat: les logs sont accessibles."
+  },
+  "catalogue_38": {
+    "prefix": "Mettre à jour la date du fichier /tmp/file.txt 202501010101",
+    "body": "Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: La date est modifiée.",
+    "description": "Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: La date est modifiée."
+  },
+  "catalogue_39": {
+    "prefix": "Mettre à jour la date du fichier /tmp/file.txt 202501010101",
+    "body": "Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: date modifiée.",
+    "description": "Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: date modifiée."
+  },
+  "catalogue_40": {
+    "prefix": "Mettre à jour la date du fichier /tmp/output.txt 202501021200",
+    "body": "Action: Mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Résultat: La date est modifiée.",
+    "description": "Action: Mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Résultat: La date est modifiée."
+  },
+  "catalogue_41": {
+    "prefix": "Toucher le fichier /tmp/init.flag 202501010000",
+    "body": "Action: Toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé.",
+    "description": "Action: Toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé."
+  },
+  "catalogue_42": {
+    "prefix": "Vider le répertoire /tmp/cache",
+    "body": "Action: Vider le répertoire /tmp/cache ; Résultat: le dossier est prêt.",
+    "description": "Action: Vider le répertoire /tmp/cache ; Résultat: le dossier est prêt."
+  },
+  "catalogue_43": {
+    "prefix": "Vérifier qu'aucune erreur n'apparaît",
+    "body": "Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: le script affiche un code \"030\".",
+    "description": "Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: le script affiche un code \"030\"."
+  },
+  "catalogue_44": {
+    "prefix": "Vérifier qu'il n'y a pas d'erreur",
+    "body": "Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: aucun message d'erreur.",
+    "description": "Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: aucun message d'erreur."
+  },
+  "catalogue_45": {
+    "prefix": "Vérifier qu'il n'y a pas d'erreur",
+    "body": "Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: stderr=.",
+    "description": "Action: Vérifier qu'il n'y a pas d'erreur ; Résultat: stderr=."
+  },
+  "catalogue_46": {
+    "prefix": "Vérifier qu'il n'y a pas d'erreurs dans les logs",
+    "body": "Action: Vérifier qu'il n'y a pas d'erreurs dans les logs ; Résultat: aucun message d'erreur.",
+    "description": "Action: Vérifier qu'il n'y a pas d'erreurs dans les logs ; Résultat: aucun message d'erreur."
+  },
+  "catalogue_47": {
+    "prefix": "Vérifier que la date du fichier /tmp/test.log est 202501010000",
+    "body": "Action: Vérifier que la date du fichier /tmp/test.log est 202501010000 ; Résultat: la date du fichier /tmp/test.log est 202501010000.",
+    "description": "Action: Vérifier que la date du fichier /tmp/test.log est 202501010000 ; Résultat: la date du fichier /tmp/test.log est 202501010000."
+  },
+  "catalogue_48": {
+    "prefix": "Vérifier que le dossier /tmp/testdir a les droits 0755",
+    "body": "Action: Vérifier que le dossier /tmp/testdir a les droits 0755 ; Résultat: le dossier /tmp/testdir a les droits 0755.",
+    "description": "Action: Vérifier que le dossier /tmp/testdir a les droits 0755 ; Résultat: le dossier /tmp/testdir a les droits 0755."
+  },
+  "catalogue_49": {
+    "prefix": "Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt",
+    "body": "Action: Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt ; Résultat: le dossier /tmp/testdir contient 2 fichiers *.txt.",
+    "description": "Action: Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt ; Résultat: le dossier /tmp/testdir contient 2 fichiers *.txt."
+  },
+  "catalogue_50": {
+    "prefix": "Vérifier que le dossier /tmp/testdir existe",
+    "body": "Action: Vérifier que le dossier /tmp/testdir existe ; Résultat: le dossier /tmp/testdir existe.",
+    "description": "Action: Vérifier que le dossier /tmp/testdir existe ; Résultat: le dossier /tmp/testdir existe."
+  },
+  "catalogue_51": {
+    "prefix": "Vérifier que le fichier /tmp/dest.txt existe",
+    "body": "Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier /tmp/dest.txt existe ;",
+    "description": "Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier /tmp/dest.txt existe ;"
+  },
+  "catalogue_52": {
+    "prefix": "Vérifier que le fichier /tmp/dest.txt existe",
+    "body": "Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier est présent et (le fichier /tmp/dest.txt existe ; ou la sortie d'erreur contient \"Erreur de copie\").",
+    "description": "Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier est présent et (le fichier /tmp/dest.txt existe ; ou la sortie d'erreur contient \"Erreur de copie\")."
+  },
+  "catalogue_53": {
+    "prefix": "Vérifier que le fichier /tmp/test.log a les droits 0644",
+    "body": "Action: Vérifier que le fichier /tmp/test.log a les droits 0644 ; Résultat: le fichier /tmp/test.log a les droits 0644.",
+    "description": "Action: Vérifier que le fichier /tmp/test.log a les droits 0644 ; Résultat: le fichier /tmp/test.log a les droits 0644."
+  },
+  "catalogue_54": {
+    "prefix": "Vérifier que le fichier /tmp/test.log contient OK",
+    "body": "Action: Vérifier que le fichier /tmp/test.log contient OK ; Résultat: le fichier /tmp/test.log contient OK.",
+    "description": "Action: Vérifier que le fichier /tmp/test.log contient OK ; Résultat: le fichier /tmp/test.log contient OK."
+  },
+  "catalogue_55": {
+    "prefix": "Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD",
+    "body": "Action: Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD ; Résultat: le fichier /tmp/test.log contient exactement ALLGOOD.",
+    "description": "Action: Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD ; Résultat: le fichier /tmp/test.log contient exactement ALLGOOD."
+  },
+  "catalogue_56": {
+    "prefix": "Vérifier que le fichier /tmp/test.log existe",
+    "body": "Action: Vérifier que le fichier /tmp/test.log existe ; Résultat: le fichier /tmp/test.log existe.",
+    "description": "Action: Vérifier que le fichier /tmp/test.log existe ; Résultat: le fichier /tmp/test.log existe."
+  },
+  "catalogue_57": {
+    "prefix": "afficher le contenu du fichier = /tmp/test.txt",
+    "body": "Action: afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché.",
+    "description": "Action: afficher le contenu du fichier = /tmp/test.txt ; Résultat: contenu affiché."
+  },
+  "catalogue_58": {
+    "prefix": "cat le fichier = /tmp/test.txt",
+    "body": "Action: cat le fichier = /tmp/test.txt ; Résultat: contenu affiché.",
+    "description": "Action: cat le fichier = /tmp/test.txt ; Résultat: contenu affiché."
+  },
+  "catalogue_59": {
+    "prefix": "configurer le contexte",
+    "body": "Action: configurer le contexte ; Résultat: base prête.",
+    "description": "Action: configurer le contexte ; Résultat: base prête."
+  },
+  "catalogue_60": {
+    "prefix": "copier le dossier /tmp/dir vers /tmp/dir2",
+    "body": "Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.",
+    "description": "Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié."
+  },
+  "catalogue_61": {
+    "prefix": "copier le fichier /tmp/a.txt vers /tmp/b.txt",
+    "body": "Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.",
+    "description": "Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié."
+  },
+  "catalogue_62": {
+    "prefix": "créer le contexte",
+    "body": "Action: créer le contexte ; Résultat: base prête.",
+    "description": "Action: créer le contexte ; Résultat: base prête."
+  },
+  "catalogue_63": {
+    "prefix": "créer fichier = /tmp/test.txt avec les droits = 0600",
+    "body": "Action: créer fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.",
+    "description": "Action: créer fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent."
+  },
+  "catalogue_64": {
+    "prefix": "déplacer le dossier /tmp/dir vers /tmp/dir2",
+    "body": "Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est déplacé.",
+    "description": "Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est déplacé."
+  },
+  "catalogue_65": {
+    "prefix": "déplacer le fichier /tmp/a.txt vers /tmp/b.txt",
+    "body": "Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est déplacé.",
+    "description": "Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est déplacé."
+  },
+  "catalogue_66": {
+    "prefix": "exécuter dummy.sh",
+    "body": "Action: exécuter dummy.sh ; Résultat: retour 0.",
+    "description": "Action: exécuter dummy.sh ; Résultat: retour 0."
+  },
+  "catalogue_67": {
+    "prefix": "exécuter traitement.sh",
+    "body": "Action: exécuter traitement.sh ; Résultat: retour 0.",
+    "description": "Action: exécuter traitement.sh ; Résultat: retour 0."
+  },
+  "catalogue_68": {
+    "prefix": "initialiser le contexte",
+    "body": "Action: initialiser le contexte ; Résultat: base prête.",
+    "description": "Action: initialiser le contexte ; Résultat: base prête."
+  },
+  "catalogue_69": {
+    "prefix": "lancer traitement.sh",
+    "body": "Action: lancer traitement.sh ; Résultat: retour 0.",
+    "description": "Action: lancer traitement.sh ; Résultat: retour 0."
+  },
+  "catalogue_70": {
+    "prefix": "lire le fichier = /tmp/test.txt",
+    "body": "Action: lire le fichier = /tmp/test.txt ; Résultat: contenu affiché.",
+    "description": "Action: lire le fichier = /tmp/test.txt ; Résultat: contenu affiché."
+  },
+  "catalogue_71": {
+    "prefix": "mettre à jour la date du fichier /tmp/test.txt 202501010101",
+    "body": "Action: mettre à jour la date du fichier /tmp/test.txt 202501010101 ; Résultat: date modifiée.",
+    "description": "Action: mettre à jour la date du fichier /tmp/test.txt 202501010101 ; Résultat: date modifiée."
+  },
+  "catalogue_72": {
+    "prefix": "mettre à jour fichier = /tmp/test.txt avec les droits = 0600",
+    "body": "Action: mettre à jour fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.",
+    "description": "Action: mettre à jour fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent."
+  },
+  "catalogue_73": {
+    "prefix": "toucher le fichier /tmp/test.txt -t 202501010101",
+    "body": "Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.",
+    "description": "Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée."
+  },
+  "catalogue_74": {
+    "prefix": "traiter traitement.sh",
+    "body": "Action: traiter traitement.sh ; Résultat: retour 0.",
+    "description": "Action: traiter traitement.sh ; Résultat: retour 0."
+  }
+}
