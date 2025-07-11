@@ -1,8 +1,8 @@
-
 import argparse
-from shtest_compiler.compile_expr import compile_expr
+from shtest_compiler.compile_expr import compile_validation
 from shtest_compiler.compile_file import compile_file
-from shtest_compiler.generate_tests import generate_tests
+from shtest_compiler.verify_syntax import main as verify_main
+
 
 def main():
     parser = argparse.ArgumentParser(prog="shtest", description="Outils CLI pour les fichiers .shtest")
@@ -19,26 +19,25 @@ def main():
     parser_file.add_argument("--verbose", action="store_true", help="Afficher les étapes de compilation")
     parser_file.add_argument("--output", help="Fichier de sortie pour le script généré")
 
-    # Subcommande generate_tests
-    parser_gen = subparsers.add_parser("generate", help="Générer des scripts à partir d'un répertoire de fichiers .shtest")
-    parser_gen.add_argument("input_dir", help="Répertoire contenant les fichiers .shtest")
-    parser_gen.add_argument("output_dir", help="Répertoire où écrire les scripts générés")
+    # Subcommande verify_syntax
+    parser_verify = subparsers.add_parser("verify", help="Vérifier uniquement la syntaxe d'un fichier .shtest")
+    parser_verify.add_argument("file", help="Fichier .shtest à vérifier")
+    parser_verify.add_argument("--verbose", action="store_true", help="Afficher les détails du parsing")
 
     args = parser.parse_args()
 
     if args.command == "compile_expr":
-        lines = compile_expr(args.expression, verbose=args.verbose)
+        lines = compile_validation(args.expression, verbose=args.verbose)
         print("\n".join(lines))
+
     elif args.command == "compile_file":
-        lines = compile_file(args.file, verbose=args.verbose)
-        if args.output:
-            with open(args.output, "w", encoding="utf-8") as f:
-                f.write("\n".join(lines) + "\n")
-            print(f"[✔] Script sauvegardé dans {args.output}")
-        else:
+        lines = compile_file(args.file, debug=args.verbose, output_path=args.output)
+        if not args.output:
             print("\n".join(lines))
-    elif args.command == "generate":
-        generate_tests(args.input_dir, args.output_dir)
+
+    elif args.command == "verify":
+        verify_main()
+
 
 if __name__ == "__main__":
     main()

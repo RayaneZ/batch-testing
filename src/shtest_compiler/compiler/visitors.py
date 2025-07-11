@@ -1,7 +1,6 @@
 
 from shtest_compiler.compiler.atomic_compiler import compile_atomic
 from shtest_compiler.compiler.context import CompileContext
-from shtest_compiler.parser.alias_resolver import resolve_alias
 from shtest_compiler.parser.shunting_yard import SQLScriptExecution, FileEquals, FileSizeCheck, FileLineCount, VarEquals, FileEmpty, FileExists, ASTVisitor, Atomic, BinaryOp, StdoutContains, StderrContains, FileContains
 
 class CompilerVisitor(ASTVisitor):
@@ -11,6 +10,7 @@ class CompilerVisitor(ASTVisitor):
     def visit_atomic(self, node: Atomic):
         self.context.counter[0] += 1
         var = f"cond{self.context.counter[0]}"
+        print(self.context.counter, self.context.last_file_var)
         lines = compile_atomic(node.value, var, self.context.last_file_var, context=self.context)
         if self.context.verbose:
             print(f"[AST] {var} := atomic({node.value})")
@@ -115,7 +115,7 @@ class CompilerVisitor(ASTVisitor):
 
 
     def visit_sql_script_execution(self, node: SQLScriptExecution):
-        from compiler.sql_runner import get_sql_command
+        from compiler.sql_drivers import get_sql_command
         self.context.counter[0] += 1
         var = f"cond{self.context.counter[0]}"
         cmd = get_sql_command(script=node.script, conn=node.connection, driver=node.driver)
@@ -123,3 +123,6 @@ class CompilerVisitor(ASTVisitor):
         if self.context.verbose:
             print(f"[AST] {var} := SQL {node.script} via {node.driver}")
         return [line], var
+
+    def generic_visit(self, node):
+        raise NotImplementedError(f"[BUG] No visitor implemented for node type: {type(node).__name__}")

@@ -1,0 +1,28 @@
+# Example KnightBatch Test Scenario
+# This file demonstrates the new modular architecture features
+
+Etape: Setup - Database Connection
+Action: Définir la variable SQL_DRIVER = mysql ; Résultat: identifiants configurés.
+Action: Définir la variable SQL_CONN = user/password@testdb ; Résultat: identifiants configurés.
+
+Etape: Setup - File System
+Action: Créer le dossier /tmp/knightbatch_test avec les droits 0755 ; Résultat: le dossier est créé.
+Action: Créer le fichier /tmp/knightbatch_test/input.txt avec les droits 0644 ; Résultat: le fichier est présent.
+Action: Toucher le fichier /tmp/knightbatch_test/old.txt -t 202201010000 ; Résultat: date modifiée.
+
+Etape: Database Operations
+Action: Exécuter le script SQL init_database.sql ; Résultat: La base est prête.
+Action: Exécuter le script SQL load_data.sql ; Résultat: La base est prête pour le test.
+
+Etape: Process Execution
+Action: Exécuter /opt/batch/process_data.sh ; Résultat: retour 0 et (stdout contient "Succès complet" ou stderr contient WARNING).
+Action: Exécuter /opt/batch/validate.sh avec l'argument mode=test ; Résultat: retour 0.
+
+Etape: Validation
+Action: Vérifier que le fichier /tmp/knightbatch_test/output.txt existe ; Résultat: le fichier existe.
+Action: Comparer le fichier /tmp/knightbatch_test/output.txt avec /tmp/knightbatch_test/expected.txt ; Résultat: fichiers identiques.
+Action: Vérifier que le fichier /tmp/knightbatch_test/output.txt contient "SUCCESS" ; Résultat: contenu correct.
+
+Etape: Cleanup
+Action: Vider le répertoire /tmp/knightbatch_test/temp ; Résultat: le dossier est prêt.
+Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: aucun message d'erreur. 

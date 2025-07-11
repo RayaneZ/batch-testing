@@ -1,39 +1,170 @@
-name: Build Extension and App
+name: Build and Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
+  test-python:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          node-version: 18
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          cd src
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+
+      - name: Run Python tests
+        run: |
+          cd src
+          python -m pytest tests/unit/ -v --cov=shtest_compiler --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: src/coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+
+  build-extension:
+    runs-on: ubuntu-latest
+    needs: test-python
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: vscode/package-lock.json
+
+      - name: Install VS Code extension dependencies
+        run: |
+          cd vscode
+          npm ci
+
+      - name: Build VS Code extension
+        run: |
+          cd vscode
+          npm run compile
 
       - name: Install vsce
-        run: npm install -g @vscode/vsce@3.5.0 && npm install css-select@5.2.0 --prefix "$(npm root -g)/@vscode/vsce"
+        run: npm install -g @vscode/vsce@latest
 
       - name: Package VS Code extension
-        run: vsce package -o ../shtest-syntax.vsix
-        working-directory: vscode
-
-      - name: Archive application
-        run: tar czf app.tar.gz src docs
-
-      - name: Bundle artifacts
         run: |
-          mkdir bundle
-          mv shtest-syntax.vsix bundle/
-          mv app.tar.gz bundle/
-          tar czf build-artifacts.tgz bundle
-      - name: Upload artifact
+          cd vscode
+          vsce package -o ../knightbatch-shtest.vsix
+
+      - name: Test VS Code extension
+        run: |
+          cd vscode
+          npm test
+
+  build-docs:
+    runs-on: ubuntu-latest
+    needs: test-python
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-macros-plugin
+
+      - name: Build documentation
+        run: |
+          cd docs
+          mkdocs build
+
+      - name: Upload documentation artifact
         uses: actions/upload-artifact@v4
         with:
-          name: build
-          path: build-artifacts.tgz
+          name: documentation
+          path: docs/site/
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: [test-python, build-extension]
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd src
+          pip install -r requirements.txt
+
+      - name: Download extension artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: knightbatch-shtest.vsix
+          path: vscode/
+
+      - name: Run integration tests
+        run: |
+          cd src
+          python shtest.py tests/new/example.shtest --debug
+          python shtest.py tests/legacy/test_case_1.shtest --debug
+
+      - name: Upload integration test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: src/output/
+
+  package:
+    runs-on: ubuntu-latest
+    needs: [test-python, build-extension, build-docs, integration-test]
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Create release package
+        run: |
+          mkdir -p release
+          cp artifacts/knightbatch-shtest.vsix release/
+          cp -r artifacts/documentation release/docs
+          cp -r src release/src
+          cp -r docs release/docs-source
+          cp README.md release/
+          cp LICENSE release/
+          
+          tar czf knightbatch-release.tar.gz release/
+
+      - name: Upload release package
+        uses: actions/upload-artifact@v4
+        with:
+          name: knightbatch-release
+          path: knightbatch-release.tar.gz

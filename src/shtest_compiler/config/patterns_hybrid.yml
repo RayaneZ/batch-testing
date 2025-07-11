@@ -1,0 +1,165 @@
+patterns:
+  cat:
+    - handler: cat
+      pattern: fichier affiché = (\S+)
+    - handler: cat
+      pattern: afficher le contenu du fichier = (\S+)
+
+  copy_move:
+    - handler: copy_move
+      pattern: fichier copié de (\S+) vers (\S+)
+    - handler: copy_move
+      pattern: dossier copié de (\S+) vers (\S+)
+    - handler: copy_move
+      pattern: le fichier (\S+) est copié vers (\S+)
+    - handler: copy_move
+      pattern: le dossier (\S+) est copié vers (\S+)
+    - handler: copy_move
+      pattern: le fichier est copié
+    - handler: copy_move
+      pattern: le dossier est copié
+
+  create_dir:
+    - handler: create_dir
+      pattern: dossier créé = (\S+)
+    - handler: create_dir
+      pattern: créer le dossier = (\S+)
+    - handler: create_dir
+      pattern: créer le dossier = (\S+) avec les droits = (\d+)
+    - handler: create_dir
+      pattern: le dossier est prêt
+
+  create_file:
+    - handler: create_file
+      pattern: fichier créé = (\S+)
+    - handler: create_file
+      pattern: créer le fichier = (\S+) avec les droits = (\d+)
+    - handler: create_file
+      pattern: le fichier est créé
+
+  execution:
+    - handler: execution
+      pattern: exécuter (?:le script )?(\S+\.sh)
+    - handler: sql_script
+      pattern: exécuter (?:le script SQL )?(.+\.sql)
+    - handler: execution
+      pattern: exécuter script.sh
+
+  log_path:
+    - handler: log_path
+      pattern: chemin des logs = (\S+)
+
+  logs_check:
+    - handler: logs_check
+      pattern: aucune erreur n'apparaît
+    - handler: logs_check
+      pattern: il n'y a pas d'erreurs dans les logs
+    - handler: logs_check
+      pattern: logs accessibles
+
+  purge_dir:
+    - handler: purge_dir
+      pattern: vider le répertoire (\S+)
+
+  set_variable:
+    - handler: set_variable
+      pattern: variable (\S+) vaut (.+)
+    - handler: set_variable
+      pattern: définir la variable (\S+)[ ]*=[ ]*(.+)
+
+  touch_date:
+    - handler: touch_date
+      pattern: toucher le fichier (\S+) (\d+)
+    - handler: touch_date
+      pattern: la date du fichier (\S+) est (\d+)
+    - handler: touch_date
+      pattern: date modifiée
+
+  validation:
+    - handler: validation
+      pattern: retour (\d+)
+    - handler: validation
+      pattern: stdout contient "(.+?)"
+    - handler: validation
+      pattern: stderr contient (.+)
+    - handler: validation
+      pattern: stdout contient (.+)
+    - handler: validation
+      pattern: stderr contient (.+)
+    - handler: validation
+      pattern: aucun message d'erreur
+    - handler: validation
+      pattern: contenu affiché
+    - handler: validation
+      pattern: contenu correct
+    - handler: validation
+      pattern: fichier présent
+    - handler: validation
+      pattern: dossier présent
+    - handler: validation
+      pattern: fichier vide
+    - handler: validation
+      pattern: fichier existe
+    - handler: validation
+      pattern: fichier déplacé
+    - handler: validation
+      pattern: dossier déplacé
+    - handler: validation
+      pattern: base prête
+    - handler: validation
+      pattern: script exécuté avec succès
+    - handler: validation
+      pattern: identifiants configurés
+    - handler: validation
+      pattern: logs accessibles
+    - handler: validation
+      pattern: date modifiée
+    - handler: validation
+      pattern: le contenu est lisible
+    - handler: validation
+      pattern: le script est affiché
+    - handler: validation
+      pattern: le contenu est correct
+    - handler: validation
+      pattern: le fichier est présent
+    - handler: validation
+      pattern: le dossier est présent
+    - handler: validation
+      pattern: le fichier est vide
+    - handler: validation
+      pattern: le fichier existe
+    - handler: validation
+      pattern: le fichier est déplacé
+    - handler: validation
+      pattern: le dossier est déplacé
+    - handler: validation
+      pattern: la base est prête
+    - handler: validation
+      pattern: le script s'execute avec succès
+    - handler: validation
+      pattern: les identifiants sont configurés
+    - handler: validation
+      pattern: variable SQL_CONN vaut (.+)
+    - handler: validation
+      pattern: logs accessibles
+    - handler: validation
+      pattern: date modifiée
+    - handler: compare_files
+      pattern: le fichier (\S+) est identique à (\S+)
+    - handler: compare_files
+      pattern: fichier_identique (\S+) (\S+)
+    - handler: file_op
+      pattern: le dossier (\S+) a les droits (\d+)
+    # New patterns for extended aliases
+    - handler: validation
+      pattern: variable d'environnement définie
+    - handler: validation
+      pattern: fichiers identiques
+    - handler: validation
+      pattern: le fichier est identique
+    - handler: validation
+      pattern: les fichiers correspondent
+    - handler: validation
+      pattern: les fichiers sont égaux
+    - handler: validation
+      pattern: les fichiers sont les mêmes

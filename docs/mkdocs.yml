@@ -11,6 +11,9 @@ nav:
   - Accueil: index.md
   - Outils CLI: cli.md
   - Configuration: configuration.md
+  - Architecture Modulaire: modular_architecture.md
+  - Guide Développeur: developer_quickstart.md
+  - Extension VS Code: vscode_extension.md
   - Rédigez vos tests:
     - Prise en main : shtest_format.md
     - Expressions détéctées: regex_documentation.md

@@ -1,5 +1,7 @@
+from shtest_compiler.compiler.matcher_registry import register_matcher
 import re
 
+@register_matcher("stdout_stderr")
 def match(expected, _):
     patterns = [
         (r"stdout\s*=\s*(.*)", "$last_stdout"),

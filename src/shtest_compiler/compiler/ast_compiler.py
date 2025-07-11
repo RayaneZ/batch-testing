@@ -19,7 +19,7 @@ def compile_ast(node: ASTNode, context: CompileContext) -> tuple[list[str], str]
 
         context.counter[0] += 1
         var = f"cond{context.counter[0]}"
-
+        
         op = "&&" if node.op == "et" else "||"
         logic = f"if [ ${{{left_var}}} -eq 1 ] {op} [ ${{{right_var}}} -eq 1 ]; then {var}=1; else {var}=0; fi"
 

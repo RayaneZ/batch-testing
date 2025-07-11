@@ -5,13 +5,15 @@
 # KnightBatch - Shell Test Compiler
 
 Ce projet permet de convertir des scénarios `.shtest` en scripts shell exécutables.  
-Il comprend une CLI Python et une extension VS Code pour l’écriture de scénarios compréhensibles de type "Action / Résultat".
+Il comprend une CLI Python et une extension VS Code pour l'écriture de scénarios compréhensibles de type "Action / Résultat".
+
+**Nouveau : Architecture modulaire avec système de plugins pour une extensibilité maximale !**
 
 ---
 
 ## 🚀 Installation
 
-Assurez-vous d’avoir Python 3.8 ou supérieur.
+Assurez-vous d'avoir Python 3.8 ou supérieur.
 
 ```bash
 python -m venv venv
@@ -26,7 +28,22 @@ pip install -e .
 
 ## 🛠 Commandes principales
 
-### `compile_expr`
+### `shtest.py` - Compilateur Principal (Nouveau)
+
+Le compilateur principal utilise l'architecture modulaire pour convertir les fichiers `.shtest` :
+
+```bash
+# Compiler un fichier .shtest
+python shtest.py tests/example.shtest
+
+# Compiler avec sortie personnalisée
+python shtest.py tests/example.shtest --output output/script.sh
+
+# Mode debug pour voir les détails de compilation
+python shtest.py tests/example.shtest --debug
+```
+
+### `compile_expr` (Legacy)
 
 Compile une expression logique de validation :
 
@@ -37,9 +54,7 @@ shtest compile_expr 'stdout contient OK' --verbose
 - Affiche les instructions shell générées
 - Utilise le parseur et compilateur d'expressions logiques
 
----
-
-### `compile_file`
+### `compile_file` (Legacy)
 
 Compile un seul fichier `.shtest` en script `.sh`.
 
@@ -47,9 +62,7 @@ Compile un seul fichier `.shtest` en script `.sh`.
 shtest compile_file tests/exemple.shtest --output output/exemple.sh --verbose
 ```
 
----
-
-### `generate`
+### `generate` (Legacy)
 
 Compile tous les fichiers `.shtest` dans un dossier :
 
@@ -62,17 +75,65 @@ shtest generate src/tests output/
 
 ---
 
+## 🏗 Architecture Modulaire
+
+KnightBatch utilise une architecture modulaire moderne :
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Interface Utilisateur                    │
+│  (CLI, VS Code Extension, API)                             │
+└─────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────┐
+│                    Compilateur Modulaire                    │
+│  (Visiteurs spécialisés, générateurs de code)              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────┐
+│                     Parser Modulaire                        │
+│  (Grammaire configurable, constructeur AST)                │
+└─────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────┐
+│                     Lexer Modulaire                         │
+│  (Tokenisation configurable, patterns, filtres)            │
+└─────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────┐
+│                         Core                                │
+│  (Pattern Visitor, AST nodes, contexte)                    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Composants Principaux
+
+- **Core** : Pattern Visitor, nœuds AST de base, contexte de compilation partagé
+- **Lexer Modulaire** : Tokenisation configurable avec patterns et filtres
+- **Parser Modulaire** : Grammaire configurable avec constructeur AST
+- **Compilateur Modulaire** : Visiteurs spécialisés et générateurs de code
+- **Système de Plugins** : Matchers extensibles pour nouvelles validations
+
+---
+
 ## 📁 Structure des dossiers
 
 ```
 src/
 ├── shtest_compiler/
-│   ├── compiler/
+│   ├── core/                    # Fondations (Visitor, AST, Context)
 │   ├── parser/
-│   ├── templates/
-│   ├── shtest.py
+│   │   ├── lexer/              # Lexer modulaire
+│   │   └── ...                 # Parser modulaire
+│   ├── compiler/               # Compilateur modulaire
+│   ├── config/                 # Configuration YAML
+│   ├── plugins/                # Système de plugins
+│   ├── shtest.py              # Compilateur principal
 │   └── ...
 tests/
+├── new/                       # Tests avec nouvelle architecture
+├── legacy/                    # Tests legacy
+└── unit/                      # Tests unitaires
 output/
 ```
 
@@ -111,48 +172,90 @@ Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: L
 
 ---
 
-## Grammaire
+## ⚙️ Configuration
 
-```lisp
-Programme ::= { Ligne }
+### Fichier config.ini
 
-Ligne ::= Commentaire
-        | Etape
-        | LigneActionResultat
-        | ActionEtResultatSurDeuxLignes
-        | ResultatSeule
-
-Commentaire ::= "#" Texte "\n"
-
-Etape ::= "Step" ":" NomDeStep "\n"
-
-LigneActionResultat ::= "Action" ":" Instruction
-                        ";" "Résultat" ":" ExpressionLogique "\n"
-
-ActionEtResultatSurDeuxLignes ::= "Action" ":" [ "\n" ] Instruction "\n"
-                                  "Résultat" ":" [ "\n" ] ExpressionLogique "\n"
-
-ResultatSeule ::= "Résultat" ":" [ "\n" ] ExpressionLogique "\n"
-
-NomDeStep ::= Texte
-Instruction ::= Texte
-
-ExpressionLogique ::= Terme { OperateurLogique Terme }
-
-Terme ::= ResultatSimple | "(" ExpressionLogique ")"
-ResultatSimple ::= Texte
-
-OperateurLogique ::= "et" | "ou"
-
-Texte ::= { Caractere }
-Caractere ::= ? tout caractère sauf retour à la ligne ?
-
+```ini
+[application]
+input_dir = demo_env
+output_dir = demo_env
+sql_driver = oracle
+config_path = config/patterns_hybrid.yml
+aliases_path = config/aliases.yml
+plugin_path = plugins/
+debug = false
 ```
+
+### Configuration YAML
+
+Les patterns et alias sont configurés via des fichiers YAML :
+
+- `config/patterns_hybrid.yml` : Patterns de reconnaissance et grammaire
+- `config/aliases.yml` : Alias en langage naturel
+
+---
+
+## 🔌 Système de Plugins
+
+Créez des plugins pour étendre les fonctionnalités :
+
+```python
+# plugins/my_plugin.py
+from shtest_compiler.core.context import CompileContext
+
+def register_plugin(context: CompileContext):
+    context.add_matcher("my_matcher", my_matcher_function)
+    context.add_visitor("my_visitor", MyVisitor())
+
+def my_matcher_function(validation_text: str) -> str:
+    if "ma validation" in validation_text:
+        return "my_validation_type"
+    return None
+```
+
+---
+
+## 🧪 Tests
+
+### Tests Unitaires
+
+```bash
+# Tests du core
+python -m pytest tests/unit/test_core.py
+
+# Tests du lexer modulaire
+python -m pytest tests/unit/test_modular_lexer.py
+
+# Tests du parser modulaire
+python -m pytest tests/unit/test_modular_parser.py
+
+# Tests du système complet
+python -m pytest tests/unit/test_modular_system.py
+```
+
+### Tests d'Intégration
+
+```bash
+# Test avec des fichiers .shtest réels
+python shtest.py tests/new/example.shtest
+```
+
+---
+
+## 📚 Documentation
+
+- [Documentation complète](docs/) : Guide utilisateur et technique
+- [Architecture modulaire](docs/docs/modular_architecture.md) : Documentation technique
+- [Guide développeur](docs/docs/developer_quickstart.md) : Démarrage rapide
+- [Configuration](docs/docs/configuration.md) : Guide de configuration
+
+---
 
 ## 🧩 VS Code Extension
 
 Le dossier `vscode/` contient une extension minimale pour `.shtest`.  
-Pour l’installer :
+Pour l'installer :
 
 ```bash
 cd vscode
