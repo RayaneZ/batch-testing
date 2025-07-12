@@ -127,8 +127,8 @@
       "properties": {
         "knightbatch.configPath": {
           "type": "string",
-          "default": "config/patterns_hybrid.yml",
-          "description": "Path to the patterns configuration file"
+          "default": "config/patterns_actions.yml",
+          "description": "Path to the patterns configuration file (actions)."
         },
         "knightbatch.aliasesPath": {
           "type": "string",

@@ -1,0 +1,121 @@
+validations:
+  - phrase: "Le contenu est affiché"
+    handler: content_displayed
+    aliases:
+      - "contenu affiché"
+      - "Le script est affiché"
+      - "le contenu est lisible"
+      - "le contenu est correct"
+      - "contenu correct"
+      - "^contenu affiché$"
+      - "^le contenu est affiché$"
+      - "^le script est affiché$"
+      - "^le contenu est lisible$"
+      - "^le contenu est correct$"
+  - phrase: "Le fichier est copié"
+    handler: file_copied
+    aliases:
+      - "le fichier est copié"
+      - "fichier copié"
+      - "^le fichier est copié$"
+      - "^fichier copié$"
+  - phrase: "Le dossier est copié"
+    handler: dir_copied
+    aliases:
+      - "le dossier est copié"
+      - "dossier copié"
+      - "^le dossier est copié$"
+      - "^dossier copié$"
+  - phrase: "Le fichier est présent"
+    handler: file_present
+    aliases:
+      - "Le fichier est présent"
+      - "le fichier existe"
+      - "fichier présent"
+      - "^le fichier est présent$"
+      - "^le fichier existe$"
+      - "^fichier présent$"
+  - phrase: "Le dossier est prêt"
+    handler: dir_ready
+    aliases:
+      - "le dossier est prêt"
+      - "dossier prêt"
+      - "^le dossier est prêt$"
+      - "^dossier prêt$"
+  - phrase: "Base prête"
+    handler: base_ready
+    aliases:
+      - "base prête"
+      - "La base de test est prête"
+      - "La base est prête pour le test"
+      - "^base prête$"
+      - "^la base de test est prête$"
+      - "^la base est prête pour le test$"
+  - phrase: "Date modifiée"
+    handler: date_modified
+    aliases:
+      - "date modifiée"
+      - "La date est modifiée"
+      - "^date modifiée$"
+      - "^la date est modifiée$"
+  - phrase: "Retour 0"
+    handler: return_0
+    aliases:
+      - "retour 0"
+      - "code retour 0"
+      - "le script retourne un code 0"
+      - "le script a réussi"
+      - "le script s'est exécuté sans erreur"
+      - "^retour 0$"
+      - "^code retour 0$"
+      - "^le script retourne un code 0$"
+      - "^le script a réussi$"
+      - "^le script s'est exécuté sans erreur$"
+  - phrase: "Les fichiers sont identiques"
+    handler: files_identical
+    aliases:
+      - "fichiers identiques"
+      - "les fichiers sont les mêmes"
+      - "fichiers égaux"
+      - "^fichiers identiques$"
+      - "^les fichiers sont les mêmes$"
+      - "^fichiers égaux$"
+      - "^fichier_identique (.+) (.+)$"
+      - "^le fichier (.+) est identique à (.+)$"
+      - "^le fichier (.+) est identique a (.+)$"
+  - phrase: "Identifiants configurés"
+    handler: credentials_configured
+    aliases:
+      - "identifiants configurés"
+      - "Les identifiants sont configurés"
+      - "^identifiants configurés$"
+      - "^les identifiants sont configurés$"
+  - phrase: "Logs accessibles"
+    handler: logs_accessible
+    aliases:
+      - "logs accessibles"
+      - "les logs sont accessibles"
+      - "^logs accessibles$"
+      - "^les logs sont accessibles$"
+  - phrase: "Aucun message d'erreur"
+    handler: no_error_message
+    aliases:
+      - "aucun message d'erreur"
+      - "stderr=."
+      - "^aucun message d'erreur$"
+      - "^stderr=.$"
+  - phrase: "La sortie standard contient {text}"
+    handler: stdout_contains
+    aliases:
+      - "stdout contient {text}"
+      - "la sortie contient {text}"
+      - "la sortie standard affiche {text}"
+      - "^stdout contient (.+)$"
+      - "^la sortie standard contient (.+)$"
+  - phrase: "La sortie d'erreur contient {text}"
+    handler: stderr_contains
+    aliases:
+      - "stderr contient {text}"
+      - "la sortie d'erreur affiche {text}"
+      - "^stderr contient (.+)$"
+      - "^la sortie d'erreur contient (.+)$" 

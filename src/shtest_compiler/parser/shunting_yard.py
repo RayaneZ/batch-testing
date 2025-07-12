@@ -1,7 +1,33 @@
+import re
+import yaml
+import importlib
+import os
 from dataclasses import dataclass
 from typing import List, Protocol
-import re
-from shtest_compiler.parser.alias_utils import AliasResolver
+import unicodedata
+
+# Ajout : chargement des patterns de validation
+RESULT_PATTERNS_PATH = os.path.join(os.path.dirname(__file__), "../result_patterns.yml")
+with open(RESULT_PATTERNS_PATH, encoding="utf-8") as f:
+    RESULT_PATTERNS = yaml.safe_load(f)
+
+def _normalize_atom(atom: str) -> str:
+    atom = atom.strip().lower().rstrip('.;')
+    atom = ''.join(c for c in unicodedata.normalize('NFD', atom) if unicodedata.category(c) != 'Mn')
+    return atom
+
+def result_atom_to_ast(atom: str):
+    norm_atom = _normalize_atom(atom)
+    for entry in RESULT_PATTERNS:
+        m = re.match(entry["pattern"], norm_atom, re.IGNORECASE)
+        if m:
+            plugin = importlib.import_module(f"shtest_compiler.plugins.{entry['type']}")
+            # On transmet le scope au plugin (si accepté)
+            if 'scope' in entry:
+                return plugin.handle(m.groups(), scope=entry['scope'])
+            else:
+                return plugin.handle(m.groups())
+    raise ValueError(f"Aucune règle de validation ne correspond à : {atom}")
 
 # -------- VISITEUR AST --------
 
@@ -35,6 +61,11 @@ class Atomic(ASTNode):
     def accept(self, visitor: ASTVisitor):
         return visitor.visit_atomic(self)
 
+    def to_shell(self, var):
+        # Utilise le pipeline plugin pour la feuille atomique
+        plugin_ast = result_atom_to_ast(self.value)
+        return plugin_ast.to_shell(var)
+
 
 @dataclass
 class BinaryOp(ASTNode):
@@ -44,6 +75,18 @@ class BinaryOp(ASTNode):
 
     def accept(self, visitor: ASTVisitor):
         return visitor.visit_binary_op(self)
+
+    def to_shell(self, var):
+        # Génère le shell récursivement pour AND/OR
+        left_var = f"{var}_l"
+        right_var = f"{var}_r"
+        left_shell = self.left.to_shell(left_var)
+        right_shell = self.right.to_shell(right_var)
+        if self.op == "et":
+            logic = f"if [ ${{{left_var}}} -eq 1 ] && [ ${{{right_var}}} -eq 1 ]; then {var}=1; else {var}=0; fi"
+        else:
+            logic = f"if [ ${{{left_var}}} -eq 1 ] || [ ${{{right_var}}} -eq 1 ]; then {var}=1; else {var}=0; fi"
+        return f"{left_shell}\n{right_shell}\n{logic}"
 
 
 # -------- VALIDATION NODES --------
@@ -171,9 +214,11 @@ def _to_postfix(tokens: List[str]) -> List[str]:
 
 
 def parse_validation_expression(expression: str) -> ASTNode:
-    resolver = AliasResolver()
+    # The AliasResolver is removed as per the edit hint.
+    # The parsing logic for atomic nodes will now rely on result_atom_to_ast.
     tokens = _tokenize_expression(expression)
-    tokens = [resolver.resolve(t)[0] if t not in ("et", "ou", "(", ")") else t for t in tokens]
+    # The following line is removed as per the edit hint.
+    # tokens = [resolver.resolve(t)[0] if t not in ("et", "ou", "(", ")") else t for t in tokens]
     postfix = _to_postfix(tokens)
 
     stack: List[ASTNode] = []

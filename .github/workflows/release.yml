@@ -38,6 +38,15 @@ jobs:
           pip install mkdocs-material
           pip install mkdocs-macros-plugin
 
+      - name: Extract plugin patterns (if plugins dir exists)
+        run: |
+          if [ -d src/shtest_compiler/plugins ]; then
+            cd vscode
+            npx ts-node src/extractPluginPatterns.ts
+          else
+            echo "No plugins directory found, skipping pattern extraction."
+          fi
+
       - name: Run tests
         run: |
           cd src

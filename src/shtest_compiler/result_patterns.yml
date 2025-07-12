@@ -1,0 +1,12 @@
+- pattern: "^Le fichier (.+) existe$"
+  type: file.exists
+  scope: global
+- pattern: "^La sortie contient [\"'](.+)[\"']$"
+  type: stdout.contains
+  scope: last_action
+- pattern: "^Le script retourne un code (\\d+)$"
+  type: return_code
+  scope: last_action
+- pattern: "^Les fichiers (.+) et (.+) sont identiques$"
+  type: file.compare
+  scope: global 

@@ -1,0 +1,11 @@
+patterns:
+  sql_script:
+    - handler: sql_script
+      pattern: "(exécuter|executer) (?:le script SQL )?(.+\\.sql)"
+  set_variable:
+    - handler: set_variable
+      pattern: "définir la variable SQL_CONN = (.+)"
+  validation:
+    - handler: validation
+      pattern: "la base (est prête|de test est prête|est prête pour le test)"
+      scope: global 

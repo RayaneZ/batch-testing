@@ -398,3 +398,49 @@ Les premières lignes du script obtenu sont :
 ```
 
 Après amélioration des règles de conversion, toutes les validations sont désormais vérifiées dans le script généré.
+
+## Utilisation de SQL_CONN pour les scripts SQL multi-SGBD
+
+Pour tous les SGBD, la variable d'environnement `SQL_CONN` doit être définie dans le `.shtest` avant toute action SQL. Le format attendu dépend du SGBD sélectionné via `SQL_DRIVER`.
+
+### Exemples d'utilisation dans un `.shtest` :
+
+**Oracle**
+```text
+Action: Définir la variable SQL_DRIVER = oracle ;
+Action: Définir la variable SQL_CONN = user/password@db ;
+Action: Exécuter le script SQL mon_script.sql ;
+# Commande générée :
+#   sqlplus -s user/password@db @mon_script.sql
+```
+
+**PostgreSQL**
+```text
+Action: Définir la variable SQL_DRIVER = postgres ;
+Action: Définir la variable SQL_CONN = postgres://user:password@host:5432/dbname ;
+Action: Exécuter le script SQL mon_script.sql ;
+# Commande générée :
+#   psql "postgres://user:password@host:5432/dbname" -f mon_script.sql
+```
+
+**MySQL**
+```text
+Action: Définir la variable SQL_DRIVER = mysql ;
+Action: Définir la variable SQL_CONN = mysql://user:password@host:3306/dbname ;
+Action: Exécuter le script SQL mon_script.sql ;
+# Commande générée :
+#   mysql "mysql://user:password@host:3306/dbname" < mon_script.sql
+```
+
+**Redis**
+```text
+Action: Définir la variable SQL_DRIVER = redis ;
+Action: Définir la variable SQL_CONN = -h myhost -p 6380 -a mypass ;
+Action: Exécuter le script SQL mon_script.redis ;
+# Commande générée :
+#   redis-cli -h myhost -p 6380 -a mypass < mon_script.redis
+```
+
+> **Note :**
+> - Il n'est pas nécessaire de générer ou d'exporter SQL_DRIVER dans le shell, il sert uniquement à la génération du script.
+> - Adaptez la valeur de SQL_CONN selon le SGBD utilisé.

@@ -1,0 +1,40 @@
+patterns:
+  create_file:
+    - handler: create_file
+      pattern: '(créer|creer) (le )?fichier ?= ?(\\S+)( avec les droits ?= ?(\\d+))?'
+    - handler: create_file
+      pattern: 'fichier créé ?= ?(\\S+)'
+    - handler: create_file
+      pattern: "le fichier est créé"
+  compare_files:
+    - handler: compare_files
+      pattern: 'le fichier (\\S+) est identique à (\\S+)'
+      scope: global
+    - handler: compare_files
+      pattern: 'fichier_identique (\\S+) (\\S+)'
+      scope: global
+    - handler: validation
+      pattern: "le fichier est (présent|copié|déplacé|vide|identique|initialisé|lisible)"
+      scope: global
+    - handler: validation
+      pattern: "fichier (créé|présent|vide|identique|initialisé|lisible)"
+      scope: global
+    - handler: validation
+      pattern: 'le fichier (\\S+) a les droits (\\d+)'
+      scope: global
+    - handler: validation
+      pattern: 'le fichier (\\S+) contient (.+)'
+      scope: last_action
+    - handler: validation
+      pattern: 'le fichier (\\S+) contient exactement (.+)'
+      scope: last_action
+    - handler: validation
+      pattern: "le fichier existe"
+      scope: global 
+    - handler: compare_files
+      pattern: 'les fichiers sont identiques\.?$'
+      scope: global
+  validation:
+    - handler: validation
+      pattern: 'le fichier est (cree|créé|crée)\.?$'
+      scope: global 

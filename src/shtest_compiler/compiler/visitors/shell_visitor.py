@@ -27,6 +27,7 @@ class ShellVisitor(BaseVisitor[Tuple[List[str], str]]):
         from shtest_compiler.compiler.atomic_compiler import compile_atomic
         
         var = self.context.get_condition_var()
+        print(var)
         lines = compile_atomic(node.value, var, self.context.last_file_var, context=self.context)
         
         if self.context.verbose:

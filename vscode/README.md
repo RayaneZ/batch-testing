@@ -70,7 +70,7 @@ Type the prefix and press Tab to insert:
 Add to your VS Code settings:
 ```json
 {
-  "knightbatch.configPath": "config/patterns_hybrid.yml",
+  "knightbatch.configPath": "config/patterns_actions.yml",
   "knightbatch.aliasesPath": "config/aliases.yml",
   "knightbatch.outputDirectory": "output",
   "knightbatch.sqlDriver": "mysql",

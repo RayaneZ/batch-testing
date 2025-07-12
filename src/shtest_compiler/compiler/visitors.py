@@ -2,6 +2,13 @@
 from shtest_compiler.compiler.atomic_compiler import compile_atomic
 from shtest_compiler.compiler.context import CompileContext
 from shtest_compiler.parser.shunting_yard import SQLScriptExecution, FileEquals, FileSizeCheck, FileLineCount, VarEquals, FileEmpty, FileExists, ASTVisitor, Atomic, BinaryOp, StdoutContains, StderrContains, FileContains
+from shtest_compiler.command_loader import PatternRegistry
+import os
+
+# Initialisation du PatternRegistry global (à adapter selon l'architecture du projet)
+ACTIONS_YML = os.path.join(os.path.dirname(__file__), "../config/patterns_actions.yml")
+VALIDATIONS_YML = os.path.join(os.path.dirname(__file__), "../config/patterns_validations.yml")
+pattern_registry = PatternRegistry(ACTIONS_YML, VALIDATIONS_YML)
 
 class CompilerVisitor(ASTVisitor):
     def __init__(self, context: CompileContext):
@@ -10,7 +17,15 @@ class CompilerVisitor(ASTVisitor):
     def visit_atomic(self, node: Atomic):
         self.context.counter[0] += 1
         var = f"cond{self.context.counter[0]}"
-        print(self.context.counter, self.context.last_file_var)
+        # Canonisation de la validation
+        canon = pattern_registry.canonize_validation(node.value)
+        if canon:
+            phrase_canonique, handler = canon
+            if self.context.verbose:
+                print(f"[CANON] Validation canonique: '{phrase_canonique}' (handler: {handler}) pour '{node.value}'")
+        else:
+            if self.context.verbose:
+                print(f"[CANON] Aucune validation canonique trouvée pour '{node.value}'")
         lines = compile_atomic(node.value, var, self.context.last_file_var, context=self.context)
         if self.context.verbose:
             print(f"[AST] {var} := atomic({node.value})")

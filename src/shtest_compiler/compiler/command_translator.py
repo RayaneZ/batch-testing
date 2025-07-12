@@ -13,88 +13,86 @@ class CommandTranslator:
         # Patterns for different types of actions - using list of tuples to preserve order
         self.patterns = [
             # Variable definitions
-            (r"définir la variable (\w+)\s*=\s*(.+)", "export {var}=\"{value}\""),
+            (r"définir la variable (\w+)\s*=\s*['\"]?([^'\"]+)['\"]?", "export {var}={value}"),
             
             # Directory creation
-            (r"créer le dossier (.+)", "mkdir -p \"{path}\""),
-            (r"creer le dossier (.+)", "mkdir -p \"{path}\""),
-            (r"faire un dossier (.+)", "mkdir -p \"{path}\""),
-            (r"nouveau dossier (.+)", "mkdir -p \"{path}\""),
+            (r"cr[ée]er le dossier\s+['\"]?([^'\"]+)['\"]?", "mkdir -p {path}"),
+            (r"faire un dossier\s+['\"]?([^'\"]+)['\"]?", "mkdir -p {path}"),
+            (r"nouveau dossier\s+['\"]?([^'\"]+)['\"]?", "mkdir -p {path}"),
             
             # File creation
-            (r"créer le fichier (.+)", "touch \"{path}\""),
-            (r"creer le fichier (.+)", "touch \"{path}\""),
-            (r"faire un fichier (.+)", "touch \"{path}\""),
-            (r"nouveau fichier (.+)", "touch \"{path}\""),
+            (r"cr[ée]er le fichier\s+['\"]?([^'\"]+)['\"]?", "touch {path}"),
+            (r"faire un fichier\s+['\"]?([^'\"]+)['\"]?", "touch {path}"),
+            (r"nouveau fichier\s+['\"]?([^'\"]+)['\"]?", "touch {path}"),
             
             # File touch with timestamp
-            (r"toucher le fichier (.+?)\s+-t\s+(\d+)", "touch -t {timestamp} \"{path}\""),
-            (r"mettre à jour la date du fichier (.+?)\s+(\d+)", "touch -t {timestamp} \"{path}\""),
-            (r"modifier la date du fichier (.+?)\s+(\d+)", "touch -t {timestamp} \"{path}\""),
+            (r"toucher le fichier\s+['\"]?([^'\"]+)['\"]?\s+-t\s+(\d+)", "touch -t {timestamp} {path}"),
+            (r"mettre à jour la date du fichier\s+['\"]?([^'\"]+)['\"]?\s+(\d+)", "touch -t {timestamp} {path}"),
+            (r"modifier la date du fichier\s+['\"]?([^'\"]+)['\"]?\s+(\d+)", "touch -t {timestamp} {path}"),
             
             # File touch without timestamp
-            (r"toucher le fichier (.+)", "touch \"{path}\""),
-            (r"mettre à jour la date du fichier (.+)", "touch \"{path}\""),
-            (r"modifier la date du fichier (.+)", "touch \"{path}\""),
+            (r"toucher le fichier\s+['\"]?([^'\"]+)['\"]?", "touch {path}"),
+            (r"mettre à jour la date du fichier\s+['\"]?([^'\"]+)['\"]?", "touch {path}"),
+            (r"modifier la date du fichier\s+['\"]?([^'\"]+)['\"]?", "touch {path}"),
             
             # File copy
-            (r"copier le fichier (.+?)\s+vers\s+(.+)", "cp \"{src}\" \"{dest}\""),
-            (r"copier le fichier (.+?)\s+à\s+(.+)", "cp \"{src}\" \"{dest}\""),
-            (r"dupliquer le fichier (.+?)\s+vers\s+(.+)", "cp \"{src}\" \"{dest}\""),
+            (r"copier le fichier\s+['\"]?([^'\"]+)['\"]?\s+vers\s+['\"]?([^'\"]+)['\"]?", "cp {src} {dest}"),
+            (r"copier le fichier\s+['\"]?([^'\"]+)['\"]?\s+à\s+['\"]?([^'\"]+)['\"]?", "cp {src} {dest}"),
+            (r"dupliquer le fichier\s+['\"]?([^'\"]+)['\"]?\s+vers\s+['\"]?([^'\"]+)['\"]?", "cp {src} {dest}"),
             
             # Directory copy
-            (r"copier le dossier (.+?)\s+vers\s+(.+)", "cp -r \"{src}\" \"{dest}\""),
-            (r"copier le dossier (.+?)\s+à\s+(.+)", "cp -r \"{src}\" \"{dest}\""),
-            (r"dupliquer le dossier (.+?)\s+vers\s+(.+)", "cp -r \"{src}\" \"{dest}\""),
+            (r"copier le dossier\s+['\"]?([^'\"]+)['\"]?\s+vers\s+['\"]?([^'\"]+)['\"]?", "cp -r {src} {dest}"),
+            (r"copier le dossier\s+['\"]?([^'\"]+)['\"]?\s+à\s+['\"]?([^'\"]+)['\"]?", "cp -r {src} {dest}"),
+            (r"dupliquer le dossier\s+['\"]?([^'\"]+)['\"]?\s+vers\s+['\"]?([^'\"]+)['\"]?", "cp -r {src} {dest}"),
             
             # File move
-            (r"déplacer le fichier (.+?)\s+vers\s+(.+)", "mv \"{src}\" \"{dest}\""),
-            (r"déplacer le fichier (.+?)\s+à\s+(.+)", "mv \"{src}\" \"{dest}\""),
+            (r"déplacer le fichier\s+['\"]?([^'\"]+)['\"]?\s+vers\s+['\"]?([^'\"]+)['\"]?", "mv {src} {dest}"),
+            (r"déplacer le fichier\s+['\"]?([^'\"]+)['\"]?\s+à\s+['\"]?([^'\"]+)['\"]?", "mv {src} {dest}"),
             
             # Directory move
-            (r"déplacer le dossier (.+?)\s+vers\s+(.+)", "mv \"{src}\" \"{dest}\""),
-            (r"déplacer le dossier (.+?)\s+à\s+(.+)", "mv \"{src}\" \"{dest}\""),
+            (r"déplacer le dossier\s+['\"]?([^'\"]+)['\"]?\s+vers\s+['\"]?([^'\"]+)['\"]?", "mv {src} {dest}"),
+            (r"déplacer le dossier\s+['\"]?([^'\"]+)['\"]?\s+à\s+['\"]?([^'\"]+)['\"]?", "mv {src} {dest}"),
             
             # File deletion
-            (r"supprimer le fichier (.+)", "rm \"{path}\""),
-            (r"effacer le fichier (.+)", "rm \"{path}\""),
-            (r"enlever le fichier (.+)", "rm \"{path}\""),
+            (r"supprimer le fichier\s+['\"]?([^'\"]+)['\"]?", "rm {path}"),
+            (r"effacer le fichier\s+['\"]?([^'\"]+)['\"]?", "rm {path}"),
+            (r"enlever le fichier\s+['\"]?([^'\"]+)['\"]?", "rm {path}"),
             
             # Directory deletion
-            (r"supprimer le dossier (.+)", "rm -rf \"{path}\""),
-            (r"effacer le dossier (.+)", "rm -rf \"{path}\""),
-            (r"enlever le dossier (.+)", "rm -rf \"{path}\""),
+            (r"supprimer le dossier\s+['\"]?([^'\"]+)['\"]?", "rm -rf {path}"),
+            (r"effacer le dossier\s+['\"]?([^'\"]+)['\"]?", "rm -rf {path}"),
+            (r"enlever le dossier\s+['\"]?([^'\"]+)['\"]?", "rm -rf {path}"),
             
             # Directory purge
-            (r"vider le répertoire (.+)", "rm -rf \"{path}\"/*"),
-            (r"nettoyer le répertoire (.+)", "rm -rf \"{path}\"/*"),
-            (r"purger le répertoire (.+)", "rm -rf \"{path}\"/*"),
+            (r"vider le répertoire\s+['\"]?([^'\"]+)['\"]?", "rm -rf {path}/*"),
+            (r"nettoyer le répertoire\s+['\"]?([^'\"]+)['\"]?", "rm -rf {path}/*"),
+            (r"purger le répertoire\s+['\"]?([^'\"]+)['\"]?", "rm -rf {path}/*"),
             
             # File content display
-            (r"afficher le contenu du fichier (.+)", "cat \"{path}\""),
-            (r"voir le contenu du fichier (.+)", "cat \"{path}\""),
-            (r"lire le fichier (.+)", "cat \"{path}\""),
-            (r"consulter le fichier (.+)", "cat \"{path}\""),
-            (r"ouvrir le fichier (.+)", "cat \"{path}\""),
+            (r"afficher le contenu du fichier\s+['\"]?([^'\"]+)['\"]?", "cat {path}"),
+            (r"voir le contenu du fichier\s+['\"]?([^'\"]+)['\"]?", "cat {path}"),
+            (r"lire le fichier\s+['\"]?([^'\"]+)['\"]?", "cat {path}"),
+            (r"consulter le fichier\s+['\"]?([^'\"]+)['\"]?", "cat {path}"),
+            (r"ouvrir le fichier\s+['\"]?([^'\"]+)['\"]?", "cat {path}"),
             
             # Script execution
-            (r"exécuter (.+)", "{script}"),
-            (r"executer (.+)", "{script}"),
-            (r"lancer (.+)", "{script}"),
-            (r"démarrer (.+)", "{script}"),
-            (r"faire tourner (.+)", "{script}"),
+            (r"ex[ée]cuter\s+['\"]?([^'\"]+)['\"]?", "{script}"),
+            (r"lancer\s+['\"]?([^'\"]+)['\"]?", "{script}"),
+            (r"démarrer\s+['\"]?([^'\"]+)['\"]?", "{script}"),
+            (r"faire tourner\s+['\"]?([^'\"]+)['\"]?", "{script}"),
             
             # SQL script execution
-            (r"exécuter le script sql (.+)", "sqlplus -s ${SQL_CONN:-user/password@db} @{script}"),
-            (r"executer le script sql (.+)", "sqlplus -s ${SQL_CONN:-user/password@db} @{script}"),
-            (r"exécuter le script SQL (.+)", "sqlplus -s ${SQL_CONN:-user/password@db} @{script}"),
-            (r"executer le script SQL (.+)", "sqlplus -s ${SQL_CONN:-user/password@db} @{script}"),
+            (r"ex[ée]cuter le script sql\s+['\"]?([^'\"]+)['\"]?", "sqlplus -s ${SQL_CONN:-user/password@db} @{script}"),
+            (r"ex[ée]cuter le script SQL\s+['\"]?([^'\"]+)['\"]?", "sqlplus -s ${SQL_CONN:-user/password@db} @{script}"),
             
             # File comparison
-            (r"comparer le fichier (.+?)\s+avec\s+(.+)", "diff \"{file1}\" \"{file2}\""),
-            (r"comparer le fichier (.+?)\s+et\s+(.+)", "diff \"{file1}\" \"{file2}\""),
+            (r"comparer le fichier\s+['\"]?([^'\"]+)['\"]?\s+avec\s+['\"]?([^'\"]+)['\"]?", "diff {file1} {file2}"),
+            (r"comparer le fichier\s+['\"]?([^'\"]+)['\"]?\s+et\s+['\"]?([^'\"]+)['\"]?", "diff {file1} {file2}"),
         ]
     
+    def _strip_quotes(self, s):
+        return s.strip().strip('"').strip("'")
+
     def translate(self, action: str) -> Optional[str]:
         """
         Translate a natural language action into a shell command.
@@ -110,7 +108,7 @@ class CommandTranslator:
         for pattern, template in self.patterns:
             match = re.match(pattern, action_lower, re.IGNORECASE)
             if match:
-                groups = match.groups()
+                groups = tuple(self._strip_quotes(g) for g in match.groups())
                 
                 # Handle different template types
                 if "{var}" in template and "{value}" in template:

@@ -52,7 +52,7 @@ def compile_file(input_path: str,
     )
     
     # Install any loaded plugins
-    for plugin in plugin_registry.plugins.values():
+    for plugin in plugin_registry.values():
         try:
             plugin.install(compiler)
             if debug:

@@ -13,6 +13,9 @@ from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
 from shtest_compiler.compiler.utils import compile_validation
 from shtest_compiler.compiler.sql_drivers import get_sql_command
 from shtest_compiler.compiler.command_translator import translate_command
+from shtest_compiler.command_loader import action_to_ast
+from shtest_compiler.ast_to_shell import ast_to_shell
+from shtest_compiler.parser.shunting_yard import parse_validation_expression, Atomic, BinaryOp
 
 
 class ShellGenerator(BaseVisitor[str]):
@@ -82,32 +85,101 @@ class ShellGenerator(BaseVisitor[str]):
         for action in node.actions:
             self.visit(action)
     
+    def collect_validations_by_scope(self, node):
+        """
+        Collect validation nodes by their scope (last_action vs global).
+        Returns (last_action_nodes, global_nodes)
+        """
+        last_action_nodes = []
+        global_nodes = []
+        
+        def collect_recursive(ast_node):
+            if isinstance(ast_node, Atomic):
+                # Atomic nodes use the plugin system which has scope info
+                try:
+                    from shtest_compiler.parser.shunting_yard import result_atom_to_ast
+                    plugin_ast = result_atom_to_ast(ast_node.value)
+                    if hasattr(plugin_ast, 'scope'):
+                        if plugin_ast.scope == 'last_action':
+                            last_action_nodes.append(plugin_ast)
+                        else:
+                            global_nodes.append(plugin_ast)
+                    else:
+                        # Default to global if no scope specified
+                        global_nodes.append(plugin_ast)
+                except Exception:
+                    # Fallback: treat as global
+                    global_nodes.append(ast_node)
+                    
+            elif isinstance(ast_node, BinaryOp):
+                # Recursively collect from left and right branches
+                collect_recursive(ast_node.left)
+                collect_recursive(ast_node.right)
+            else:
+                # Unknown node type, treat as global
+                global_nodes.append(ast_node)
+        
+        collect_recursive(node)
+        return last_action_nodes, global_nodes
+    
+    def generate_validation_shell(self, validation_nodes, prefix=""):
+        """
+        Generate shell code for a list of validation nodes.
+        Returns list of shell lines.
+        """
+        lines = []
+        for node in validation_nodes:
+            var = f"cond{self.counter[0]}"
+            self.counter[0] += 1
+            if hasattr(node, 'to_shell'):
+                shell_code = node.to_shell(var)
+                lines.extend(shell_code.split('\n'))
+            else:
+                # Fallback for nodes without to_shell method
+                lines.append(f"# {prefix}Validation: {type(node).__name__}")
+                lines.append(f"{var}=0")
+        return lines
+    
     def visit_action(self, node: Action):
         """Visit an Action node."""
+        # Si c'est une affectation de SQL_DRIVER, on met à jour self.current_driver mais on ne génère rien
+        m = re.match(r"^définir la variable sql_driver\s*=\s*(\w+)", node.command or "", re.IGNORECASE)
+        if m:
+            self.current_driver = m.group(1).lower()
+            return  # Ne génère pas de ligne shell pour cette action
+
         if node.command:
-            # Translate the command from natural language to shell command
-            translated_command = translate_command(node.command)
-            
-            # Handle special cases
-            if "SQL" in node.command.upper() and ".sql" in node.command:
-                # Handle SQL commands specifically
-                scripts = re.findall(r"\S+\.sql", node.command, re.IGNORECASE)
-                if scripts:
-                    for script in scripts:
-                        cmd = get_sql_command(
-                            script=script,
-                            conn="${SQL_CONN:-user/password@db}",
-                            driver=self.current_driver
-                        )
-                        self.lines.append(f"run_cmd \"{cmd}\"")
-                else:
-                    self.lines.append(f"run_cmd \"{translated_command}\"")
+            # Nouveau pipeline plugin+YAML+AST
+            ast = action_to_ast(node.command)
+            if ast:
+                shell_cmd = ast_to_shell(ast)
+                self.lines.append(f'{shell_cmd}')
             else:
-                # Use the translated command
-                self.lines.append(f"run_cmd \"{translated_command}\"")
+                # Fallback : ancienne traduction directe
+                translated_command = translate_command(node.command)
+                self.lines.append(f'run_cmd "{translated_command}"')
         
         if node.result_expr:
-            # Handle validation
+            # Parse validation expression and organize by scope
+            try:
+                validation_ast = parse_validation_expression(node.result_expr)
+                last_action_valids, global_valids = self.collect_validations_by_scope(validation_ast)
+                
+                # Generate shell for last_action validations (immediately after action)
+                if last_action_valids:
+                    self.lines.append("# Validations liées à la dernière action:")
+                    last_action_lines = self.generate_validation_shell(last_action_valids, "last_action_")
+                    self.lines.extend(last_action_lines)
+                
+                # Generate shell for global validations (can be executed anytime)
+                if global_valids:
+                    self.lines.append("# Validations globales:")
+                    global_lines = self.generate_validation_shell(global_valids, "global_")
+                    self.lines.extend(global_lines)
+                    
+            except Exception as e:
+                # Fallback to original behavior if parsing fails
+                self.lines.append(f"# Erreur parsing validation: {e}")
             validation_lines = compile_validation(node.result_expr, self.counter)
             self.lines.extend(validation_lines)
     

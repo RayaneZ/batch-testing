@@ -1,0 +1,8 @@
+patterns:
+  validation:
+  - handler: validation
+    pattern: la sortie standard contient (.+)
+    scope: last_action
+  - handler: validation
+    pattern: la sortie standard contient exactement (.+)
+    scope: last_action

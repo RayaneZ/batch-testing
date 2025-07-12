@@ -78,7 +78,7 @@ async function verifyCurrentFile() {
 
     const filePath = editor.document.fileName;
     const config = vscode.workspace.getConfiguration('knightbatch');
-    const configPath = config.get<string>('configPath', 'config/patterns_hybrid.yml');
+    const configPath = config.get<string>('configPath', 'config/patterns_actions.yml');
 
     try {
         const args = [filePath, '--config', configPath];
@@ -103,7 +103,7 @@ async function showASTForFile() {
 
     const filePath = editor.document.fileName;
     const config = vscode.workspace.getConfiguration('knightbatch');
-    const configPath = config.get<string>('configPath', 'config/patterns_hybrid.yml');
+    const configPath = config.get<string>('configPath', 'config/patterns_actions.yml');
 
     try {
         const args = [filePath, '--ast', '--config', configPath];
@@ -133,7 +133,7 @@ async function showTokensForFile() {
 
     const filePath = editor.document.fileName;
     const config = vscode.workspace.getConfiguration('knightbatch');
-    const configPath = config.get<string>('configPath', 'config/patterns_hybrid.yml');
+    const configPath = config.get<string>('configPath', 'config/patterns_actions.yml');
 
     try {
         const args = [filePath, '--tokens', '--config', configPath];
