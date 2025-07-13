@@ -17,10 +17,52 @@ Support for KnightBatch `.shtest` files with syntax highlighting, IntelliSense, 
 - **KnightBatch: Compile Directory** - Compile all `.shtest` files in the workspace
 - **KnightBatch: Export to Excel** - Export test scenarios to Excel
 
-### 📝 Snippets
-- Modern snippets for common patterns
+## 📝 Snippets
+- Modern snippets for common patterns (see below for examples)
 - Legacy patterns for backward compatibility
 - Quick templates for SQL operations, file operations, and validations
+
+### Snippet Usage
+Type the prefix and press Tab to insert:
+- `step` - Create a new step block
+- `action` - Create an action with result
+- `exec` - Execute a script
+- `execout` - Execute a script and check output
+- `createfile` - Create a file
+- `createfileperm` - Create a file with permissions
+- `createdir` - Create a directory
+- `sqlconn` - Set up SQL connection
+- `sqlscript` - Execute a SQL script
+- `var` - Define a variable
+- `fileexists` - Check if a file exists
+- `direxists` - Check if a directory exists
+- `filecontent` - Check file content
+- `noerrors` - Check for no errors
+- `complex` - Complex validation with logical operators
+- `updatedate` - Update file date
+- `emptydir` - Empty a directory
+- `checklogs` - Check log files
+- `execargs` - Execute script with arguments
+- `checkperm` - Check file permissions
+- `checkdircontent` - Check directory content
+- `checkdate` - Check file date
+- `display` - Display file content
+- `legacy` - Insert legacy patterns for backward compatibility
+
+### Example: Create a SQL Connection
+```shtest
+Action: Définir la variable SQL_DRIVER = mysql ; Résultat: identifiants configurés.
+Action: Définir la variable SQL_CONN = user/pass@db ; Résultat: identifiants configurés.
+```
+
+### Example: Complex Validation
+```shtest
+Action: Exécuter script.sh ; Résultat: retour 0 et (stdout contient "OK" ou stderr contient "WARNING").
+```
+
+## 🛠️ Automated Packaging in CI
+
+The extension is now automatically packaged and uploaded as a `.vsix` file in the GitHub workflow for every release. You can always download the latest version from the [GitHub Releases](https://github.com/knightbatch/shtest-compiler/releases).
 
 ### ⚙️ Configuration
 - Configurable paths for patterns and aliases

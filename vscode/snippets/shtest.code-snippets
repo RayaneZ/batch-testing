@@ -5,70 +5,70 @@
       "Etape: $1",
       "Action: $2 ; Résultat: $3"
     ],
-    "description": "Create a new step with action and result"
+    "description": "Create a new step with action and result (use for each test step)"
   },
   "Action Result": {
     "prefix": "action",
     "body": [
       "Action: $1 ; Résultat: $2"
     ],
-    "description": "Create an action with result"
+    "description": "Create an action with result (generic)"
   },
   "Execute Script": {
     "prefix": "exec",
     "body": [
       "Action: Exécuter $1 ; Résultat: retour 0."
     ],
-    "description": "Execute a script with success validation"
+    "description": "Execute a script with success validation (e.g. shell or batch)"
   },
   "Execute Script with Output": {
     "prefix": "execout",
     "body": [
       "Action: Exécuter $1 ; Résultat: retour 0 et stdout contient \"$2\"."
     ],
-    "description": "Execute a script with output validation"
+    "description": "Execute a script and check output (stdout)"
   },
   "Create File": {
     "prefix": "createfile",
     "body": [
       "Action: Créer le fichier $1 ; Résultat: le fichier est présent."
     ],
-    "description": "Create a file with validation"
+    "description": "Create a file and validate its presence"
   },
   "Create File with Permissions": {
     "prefix": "createfileperm",
     "body": [
       "Action: Créer le fichier $1 avec les droits $2 ; Résultat: le fichier est présent."
     ],
-    "description": "Create a file with specific permissions"
+    "description": "Create a file with specific permissions (e.g. 0644)"
   },
   "Create Directory": {
     "prefix": "createdir",
     "body": [
       "Action: Créer le dossier $1 ; Résultat: le dossier est créé."
     ],
-    "description": "Create a directory with validation"
+    "description": "Create a directory and validate its creation"
   },
   "Copy File": {
     "prefix": "copyfile",
     "body": [
       "Action: Copier le fichier $1 vers $2 ; Résultat: le fichier est copié."
     ],
-    "description": "Copy a file with validation"
+    "description": "Copy a file and validate the copy"
   },
   "Touch File": {
     "prefix": "touch",
     "body": [
       "Action: Toucher le fichier $1 -t $2 ; Résultat: date modifiée."
     ],
-    "description": "Touch a file with timestamp"
+    "description": "Touch a file and update its timestamp"
   },
   "Compare Files": {
     "prefix": "compare",
     "body": [
       "Action: Comparer le fichier $1 avec $2 ; Résultat: fichiers identiques."
     ],
-    "description": "Compare two files"
+    "description": "Compare two files for equality"
   },
   "SQL Connection": {
     "prefix": "sqlconn",
@@ -76,112 +76,112 @@
       "Action: Définir la variable SQL_DRIVER = $1 ; Résultat: identifiants configurés.",
       "Action: Définir la variable SQL_CONN = $2 ; Résultat: identifiants configurés."
     ],
-    "description": "Set up SQL connection variables"
+    "description": "Set up SQL connection variables (driver and connection string)"
   },
   "Execute SQL Script": {
     "prefix": "sqlscript",
     "body": [
       "Action: Exécuter le script SQL $1 ; Résultat: La base est prête."
     ],
-    "description": "Execute a SQL script"
+    "description": "Execute a SQL script and validate DB readiness"
   },
   "Variable Assignment": {
     "prefix": "var",
     "body": [
       "Action: Définir la variable $1 = $2 ; Résultat: variable configurée."
     ],
-    "description": "Define a variable"
+    "description": "Define a variable and validate configuration"
   },
   "Check File Exists": {
     "prefix": "fileexists",
     "body": [
       "Action: Vérifier que le fichier $1 existe ; Résultat: le fichier existe."
     ],
-    "description": "Check if a file exists"
+    "description": "Check if a file exists (validation)"
   },
   "Check Directory Exists": {
     "prefix": "direxists",
     "body": [
       "Action: Vérifier que le dossier $1 existe ; Résultat: le dossier existe."
     ],
-    "description": "Check if a directory exists"
+    "description": "Check if a directory exists (validation)"
   },
   "Check File Content": {
     "prefix": "filecontent",
     "body": [
       "Action: Vérifier que le fichier $1 contient \"$2\" ; Résultat: contenu correct."
     ],
-    "description": "Check file content"
+    "description": "Check that a file contains a specific string"
   },
   "Check No Errors": {
     "prefix": "noerrors",
     "body": [
       "Action: Vérifier qu'aucune erreur n'apparaît ; Résultat: aucun message d'erreur."
     ],
-    "description": "Check for no errors"
+    "description": "Check that no error message appears"
   },
   "Complex Validation": {
     "prefix": "complex",
     "body": [
       "Action: $1 ; Résultat: $2 et ($3 ou $4)."
     ],
-    "description": "Complex validation with logical operators"
+    "description": "Complex validation with logical operators (et/ou)"
   },
   "Update File Date": {
     "prefix": "updatedate",
     "body": [
       "Action: Mettre à jour la date du fichier $1 $2 ; Résultat: date modifiée."
     ],
-    "description": "Update file date"
+    "description": "Update the date of a file (touch with date)"
   },
   "Empty Directory": {
     "prefix": "emptydir",
     "body": [
       "Action: Vider le répertoire $1 ; Résultat: le dossier est prêt."
     ],
-    "description": "Empty a directory"
+    "description": "Empty a directory and validate readiness"
   },
   "Check Logs": {
     "prefix": "checklogs",
     "body": [
       "Action: Indiquer le chemin des logs = $1 ; Résultat: les logs sont accessibles."
     ],
-    "description": "Check log files"
+    "description": "Check that log files are accessible"
   },
   "Execute with Arguments": {
     "prefix": "execargs",
     "body": [
       "Action: Exécuter $1 avec l'argument $2=$3 ; Résultat: retour 0."
     ],
-    "description": "Execute script with arguments"
+    "description": "Execute a script with arguments and validate return code"
   },
   "Check File Permissions": {
     "prefix": "checkperm",
     "body": [
       "Action: Vérifier que le fichier $1 a les droits $2 ; Résultat: les droits sont corrects."
     ],
-    "description": "Check file permissions"
+    "description": "Check file permissions (e.g. 0644)"
   },
   "Check Directory Content": {
     "prefix": "checkdircontent",
     "body": [
       "Action: Vérifier que le dossier $1 contient $2 fichiers $3 ; Résultat: le contenu est correct."
     ],
-    "description": "Check directory content"
+    "description": "Check the number and type of files in a directory"
   },
   "Check File Date": {
     "prefix": "checkdate",
     "body": [
       "Action: Vérifier que la date du fichier $1 est $2 ; Résultat: la date est correcte."
     ],
-    "description": "Check file date"
+    "description": "Check the date of a file"
   },
   "Display File Content": {
     "prefix": "display",
     "body": [
       "Action: Afficher le contenu du fichier $1 ; Résultat: le contenu est affiché."
     ],
-    "description": "Display file content"
+    "description": "Display the content of a file"
   },
   "Legacy Patterns": {
     "prefix": "legacy",
