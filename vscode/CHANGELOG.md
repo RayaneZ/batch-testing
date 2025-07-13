@@ -50,3 +50,17 @@ All notable changes to the KnightBatch VS Code Extension will be documented in t
 - Initial release
 - Basic language support
 - File association for .shtest files
+
+## [3.0.1] - 2024-06-28
+
+### Added
+- **Automated Packaging in CI**: The extension is now automatically packaged and uploaded in the GitHub workflow.
+- **Documentation Improvements**: Updated README for clarity and new usage examples.
+- **Snippet Enhancements**: Improved and clarified snippets for SQL, file, and directory operations.
+
+### Changed
+- **README**: Expanded documentation for configuration, snippets, and troubleshooting.
+- **Snippets**: Modernized and clarified several snippet templates for better usability.
+
+### Fixed
+- **Packaging**: Ensured the `.vsix` is always up-to-date and available as a release asset.

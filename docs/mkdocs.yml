@@ -18,6 +18,8 @@ nav:
     - Prise en main : shtest_format.md
     - Expressions détéctées: regex_documentation.md
   - Tests et Validation: testing_and_validation.md
+  - Développement:
+    - Créer un Plugin: plugin_tutorial.md
   - Guide de style: style-guide.md
 plugins:
   - search
