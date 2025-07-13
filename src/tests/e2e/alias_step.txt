@@ -1,0 +1,45 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 4 lines
+[DEBUG] Lexing text with 4 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Exécution de script, result=('Exécution de script',), original=Étape: Exécution de script at line 1
+[DEBUG] Yielding token: STEP@1:0 'Exécution de script' -> '('Exécution de script',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter dummy.sh ; at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter dummy.sh ; at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=exécuter dummy.sh ;, result=('exécuter dummy.sh ;',), original=Action: exécuter dummy.sh ; at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'exécuter dummy.sh ;' -> '('exécuter dummy.sh ;',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: retour 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: retour 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: retour 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=retour 0, result=('retour 0',), original=Résultat: retour 0 at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'retour 0' -> '('retour 0',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 5 tokens
+[DEBUG] Grammar: _merge_action_result called with 5 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Exécution de script'
+[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value='exécuter dummy.sh ;'
+[DEBUG] Grammar: Token 3: kind=RESULT_ONLY, value='retour 0'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Merging ACTION_ONLY 'exécuter dummy.sh ;' with RESULT_ONLY 'retour 0'
+[DEBUG] Grammar: _merge_action_result returning 4 tokens
+[DEBUG] compile_atomic called with: expected='retour 0', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exécuter dummy.sh'}
+[DEBUG] canonize_validation result: {'phrase': '^retour ([0-9]+)$', 'handler': 'return_code', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Retour {code}', 'handler': 'return_code', 'scope': 'last_action', 'opposite': {'phrase': 'Code retour inattendu'}, 'aliases': ['retour {code}', 'code retour {code}', 'le script retourne un code {code}', 'Le script retourne un code {code}', 'le script a réussi', "le script s'est exécuté sans erreur", "Le script s'execute avec succès", '^retour ([0-9]+)$', '^code retour ([0-9]+)$', '^le script retourne un code ([0-9]+)$', '^Le script retourne un code ([0-9]+)$', '^le script a réussi$', "^le script s'est exécuté sans erreur$", "^Le script s'execute avec succès$"]}, 'params': {'code': '0'}}
+[DEBUG] Trying to extract parameters from action command: 'exécuter dummy.sh'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.return_code
+[DEBUG] Core handler returned: ValidationCheck(expected='^retour ([0-9]+)$', actual_cmd="if [ ${?} -eq {code} ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='return_code', scope='last_action', params={'code': '0', 'opposite': "le code de retour n'est pas 0"})
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\alias_step.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\alias_step.sh

@@ -7,3 +7,10 @@ vscode/shtest-syntax-*.txt
 **/*.egg-info
 tests_summary.xlsx
 **/build/
+**/node_modules/
+**/out/
+**/dist/
+**/__pycache__/
+**/*.pyc
+**/__pycache__/
+**/__pycache__/

@@ -1,0 +1,279 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 43 lines
+[DEBUG] Lexing text with 43 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test des vérifications de base, result=('Test des vérifications de base',), original=Étape: Test des vérifications de base at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test des vérifications de base' -> '('Test des vérifications de base',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test de base" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test de base" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "Test de base", result=('echo "Test de base"',), original=Action: echo "Test de base" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "Test de base"' -> '('echo "Test de base"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: base prete at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: base prete at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: base prete at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=base prete, result=('base prete',), original=Résultat: base prete at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'base prete' -> '('base prete',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: touch test_file.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: touch test_file.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=touch test_file.txt, result=('touch test_file.txt',), original=Action: touch test_file.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'touch test_file.txt' -> '('touch test_file.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier cree at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier cree at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier cree at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=fichier cree, result=('fichier cree',), original=Résultat: fichier cree at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'fichier cree' -> '('fichier cree',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: mkdir test_dir at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: mkdir test_dir at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=mkdir test_dir, result=('mkdir test_dir',), original=Action: mkdir test_dir at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'mkdir test_dir' -> '('mkdir test_dir',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: dossier cree at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: dossier cree at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: dossier cree at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=dossier cree, result=('dossier cree',), original=Résultat: dossier cree at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'dossier cree' -> '('dossier cree',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test contenu" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test contenu" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "Test contenu", result=('echo "Test contenu"',), original=Action: echo "Test contenu" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "Test contenu"' -> '('echo "Test contenu"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: contenu affiche at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: contenu affiche at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: contenu affiche at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=contenu affiche, result=('contenu affiche',), original=Résultat: contenu affiche at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'contenu affiche' -> '('contenu affiche',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test correct" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test correct" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "Test correct", result=('echo "Test correct"',), original=Action: echo "Test correct" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "Test correct"' -> '('echo "Test correct"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: contenu correct at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: contenu correct at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: contenu correct at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=contenu correct, result=('contenu correct',), original=Résultat: contenu correct at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'contenu correct' -> '('contenu correct',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: ls -la at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: ls -la at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=ls -la, result=('ls -la',), original=Action: ls -la at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'ls -la' -> '('ls -la',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: logs accessibles at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: logs accessibles at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: logs accessibles at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=logs accessibles, result=('logs accessibles',), original=Résultat: logs accessibles at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'logs accessibles' -> '('logs accessibles',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test fichier" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Test fichier" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "Test fichier", result=('echo "Test fichier"',), original=Action: echo "Test fichier" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "Test fichier"' -> '('echo "Test fichier"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le fichier est present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le fichier est present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le fichier est present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=le fichier est present, result=('le fichier est present',), original=Résultat: le fichier est present at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'le fichier est present' -> '('le fichier est present',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: cp test_file.txt test_file2.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: cp test_file.txt test_file2.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=cp test_file.txt test_file2.txt, result=('cp test_file.txt test_file2.txt',), original=Action: cp test_file.txt test_file2.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'cp test_file.txt test_file2.txt' -> '('cp test_file.txt test_file2.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le fichier est deplace at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le fichier est deplace at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le fichier est deplace at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=le fichier est deplace, result=('le fichier est deplace',), original=Résultat: le fichier est deplace at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'le fichier est deplace' -> '('le fichier est deplace',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: mv test_dir test_dir2 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: mv test_dir test_dir2 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=mv test_dir test_dir2, result=('mv test_dir test_dir2',), original=Action: mv test_dir test_dir2 at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'mv test_dir test_dir2' -> '('mv test_dir test_dir2',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le dossier est deplace at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le dossier est deplace at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: le dossier est deplace at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=le dossier est deplace, result=('le dossier est deplace',), original=Résultat: le dossier est deplace at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'le dossier est deplace' -> '('le dossier est deplace',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: test -f test_file.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: test -f test_file.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=test -f test_file.txt, result=('test -f test_file.txt',), original=Action: test -f test_file.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'test -f test_file.txt' -> '('test -f test_file.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=fichier present, result=('fichier present',), original=Résultat: fichier present at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'fichier present' -> '('fichier present',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: test -d test_dir2 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: test -d test_dir2 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=test -d test_dir2, result=('test -d test_dir2',), original=Action: test -d test_dir2 at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'test -d test_dir2' -> '('test -d test_dir2',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: dossier present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: dossier present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: dossier present at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=dossier present, result=('dossier present',), original=Résultat: dossier present at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'dossier present' -> '('dossier present',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: test -e test_file.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: test -e test_file.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=test -e test_file.txt, result=('test -e test_file.txt',), original=Action: test -e test_file.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'test -e test_file.txt' -> '('test -e test_file.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=fichier existe, result=('fichier existe',), original=Résultat: fichier existe at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'fichier existe' -> '('fichier existe',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo $SQL_CONN at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo $SQL_CONN at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo $SQL_CONN, result=('echo $SQL_CONN',), original=Action: echo $SQL_CONN at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo $SQL_CONN' -> '('echo $SQL_CONN',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: identifiants configures at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: identifiants configures at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: identifiants configures at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=identifiants configures, result=('identifiants configures',), original=Résultat: identifiants configures at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'identifiants configures' -> '('identifiants configures',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exit 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exit 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=exit 0, result=('exit 0',), original=Action: exit 0 at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'exit 0' -> '('exit 0',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: retour 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: retour 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: retour 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=retour 0, result=('retour 0',), original=Résultat: retour 0  at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'retour 0' -> '('retour 0',)'
+[DEBUG] Got 43 tokens
+[DEBUG] Grammar: _merge_action_result called with 43 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Test des vérifications de base'
+[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value='echo "Test de base"'
+[DEBUG] Grammar: Token 3: kind=RESULT_ONLY, value='base prete'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=ACTION_ONLY, value='touch test_file.txt'
+[DEBUG] Grammar: Token 6: kind=RESULT_ONLY, value='fichier cree'
+[DEBUG] Grammar: Token 7: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 8: kind=ACTION_ONLY, value='mkdir test_dir'
+[DEBUG] Grammar: Token 9: kind=RESULT_ONLY, value='dossier cree'
+[DEBUG] Grammar: Token 10: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 11: kind=ACTION_ONLY, value='echo "Test contenu"'
+[DEBUG] Grammar: Token 12: kind=RESULT_ONLY, value='contenu affiche'
+[DEBUG] Grammar: Token 13: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 14: kind=ACTION_ONLY, value='echo "Test correct"'
+[DEBUG] Grammar: Token 15: kind=RESULT_ONLY, value='contenu correct'
+[DEBUG] Grammar: Token 16: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 17: kind=ACTION_ONLY, value='ls -la'
+[DEBUG] Grammar: Token 18: kind=RESULT_ONLY, value='logs accessibles'
+[DEBUG] Grammar: Token 19: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 20: kind=ACTION_ONLY, value='echo "Test fichier"'
+[DEBUG] Grammar: Token 21: kind=RESULT_ONLY, value='le fichier est present'
+[DEBUG] Grammar: Token 22: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 23: kind=ACTION_ONLY, value='cp test_file.txt test_file2.txt'
+[DEBUG] Grammar: Token 24: kind=RESULT_ONLY, value='le fichier est deplace'
+[DEBUG] Grammar: Token 25: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 26: kind=ACTION_ONLY, value='mv test_dir test_dir2'
+[DEBUG] Grammar: Token 27: kind=RESULT_ONLY, value='le dossier est deplace'
+[DEBUG] Grammar: Token 28: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 29: kind=ACTION_ONLY, value='test -f test_file.txt'
+[DEBUG] Grammar: Token 30: kind=RESULT_ONLY, value='fichier present'
+[DEBUG] Grammar: Token 31: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 32: kind=ACTION_ONLY, value='test -d test_dir2'
+[DEBUG] Grammar: Token 33: kind=RESULT_ONLY, value='dossier present'
+[DEBUG] Grammar: Token 34: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 35: kind=ACTION_ONLY, value='test -e test_file.txt'
+[DEBUG] Grammar: Token 36: kind=RESULT_ONLY, value='fichier existe'
+[DEBUG] Grammar: Token 37: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 38: kind=ACTION_ONLY, value='echo $SQL_CONN'
+[DEBUG] Grammar: Token 39: kind=RESULT_ONLY, value='identifiants configures'
+[DEBUG] Grammar: Token 40: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 41: kind=ACTION_ONLY, value='exit 0'
+[DEBUG] Grammar: Token 42: kind=RESULT_ONLY, value='retour 0'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "Test de base"' with RESULT_ONLY 'base prete'
+[DEBUG] Grammar: Merging ACTION_ONLY 'touch test_file.txt' with RESULT_ONLY 'fichier cree'
+[DEBUG] Grammar: Merging ACTION_ONLY 'mkdir test_dir' with RESULT_ONLY 'dossier cree'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "Test contenu"' with RESULT_ONLY 'contenu affiche'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "Test correct"' with RESULT_ONLY 'contenu correct'
+[DEBUG] Grammar: Merging ACTION_ONLY 'ls -la' with RESULT_ONLY 'logs accessibles'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "Test fichier"' with RESULT_ONLY 'le fichier est present'
+[DEBUG] Grammar: Merging ACTION_ONLY 'cp test_file.txt test_file2.txt' with RESULT_ONLY 'le fichier est deplace'
+[DEBUG] Grammar: Merging ACTION_ONLY 'mv test_dir test_dir2' with RESULT_ONLY 'le dossier est deplace'
+[DEBUG] Grammar: Merging ACTION_ONLY 'test -f test_file.txt' with RESULT_ONLY 'fichier present'
+[DEBUG] Grammar: Merging ACTION_ONLY 'test -d test_dir2' with RESULT_ONLY 'dossier present'
+[DEBUG] Grammar: Merging ACTION_ONLY 'test -e test_file.txt' with RESULT_ONLY 'fichier existe'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo $SQL_CONN' with RESULT_ONLY 'identifiants configures'
+[DEBUG] Grammar: Merging ACTION_ONLY 'exit 0' with RESULT_ONLY 'retour 0'
+[DEBUG] Grammar: _merge_action_result returning 29 tokens
+[DEBUG] compile_atomic called with: expected='base prete', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "Test de base"'}
+[DEBUG] canonize_validation result: {'phrase': 'base prete', 'handler': 'base_ready', 'scope': 'global', 'pattern_entry': {'phrase': 'Base prête', 'handler': 'base_ready', 'scope': 'global', 'opposite': {'phrase': 'Base non prête'}, 'aliases': ['base prête', 'base prete', 'La base de test est prête', 'La base est prête pour le test', '^base prête$', '^base prete$', '^la base de test est prête$', '^la base est prête pour le test$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'echo "Test de base"'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.base_ready
+[DEBUG] Core handler returned: ValidationCheck(expected='base prete', actual_cmd="if [ -f 'db_ready.flag' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='base_ready', scope='global', params={'opposite': "la base n'est pas prête"})
+[DEBUG] compile_atomic called with: expected='fichier cree', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'touch test_file.txt'}
+[DEBUG] canonize_validation result: {'phrase': 'fichier cree', 'handler': 'file_present', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'opposite': {'phrase': 'Le fichier est absent'}, 'aliases': ['Le fichier est présent', 'le fichier existe', 'fichier présent', 'le fichier est cree', 'fichier cree', 'le fichier est créé', 'fichier créé', 'le fichier est initialisé', 'fichier initialisé', '^le fichier est présent$', '^le fichier existe$', '^fichier présent$', '^le fichier est cree$', '^fichier cree$', '^le fichier est créé$', '^fichier créé$', '^le fichier est initialisé$', '^fichier initialisé$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'touch test_file.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_present
+[DEBUG] Core handler returned: ValidationCheck(expected='fichier cree', actual_cmd="if [ -f  ]; then echo 'fichier cree'; else echo 'le fichier None est absent'; fi", handler='file_present', scope='global', params={'file_path': None, 'opposite': 'le fichier None est absent'})
+[DEBUG] compile_atomic called with: expected='dossier cree', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'mkdir test_dir'}
+[DEBUG] canonize_validation result: {'phrase': 'dossier cree', 'handler': 'dir_ready', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est prêt', 'handler': 'dir_ready', 'scope': 'last_action', 'opposite': {'phrase': 'Le dossier est absent'}, 'aliases': ['le dossier est prêt', 'dossier prêt', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est present', 'dossier present', 'le dossier est vide', 'dossier vide', '^le dossier est prêt$', '^dossier prêt$', '^le dossier est cree$', '^dossier cree$', '^le dossier est créé$', '^dossier créé$', '^le dossier est present$', '^dossier present$', '^le dossier est vide$', '^dossier vide$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'mkdir test_dir'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_ready
+[DEBUG] Core handler ImportError: No module named 'shtest_compiler.core.handlers.dir_ready'
+[DEBUG] compile_atomic called with: expected='contenu affiche', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "Test contenu"'}
+[DEBUG] canonize_validation result: {'phrase': 'contenu affiche', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'echo "Test contenu"'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.content_displayed
+[DEBUG] Core handler returned: ValidationCheck(expected='contenu affiche', actual_cmd="if [ -s '{file_path}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
+[DEBUG] compile_atomic called with: expected='contenu correct', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "Test correct"'}
+[DEBUG] canonize_validation result: {'phrase': 'contenu correct', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'echo "Test correct"'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.content_displayed
+[DEBUG] Core handler returned: ValidationCheck(expected='contenu correct', actual_cmd="if [ -s '{file_path}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
+[DEBUG] compile_atomic called with: expected='logs accessibles', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'ls -la'}
+[DEBUG] canonize_validation result: {'phrase': 'Logs accessibles', 'handler': 'logs_accessible', 'scope': 'global', 'pattern_entry': {'phrase': 'Logs accessibles', 'handler': 'logs_accessible', 'scope': 'global', 'opposite': {'phrase': 'Logs non accessibles'}, 'aliases': ['logs accessibles', 'les logs sont accessibles', '^logs accessibles$', '^les logs sont accessibles$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'ls -la'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.logs_accessible
+[DEBUG] Core handler returned: ValidationCheck(expected='Logs accessibles', actual_cmd="if [ -f '{file_path}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='logs_accessible', scope='global', params={'file_path': None, 'opposite': "le fichier None n'est pas accessible"})
+[DEBUG] compile_atomic called with: expected='le fichier est present', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "Test fichier"'}
+[DEBUG] canonize_validation result: None
+[ERROR] ValidationParseError: No matcher found for validation: 'le fichier est present'
+Traceback (most recent call last):
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 316, in visit
+    shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+    return visitor_method(node)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 49, in visit_shtestfile
+    lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 25, in compile_atomic
+    raise ValidationParseError(f"No matcher found for validation: '{expected}'")
+shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'le fichier est present'
+
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_basic_checks.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_basic_checks.sh

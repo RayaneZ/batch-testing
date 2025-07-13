@@ -6,9 +6,10 @@ vers une suite d'instructions shell conditionnelles.
 from .atomic_compiler import compile_atomic
 from shtest_compiler.parser.shunting_yard import ASTNode, Atomic, BinaryOp
 from .compiler import CompileContext
+from typing import List, Tuple
 
 
-def compile_ast(node: ASTNode, context: CompileContext) -> tuple[list[str], str]:
+def compile_ast(node: ASTNode, context: CompileContext) -> Tuple[List[str], str]:
     """
     Compile un nœud AST (BinaryOp ou Atomic) en lignes shell + nom de variable résultat.
     Retourne une liste de lignes de shell et le nom de la variable contenant le résultat booléen (0 ou 1).

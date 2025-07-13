@@ -1,4 +1,0 @@
-Action: Créer le dossier = /tmp/data avec les droits = 0755 ; Résultat: Le dossier est créé.
-Action: Créer le fichier = /tmp/output.txt avec les droits = 0644 ; Résultat: Le fichier est présent.
-Action: Mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Résultat: La date est modifiée.
-Action: Afficher le contenu du fichier = /tmp/output.txt ; Résultat: Le contenu est correct.

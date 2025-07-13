@@ -5,7 +5,7 @@ Configurable lexer that can use different tokenizers and filters.
 import os
 import yaml
 from typing import Iterator, Optional, Dict, Any
-from .core import Token
+from .core import Token, TokenType
 from .tokenizers import Tokenizer, RegexTokenizer, FallbackTokenizer
 from .filters import Filter, EmptyFilter, WhitespaceFilter
 from .pattern_loader import PatternLoader
@@ -80,7 +80,7 @@ class ConfigurableLexer:
         if tokenizer_type == 'regex':
             pattern = config.get('pattern', '')
             token_type = config.get('token_type', 'TEXT')
-            return RegexTokenizer(pattern, token_type)
+            return RegexTokenizer(pattern, token_type, debug=self.debug)
         
         return None
     
@@ -101,50 +101,43 @@ class ConfigurableLexer:
             # Load patterns from regex_config.yml
             pattern_loader = PatternLoader()
             patterns = pattern_loader.load()
-            
             if self.debug:
                 debug_print(f"[DEBUG] Loaded patterns: {list(patterns.keys())}")
-            
+                for k, v in patterns.items():
+                    debug_print(f"[DEBUG] Pattern for {k}: {v.pattern if hasattr(v, 'pattern') else v}")
             # Add tokenizers in order of specificity (most specific first)
             # 1. STEP pattern
             if 'step' in patterns:
-                self.tokenizers.append(RegexTokenizer(patterns['step'].pattern, 'STEP'))
+                self.add_tokenizer(RegexTokenizer(patterns['step'], 'STEP', debug=self.debug))
                 if self.debug:
-                    debug_print(f"[DEBUG] Added STEP tokenizer with pattern: {patterns['step'].pattern}")
-            
-            # 2. ACTION_RESULT pattern (most specific - action and result on same line)
+                    debug_print(f"[DEBUG] Added STEP tokenizer with pattern: {patterns['step'].pattern if hasattr(patterns['step'], 'pattern') else patterns['step']}")
+            # 2. ACTION_RESULT pattern
             if 'action_result' in patterns:
-                self.tokenizers.append(RegexTokenizer(patterns['action_result'].pattern, 'ACTION_RESULT'))
+                self.add_tokenizer(RegexTokenizer(patterns['action_result'], 'ACTION_RESULT', debug=self.debug))
                 if self.debug:
-                    debug_print(f"[DEBUG] Added ACTION_RESULT tokenizer with pattern: {patterns['action_result'].pattern}")
-            
+                    debug_print(f"[DEBUG] Added ACTION_RESULT tokenizer with pattern: {patterns['action_result'].pattern if hasattr(patterns['action_result'], 'pattern') else patterns['action_result']}")
             # 3. ACTION_ONLY pattern
             if 'action_only' in patterns:
-                self.tokenizers.append(RegexTokenizer(patterns['action_only'].pattern, 'ACTION_ONLY'))
+                self.add_tokenizer(RegexTokenizer(patterns['action_only'], 'ACTION_ONLY', debug=self.debug))
                 if self.debug:
-                    debug_print(f"[DEBUG] Added ACTION_ONLY tokenizer with pattern: {patterns['action_only'].pattern}")
-            
+                    debug_print(f"[DEBUG] Added ACTION_ONLY tokenizer with pattern: {patterns['action_only'].pattern if hasattr(patterns['action_only'], 'pattern') else patterns['action_only']}")
             # 4. RESULT_ONLY pattern
             if 'result_only' in patterns:
-                self.tokenizers.append(RegexTokenizer(patterns['result_only'].pattern, 'RESULT_ONLY'))
+                self.add_tokenizer(RegexTokenizer(patterns['result_only'], 'RESULT_ONLY', debug=self.debug))
                 if self.debug:
-                    debug_print(f"[DEBUG] Added RESULT_ONLY tokenizer with pattern: {patterns['result_only'].pattern}")
-            
-            # 5. Add fallback tokenizer last
-            self.tokenizers.append(FallbackTokenizer())
+                    debug_print(f"[DEBUG] Added RESULT_ONLY tokenizer with pattern: {patterns['result_only'].pattern if hasattr(patterns['result_only'], 'pattern') else patterns['result_only']}")
+            # 5. COMMENT pattern
+            if 'comment' in patterns:
+                self.add_tokenizer(RegexTokenizer(patterns['comment'], 'COMMENT', debug=self.debug))
+                if self.debug:
+                    debug_print(f"[DEBUG] Added COMMENT tokenizer with pattern: {patterns['comment'].pattern if hasattr(patterns['comment'], 'pattern') else patterns['comment']}")
+            # 6. Fallback
+            self.add_tokenizer(FallbackTokenizer())
             if self.debug:
-                debug_print("[DEBUG] Added FallbackTokenizer")
-                
+                debug_print(f"[DEBUG] Added FallbackTokenizer")
         except Exception as e:
-            if self.debug:
-                debug_print(f"[DEBUG] Failed to load patterns from regex_config.yml: {e}")
-                debug_print("[DEBUG] Using hardcoded fallback patterns")
-            
-            # Fallback to hardcoded patterns
-            self.tokenizers.append(RegexTokenizer(r'^(?:Étape|Etape|Step)\s*:\s*(.+)$', 'STEP'))
-            self.tokenizers.append(RegexTokenizer(r'^Action:\s*(.+)$', 'ACTION_ONLY'))
-            self.tokenizers.append(RegexTokenizer(r'^Résultat:\s*(.+)$', 'RESULT_ONLY'))
-            self.tokenizers.append(FallbackTokenizer())
+            debug_print(f"[ERROR] Failed to add default tokenizers: {e}")
+            raise
     
     def _add_default_filters(self) -> None:
         """Add default filters."""
@@ -155,28 +148,27 @@ class ConfigurableLexer:
         """Lex text into tokens."""
         if self.debug:
             debug_print(f"[DEBUG] Lexing text with {len(text.splitlines())} lines")
-        
-        # Apply tokenizers
-        tokens = []
-        for tokenizer in self.tokenizers:
-            try:
-                for token in tokenizer.tokenize(text):
-                    tokens.append(token)
-                    if self.debug:
-                        debug_print(f"[DEBUG] Yielding token: {token}")
-            except Exception as e:
+        lines = text.split('\n')
+        for lineno, line in enumerate(lines, 1):
+            stripped = line.strip()
+            matched = False
+            for tokenizer in self.tokenizers:
+                tokens = list(tokenizer.tokenize(line))
+                if tokens:
+                    token = tokens[0]
+                    # Only yield if not TEXT, or if it's the fallback
+                    if token.type != TokenType.TEXT or isinstance(tokenizer, FallbackTokenizer):
+                        if self.debug:
+                            debug_print(f"[DEBUG] Yielding token: {token}")
+                        yield token
+                        matched = True
+                        break
+            if not matched:
+                # If no tokenizer matched, yield as TEXT
+                token = Token(type=TokenType.TEXT, value=stripped, lineno=lineno, original=line)
                 if self.debug:
-                    debug_print(f"[DEBUG] Tokenizer error: {e}")
-        
-        # Apply filters
-        for filter_obj in self.filters:
-            tokens = list(filter_obj.filter(tokens, verbose=self.debug))
-        
-        # Yield filtered tokens
-        for token in tokens:
-            if self.debug:
-                debug_print(f"[DEBUG] ConfigurableLexer.lex: Produced token kind={token.kind}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)}")
-            yield token
+                    debug_print(f"[DEBUG] Yielding fallback TEXT token: {token}")
+                yield token
     
     def lex_file(self, file_path: str) -> Iterator[Token]:
         """Lex a file into tokens."""

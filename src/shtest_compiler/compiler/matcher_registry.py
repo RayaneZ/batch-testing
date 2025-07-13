@@ -65,7 +65,9 @@ class MatcherRegistry:
         Returns:
             The regex pattern that matches the validation, or None if not found
         """
+        import sys
         validation_lower = validation.lower().strip()
+        print(f"[DEBUG] find_matcher: validation='{validation_lower}', scope='{scope}'", file=sys.stderr)
         
         for pattern_entry in self.validation_patterns:
             # Check if scope matches
@@ -75,11 +77,13 @@ class MatcherRegistry:
             
             # Check exact phrase match
             if pattern_entry["phrase"].lower() == validation_lower:
+                print(f"[DEBUG] Exact match: '{pattern_entry['phrase']}'", file=sys.stderr)
                 return pattern_entry["phrase"]
             
             # Check aliases
             for alias in pattern_entry.get("aliases", []):
                 if alias.lower() == validation_lower:
+                    print(f"[DEBUG] Alias match: '{alias}'", file=sys.stderr)
                     return pattern_entry["phrase"]
                 
                 # Check regex patterns
@@ -87,10 +91,22 @@ class MatcherRegistry:
                     import re
                     try:
                         if re.match(alias, validation_lower, re.IGNORECASE):
+                            print(f"[DEBUG] Regex alias match: '{alias}'", file=sys.stderr)
                             return pattern_entry["phrase"]
                     except re.error:
                         continue
+            # NEW: Check phrase as a pattern with placeholders
+            import re
+            phrase_pattern = pattern_entry["phrase"]
+            # Replace {var} and {value} and other placeholders with regex groups
+            regex_pattern = re.sub(r"{\w+}", r"(.+)", phrase_pattern)
+            regex_pattern = "^" + regex_pattern + "$"
+            print(f"[DEBUG] Placeholder regex: '{regex_pattern}' for phrase '{phrase_pattern}'", file=sys.stderr)
+            if re.match(regex_pattern, validation_lower, re.IGNORECASE):
+                print(f"[DEBUG] Placeholder match: '{phrase_pattern}'", file=sys.stderr)
+                return pattern_entry["phrase"]
         
+        print(f"[DEBUG] No match found for: '{validation_lower}'", file=sys.stderr)
         return None
     
     def register(self, matcher):

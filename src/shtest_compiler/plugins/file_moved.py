@@ -1,21 +1,18 @@
+from shtest_compiler.utils.canonicalization import get_canonical_phrase_and_opposite
+
 class FileMovedValidation:
     def __init__(self, source=None, destination=None):
         self.source = source
         self.destination = destination
-    
     def to_shell(self, varname="result", last_file_var=None):
-        """Generate shell code for file moved validation."""
+        phrase, opposite = get_canonical_phrase_and_opposite("file_moved", plugin_name="file")
+        if not self.source or not self.destination:
+            return [f"echo 'ERROR: Missing file(s) for file_moved validation'"]
         return [
-            f'{varname}=0',
-            f'if [ $last_ret -eq 0 ]; then',
-            f'    {varname}=1',
-            f'    actual="le fichier est déplacé"',
-            f'else',
-            f'    actual="fichier non déplacé"',
-            f'fi',
-            f'expected="le fichier est déplacé"'
+            f"expected='{phrase}'",
+            f"if [ $last_ret -eq 0 ]; then actual='{phrase}'; else actual='{opposite}'; fi",
+            f"{varname}=1; [ \"$actual\" = \"$expected\" ] || {varname}=0"
         ]
-
 def handle(groups, scope=None):
     source = groups[0] if len(groups) > 0 else None
     destination = groups[1] if len(groups) > 1 else None

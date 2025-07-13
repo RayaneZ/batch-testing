@@ -1,0 +1,123 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 19 lines
+[DEBUG] Lexing text with 19 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 1 - Preparation, result=('Step 1 - Preparation',), original=Etape: Step 1 - Preparation at line 1
+[DEBUG] Yielding token: STEP@1:0 'Step 1 - Preparation' -> '('Step 1 - Preparation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le dossier ./qualification/demo_env, result=('Creer le dossier ./qualification/demo_env', 'le dossier est cree.', None), original=Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le dossier ./qualification/demo_env' -> '('Creer le dossier ./qualification/demo_env', 'le dossier est cree.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le fichier ./qualification/demo_env/initial.txt, result=('Creer le fichier ./qualification/demo_env/initial.txt', 'le fichier est cree.', None), original=Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le fichier ./qualification/demo_env/initial.txt' -> '('Creer le fichier ./qualification/demo_env/initial.txt', 'le fichier est cree.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Définir la variable SQL_CONN = rootme/ffDDD584R@base_name, result=('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None), original=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Définir la variable SQL_CONN = rootme/ffDDD584R@base_name' -> '('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 2 - Ancien fichier, result=('Step 2 - Ancien fichier',), original=Etape: Step 2 - Ancien fichier at line 1
+[DEBUG] Yielding token: STEP@1:0 'Step 2 - Ancien fichier' -> '('Step 2 - Ancien fichier',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=toucher le fichier ./qualification/demo_env/old.txt -t 202201010000, result=('toucher le fichier ./qualification/demo_env/old.txt -t 202201010000', 'date modifiee.', None), original=Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'toucher le fichier ./qualification/demo_env/old.txt -t 202201010000' -> '('toucher le fichier ./qualification/demo_env/old.txt -t 202201010000', 'date modifiee.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 3 - Nouveau fichier, result=('Step 3 - Nouveau fichier',), original=Etape: Step 3 - Nouveau fichier at line 1
+[DEBUG] Yielding token: STEP@1:0 'Step 3 - Nouveau fichier' -> '('Step 3 - Nouveau fichier',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le fichier ./qualification/demo_env/newfile.txt, result=('Creer le fichier ./qualification/demo_env/newfile.txt', 'fichier crée.', None), original=Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le fichier ./qualification/demo_env/newfile.txt' -> '('Creer le fichier ./qualification/demo_env/newfile.txt', 'fichier crée.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101, result=('Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101', 'date modifiee.', None), original=Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101' -> '('Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101', 'date modifiee.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 4 - Execution du batch, result=('Step 4 - Execution du batch',), original=Etape: Step 4 - Execution du batch at line 1
+[DEBUG] Yielding token: STEP@1:0 'Step 4 - Execution du batch' -> '('Step 4 - Execution du batch',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter ./qualification/purge.sh, result=('Exécuter ./qualification/purge.sh', 'Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d\'erreur contient WARNING).', None), original=Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter ./qualification/purge.sh' -> '('Exécuter ./qualification/purge.sh', 'Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d\'erreur contient WARNING).', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter /opt/batch/migration.sh, result=('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None), original=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter /opt/batch/migration.sh' -> '('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 5 - Vérifier la table en base, result=('Step 5 - Vérifier la table en base',), original=Step: Step 5 - Vérifier la table en base at line 1
+[DEBUG] Yielding token: STEP@1:0 'Step 5 - Vérifier la table en base' -> '('Step 5 - Vérifier la table en base',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter le script SQL verification.sql, result=('Exécuter le script SQL verification.sql', "Le script s'execute avec succès.", None), original=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter le script SQL verification.sql' -> '('Exécuter le script SQL verification.sql', "Le script s'execute avec succès.", None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Comparer le fichier ./output.txt avec ./output_attendu.txt, result=('Comparer le fichier ./output.txt avec ./output_attendu.txt', 'Les fichiers sont identiques', None), original=Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Comparer le fichier ./output.txt avec ./output_attendu.txt' -> '('Comparer le fichier ./output.txt avec ./output_attendu.txt', 'Les fichiers sont identiques', None)'
+[DEBUG] Got 19 tokens
+[DEBUG] Grammar: _merge_action_result called with 19 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Step 1 - Preparation'
+[DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='Creer le dossier ./qualification/demo_env'
+[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='Creer le fichier ./qualification/demo_env/initial.txt'
+[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='Définir la variable SQL_CONN = rootme/ffDDD584R@base_name'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=STEP, value='Step 2 - Ancien fichier'
+[DEBUG] Grammar: Token 6: kind=ACTION_RESULT, value='toucher le fichier ./qualification/demo_env/old.txt -t 202201010000'
+[DEBUG] Grammar: Token 7: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 8: kind=STEP, value='Step 3 - Nouveau fichier'
+[DEBUG] Grammar: Token 9: kind=ACTION_RESULT, value='Creer le fichier ./qualification/demo_env/newfile.txt'
+[DEBUG] Grammar: Token 10: kind=ACTION_RESULT, value='Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101'
+[DEBUG] Grammar: Token 11: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 12: kind=STEP, value='Step 4 - Execution du batch'
+[DEBUG] Grammar: Token 13: kind=ACTION_RESULT, value='Exécuter ./qualification/purge.sh'
+[DEBUG] Grammar: Token 14: kind=ACTION_RESULT, value='Exécuter /opt/batch/migration.sh'
+[DEBUG] Grammar: Token 15: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 16: kind=STEP, value='Step 5 - Vérifier la table en base'
+[DEBUG] Grammar: Token 17: kind=ACTION_RESULT, value='Exécuter le script SQL verification.sql'
+[DEBUG] Grammar: Token 18: kind=ACTION_RESULT, value='Comparer le fichier ./output.txt avec ./output_attendu.txt'
+[DEBUG] Grammar: _merge_action_result returning 19 tokens
+[DEBUG] compile_atomic called with: expected='le dossier est cree', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Creer le dossier ./qualification/demo_env'}
+[DEBUG] canonize_validation result: {'phrase': 'le dossier est cree', 'handler': 'dir_ready', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est prêt', 'handler': 'dir_ready', 'scope': 'last_action', 'opposite': {'phrase': 'Le dossier est absent'}, 'aliases': ['le dossier est prêt', 'dossier prêt', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est present', 'dossier present', 'le dossier est vide', 'dossier vide', '^le dossier est prêt$', '^dossier prêt$', '^le dossier est cree$', '^dossier cree$', '^le dossier est créé$', '^dossier créé$', '^le dossier est present$', '^dossier present$', '^le dossier est vide$', '^dossier vide$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'Creer le dossier ./qualification/demo_env'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_ready
+[DEBUG] Core handler ImportError: No module named 'shtest_compiler.core.handlers.dir_ready'
+[DEBUG] compile_atomic called with: expected='le fichier est cree', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Creer le fichier ./qualification/demo_env/initial.txt'}
+[DEBUG] canonize_validation result: {'phrase': 'le fichier est cree', 'handler': 'file_present', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'opposite': {'phrase': 'Le fichier est absent'}, 'aliases': ['Le fichier est présent', 'le fichier existe', 'fichier présent', 'le fichier est cree', 'fichier cree', 'le fichier est créé', 'fichier créé', 'le fichier est initialisé', 'fichier initialisé', '^le fichier est présent$', '^le fichier existe$', '^fichier présent$', '^le fichier est cree$', '^fichier cree$', '^le fichier est créé$', '^fichier créé$', '^le fichier est initialisé$', '^fichier initialisé$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'Creer le fichier ./qualification/demo_env/initial.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_present
+[DEBUG] Core handler returned: ValidationCheck(expected='le fichier est cree', actual_cmd="if [ -f  ]; then echo 'le fichier est cree'; else echo 'le fichier None est absent'; fi", handler='file_present', scope='global', params={'file_path': None, 'opposite': 'le fichier None est absent'})
+[DEBUG] compile_atomic called with: expected='Les identifiants sont configurés', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Définir la variable SQL_CONN = rootme/ffDDD584R@base_name'}
+[DEBUG] canonize_validation result: {'phrase': 'Les identifiants sont configurés', 'handler': 'credentials_configured', 'scope': 'global', 'pattern_entry': {'phrase': 'Identifiants configurés', 'handler': 'credentials_configured', 'scope': 'global', 'opposite': {'phrase': 'Identifiants non configurés'}, 'aliases': ['identifiants configurés', 'Les identifiants sont configurés', '^identifiants configurés$', '^les identifiants sont configurés$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'Définir la variable SQL_CONN = rootme/ffDDD584R@base_name'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.credentials_configured
+[DEBUG] Core handler returned: ValidationCheck(expected='Les identifiants sont configurés', actual_cmd="if [ -n '${{var}}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='credentials_configured', scope='global', params={'var': 'SQL_CONN', 'opposite': "la variable SQL_CONN n'est pas configurée"})
+[DEBUG] compile_atomic called with: expected='date modifiee', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'toucher le fichier ./qualification/demo_env/old.txt -t 202201010000'}
+[DEBUG] canonize_validation result: {'phrase': 'date modifiee', 'handler': 'date_modified', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Date modifiée', 'handler': 'date_modified', 'scope': 'last_action', 'opposite': {'phrase': 'Date inchangée'}, 'aliases': ['date modifiée', 'La date est modifiée', 'date modifiee', '^date modifiée$', '^la date est modifiée$', '^date modifiee$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'toucher le fichier ./qualification/demo_env/old.txt -t 202201010000'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.date_modified
+[DEBUG] Core handler returned: ValidationCheck(expected='date_modified', actual_cmd="echo 'ERROR: Missing file or date for date_modified validation'", handler='date_modified', scope='last_action', params={'scope': 'last_action', 'canonical_phrase': 'date modifiee', 'varname': 'result', 'last_file_var': None})
+[DEBUG] compile_atomic called with: expected='fichier crée', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Creer le fichier ./qualification/demo_env/newfile.txt'}
+[DEBUG] canonize_validation result: None
+[ERROR] ValidationParseError: No matcher found for validation: 'fichier crée'
+Traceback (most recent call last):
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 316, in visit
+    shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+    return visitor_method(node)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 49, in visit_shtestfile
+    lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 25, in compile_atomic
+    raise ValidationParseError(f"No matcher found for validation: '{expected}'")
+shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'fichier crée'
+
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\demo_long_test.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\demo_long_test.sh

@@ -113,73 +113,62 @@ class PatternRegistry:
 def load_plugin(command_type):
     # Mapping des handlers vers les vrais modules
     handler_mapping = {
-        # Actions
-        'create_dir': 'dir.mkdir',
-        'delete_dir': 'dir.delete_dir',
-        'copy_dir': 'dir.copy_dir',
-        'move_dir': 'dir.move_dir',
-        'purge_dir': 'dir.purge_dir',
-        'create_file': 'file.touch',
-        'delete_file': 'file.delete_file',
-        'copy_file': 'file.copy_file',
-        'move_file': 'file.move_file',
-        'cat_file': 'file.cat_file',
-        'compare_files': 'file.compare_files',
-        'touch_ts': 'file.touch_ts',
-        'run_script': 'script.run',
-        'run_sql_script': 'sql.sql_script',
-        'export_var': 'env.export_var',
-        'update_file': 'file.touch',  # Fallback vers touch
-        
-        # Validations
-        'return_code': 'return_code',
-        'content_displayed': 'content_displayed',
-        'file_copied': 'file_copied',
-        'dir_copied': 'dir_copied',
-        'file_present': 'file_present',
-        'dir_ready': 'dir_ready',
-        'base_ready': 'base_ready',
-        'date_modified': 'date_modified',
-        'files_identical': 'files_identical',
-        'credentials_configured': 'credentials_configured',
-        'logs_accessible': 'logs_accessible',
-        'no_error_message': 'no_error_message',
-        'stdout_contains': 'stdout.contains',
-        'stderr_contains': 'stderr_contains',
+        # Actions (now in core.action_handlers)
+        'create_dir': 'core.action_handlers.create_dir',
+        'delete_dir': 'core.action_handlers.delete_dir',
+        'copy_dir': 'core.action_handlers.copy_dir',
+        'move_dir': 'core.action_handlers.move_dir',
+        'purge_dir': 'core.action_handlers.purge_dir',
+        'create_file': 'core.action_handlers.create_file',
+        'delete_file': 'core.action_handlers.delete_file',
+        'copy_file': 'core.action_handlers.copy_file',
+        'move_file': 'core.action_handlers.move_file',
+        'cat_file': 'core.action_handlers.cat_file',
+        'compare_files': 'core.action_handlers.compare_files',  # If implemented
+        'touch_ts': 'core.action_handlers.touch_ts',
+        'run_script': 'core.action_handlers.run_script',
+        'run_sql_script': 'core.action_handlers.run_sql_script',
+        'export_var': 'core.action_handlers.export_var',
+        'update_file': 'core.action_handlers.create_file',  # Fallback vers create_file
+        # Validations (still in core.handlers)
+        'return_code': 'core.handlers.return_code',
+        'content_displayed': 'core.handlers.content_displayed',
+        'file_copied': 'core.handlers.file_copied',
+        'dir_copied': 'core.handlers.dir_copied',
+        'file_present': 'core.handlers.file_present',
+        'dir_ready': 'core.handlers.dir_ready',
+        'base_ready': 'core.handlers.base_ready',
+        'date_modified': 'core.handlers.date_modified',
+        'files_identical': 'core.handlers.files_identical',
+        'credentials_configured': 'core.handlers.credentials_configured',
+        'logs_accessible': 'core.handlers.logs_accessible',
+        'no_error_message': 'core.handlers.no_error_message',
+        'stdout_contains': 'core.handlers.stdout_contains',
+        'stderr_contains': 'core.handlers.stderr_contains',
     }
-    
-    # Obtenir le vrai nom du module
     module_name = handler_mapping.get(command_type, command_type)
-    
-    # Si le mapping n'existe pas, essayer directement
-    if module_name == command_type:
-        return importlib.import_module(f"shtest_compiler.plugins.{command_type}")
-    else:
-        return importlib.import_module(f"shtest_compiler.plugins.{module_name}")
+    return importlib.import_module(f"shtest_compiler.{module_name}")
 
 def action_to_ast(action):
     for entry in PATTERNS:
-        # Essayer de matcher avec la phrase principale
         m = re.match(entry["phrase"], action, re.IGNORECASE)
         if m:
             plugin = load_plugin(entry["handler"])
             if entry["handler"] == "run_sql_script":
-                # Pour les scripts SQL, passer le driver depuis l'environnement
                 driver = os.environ.get("SQL_DRIVER", "oracle")
-                return plugin.handle(m.groups(), driver=driver)
+                return plugin.handle({'script': m.groups()[0], 'driver': driver})
             else:
-                return plugin.handle(m.groups())
-        
-        # Essayer de matcher avec chaque alias
+                # Map groups to params by name if possible
+                params = {k: v for k, v in zip(re.findall(r'\{(\w+)\}', entry["phrase"]), m.groups())}
+                return plugin.handle(params)
         for alias in entry.get("aliases", []):
             m = re.match(alias, action, re.IGNORECASE)
             if m:
                 plugin = load_plugin(entry["handler"])
                 if entry["handler"] == "run_sql_script":
-                    # Pour les scripts SQL, passer le driver depuis l'environnement
                     driver = os.environ.get("SQL_DRIVER", "oracle")
-                    return plugin.handle(m.groups(), driver=driver)
+                    return plugin.handle({'script': m.groups()[0], 'driver': driver})
                 else:
-                    return plugin.handle(m.groups())
-    
-    return None  # ou lever une exception 
+                    params = {k: v for k, v in zip(re.findall(r'\{(\w+)\}', entry["phrase"]), m.groups())}
+                    return plugin.handle(params)
+    return None 

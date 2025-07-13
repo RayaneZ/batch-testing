@@ -1,0 +1,223 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 35 lines
+[DEBUG] Lexing text with 35 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Configuration de la base de données, result=('Configuration de la base de données',), original=Étape: Configuration de la base de données at line 1
+[DEBUG] Yielding token: STEP@1:0 'Configuration de la base de données' -> '('Configuration de la base de données',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: définir la variable SQL_CONN = user/password@testdb at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: définir la variable SQL_CONN = user/password@testdb at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=définir la variable SQL_CONN = user/password@testdb, result=('définir la variable SQL_CONN = user/password@testdb',), original=Action: définir la variable SQL_CONN = user/password@testdb at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'définir la variable SQL_CONN = user/password@testdb' -> '('définir la variable SQL_CONN = user/password@testdb',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: variable SQL_CONN vaut user/password@testdb at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: variable SQL_CONN vaut user/password@testdb at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: variable SQL_CONN vaut user/password@testdb at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=variable SQL_CONN vaut user/password@testdb, result=('variable SQL_CONN vaut user/password@testdb',), original=Résultat: variable SQL_CONN vaut user/password@testdb at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'variable SQL_CONN vaut user/password@testdb' -> '('variable SQL_CONN vaut user/password@testdb',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test d'export de requête simple, result=("Test d'export de requête simple",), original=Étape: Test d'export de requête simple at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test d'export de requête simple' -> '("Test d'export de requête simple",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx, result=('exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx',), original=Action: exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx' -> '('exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient Excel file created successfully, result=('stdout contient Excel file created successfully',), original=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient Excel file created successfully' -> '('stdout contient Excel file created successfully',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test de comparaison de requêtes identiques, result=('Test de comparaison de requêtes identiques',), original=Étape: Test de comparaison de requêtes identiques at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test de comparaison de requêtes identiques' -> '('Test de comparaison de requêtes identiques',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT' at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT' at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT', result=("comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'",), original=Action: comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT' at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'' -> '("comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient COMPARISON_SUCCESS, result=('stdout contient COMPARISON_SUCCESS',), original=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient COMPARISON_SUCCESS' -> '('stdout contient COMPARISON_SUCCESS',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test de comparaison avec tolérance numérique, result=('Test de comparaison avec tolérance numérique',), original=Étape: Test de comparaison avec tolérance numérique at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test de comparaison avec tolérance numérique' -> '('Test de comparaison avec tolérance numérique',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees, result=('comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees',), original=Action: comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees' -> '('comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient COMPARISON_SUCCESS, result=('stdout contient COMPARISON_SUCCESS',), original=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient COMPARISON_SUCCESS' -> '('stdout contient COMPARISON_SUCCESS',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test d'exécution de requête simple, result=("Test d'exécution de requête simple",), original=Étape: Test d'exécution de requête simple at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test d'exécution de requête simple' -> '("Test d'exécution de requête simple",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter la requête SELECT COUNT(*) FROM employees at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter la requête SELECT COUNT(*) FROM employees at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=exécuter la requête SELECT COUNT(*) FROM employees, result=('exécuter la requête SELECT COUNT(*) FROM employees',), original=Action: exécuter la requête SELECT COUNT(*) FROM employees at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'exécuter la requête SELECT COUNT(*) FROM employees' -> '('exécuter la requête SELECT COUNT(*) FROM employees',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient un nombre at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient un nombre at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient un nombre at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient un nombre, result=('stdout contient un nombre',), original=Résultat: stdout contient un nombre at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient un nombre' -> '('stdout contient un nombre',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test d'export avec format personnalisé, result=("Test d'export avec format personnalisé",), original=Étape: Test d'export avec format personnalisé at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test d'export avec format personnalisé' -> '("Test d'export avec format personnalisé",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx, result=('exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx',), original=Action: exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx' -> '('exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient Excel file created successfully, result=('stdout contient Excel file created successfully',), original=Résultat: stdout contient Excel file created successfully at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient Excel file created successfully' -> '('stdout contient Excel file created successfully',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test de comparaison avec ordre ignoré, result=('Test de comparaison avec ordre ignoré',), original=Étape: Test de comparaison avec ordre ignoré at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test de comparaison avec ordre ignoré' -> '('Test de comparaison avec ordre ignoré',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison), result=("comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)",), original=Action: comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)' -> '("comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient COMPARISON_SUCCESS, result=('stdout contient COMPARISON_SUCCESS',), original=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient COMPARISON_SUCCESS' -> '('stdout contient COMPARISON_SUCCESS',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test de comparaison sans ordre - données identiques, result=('Test de comparaison sans ordre - données identiques',), original=Étape: Test de comparaison sans ordre - données identiques at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test de comparaison sans ordre - données identiques' -> '('Test de comparaison sans ordre - données identiques',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison), result=("comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)",), original=Action: comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)' -> '("comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient COMPARISON_SUCCESS, result=('stdout contient COMPARISON_SUCCESS',), original=Résultat: stdout contient COMPARISON_SUCCESS at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient COMPARISON_SUCCESS' -> '('stdout contient COMPARISON_SUCCESS',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test de comparaison sans ordre - données différentes, result=('Test de comparaison sans ordre - données différentes',), original=Étape: Test de comparaison sans ordre - données différentes at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test de comparaison sans ordre - données différentes' -> '('Test de comparaison sans ordre - données différentes',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison), result=("comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)",), original=Action: comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison) at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)' -> '("comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)",)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_ERROR at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_ERROR at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient COMPARISON_ERROR at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient COMPARISON_ERROR, result=('stdout contient COMPARISON_ERROR',), original=Résultat: stdout contient COMPARISON_ERROR  at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient COMPARISON_ERROR' -> '('stdout contient COMPARISON_ERROR',)'
+[DEBUG] Got 35 tokens
+[DEBUG] Grammar: _merge_action_result called with 35 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Configuration de la base de données'
+[DEBUG] Grammar: Token 1: kind=ACTION_ONLY, value='définir la variable SQL_CONN = user/password@testdb'
+[DEBUG] Grammar: Token 2: kind=RESULT_ONLY, value='variable SQL_CONN vaut user/password@testdb'
+[DEBUG] Grammar: Token 3: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 4: kind=STEP, value='Test d'export de requête simple'
+[DEBUG] Grammar: Token 5: kind=ACTION_ONLY, value='exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx'
+[DEBUG] Grammar: Token 6: kind=RESULT_ONLY, value='stdout contient Excel file created successfully'
+[DEBUG] Grammar: Token 7: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 8: kind=STEP, value='Test de comparaison de requêtes identiques'
+[DEBUG] Grammar: Token 9: kind=ACTION_ONLY, value='comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT''
+[DEBUG] Grammar: Token 10: kind=RESULT_ONLY, value='stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Token 11: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 12: kind=STEP, value='Test de comparaison avec tolérance numérique'
+[DEBUG] Grammar: Token 13: kind=ACTION_ONLY, value='comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees'
+[DEBUG] Grammar: Token 14: kind=RESULT_ONLY, value='stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Token 15: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 16: kind=STEP, value='Test d'exécution de requête simple'
+[DEBUG] Grammar: Token 17: kind=ACTION_ONLY, value='exécuter la requête SELECT COUNT(*) FROM employees'
+[DEBUG] Grammar: Token 18: kind=RESULT_ONLY, value='stdout contient un nombre'
+[DEBUG] Grammar: Token 19: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 20: kind=STEP, value='Test d'export avec format personnalisé'
+[DEBUG] Grammar: Token 21: kind=ACTION_ONLY, value='exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx'
+[DEBUG] Grammar: Token 22: kind=RESULT_ONLY, value='stdout contient Excel file created successfully'
+[DEBUG] Grammar: Token 23: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 24: kind=STEP, value='Test de comparaison avec ordre ignoré'
+[DEBUG] Grammar: Token 25: kind=ACTION_ONLY, value='comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)'
+[DEBUG] Grammar: Token 26: kind=RESULT_ONLY, value='stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Token 27: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 28: kind=STEP, value='Test de comparaison sans ordre - données identiques'
+[DEBUG] Grammar: Token 29: kind=ACTION_ONLY, value='comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)'
+[DEBUG] Grammar: Token 30: kind=RESULT_ONLY, value='stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Token 31: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 32: kind=STEP, value='Test de comparaison sans ordre - données différentes'
+[DEBUG] Grammar: Token 33: kind=ACTION_ONLY, value='comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)'
+[DEBUG] Grammar: Token 34: kind=RESULT_ONLY, value='stdout contient COMPARISON_ERROR'
+[DEBUG] Grammar: Merging ACTION_ONLY 'définir la variable SQL_CONN = user/password@testdb' with RESULT_ONLY 'variable SQL_CONN vaut user/password@testdb'
+[DEBUG] Grammar: Merging ACTION_ONLY 'exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx' with RESULT_ONLY 'stdout contient Excel file created successfully'
+[DEBUG] Grammar: Merging ACTION_ONLY 'comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'' with RESULT_ONLY 'stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Merging ACTION_ONLY 'comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees' with RESULT_ONLY 'stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Merging ACTION_ONLY 'exécuter la requête SELECT COUNT(*) FROM employees' with RESULT_ONLY 'stdout contient un nombre'
+[DEBUG] Grammar: Merging ACTION_ONLY 'exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx' with RESULT_ONLY 'stdout contient Excel file created successfully'
+[DEBUG] Grammar: Merging ACTION_ONLY 'comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)' with RESULT_ONLY 'stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Merging ACTION_ONLY 'comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)' with RESULT_ONLY 'stdout contient COMPARISON_SUCCESS'
+[DEBUG] Grammar: Merging ACTION_ONLY 'comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)' with RESULT_ONLY 'stdout contient COMPARISON_ERROR'
+[DEBUG] Grammar: _merge_action_result returning 26 tokens
+[DEBUG] compile_atomic called with: expected='variable SQL_CONN vaut user/password@testdb', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'définir la variable SQL_CONN = user/password@testdb'}
+[DEBUG] canonize_validation result: {'phrase': 'variable {var} vaut {value}', 'handler': 'var_equals', 'scope': 'global', 'pattern_entry': {'phrase': 'variable {var} vaut {value}', 'handler': 'var_equals', 'scope': 'global', 'opposite': {'phrase': 'variable {var} ne vaut pas {value}'}, 'aliases': []}, 'params': {'var': 'sql_conn', 'value': 'user/password@testdb'}}
+[DEBUG] Trying to extract parameters from action command: 'définir la variable SQL_CONN = user/password@testdb'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.var_equals
+[DEBUG] Core handler returned: ValidationCheck(expected='variable sql_conn vaut user/password@testdb', actual_cmd='if [ "$sql_conn" = "user/password@testdb" ]; then echo \'variable sql_conn vaut user/password@testdb\'; else echo \'variable sql_conn ne vaut pas user/password@testdb\'; fi', handler='var_equals', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient Excel file created successfully', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx'}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'excel file created successfully'}}
+[DEBUG] Trying to extract parameters from action command: 'exporter les résultats de la requête SELECT COUNT(*) FROM employees vers employees_count.xlsx'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient excel file created successfully', actual_cmd='if echo "$stdout" | grep -q "excel file created successfully"; then echo \'stdout contient excel file created successfully\'; else echo \'stdout ne contient pas excel file created successfully\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'"}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'comparison_success'}}
+[DEBUG] Trying to extract parameters from action command: 'comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT''
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient comparison_success', actual_cmd='if echo "$stdout" | grep -q "comparison_success"; then echo \'stdout contient comparison_success\'; else echo \'stdout ne contient pas comparison_success\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees'}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'comparison_success'}}
+[DEBUG] Trying to extract parameters from action command: 'comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient comparison_success', actual_cmd='if echo "$stdout" | grep -q "comparison_success"; then echo \'stdout contient comparison_success\'; else echo \'stdout ne contient pas comparison_success\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient un nombre', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exécuter la requête SELECT COUNT(*) FROM employees'}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'un nombre'}}
+[DEBUG] Trying to extract parameters from action command: 'exécuter la requête SELECT COUNT(*) FROM employees'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient un nombre', actual_cmd='if echo "$stdout" | grep -q "un nombre"; then echo \'stdout contient un nombre\'; else echo \'stdout ne contient pas un nombre\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient Excel file created successfully', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx'}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'excel file created successfully'}}
+[DEBUG] Trying to extract parameters from action command: 'exporter les résultats de la requête SELECT name, salary FROM employees ORDER BY salary DESC vers top_salaries.xlsx'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient excel file created successfully', actual_cmd='if echo "$stdout" | grep -q "excel file created successfully"; then echo \'stdout contient excel file created successfully\'; else echo \'stdout ne contient pas excel file created successfully\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)"}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'comparison_success'}}
+[DEBUG] Trying to extract parameters from action command: 'comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient comparison_success', actual_cmd='if echo "$stdout" | grep -q "comparison_success"; then echo \'stdout contient comparison_success\'; else echo \'stdout ne contient pas comparison_success\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)"}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'comparison_success'}}
+[DEBUG] Trying to extract parameters from action command: 'comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient comparison_success', actual_cmd='if echo "$stdout" | grep -q "comparison_success"; then echo \'stdout contient comparison_success\'; else echo \'stdout ne contient pas comparison_success\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_ERROR', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)"}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'comparison_error'}}
+[DEBUG] Trying to extract parameters from action command: 'comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient comparison_error', actual_cmd='if echo "$stdout" | grep -q "comparison_error"; then echo \'stdout contient comparison_error\'; else echo \'stdout ne contient pas comparison_error\'; fi', handler='stdout_contains', scope='global', params={})
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\sql_comparison_example.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\sql_comparison_example.sh

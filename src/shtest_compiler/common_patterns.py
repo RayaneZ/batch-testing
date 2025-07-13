@@ -8,6 +8,7 @@ from __future__ import annotations
 import os         # Pour manipuler les chemins de fichiers
 import re         # Pour la gestion des expressions régulières
 import yaml       # Pour lire des fichiers YAML
+from typing import List, Dict
 
 # Chemin vers le fichier de configuration principal contenant les motifs regex
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "regex_config.yml")
@@ -21,7 +22,7 @@ with open(CONFIG_PATH, encoding="utf-8") as f:
 
 # Chargement d'une liste de règles simples depuis un autre fichier YAML
 with open(SIMPLE_RULES_PATH, encoding="utf-8") as f:
-    SIMPLE_RULES: list[dict[str, str]] = yaml.safe_load(f)
+    SIMPLE_RULES: List[Dict[str, str]] = yaml.safe_load(f)
 
 # Compilation des motifs regex à partir des valeurs du fichier YAML, avec l'option insensible à la casse
 STEP_RE = re.compile(_PATTERNS["step"], re.IGNORECASE)               # Pour détecter les lignes de type étape

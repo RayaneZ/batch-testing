@@ -20,7 +20,8 @@ def compile_file(input_path: str,
                 grammar: str = "default",
                 ast_builder: str = "default",
                 debug: bool = False,
-                plugin_dir: Optional[str] = None) -> str:
+                plugin_dir: Optional[str] = None,
+                debug_output_path: Optional[str] = None) -> str:
     """
     Compile a .shtest file to a shell script using the modular compiler.
     
@@ -31,6 +32,7 @@ def compile_file(input_path: str,
         ast_builder: Name of the AST builder to use
         debug: Enable debug mode (deprecated, use global debug config)
         plugin_dir: Optional directory to load plugins from
+        debug_output_path: Path to debug output file (optional)
         
     Returns:
         Path to the generated shell script
@@ -52,7 +54,8 @@ def compile_file(input_path: str,
     compiler = ModularCompiler(
         grammar_name=grammar,
         ast_builder_name=ast_builder,
-        debug=debug_enabled
+        debug=debug_enabled,
+        debug_output_path=debug_output_path
     )
     
     # Install any loaded plugins
@@ -66,14 +69,16 @@ def compile_file(input_path: str,
                 debug_print(f"Warning: Failed to install plugin {plugin.name}: {e}")
     
     # Compile the file
-    return compiler.compile_file(input_path, output_path)
+    return compiler.compile_file(input_path, output_path, debug_output_path=debug_output_path)
 
 
 def compile_text(text: str,
                 output_path: Optional[str] = None,
                 grammar: str = "default",
                 ast_builder: str = "default",
-                debug: bool = False) -> str:
+                debug: bool = False,
+                debug_output_path: Optional[str] = None
+                ) -> str:
     """
     Compile .shtest text to a shell script using the modular compiler.
     
@@ -83,6 +88,7 @@ def compile_text(text: str,
         grammar: Name of the grammar to use
         ast_builder: Name of the AST builder to use
         debug: Enable debug mode (deprecated, use global debug config)
+        debug_output_path: Path to debug output file (optional)
         
     Returns:
         Path to the generated shell script
@@ -94,11 +100,12 @@ def compile_text(text: str,
     compiler = ModularCompiler(
         grammar_name=grammar,
         ast_builder_name=ast_builder,
-        debug=debug_enabled
+        debug=debug_enabled,
+        debug_output_path=debug_output_path
     )
     
     # Compile the text
-    return compiler.compile_text(text, output_path)
+    return compiler.compile_text(text, output_path, debug_output_path=debug_output_path)
 
 
 def list_available_components():

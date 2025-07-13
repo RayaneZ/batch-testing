@@ -9,6 +9,28 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional, Callable
 from .core import TokenLike, ASTBuilder
 from .shtest_ast import ShtestFile, Action, TestStep
+import yaml
+import os
+from shtest_compiler.ast.shell_framework_ast import ValidationCheck
+
+# Load and cache the YAML validation patterns
+_patterns_cache = None
+def load_validation_patterns():
+    global _patterns_cache
+    if _patterns_cache is not None:
+        return _patterns_cache
+    patterns_path = os.path.join(os.path.dirname(__file__), '../config/patterns_validations.yml')
+    with open(patterns_path, encoding='utf-8') as f:
+        data = yaml.safe_load(f)
+    _patterns_cache = data
+    return data
+
+def get_handler_and_scope_for_phrase(phrase):
+    patterns = load_validation_patterns()
+    for entry in patterns:
+        if entry.get('phrase') == phrase:
+            return entry.get('handler'), entry.get('scope', 'last_action')
+    return None, 'last_action'
 
 
 class ASTValidator:
@@ -199,9 +221,27 @@ class DefaultASTBuilder(ASTBuilder):
         shtest = ShtestFile(path=path)
         current_step = None
 
-        for token in tokens:
+        for idx in range(len(tokens)):
+            token = tokens[idx]
             if token.kind == "STEP":
                 current_step = shtest.add_step(token.value.strip(), lineno=token.lineno)
+                continue
+
+            # Combine ACTION_ONLY + RESULT_ONLY as a single Action
+            if token.kind == "ACTION_ONLY" and idx + 1 < len(tokens) and tokens[idx + 1].kind == "RESULT_ONLY":
+                command = token.value.rstrip(" ;")
+                result = _get_result_str(tokens[idx + 1])
+                action = Action(
+                    command=command,
+                    result_expr=result,
+                    result_ast=None,
+                    lineno=token.lineno,
+                    raw_line=token.original + "\n" + tokens[idx + 1].original
+                )
+                if current_step:
+                    current_step.actions.append(action)
+                # Skip the next token (RESULT_ONLY)
+                idx += 1
                 continue
 
             if token.kind == "ACTION_RESULT":

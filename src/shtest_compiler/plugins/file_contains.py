@@ -2,23 +2,16 @@
 Plugin for file contains validation.
 """
 
-class FileContains:
-    def __init__(self, groups, scope="global"):
-        self.file = groups[0] if groups else ""
-        self.text = groups[1] if len(groups) > 1 else ""
-        self.scope = scope
-    
-    def to_shell(self, varname="result", last_file_var=None):
-        file_path = self.file if self.file else last_file_var
-        if not file_path:
-            return [f"echo 'ERROR: No file specified for file_contains validation'"]
-        
-        return [
-            f"{varname}=0",
-            f"if [ -f '{file_path}' ] && grep -q '{self.text}' '{file_path}'; then",
-            f"    {varname}=1",
-            "fi"
-        ]
+from shtest_compiler.ast.shell_framework_ast import ValidationCheck
 
-def handle(groups, scope="global"):
-    return FileContains(groups, scope) 
+def file_contains_validation(file, text, **kwargs):
+    return ValidationCheck(
+        expected="Le fichier {file} contient {text}",
+        actual_cmd="if grep -q \"{text}\" \"{file}\"; then actual='Le fichier {file} contient {text}'; else actual='Le fichier {file} ne contient pas {text}'; fi",
+        handler="file_contains",
+        scope="global"
+    )
+
+PLUGIN_HANDLERS = {
+    "file_contains": file_contains_validation,
+} 

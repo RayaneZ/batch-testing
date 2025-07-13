@@ -1,14 +1,57 @@
+# patterns_validations.yml
+#
+# Validation Pattern YAML Documentation
+#
+# Each entry describes a validation that can be used in .shtest files.
+#
+# Fields:
+#   phrase: Canonical validation phrase (may use {param} for parameters)
+#   handler: Name of the plugin/function to handle this validation
+#   scope: 'last_action' (local, must follow an action) or 'global' (can be checked independently)
+#   opposite: Negative assertion phrase (used for reporting, not for user input)
+#   aliases: List of alternative phrases or regexes (use ^...$ for regex) for user input matching
+#
+# Parameter conventions:
+#   {file}, {dir}: Filenames/directories, use ([^ ]+) in regex (no spaces)
+#   {text}: Free text, use (.+) in regex (only at end of pattern)
+#   {code}, {count}: Numbers, use ([0-9]+) in regex
+#   {mode}: Unix permissions, use ([0-7]+) in regex
+#   {date}: Date string, use (.+) or a stricter pattern if needed
+#
+# Example:
+#   phrase: "Le fichier {file} contient {text}"
+#   aliases:
+#     - "^le fichier ([^ ]+) contient (.+)$"  # file: no spaces, text: anything
+#
+# To add a new validation:
+#   1. Add a new entry with phrase, handler, scope, opposite, and aliases.
+#   2. Ensure the handler exists as a plugin and core handler.
+#   3. Add aliases for all common user phrasings and regexes.
+#   4. Do NOT add aliases to the opposite; it is for reporting only.
+#
+# ---
+# Inline comments below explain tricky regexes or parameterizations.
+#
+# Compound logic (AND, OR, NOT) is supported at the .shtest file level.
+# The parser (Shunting Yard) linearizes these expressions and emits shell code
+# with the appropriate logical operators (&&, ||, !). The YAML only describes
+# atomic validations.
+#
 validations:
   - phrase: "Le contenu est affiché"
     handler: content_displayed
     scope: last_action
+    opposite:
+      phrase: "Le contenu n'est pas affiché"
     aliases:
       - "contenu affiché"
+      - "contenu affiche"
       - "Le script est affiché"
       - "le contenu est lisible"
       - "le contenu est correct"
       - "contenu correct"
       - "^contenu affiché$"
+      - "^contenu affiche$"
       - "^le contenu est affiché$"
       - "^le script est affiché$"
       - "^le contenu est lisible$"
@@ -16,6 +59,8 @@ validations:
   - phrase: "Le fichier est copié"
     handler: file_copied
     scope: last_action
+    opposite:
+      phrase: "Le fichier n'est pas copié"
     aliases:
       - "le fichier est copié"
       - "fichier copié"
@@ -24,6 +69,8 @@ validations:
   - phrase: "Le dossier est copié"
     handler: dir_copied
     scope: last_action
+    opposite:
+      phrase: "Le dossier n'est pas copié"
     aliases:
       - "le dossier est copié"
       - "dossier copié"
@@ -31,25 +78,33 @@ validations:
       - "^dossier copié$"
   - phrase: "Le fichier est présent"
     handler: file_present
+    scope: global
     opposite:
       phrase: "Le fichier est absent"
-      handler: file_absent
     aliases:
       - "Le fichier est présent"
       - "le fichier existe"
       - "fichier présent"
       - "le fichier est cree"
       - "fichier cree"
+      - "le fichier est créé"
+      - "fichier créé"
+      - "le fichier est initialisé"
+      - "fichier initialisé"
       - "^le fichier est présent$"
       - "^le fichier existe$"
       - "^fichier présent$"
       - "^le fichier est cree$"
       - "^fichier cree$"
+      - "^le fichier est créé$"
+      - "^fichier créé$"
+      - "^le fichier est initialisé$"
+      - "^fichier initialisé$"
   - phrase: "Le fichier est absent"
     handler: file_absent
+    scope: global
     opposite:
       phrase: "Le fichier est présent"
-      handler: file_present
     aliases:
       - "Le fichier est absent"
       - "le fichier n'existe pas"
@@ -59,27 +114,63 @@ validations:
       - "^fichier absent$"
   - phrase: "Le dossier est prêt"
     handler: dir_ready
+    scope: last_action
+    opposite:
+      phrase: "Le dossier est absent"
     aliases:
       - "le dossier est prêt"
       - "dossier prêt"
       - "le dossier est cree"
       - "dossier cree"
+      - "le dossier est créé"
+      - "dossier créé"
+      - "le dossier est cree"
+      - "dossier cree"
+      - "le dossier est créé"
+      - "dossier créé"
+      - "le dossier est present"
+      - "dossier present"
+      - "le dossier est vide"
+      - "dossier vide"
       - "^le dossier est prêt$"
       - "^dossier prêt$"
       - "^le dossier est cree$"
       - "^dossier cree$"
+      - "^le dossier est créé$"
+      - "^dossier créé$"
+      - "^le dossier est present$"
+      - "^dossier present$"
+      - "^le dossier est vide$"
+      - "^dossier vide$"
+  - phrase: "Le dossier est absent"
+    handler: dir_absent
+    scope: last_action
+    opposite:
+      phrase: "Le dossier est prêt"
+    aliases:
+      - "le dossier est absent"
+      - "dossier absent"
+      - "^le dossier est absent$"
+      - "^dossier absent$"
   - phrase: "Base prête"
     handler: base_ready
+    scope: global
+    opposite:
+      phrase: "Base non prête"
     aliases:
       - "base prête"
+      - "base prete"
       - "La base de test est prête"
       - "La base est prête pour le test"
       - "^base prête$"
+      - "^base prete$"
       - "^la base de test est prête$"
       - "^la base est prête pour le test$"
   - phrase: "Date modifiée"
     handler: date_modified
     scope: last_action
+    opposite:
+      phrase: "Date inchangée"
     aliases:
       - "date modifiée"
       - "La date est modifiée"
@@ -90,38 +181,45 @@ validations:
   - phrase: "Retour {code}"
     handler: return_code
     scope: last_action
+    opposite:
+      phrase: "Code retour inattendu"
     aliases:
       - "retour {code}"
       - "code retour {code}"
       - "le script retourne un code {code}"
       - "Le script retourne un code {code}"
-      - "le script a réussi"
-      - "le script s'est exécuté sans erreur"
-      - "Le script s'execute avec succès"
-      - "^retour ([0-9]+)$"
-      - "^code retour ([0-9]+)$"
-      - "^le script retourne un code ([0-9]+)$"
-      - "^Le script retourne un code ([0-9]+)$"
-      - "^le script a réussi$"
-      - "^le script s'est exécuté sans erreur$"
-      - "^Le script s'execute avec succès$"
+      - "le script a réussi"  # Implies code=0
+      - "le script s'est exécuté sans erreur"  # Implies code=0
+      - "Le script s'execute avec succès"  # Implies code=0
+      - "^retour ([0-9]+)$"  # code: number
+      - "^code retour ([0-9]+)$"  # code: number
+      - "^le script retourne un code ([0-9]+)$"  # code: number
+      - "^Le script retourne un code ([0-9]+)$"  # code: number
+      - "^le script a réussi$"  # Implies code=0
+      - "^le script s'est exécuté sans erreur$"  # Implies code=0
+      - "^Le script s'execute avec succès$"  # Implies code=0
   - phrase: "Les fichiers sont identiques"
     handler: files_identical
     scope: last_action
+    opposite:
+      phrase: "Les fichiers ne sont pas identiques"
     aliases:
-      - "fichiers identiques"
-      - "les fichiers sont les mêmes"
-      - "fichiers égaux"
-      - "Les fichiers sont identiques"
-      - "^fichiers identiques$"
-      - "^les fichiers sont les mêmes$"
-      - "^fichiers égaux$"
-      - "^fichier_identique (.+) (.+)$"
-      - "^le fichier (.+) est identique à (.+)$"
-      - "^le fichier (.+) est identique a (.+)$"
-      - "^Comparer le fichier (.+) avec (.+)$"
+      - "fichiers identiques"  # Implies file1, file2 are contextually known or not needed
+      - "les fichiers sont les mêmes"  # Implies file1, file2 are contextually known or not needed
+      - "fichiers égaux"  # Implies file1, file2 are contextually known or not needed
+      - "Les fichiers sont identiques"  # Implies file1, file2 are contextually known or not needed
+      - "^fichiers identiques$"  # Implies file1, file2 are contextually known or not needed
+      - "^les fichiers sont les mêmes$"  # Implies file1, file2 are contextually known or not needed
+      - "^fichiers égaux$"  # Implies file1, file2 are contextually known or not needed
+      - "^fichier_identique ([^ ]+) ([^ ]+)$"  # file1, file2: no spaces
+      - "^le fichier ([^ ]+) est identique à ([^ ]+)$"  # file1, file2: no spaces
+      - "^le fichier ([^ ]+) est identique a ([^ ]+)$"  # file1, file2: no spaces
+      - "^Comparer le fichier ([^ ]+) avec ([^ ]+)$"  # file1, file2: no spaces
   - phrase: "Identifiants configurés"
     handler: credentials_configured
+    scope: global
+    opposite:
+      phrase: "Identifiants non configurés"
     aliases:
       - "identifiants configurés"
       - "Les identifiants sont configurés"
@@ -129,6 +227,9 @@ validations:
       - "^les identifiants sont configurés$"
   - phrase: "Logs accessibles"
     handler: logs_accessible
+    scope: global
+    opposite:
+      phrase: "Logs non accessibles"
     aliases:
       - "logs accessibles"
       - "les logs sont accessibles"
@@ -137,6 +238,8 @@ validations:
   - phrase: "Aucun message d'erreur"
     handler: no_error_message
     scope: last_action
+    opposite:
+      phrase: "Message d'erreur présent"
     aliases:
       - "aucun message d'erreur"
       - "stderr=."
@@ -145,38 +248,148 @@ validations:
   - phrase: "La sortie standard contient {text}"
     handler: stdout_contains
     scope: last_action
+    opposite:
+      phrase: "La sortie standard ne contient pas {text}"
     aliases:
       - "stdout contient {text}"
       - "la sortie contient {text}"
       - "la sortie standard affiche {text}"
-      - "^stdout contient (.+)$"
-      - "^la sortie standard contient (.+)$"
+      - "^stdout contient (.+)$"  # text: anything
+      - "^la sortie standard contient (.+)$"  # text: anything
   - phrase: "La sortie d'erreur contient {text}"
     handler: stderr_contains
     scope: last_action
+    opposite:
+      phrase: "La sortie d'erreur ne contient pas {text}"
     aliases:
       - "stderr contient {text}"
       - "la sortie d'erreur affiche {text}"
-      - "^stderr contient (.+)$"
-      - "^la sortie d'erreur contient (.+)$"
+      - "^stderr contient (.+)$"  # text: anything
+      - "^la sortie d'erreur contient (.+)$"  # text: anything
   - phrase: "Le fichier {file} contient {text}"
     handler: file_contains
-    scope: last_action
+    scope: global
+    opposite:
+      phrase: "Le fichier {file} ne contient pas {text}"
     aliases:
       - "fichier {file} contient {text}"
-      - "^fichier (.+) contient (.+)$"
-      - "^le fichier (.+) contient (.+)$"
+      - "^fichier ([^ ]+) contient (.+)$"  # file: no spaces, text: anything
+      - "^le fichier ([^ ]+) contient (.+)$"  # file: no spaces, text: anything
   - phrase: "Le fichier {file} existe"
     handler: file_exists
     scope: global
+    opposite:
+      phrase: "Le fichier {file} n'existe pas"
     aliases:
       - "fichier {file} existe"
-      - "^fichier (.+) existe$"
-      - "^le fichier (.+) existe$"
+      - "^fichier ([^ ]+) existe$"  # file: no spaces
+      - "^le fichier ([^ ]+) existe$"  # file: no spaces
   - phrase: "Le fichier {file} est vide"
     handler: file_empty
     scope: global
+    opposite:
+      phrase: "Le fichier {file} n'est pas vide"
     aliases:
       - "fichier {file} est vide"
-      - "^fichier (.+) est vide$"
-      - "^le fichier (.+) est vide$" 
+      - "^fichier ([^ ]+) est vide$"  # file: no spaces
+      - "^le fichier ([^ ]+) est vide$"  # file: no spaces
+  - phrase: "variable {var} vaut {value}"
+    handler: var_equals
+    scope: global
+    opposite:
+      phrase: "variable {var} ne vaut pas {value}"
+    aliases: []  # No aliases; must use canonical phrase
+  - phrase: "Le fichier {file} a les droits {mode}"
+    handler: file_rights
+    scope: global
+    opposite:
+      phrase: "Le fichier {file} n'a pas les droits {mode}"
+    aliases:
+      - "le fichier {file} a les droits {mode}"
+      - "^le fichier ([^ ]+) a les droits ([0-7]+)$"  # file: no spaces, mode: octal
+  - phrase: "Le dossier {dir} a les droits {mode}"
+    handler: dir_rights
+    scope: global
+    opposite:
+      phrase: "Le dossier {dir} n'a pas les droits {mode}"
+    aliases:
+      - "le dossier {dir} a les droits {mode}"
+      - "^le dossier ([^ ]+) a les droits ([0-7]+)$"  # dir: no spaces, mode: octal
+  - phrase: "Le dossier {dir} contient {count} fichiers {pattern}"
+    handler: dir_contains_count
+    scope: last_action
+    opposite:
+      phrase: "Le dossier {dir} ne contient pas {count} fichiers {pattern}"
+    aliases:
+      - "le dossier {dir} contient {count} fichiers {pattern}"
+      - "^le dossier ([^ ]+) contient ([0-9]+) fichiers (.+)$"  # dir: no spaces, count: number, pattern: anything
+  - phrase: "La date du fichier {file} est {date}"
+    handler: file_date
+    scope: global
+    opposite:
+      phrase: "La date du fichier {file} n'est pas {date}"
+    aliases:
+      - "la date du fichier {file} est {date}"
+      - "^la date du fichier ([^ ]+) est (.+)$"  # file: no spaces, date: anything
+  - phrase: "Le fichier {file} contient exactement {text}"
+    handler: file_contains_exact
+    scope: global
+    opposite:
+      phrase: "Le fichier {file} ne contient pas exactement {text}"
+    aliases:
+      - "le fichier {file} contient exactement {text}"
+      - "^le fichier ([^ ]+) contient exactement (.+)$"  # file: no spaces, text: anything
+  - phrase: "Le script affiche un code \"{code}\""
+    handler: script_code
+    scope: last_action
+    opposite:
+      phrase: "Le script n'affiche pas le code \"{code}\""
+    aliases:
+      - "le script affiche un code \"{code}\""
+      - "^le script affiche un code \"([0-9]+)\"$"  # code: number
+  - phrase: "stdout contient un nombre"
+    handler: stdout_contains_number
+    scope: last_action
+    opposite:
+      phrase: "stdout ne contient pas de nombre"
+    aliases:
+      - "stdout contient un nombre"
+      - "^stdout contient un nombre$" 
+  - phrase: "true"
+    handler: "true"
+    scope: "global"
+  - phrase: "Le dossier {dir} existe"
+    handler: dir_exists
+    scope: global
+    opposite:
+      phrase: "Le dossier {dir} n'existe pas"
+    aliases:
+      - "le dossier {dir} existe"
+      - "^le dossier ([^ ]+) existe$"
+
+# Example for compound logic (AND, OR, NOT):
+#
+# - type: compound
+#   logic: and
+#   validations:
+#     - phrase: "Le fichier {file} existe"
+#     - phrase: "Le fichier {file2} est vide"
+#   handler: compound_and
+#   scope: global
+#   opposite:
+#     phrase: "Au moins une condition échoue"
+#   aliases:
+#     - "Le fichier {file} existe et le fichier {file2} est vide"
+#
+# - type: compound
+#   logic: not
+#   validations:
+#     - phrase: "Le fichier {file} contient {text}"
+#   handler: compound_not
+#   scope: global
+#   opposite:
+#     phrase: "Le fichier {file} contient {text}"
+#   aliases:
+#     - "Le fichier {file} ne contient pas {text}"
+#
+# --- 

@@ -1,0 +1,102 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 14 lines
+[DEBUG] Lexing text with 14 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Préparation, result=('Préparation',), original=Étape: Préparation at line 1
+[DEBUG] Yielding token: STEP@1:0 'Préparation' -> '('Préparation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: créer le dossier /tmp/test_folder avec les droits 0700 ; Résultat: Le dossier est prêt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=créer le dossier /tmp/test_folder avec les droits 0700, result=('créer le dossier /tmp/test_folder avec les droits 0700', 'Le dossier est prêt', None), original=Action: créer le dossier /tmp/test_folder avec les droits 0700 ; Résultat: Le dossier est prêt at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'créer le dossier /tmp/test_folder avec les droits 0700' -> '('créer le dossier /tmp/test_folder avec les droits 0700', 'Le dossier est prêt', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: créer le fichier /tmp/test_folder/test.txt avec les droits 0600 ; Résultat: Le fichier est créé at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=créer le fichier /tmp/test_folder/test.txt avec les droits 0600, result=('créer le fichier /tmp/test_folder/test.txt avec les droits 0600', 'Le fichier est créé', None), original=Action: créer le fichier /tmp/test_folder/test.txt avec les droits 0600 ; Résultat: Le fichier est créé at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'créer le fichier /tmp/test_folder/test.txt avec les droits 0600' -> '('créer le fichier /tmp/test_folder/test.txt avec les droits 0600', 'Le fichier est créé', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: afficher le contenu du fichier /tmp/test_folder/test.txt ; Résultat: Le contenu est lisible at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=afficher le contenu du fichier /tmp/test_folder/test.txt, result=('afficher le contenu du fichier /tmp/test_folder/test.txt', 'Le contenu est lisible', None), original=Action: afficher le contenu du fichier /tmp/test_folder/test.txt ; Résultat: Le contenu est lisible at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'afficher le contenu du fichier /tmp/test_folder/test.txt' -> '('afficher le contenu du fichier /tmp/test_folder/test.txt', 'Le contenu est lisible', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Exécution, result=('Exécution',), original=Étape: Exécution at line 1
+[DEBUG] Yielding token: STEP@1:0 'Exécution' -> '('Exécution',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter /opt/batch/traitement.sh produit=567 quantité=20 ; Résultat: retour 0 et (stdout contient Traitement OK ou stderr contient WARNING) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=exécuter /opt/batch/traitement.sh produit=567 quantité=20, result=('exécuter /opt/batch/traitement.sh produit=567 quantité=20', 'retour 0 et (stdout contient Traitement OK ou stderr contient WARNING)', None), original=Action: exécuter /opt/batch/traitement.sh produit=567 quantité=20 ; Résultat: retour 0 et (stdout contient Traitement OK ou stderr contient WARNING) at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'exécuter /opt/batch/traitement.sh produit=567 quantité=20' -> '('exécuter /opt/batch/traitement.sh produit=567 quantité=20', 'retour 0 et (stdout contient Traitement OK ou stderr contient WARNING)', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Vérification, result=('Vérification',), original=Étape: Vérification at line 1
+[DEBUG] Yielding token: STEP@1:0 'Vérification' -> '('Vérification',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le fichier /tmp/src.txt vers /tmp/dest.txt, result=('copier le fichier /tmp/src.txt vers /tmp/dest.txt', 'Le fichier est copié', None), original=Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le fichier /tmp/src.txt vers /tmp/dest.txt' -> '('copier le fichier /tmp/src.txt vers /tmp/dest.txt', 'Le fichier est copié', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier /tmp/dest.txt existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=vérifier que le fichier /tmp/dest.txt existe, result=('vérifier que le fichier /tmp/dest.txt existe', 'Le fichier /tmp/dest.txt existe', None), original=Action: vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier /tmp/dest.txt existe at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'vérifier que le fichier /tmp/dest.txt existe' -> '('vérifier que le fichier /tmp/dest.txt existe', 'Le fichier /tmp/dest.txt existe', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 15 tokens
+[DEBUG] Grammar: _merge_action_result called with 15 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Préparation'
+[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='créer le dossier /tmp/test_folder avec les droits 0700'
+[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='créer le fichier /tmp/test_folder/test.txt avec les droits 0600'
+[DEBUG] Grammar: Token 4: kind=ACTION_RESULT, value='afficher le contenu du fichier /tmp/test_folder/test.txt'
+[DEBUG] Grammar: Token 5: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 6: kind=STEP, value='Exécution'
+[DEBUG] Grammar: Token 7: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 8: kind=ACTION_RESULT, value='exécuter /opt/batch/traitement.sh produit=567 quantité=20'
+[DEBUG] Grammar: Token 9: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 10: kind=STEP, value='Vérification'
+[DEBUG] Grammar: Token 11: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 12: kind=ACTION_RESULT, value='copier le fichier /tmp/src.txt vers /tmp/dest.txt'
+[DEBUG] Grammar: Token 13: kind=ACTION_RESULT, value='vérifier que le fichier /tmp/dest.txt existe'
+[DEBUG] Grammar: Token 14: kind=EMPTY, value=''
+[DEBUG] Grammar: _merge_action_result returning 15 tokens
+[DEBUG] compile_atomic called with: expected='Le dossier est prêt', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'créer le dossier /tmp/test_folder avec les droits 0700'}
+[DEBUG] canonize_validation result: {'phrase': 'Le dossier est prêt', 'handler': 'dir_ready', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est prêt', 'handler': 'dir_ready', 'scope': 'last_action', 'opposite': {'phrase': 'Le dossier est absent'}, 'aliases': ['le dossier est prêt', 'dossier prêt', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est present', 'dossier present', 'le dossier est vide', 'dossier vide', '^le dossier est prêt$', '^dossier prêt$', '^le dossier est cree$', '^dossier cree$', '^le dossier est créé$', '^dossier créé$', '^le dossier est present$', '^dossier present$', '^le dossier est vide$', '^dossier vide$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'créer le dossier /tmp/test_folder avec les droits 0700'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_ready
+[DEBUG] Core handler ImportError: No module named 'shtest_compiler.core.handlers.dir_ready'
+[DEBUG] compile_atomic called with: expected='Le fichier est créé', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'créer le fichier /tmp/test_folder/test.txt avec les droits 0600'}
+[DEBUG] canonize_validation result: {'phrase': 'le fichier est créé', 'handler': 'file_present', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'opposite': {'phrase': 'Le fichier est absent'}, 'aliases': ['Le fichier est présent', 'le fichier existe', 'fichier présent', 'le fichier est cree', 'fichier cree', 'le fichier est créé', 'fichier créé', 'le fichier est initialisé', 'fichier initialisé', '^le fichier est présent$', '^le fichier existe$', '^fichier présent$', '^le fichier est cree$', '^fichier cree$', '^le fichier est créé$', '^fichier créé$', '^le fichier est initialisé$', '^fichier initialisé$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'créer le fichier /tmp/test_folder/test.txt avec les droits 0600'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_present
+[DEBUG] Core handler returned: ValidationCheck(expected='le fichier est créé', actual_cmd="if [ -f  ]; then echo 'le fichier est créé'; else echo 'le fichier None est absent'; fi", handler='file_present', scope='global', params={'file_path': None, 'opposite': 'le fichier None est absent'})
+[DEBUG] compile_atomic called with: expected='Le contenu est lisible', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'afficher le contenu du fichier /tmp/test_folder/test.txt'}
+[DEBUG] canonize_validation result: {'phrase': 'le contenu est lisible', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'afficher le contenu du fichier /tmp/test_folder/test.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.content_displayed
+[DEBUG] Core handler returned: ValidationCheck(expected='le contenu est lisible', actual_cmd="if [ -s '{file_path}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
+[DEBUG] compile_atomic called with: expected='retour 0 et (stdout contient Traitement OK ou stderr contient WARNING)', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exécuter /opt/batch/traitement.sh produit=567 quantité=20'}
+[DEBUG] canonize_validation result: None
+[ERROR] ValidationParseError: No matcher found for validation: 'retour 0 et (stdout contient Traitement OK ou stderr contient WARNING)'
+Traceback (most recent call last):
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 316, in visit
+    shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+    return visitor_method(node)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 49, in visit_shtestfile
+    lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 25, in compile_atomic
+    raise ValidationParseError(f"No matcher found for validation: '{expected}'")
+shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'retour 0 et (stdout contient Traitement OK ou stderr contient WARNING)'
+
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_case_5.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_case_5.sh

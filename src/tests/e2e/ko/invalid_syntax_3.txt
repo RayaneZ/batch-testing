@@ -1,0 +1,59 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 8 lines
+[DEBUG] Lexing text with 8 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with malformed validation syntax at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with malformed validation syntax at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with malformed validation syntax at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with malformed validation syntax at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.COMMENT, value=# Test with malformed validation syntax, result=None, original=# Test with malformed validation syntax at line 1
+[DEBUG] Yielding token: COMMENT@1:0 '# Test with malformed validation syntax'
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test malformed validation, result=('Test malformed validation',), original=Étape: Test malformed validation at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test malformed validation' -> '('Test malformed validation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test", result=('echo "test"',), original=  Action: echo "test" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test"' -> '('echo "test"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: # Missing validation after Vérifier: at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: # Missing validation after Vérifier: at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: # Missing validation after Vérifier: at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: # Missing validation after Vérifier: at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: # Missing validation after Vérifier: at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: # Missing validation after Vérifier:'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test another malformed validation, result=('Test another malformed validation',), original=Étape: Test another malformed validation at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test another malformed validation' -> '('Test another malformed validation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test", result=('echo "test"',), original=  Action: echo "test" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test"' -> '('echo "test"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Invalid validation phrase that doesn't exist at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Invalid validation phrase that doesn't exist at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Invalid validation phrase that doesn't exist at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Invalid validation phrase that doesn't exist at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Invalid validation phrase that doesn't exist at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Invalid validation phrase that doesn't exist'
+[DEBUG] Got 8 tokens
+[DEBUG] Grammar: _merge_action_result called with 8 tokens
+[DEBUG] Grammar: Token 0: kind=COMMENT, value='# Test with malformed validation syntax'
+[DEBUG] Grammar: Token 1: kind=STEP, value='Test malformed validation'
+[DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value='echo "test"'
+[DEBUG] Grammar: Token 3: kind=TEXT, value='Vérifier: # Missing validation after Vérifier:'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=STEP, value='Test another malformed validation'
+[DEBUG] Grammar: Token 6: kind=ACTION_ONLY, value='echo "test"'
+[DEBUG] Grammar: Token 7: kind=TEXT, value='Vérifier: Invalid validation phrase that doesn't exist'
+[DEBUG] Grammar: _merge_action_result returning 8 tokens
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_syntax_3.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_syntax_3.sh

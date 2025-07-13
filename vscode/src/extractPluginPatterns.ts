@@ -34,13 +34,13 @@ function extractPatternsFromYml(ymlPath: string, plugin: string): PluginPattern[
   return patterns;
 }
 
-function main() {
-  const plugins = fs.readdirSync(PLUGINS_DIR).filter(f => fs.statSync(path.join(PLUGINS_DIR, f)).isDirectory());
+function main(): void {
+  const plugins = fs.readdirSync(PLUGINS_DIR).filter((f: string) => fs.statSync(path.join(PLUGINS_DIR, f)).isDirectory());
   const allPatterns: PluginPattern[] = [];
   for (const plugin of plugins) {
     const configDir = path.join(PLUGINS_DIR, plugin, 'config');
     if (!fs.existsSync(configDir)) continue;
-    const ymlFiles = fs.readdirSync(configDir).filter(f => f.startsWith('patterns_') && f.endsWith('.yml'));
+    const ymlFiles = fs.readdirSync(configDir).filter((f: string) => f.startsWith('patterns_') && f.endsWith('.yml'));
     for (const ymlFile of ymlFiles) {
       const ymlPath = path.join(configDir, ymlFile);
       const patterns = extractPatternsFromYml(ymlPath, plugin);

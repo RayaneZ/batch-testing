@@ -136,11 +136,11 @@ actions:
       - exporter la variable {var} = {value}
       - ^export (.+)=(.+)$
       - définir la variable {var} = {value}
-  - phrase: Mettre à jour la date du fichier {path} {timestamp}
+  - phrase: Mettre à jour la date du fichier {file} {date}
     handler: touch_ts
     aliases:
-      - toucher le fichier {path} -t {timestamp}
-      - mettre à jour la date du fichier {path} {timestamp}
+      - toucher le fichier {file} -t {date}
+      - mettre à jour la date du fichier {file} {date}
       - ^touch -t (.+) (.+)$
   - phrase: Créer le fichier {path} avec les droits {mode}
     handler: create_file

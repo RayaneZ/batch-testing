@@ -1,0 +1,93 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 13 lines
+[DEBUG] Lexing text with 13 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Préparation, result=('Préparation',), original=Étape: Préparation at line 1
+[DEBUG] Yielding token: STEP@1:0 'Préparation' -> '('Préparation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le fichier /tmp/src.txt vers /tmp/dest.txt, result=('copier le fichier /tmp/src.txt vers /tmp/dest.txt', 'Le fichier est copié', None), original=Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le fichier /tmp/src.txt vers /tmp/dest.txt' -> '('copier le fichier /tmp/src.txt vers /tmp/dest.txt', 'Le fichier est copié', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le dossier /tmp/data vers /tmp/backup ; Résultat: Le dossier est copié at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le dossier /tmp/data vers /tmp/backup, result=('copier le dossier /tmp/data vers /tmp/backup', 'Le dossier est copié', None), original=Action: copier le dossier /tmp/data vers /tmp/backup ; Résultat: Le dossier est copié at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le dossier /tmp/data vers /tmp/backup' -> '('copier le dossier /tmp/data vers /tmp/backup', 'Le dossier est copié', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Exécution, result=('Exécution',), original=Étape: Exécution at line 1
+[DEBUG] Yielding token: STEP@1:0 'Exécution' -> '('Exécution',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient Succès complet ou stderr contient WARNING) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=exécuter /opt/batch/traitement.sh, result=('exécuter /opt/batch/traitement.sh', 'retour 0 et (stdout contient Succès complet ou stderr contient WARNING)', None), original=Action: exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient Succès complet ou stderr contient WARNING) at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'exécuter /opt/batch/traitement.sh' -> '('exécuter /opt/batch/traitement.sh', 'retour 0 et (stdout contient Succès complet ou stderr contient WARNING)', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Vérification, result=('Vérification',), original=Étape: Vérification at line 1
+[DEBUG] Yielding token: STEP@1:0 'Vérification' -> '('Vérification',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier est présent et (Le fichier /tmp/dest.txt existe ou stderr contient Erreur de copie) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=vérifier que le fichier /tmp/dest.txt existe, result=('vérifier que le fichier /tmp/dest.txt existe', 'Le fichier est présent et (Le fichier /tmp/dest.txt existe ou stderr contient Erreur de copie)', None), original=Action: vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier est présent et (Le fichier /tmp/dest.txt existe ou stderr contient Erreur de copie) at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'vérifier que le fichier /tmp/dest.txt existe' -> '('vérifier que le fichier /tmp/dest.txt existe', 'Le fichier est présent et (Le fichier /tmp/dest.txt existe ou stderr contient Erreur de copie)', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: vérifier qu'aucune erreur n'apparaît ; Résultat: Le script affiche un code "030" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=vérifier qu'aucune erreur n'apparaît, result=("vérifier qu'aucune erreur n'apparaît", 'Le script affiche un code "030"', None), original=Action: vérifier qu'aucune erreur n'apparaît ; Résultat: Le script affiche un code "030" at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'vérifier qu'aucune erreur n'apparaît' -> '("vérifier qu'aucune erreur n'apparaît", 'Le script affiche un code "030"', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 14 tokens
+[DEBUG] Grammar: _merge_action_result called with 14 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Préparation'
+[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='copier le fichier /tmp/src.txt vers /tmp/dest.txt'
+[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='copier le dossier /tmp/data vers /tmp/backup'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=STEP, value='Exécution'
+[DEBUG] Grammar: Token 6: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 7: kind=ACTION_RESULT, value='exécuter /opt/batch/traitement.sh'
+[DEBUG] Grammar: Token 8: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 9: kind=STEP, value='Vérification'
+[DEBUG] Grammar: Token 10: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 11: kind=ACTION_RESULT, value='vérifier que le fichier /tmp/dest.txt existe'
+[DEBUG] Grammar: Token 12: kind=ACTION_RESULT, value='vérifier qu'aucune erreur n'apparaît'
+[DEBUG] Grammar: Token 13: kind=EMPTY, value=''
+[DEBUG] Grammar: _merge_action_result returning 14 tokens
+[DEBUG] compile_atomic called with: expected='Le fichier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'copier le fichier /tmp/src.txt vers /tmp/dest.txt'}
+[DEBUG] canonize_validation result: {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le fichier n'est pas copié"}, 'aliases': ['le fichier est copié', 'fichier copié', '^le fichier est copié$', '^fichier copié$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'copier le fichier /tmp/src.txt vers /tmp/dest.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_copied
+[DEBUG] Core handler returned: ValidationCheck(expected='Le fichier est copié', actual_cmd="if [ -f '{file1}' ] && [ -f '{file2}' ]; then cmp -s '{file1}' '{file2}' && echo '{expected}' || echo '{opposite}'; else echo '{opposite}'; fi", handler='file_copied', scope='last_action', params={'file1': None, 'file2': None, 'opposite': "le fichier None n'a pas été copié vers None"})
+[DEBUG] compile_atomic called with: expected='Le dossier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'copier le dossier /tmp/data vers /tmp/backup'}
+[DEBUG] canonize_validation result: {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le dossier n'est pas copié"}, 'aliases': ['le dossier est copié', 'dossier copié', '^le dossier est copié$', '^dossier copié$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'copier le dossier /tmp/data vers /tmp/backup'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_copied
+[DEBUG] Core handler returned: ValidationCheck(expected='Le dossier est copié', actual_cmd="if [ -d '{dir1}' ] && [ -d '{dir2}' ]; then diff -r '{dir1}' '{dir2}' >/dev/null 2>&1 && echo '{expected}' || echo '{opposite}'; else echo '{opposite}'; fi", handler='dir_copied', scope='last_action', params={'dir1': None, 'dir2': None, 'opposite': "le dossier None n'a pas été copié vers None"})
+[DEBUG] compile_atomic called with: expected='retour 0 et (stdout contient Succès complet ou stderr contient WARNING)', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exécuter /opt/batch/traitement.sh'}
+[DEBUG] canonize_validation result: None
+[ERROR] ValidationParseError: No matcher found for validation: 'retour 0 et (stdout contient Succès complet ou stderr contient WARNING)'
+Traceback (most recent call last):
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 316, in visit
+    shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+    return visitor_method(node)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 49, in visit_shtestfile
+    lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 25, in compile_atomic
+    raise ValidationParseError(f"No matcher found for validation: '{expected}'")
+shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'retour 0 et (stdout contient Succès complet ou stderr contient WARNING)'
+
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_case_6.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_case_6.sh

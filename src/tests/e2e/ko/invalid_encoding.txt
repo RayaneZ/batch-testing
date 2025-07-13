@@ -1,0 +1,59 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 8 lines
+[DEBUG] Lexing text with 8 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid encoding characters at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid encoding characters at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid encoding characters at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid encoding characters at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.COMMENT, value=# Test with invalid encoding characters, result=None, original=# Test with invalid encoding characters at line 1
+[DEBUG] Yielding token: COMMENT@1:0 '# Test with invalid encoding characters'
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test invalid chars, result=('Test invalid chars',), original=Étape: Test invalid chars at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test invalid chars' -> '('Test invalid chars',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test with invalid chars: \x00\x01\x02" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test with invalid chars: \x00\x01\x02" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test with invalid chars: \x00\x01\x02", result=('echo "test with invalid chars: \\x00\\x01\\x02"',), original=  Action: echo "test with invalid chars: \x00\x01\x02" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test with invalid chars: \x00\x01\x02"' -> '('echo "test with invalid chars: \\x00\\x01\\x02"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Le code de retour est 0'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test unicode issues, result=('Test unicode issues',), original=Étape: Test unicode issues at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test unicode issues' -> '('Test unicode issues',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test with unicode: 🚀🌟✨" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test with unicode: 🚀🌟✨" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test with unicode: 🚀🌟✨", result=('echo "test with unicode: 🚀🌟✨"',), original=  Action: echo "test with unicode: 🚀🌟✨" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test with unicode: 🚀🌟✨"' -> '('echo "test with unicode: 🚀🌟✨"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient "test" at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Le contenu affiché contient "test"'
+[DEBUG] Got 8 tokens
+[DEBUG] Grammar: _merge_action_result called with 8 tokens
+[DEBUG] Grammar: Token 0: kind=COMMENT, value='# Test with invalid encoding characters'
+[DEBUG] Grammar: Token 1: kind=STEP, value='Test invalid chars'
+[DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value='echo "test with invalid chars: \x00\x01\x02"'
+[DEBUG] Grammar: Token 3: kind=TEXT, value='Vérifier: Le code de retour est 0'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=STEP, value='Test unicode issues'
+[DEBUG] Grammar: Token 6: kind=ACTION_ONLY, value='echo "test with unicode: 🚀🌟✨"'
+[DEBUG] Grammar: Token 7: kind=TEXT, value='Vérifier: Le contenu affiché contient "test"'
+[DEBUG] Grammar: _merge_action_result returning 8 tokens
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_encoding.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_encoding.sh

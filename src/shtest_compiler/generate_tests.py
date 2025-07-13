@@ -2,35 +2,29 @@
 import sys
 import os
 from glob import glob
-from .compiler.shell_generator import ShellGenerator
-from .parser.parser import Parser
-from .parser.core import ParseError
+from .compile_file import compile_file
 
 
 def generate_tests(input_dir: str, output_dir: str):
     os.makedirs(output_dir, exist_ok=True)
-    parser = Parser()
     any_failed = False
+    debug = os.environ.get("SHTEST_DEBUG", "0") == "1"
     
     for txt_file in glob(os.path.join(input_dir, "*.shtest")):
-        with open(txt_file, encoding="utf-8") as f:
-            test_description = f.read()
         try:
-            # Parse the shtest file
-            shtest_file = parser.parse(test_description, path=txt_file)
-            # Generate shell script
-            generator = ShellGenerator()
-            script = generator.visit_shtest_file(shtest_file)
-            out_name = os.path.splitext(os.path.basename(txt_file))[0] + ".sh"
+            base = os.path.splitext(os.path.basename(txt_file))[0]
+            out_name = base + ".sh"
             out_path = os.path.join(output_dir, out_name)
-            with open(out_path, "w", encoding="utf-8") as f:
-                f.write(script)
+            debug_output_path = os.path.join(output_dir, base + ".txt") if debug else None
+            compile_file(
+                input_path=txt_file,
+                output_path=out_path,
+                debug=debug,
+                debug_output_path=debug_output_path
+            )
             print(f"Generated {out_path}")
-        except ParseError as e:
-            print(f"[ERROR] Parse error in {txt_file}: {e}", file=sys.stderr)
-            any_failed = True
         except Exception as e:
-            print(f"[ERROR] Unexpected error in {txt_file}: {e}", file=sys.stderr)
+            print(f"[ERROR] Failed to compile {txt_file}: {e}", file=sys.stderr)
             any_failed = True
     if any_failed:
         print("[FAIL] One or more files failed to compile.", file=sys.stderr)

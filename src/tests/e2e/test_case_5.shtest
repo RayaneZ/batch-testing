@@ -1,0 +1,14 @@
+Étape: Préparation
+
+Action: créer le dossier /tmp/test_folder avec les droits 0700 ; Résultat: Le dossier est prêt
+Action: créer le fichier /tmp/test_folder/test.txt avec les droits 0600 ; Résultat: Le fichier est créé
+Action: afficher le contenu du fichier /tmp/test_folder/test.txt ; Résultat: Le contenu est lisible
+
+Étape: Exécution
+
+Action: exécuter /opt/batch/traitement.sh produit=567 quantité=20 ; Résultat: retour 0 et (stdout contient Traitement OK ou stderr contient WARNING)
+
+Étape: Vérification
+
+Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié
+Action: vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier /tmp/dest.txt existe
