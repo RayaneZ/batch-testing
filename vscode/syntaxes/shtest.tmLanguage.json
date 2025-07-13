@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "Shell Test",
+  "name": "KnightBatch Shell Test",
   "scopeName": "source.shtest",
   "fileTypes": ["shtest"],
   "patterns": [
@@ -17,7 +17,10 @@
     { "include": "#timestamps" },
     { "include": "#logic" },
     { "include": "#parens" },
-    { "include": "#comments" }
+    { "include": "#comments" },
+    { "include": "#sql_operations" },
+    { "include": "#file_operations" },
+    { "include": "#variables" }
   ],
   "repository": {
     "step_blocks": {
@@ -48,6 +51,9 @@
             { "include": "#timestamps" },
             { "include": "#verbs" },
             { "include": "#control" },
+            { "include": "#sql_operations" },
+            { "include": "#file_operations" },
+            { "include": "#variables" },
             {
               "match": "[^;\\n]+",
               "name": "string.quoted.action.content.shtest"
@@ -77,6 +83,8 @@
             { "include": "#timestamps" },
             { "include": "#verbs" },
             { "include": "#control" },
+            { "include": "#logic" },
+            { "include": "#parens" },
             {
               "match": ".+",
               "name": "string.quoted.result.content.shtest"
@@ -88,7 +96,7 @@
     "keywords": {
       "patterns": [
         {
-          "match": "\\b(if|while|for|return)\\b",
+          "match": "\\b(if|while|for|return|et|ou|et\\s+ou|ou\\s+et)\\b",
           "name": "keyword.control.shtest"
         }
       ]
@@ -107,7 +115,7 @@
     "control": {
       "patterns": [
         {
-          "match": "\\b(cr[ée]er|configurer|traiter|valider|toucher|copier|d[ée]placer|afficher|initialiser|mettre|cat)\\b",
+          "match": "\\b(cr[ée]er|configurer|traiter|valider|toucher|copier|d[ée]placer|afficher|initialiser|mettre|cat|ex[ée]cuter|d[ée]finir|comparer|v[ée]rifier|indiquer|vider)\\b",
           "name": "keyword.control.shtest"
         }
       ]
@@ -115,7 +123,7 @@
     "verbs": {
       "patterns": [
         {
-          "match": "\\b(Ex[ée]cuter|Comparer|V[ée]rifier|Mettre|Creer|Créer)\\b",
+          "match": "\\b(Ex[ée]cuter|Comparer|V[ée]rifier|Mettre|Creer|Créer|Définir|Indiquer|Vider|Afficher)\\b",
           "name": "support.function.builtin.shtest"
         }
       ]
@@ -123,7 +131,7 @@
     "types": {
       "patterns": [
         {
-          "match": "\\b(argument|param[èe]tre|chemin|path|script sql)\\b",
+          "match": "\\b(argument|param[èe]tre|chemin|path|script sql|variable|dossier|fichier|droits|date|timestamp)\\b",
           "name": "storage.type.shtest"
         }
       ]
@@ -148,6 +156,14 @@
       "patterns": [
         {
           "match": "\\b(et|ou)\\b",
+          "name": "keyword.operator.logical.shtest"
+        },
+        {
+          "match": "\\b(stdout|stderr|retour|code)\\b",
+          "name": "keyword.operator.logical.shtest"
+        },
+        {
+          "match": "\\b(contient|contient pas|est|n'est pas|identique|différent)\\b",
           "name": "keyword.operator.logical.shtest"
         }
       ]
@@ -178,6 +194,49 @@
             },
             "2": {
               "name": "keyword.operator.assignment.shtest"
+            }
+          }
+        }
+      ]
+    },
+    "sql_operations": {
+      "patterns": [
+        {
+          "match": "\\b(SQL_DRIVER|SQL_CONN)\\b",
+          "name": "variable.language.sql.shtest"
+        },
+        {
+          "match": "\\b(mysql|oracle|postgres|redis|sqlplus)\\b",
+          "name": "support.function.sql.shtest"
+        },
+        {
+          "match": "\\b(script SQL|base de données|base prête|identifiants configurés)\\b",
+          "name": "support.function.sql.shtest"
+        }
+      ]
+    },
+    "file_operations": {
+      "patterns": [
+        {
+          "match": "\\b(créer|créé|présent|existe|copié|modifié|prêt|accessible|lisible|correct|affiché)\\b",
+          "name": "support.function.file.shtest"
+        },
+        {
+          "match": "\\b(droits|permissions|0600|0644|0700|0755)\\b",
+          "name": "constant.numeric.permissions.shtest"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*=\\s*([^\\s;]+)",
+          "captures": {
+            "1": {
+              "name": "variable.other.assignment.name.shtest"
+            },
+            "2": {
+              "name": "string.unquoted.value.shtest"
             }
           }
         }

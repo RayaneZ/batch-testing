@@ -1,0 +1,8 @@
+# Test with malformed action syntax
+Étape: Test malformed action
+  Action: echo "Valid action"
+  Vérifier: Le code de retour est 0
+
+Étape: Test invalid action
+  Action: # Missing command after Action:
+  Vérifier: Le code de retour est 0 

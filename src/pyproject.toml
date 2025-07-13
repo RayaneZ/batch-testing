@@ -10,6 +10,10 @@ requires-python = ">=3.8"
 compile_expr = "shtest_compiler.compile_expr:main"
 compile_file = "shtest_compiler.compile_file:main"
 shtest = "shtest_compiler.shtest:main"
+verify_syntax = "shtest_compiler.verify_syntax:main"
+verify_handlers = "shtest_compiler.verify_handlers:main"
+export_to_excel = "shtest_compiler.export_to_excel:export_patterns_to_excel"
+run_tests = "shtest_compiler.run_tests:main"
 
 [build-system]
 requires = ["setuptools>=61"]

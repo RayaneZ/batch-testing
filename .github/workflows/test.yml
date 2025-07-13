@@ -1,0 +1,217 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          cd src
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-xdist
+
+      - name: Run unit tests
+        run: |
+          cd src
+          python -m pytest tests/unit/ -v --cov=shtest_compiler --cov-report=xml --cov-report=html
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: src/coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{ matrix.python-version }}
+          path: src/htmlcov/
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd src
+          pip install -r requirements.txt
+
+      - name: Run integration tests - New architecture
+        run: |
+          cd src
+          echo "Testing new architecture files..."
+          for file in tests/new/*.shtest; do
+            echo "Testing $file"
+            python shtest.py "$file" --debug
+          done
+
+      - name: Run integration tests - Legacy files
+        run: |
+          cd src
+          echo "Testing legacy files..."
+          for file in tests/legacy/*.shtest; do
+            echo "Testing $file"
+            python shtest.py "$file" --debug
+          done
+
+      - name: Test modular system
+        run: |
+          cd src
+          python -m pytest tests/unit/test_modular_system.py -v
+
+      - name: Test core components
+        run: |
+          cd src
+          python -m pytest tests/unit/test_core.py -v
+
+      - name: Test lexer
+        run: |
+          cd src
+          python -m pytest tests/unit/test_modular_lexer.py -v
+
+      - name: Test parser
+        run: |
+          cd src
+          python -m pytest tests/unit/test_modular_parser.py -v
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: src/output/
+
+  lint-and-format:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install linting tools
+        run: |
+          pip install flake8 black isort mypy
+
+      - name: Run flake8
+        run: |
+          cd src
+          flake8 shtest_compiler/ --max-line-length=120 --ignore=E203,W503
+
+      - name: Run black check
+        run: |
+          cd src
+          black --check shtest_compiler/
+
+      - name: Run isort check
+        run: |
+          cd src
+          isort --check-only shtest_compiler/
+
+      - name: Run mypy
+        run: |
+          cd src
+          mypy shtest_compiler/ --ignore-missing-imports
+
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install security tools
+        run: |
+          pip install bandit safety
+
+      - name: Run bandit security scan
+        run: |
+          cd src
+          bandit -r shtest_compiler/ -f json -o bandit-report.json || true
+
+      - name: Run safety check
+        run: |
+          cd src
+          safety check --json --output safety-report.json || true
+
+      - name: Upload security reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            src/bandit-report.json
+            src/safety-report.json
+
+  documentation-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install documentation tools
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-macros-plugin
+
+      - name: Build documentation
+        run: |
+          cd docs
+          mkdocs build
+
+      - name: Check for broken links
+        run: |
+          cd docs
+          pip install linkchecker
+          linkchecker site/ --ignore-url=^http://localhost
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: docs/site/ 
+
+      - name: Extract plugin patterns (if plugins dir exists)
+        run: |
+          if [ -d src/shtest_compiler/plugins ]; then
+            cd vscode
+            npx ts-node src/extractPluginPatterns.ts
+          else
+            echo "No plugins directory found, skipping pattern extraction."
+          fi 

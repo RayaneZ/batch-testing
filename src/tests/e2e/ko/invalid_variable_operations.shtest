@@ -1,0 +1,12 @@
+# Test with invalid variable operations
+Étape: Test invalid variable name
+  Action: Définir la variable: 123invalid_name = "value"
+  Vérifier: La variable est définie
+
+Étape: Test invalid variable assignment
+  Action: Définir la variable: test_var = # Missing value
+  Vérifier: La variable est définie
+
+Étape: Test invalid variable reference
+  Action: echo "Testing variable: ${undefined_variable}"
+  Vérifier: Le contenu affiché contient "Testing variable: value" 

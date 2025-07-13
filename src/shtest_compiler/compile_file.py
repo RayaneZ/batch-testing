@@ -1,48 +1,130 @@
+"""
+Main compilation entry point using the modular compiler system.
 
-import argparse
-from shtest_compiler.parser.lexer import lex_file
-from shtest_compiler.parser.parser import Parser
-from shtest_compiler.compiler.compiler import compile_validation
+This module provides the main interface for compiling .shtest files
+using the enhanced modular parser and compiler system.
+"""
 
-def compile_file(path: str, verbose: bool = False):
-    parser = Parser()
-    counter = [0]
-    result = []
-    current_step = ""
-    for token in lex_file(path):
-        if verbose:
-            print(f"[LEX] {token.kind}: {token.value}")
-        if token.kind == "STEP":
-            current_step = token.value
-            continue
-        if token.kind in {"ACTION_RESULT", "RESULT_ONLY", "ACTION_ONLY"}:
-            action_line = (
-                f"Action: {token.value} ; Résultat: {token.result}"
-                if token.kind == "ACTION_RESULT"
-                else f"Action: {token.value}"
-                if token.kind == "ACTION_ONLY"
-                else f"Résultat: {token.value}"
-            )
-            actions = parser.parse(action_line)
-            for expr in actions.get("validation", []):
-                result.extend(compile_validation(expr, counter=counter, verbose=verbose))
-    return result
+import os
+import sys
+from typing import Optional
+from pathlib import Path
 
-def main():
-    parser = argparse.ArgumentParser(description="Compiler un fichier .shtest en script shell.")
-    parser.add_argument("file", help="Chemin vers le fichier .shtest à compiler")
-    parser.add_argument("--verbose", action="store_true", help="Afficher les étapes de compilation")
-    parser.add_argument("--output", help="Fichier de sortie pour le script généré")
-    args = parser.parse_args()
+from .compiler.compiler import ModularCompiler
+from .plugins import load_plugins_from_directory, plugin_registry
+from .config.debug_config import is_debug_enabled, debug_print
 
-    lines = compile_file(args.file, verbose=args.verbose)
 
-    if args.output:
-        with open(args.output, "w", encoding="utf-8") as f:
-            f.write("\n".join(lines) + "\n")
-        print(f"[✔] Script sauvegardé dans {args.output}")
-    else:
-        print("\n".join(lines))
+def compile_file(input_path: str, 
+                output_path: Optional[str] = None,
+                grammar: str = "default",
+                ast_builder: str = "default",
+                debug: bool = False,
+                plugin_dir: Optional[str] = None) -> str:
+    """
+    Compile a .shtest file to a shell script using the modular compiler.
+    
+    Args:
+        input_path: Path to the .shtest file
+        output_path: Optional output path for the shell script
+        grammar: Name of the grammar to use
+        ast_builder: Name of the AST builder to use
+        debug: Enable debug mode (deprecated, use global debug config)
+        plugin_dir: Optional directory to load plugins from
+        
+    Returns:
+        Path to the generated shell script
+    """
+    # Use global debug configuration
+    debug_enabled = debug or is_debug_enabled()
+    
+    # Load plugins if specified
+    if plugin_dir and os.path.exists(plugin_dir):
+        try:
+            plugins = load_plugins_from_directory(plugin_dir)
+            if debug_enabled:
+                debug_print(f"Loaded {len(plugins)} plugins from {plugin_dir}")
+        except Exception as e:
+            if debug_enabled:
+                debug_print(f"Warning: Failed to load plugins from {plugin_dir}: {e}")
+    
+    # Create compiler with specified configuration
+    compiler = ModularCompiler(
+        grammar_name=grammar,
+        ast_builder_name=ast_builder,
+        debug=debug_enabled
+    )
+    
+    # Install any loaded plugins
+    for plugin in plugin_registry.values():
+        try:
+            plugin.install(compiler)
+            if debug_enabled:
+                debug_print(f"Installed plugin: {plugin.name}")
+        except Exception as e:
+            if debug_enabled:
+                debug_print(f"Warning: Failed to install plugin {plugin.name}: {e}")
+    
+    # Compile the file
+    return compiler.compile_file(input_path, output_path)
 
-if __name__ == "__main__":
-    main()
+
+def compile_text(text: str,
+                output_path: Optional[str] = None,
+                grammar: str = "default",
+                ast_builder: str = "default",
+                debug: bool = False) -> str:
+    """
+    Compile .shtest text to a shell script using the modular compiler.
+    
+    Args:
+        text: The .shtest content
+        output_path: Optional output path for the shell script
+        grammar: Name of the grammar to use
+        ast_builder: Name of the AST builder to use
+        debug: Enable debug mode (deprecated, use global debug config)
+        
+    Returns:
+        Path to the generated shell script
+    """
+    # Use global debug configuration
+    debug_enabled = debug or is_debug_enabled()
+    
+    # Create compiler with specified configuration
+    compiler = ModularCompiler(
+        grammar_name=grammar,
+        ast_builder_name=ast_builder,
+        debug=debug_enabled
+    )
+    
+    # Compile the text
+    return compiler.compile_text(text, output_path)
+
+
+def list_available_components():
+    """List all available grammars, AST builders, and plugins."""
+    compiler = ModularCompiler()
+    
+    print("Available Grammars:")
+    for grammar in compiler.list_grammars():
+        print(f"  - {grammar}")
+    
+    print("\nAvailable AST Builders:")
+    for builder in compiler.list_ast_builders():
+        print(f"  - {builder}")
+    
+    print("\nAvailable Plugins:")
+    for plugin in plugin_registry.list():
+        print(f"  - {plugin}")
+
+
+def get_compiler_info(grammar: str = "default", ast_builder: str = "default") -> dict:
+    """Get information about the compiler configuration."""
+    compiler = ModularCompiler(grammar, ast_builder)
+    return compiler.get_parser_info()
+
+
+# Backward compatibility
+def compile_shtest_file(input_path: str, output_path: Optional[str] = None, debug: bool = False) -> str:
+    """Backward compatibility function."""
+    return compile_file(input_path, output_path, debug=debug)

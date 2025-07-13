@@ -1,0 +1,8 @@
+# Test with invalid syntax - missing step keyword
+Étape: Test invalid syntax
+  Action: echo "This should fail"
+  Vérifier: Le code de retour est 0
+
+# This line is missing the step keyword
+  Action: echo "This should cause a syntax error"
+  Vérifier: Le contenu affiché contient "error" 

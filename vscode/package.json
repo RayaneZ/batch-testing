@@ -1,21 +1,36 @@
 {
-  "name": "shtest",
-  "displayName": "Shell Testing Language",
-  "description": "",
-  "version": "2.0.3",
+  "name": "knightbatch-shtest",
+  "displayName": "KnightBatch - Shell Test Language",
+  "description": "Support for KnightBatch .shtest files with syntax highlighting, IntelliSense, and compilation features",
+  "version": "3.0.0",
+  "publisher": "knightbatch",
   "engines": {
     "vscode": "^1.101.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Other"
   ],
+  "keywords": [
+    "shtest",
+    "shell",
+    "testing",
+    "knightbatch",
+    "automation"
+  ],
+  "icon": "assets/logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knightbatch/shtest-compiler"
+  },
   "contributes": {
     "languages": [
       {
         "id": "shtest",
         "aliases": [
           "Shell Test",
-          "shtest"
+          "shtest",
+          "KnightBatch"
         ],
         "extensions": [
           ".shtest"
@@ -32,7 +47,7 @@
     ],
     "themes": [
       {
-        "label": "Shell Test Color Theme",
+        "label": "KnightBatch Dark Theme",
         "uiTheme": "vs-dark",
         "path": "./themes/shellTest.colorTheme.json"
       }
@@ -42,6 +57,127 @@
         "language": "shtest",
         "path": "./snippets/shtest.code-snippets"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "knightbatch.compileFile",
+        "title": "KnightBatch: Compile Current File",
+        "category": "KnightBatch"
+      },
+      {
+        "command": "knightbatch.verifySyntax",
+        "title": "KnightBatch: Verify Syntax",
+        "category": "KnightBatch"
+      },
+      {
+        "command": "knightbatch.showAST",
+        "title": "KnightBatch: Show AST",
+        "category": "KnightBatch"
+      },
+      {
+        "command": "knightbatch.showTokens",
+        "title": "KnightBatch: Show Tokens",
+        "category": "KnightBatch"
+      },
+      {
+        "command": "knightbatch.compileDirectory",
+        "title": "KnightBatch: Compile Directory",
+        "category": "KnightBatch"
+      },
+      {
+        "command": "knightbatch.exportToExcel",
+        "title": "KnightBatch: Export to Excel",
+        "category": "KnightBatch"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "knightbatch.compileFile",
+          "when": "resourceExtname == .shtest"
+        },
+        {
+          "command": "knightbatch.verifySyntax",
+          "when": "resourceExtname == .shtest"
+        },
+        {
+          "command": "knightbatch.showAST",
+          "when": "resourceExtname == .shtest"
+        },
+        {
+          "command": "knightbatch.showTokens",
+          "when": "resourceExtname == .shtest"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "knightbatch.compileDirectory",
+          "when": "resourceExtname == .shtest",
+          "group": "navigation"
+        },
+        {
+          "command": "knightbatch.exportToExcel",
+          "when": "resourceExtname == .shtest",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "KnightBatch",
+      "properties": {
+        "knightbatch.configPath": {
+          "type": "string",
+          "default": "config/patterns_actions.yml",
+          "description": "Path to the patterns configuration file (actions)."
+        },
+        "knightbatch.aliasesPath": {
+          "type": "string",
+          "default": "config/aliases.yml",
+          "description": "Path to the aliases configuration file"
+        },
+        "knightbatch.outputDirectory": {
+          "type": "string",
+          "default": "output",
+          "description": "Default output directory for compiled scripts"
+        },
+        "knightbatch.sqlDriver": {
+          "type": "string",
+          "enum": ["mysql", "oracle", "postgres", "redis"],
+          "default": "mysql",
+          "description": "Default SQL driver to use"
+        },
+        "knightbatch.debugMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable debug mode for detailed logging"
+        }
+      }
+    }
+  },
+  "activationEvents": [
+    "onLanguage:shtest",
+    "onCommand:knightbatch.compileFile",
+    "onCommand:knightbatch.verifySyntax",
+    "onCommand:knightbatch.showAST",
+    "onCommand:knightbatch.showTokens",
+    "onCommand:knightbatch.compileDirectory",
+    "onCommand:knightbatch.exportToExcel"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.101.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
   }
 }

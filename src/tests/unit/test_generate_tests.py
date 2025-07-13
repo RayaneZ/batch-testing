@@ -69,6 +69,66 @@ class TestGenerateShellScript(unittest.TestCase):
             script,
         )
 
+    def test_sql_driver_mysql(self):
+        import os
+        os.environ["SQL_DRIVER"] = "mysql"
+        content = (
+            "Action: Définir la variable SQL_CONN = root/test@db ;\n"
+            "Action: Exécuter le script SQL test.sql ;"
+        )
+        actions = parse_shtest_file(content)
+        script = generate_shell_script(actions)
+        self.assertIn(
+            "mysql ${SQL_CONN:-user/password@db} < test.sql",
+            script,
+        )
+        del os.environ["SQL_DRIVER"]
+
+    def test_sql_driver_postgres(self):
+        import os
+        os.environ["SQL_DRIVER"] = "postgres"
+        content = (
+            "Action: Définir la variable SQL_CONN = root/test@db ;\n"
+            "Action: Exécuter le script SQL test.sql ;"
+        )
+        actions = parse_shtest_file(content)
+        script = generate_shell_script(actions)
+        self.assertIn(
+            "psql \"$SQL_URL\" -f test.sql",
+            script,
+        )
+        del os.environ["SQL_DRIVER"]
+
+    def test_sql_driver_oracle_default(self):
+        import os
+        if "SQL_DRIVER" in os.environ:
+            del os.environ["SQL_DRIVER"]
+        content = (
+            "Action: Définir la variable SQL_CONN = root/test@db ;\n"
+            "Action: Exécuter le script SQL test.sql ;"
+        )
+        actions = parse_shtest_file(content)
+        script = generate_shell_script(actions)
+        self.assertIn(
+            "sqlplus -s ${SQL_CONN:-user/password@db} @test.sql",
+            script,
+        )
+
+    def test_sql_driver_redis(self):
+        import os
+        os.environ["SQL_DRIVER"] = "redis"
+        content = (
+            "Action: Définir la variable SQL_CONN = -h myhost -p 6380 -a mypass ;\n"
+            "Action: Exécuter le script SQL mon_script.redis ;"
+        )
+        actions = parse_shtest_file(content)
+        script = generate_shell_script(actions)
+        self.assertIn(
+            "redis-cli -h myhost -p 6380 -a mypass < mon_script.redis",
+            script,
+        )
+        del os.environ["SQL_DRIVER"]
+
 
 if __name__ == "__main__":
     unittest.main()

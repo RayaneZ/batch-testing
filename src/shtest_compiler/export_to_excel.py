@@ -1,67 +1,50 @@
+import sys
 import os
-import re
-from glob import glob
-from openpyxl import Workbook
-from src.shtest_compiler.parser.lexer import lex_file
-from shtest_compiler.parser.shunting_yard import Atomic, BinaryOp, parse_validation_expression
+from shtest_compiler.command_loader import PatternRegistry
+import openpyxl
+from openpyxl.utils import get_column_letter
 
-_PREC = {"et": 2, "ou": 1}
+def export_patterns_to_excel(actions_yml, validations_yml, output_xlsx):
+    registry = PatternRegistry(actions_yml, validations_yml)
+    wb = openpyxl.Workbook()
+    ws_actions = wb.active
+    ws_actions.title = "Actions"
+    ws_valid = wb.create_sheet("Validations")
 
-def _ast_to_str(node: BinaryOp | Atomic, parent_op: str | None = None) -> str:
-    if isinstance(node, Atomic):
-        return node.value
-    if isinstance(node, BinaryOp):
-        left = _ast_to_str(node.left, node.op)
-        right = _ast_to_str(node.right, node.op)
-        expr = f"{left} {node.op} {right}"
-        if parent_op and _PREC[node.op] < _PREC[parent_op]:
-            return f"({expr})"
-        return expr
-    return ""
+    # Actions
+    ws_actions.append(["Phrase canonique", "Handler", "Alias"])
+    for canon, entry in registry.actions["canonicals"].items():
+        phrase = entry["phrase"]
+        handler = entry["handler"]
+        aliases = [a for a, c in registry.actions["alias_map"].items() if c == phrase]
+        ws_actions.append([phrase, handler, ", ".join(aliases)])
+    for col in range(1, 4):
+        ws_actions.column_dimensions[get_column_letter(col)].width = 40
 
-def canonicalize_result(result: str) -> str:
-    ast = parse_validation_expression(result.rstrip('.;').strip())
-    return _ast_to_str(ast)
+    # Validations
+    ws_valid.append(["Phrase canonique", "Handler", "Alias"])
+    for canon, entry in registry.validations["canonicals"].items():
+        phrase = entry["phrase"]
+        handler = entry["handler"]
+        aliases = [a for a, c in registry.validations["alias_map"].items() if c == phrase]
+        ws_valid.append([phrase, handler, ", ".join(aliases)])
+    for col in range(1, 4):
+        ws_valid.column_dimensions[get_column_letter(col)].width = 40
 
-def sanitize_action(action: str) -> str:
-    return re.sub(
-        r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@[A-Za-z0-9_.-]+",
-        "<credentials>",
-        action,
-    )
+    wb.save(output_xlsx)
+    print(f"Exporté vers {output_xlsx}")
 
-def parse_shtest_file(path: str):
-    steps = []
-    current = {"name": "", "actions": [], "obtained": []}
-    step_count = 1
-    for token in lex_file(path):
-        if token.kind == "STEP":
-            if current["actions"]:
-                if not current["name"]:
-                    current["name"] = f"Step {step_count}"
-                steps.append(current)
-                step_count += 1
-            current = {"name": token.value, "actions": [], "obtained": []}
-        elif token.kind in ("ACTION_RESULT", "ACTION_ONLY"):
-            action = sanitize_action(token.value)
-            current["actions"].append(action)
-            if token.kind == "ACTION_RESULT" and token.result:
-                current["obtained"].append(canonicalize_result(token.result))
-    if current["actions"]:
-        if not current["name"]:
-            current["name"] = f"Step {step_count}"
-        steps.append(current)
-    return steps
+def export_tests_to_excel(input_dir, output_file):
+    """Export patterns to Excel using default YAML files."""
+    actions_yml = os.path.join(os.path.dirname(__file__), "config", "patterns_actions.yml")
+    validations_yml = os.path.join(os.path.dirname(__file__), "config", "patterns_validations.yml")
+    export_patterns_to_excel(actions_yml, validations_yml, output_file)
 
-def export_tests_to_excel(input_dir: str, output_file: str) -> None:
-    wb = Workbook()
-    wb.remove(wb.active)
-    for path in sorted(glob(os.path.join(input_dir, "*.shtest"))):
-        test_name = os.path.splitext(os.path.basename(path))[0]
-        ws = wb.create_sheet(title=test_name)
-        ws.append(["Step", "Actions", "Actual Results"])
-        for step in parse_shtest_file(path):
-            actions = "\n".join(step["actions"])
-            obtained = "\n".join(step["obtained"])
-            ws.append([step["name"], actions, obtained])
-    wb.save(output_file)
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Usage: python export_to_excel.py <actions_yml> <validations_yml> <output_xlsx>")
+        sys.exit(1)
+    actions_yml = sys.argv[1]
+    validations_yml = sys.argv[2]
+    output_xlsx = sys.argv[3]
+    export_patterns_to_excel(actions_yml, validations_yml, output_xlsx)

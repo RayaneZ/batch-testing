@@ -1,0 +1,13 @@
+# Test with invalid validation combinations
+Étape: Test conflicting validations
+  Action: echo "test"
+  Vérifier: Le code de retour est 0
+  Vérifier: Le code de retour est 1  # Conflicting validation
+
+Étape: Test invalid validation parameters
+  Action: echo "test"
+  Vérifier: Le code de retour est abc  # Invalid parameter (should be number)
+
+Étape: Test missing validation parameters
+  Action: echo "test"
+  Vérifier: Le contenu affiché contient  # Missing parameter 

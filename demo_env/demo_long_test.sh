@@ -1,136 +1,318 @@
-#!/bin/sh
-set -e
+#!/bin/bash
 
-run_cmd() {
-  local _stdout=$(mktemp)
-  local _stderr=$(mktemp)
-  /bin/sh -c "$1" >"$_stdout" 2>"_stderr"
-  last_ret=$?
-  last_stdout=$(cat "$_stdout")
-  last_stderr=$(cat "$_stderr")
-  rm -f "$_stdout" "$_stderr"
-  if [ $last_ret -ne 0 ]; then
-    echo "STDERR: $last_stderr"
-  fi
-}
+# Generated shell script from .shtest file
 
+# Function to log differences
 log_diff() {
-  expected="$1"
-  actual="$2"
-  if [ "$expected" != "$actual" ]; then
-    echo 'Différence détectée :'
-    echo "- Attendu : $expected"
-    echo "- Obtenu : $actual"
-  fi
+    local expected="$1"
+    local actual="$2"
+    if [ "$expected" != "$actual" ]; then
+        echo "Expected: $expected"
+        echo "Actual: $actual"
+    fi
 }
 
-# ---- Step 1 - Preparation ----
-run_cmd "mkdir -p ./qualification/demo_env && chmod 0755 ./qualification/demo_env"
-# Attendu : dossier créé
-if [ $last_ret -eq 0 ]; then actual="dossier créé"; else actual="échec création"; fi
-expected="dossier créé"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond1=1; else cond1=0; fi
-verdict="KO"
-if [ ${cond1} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-run_cmd "touch ./qualification/demo_env/initial.txt && chmod 0644 ./qualification/demo_env/initial.txt"
-# Attendu : fichier cree
-if [ $last_ret -eq 0 ]; then actual="fichier cree"; else actual="échec création"; fi
-expected="fichier cree"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond2=1; else cond2=0; fi
-verdict="KO"
-if [ ${cond2} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-export SQL_CONN="rootme/ffDDD584R@base_name"
-# ---- Step 2 - Ancien fichier ----
-run_cmd "touch -t 202201010000 ./qualification/demo_env/old.txt"
-# Attendu : date modifiee
-if [ $last_ret -eq 0 ]; then actual="date modifiée"; else actual="date inchangée"; fi
+# Initialize variables
+last_ret=0
+test_passed=true
+
+# Test step: Step 1 - Preparation
+
+# Test step: Step 2 - Ancien fichier
+
+# Test step: Step 3 - Nouveau fichier
+
+# Test step: Step 4 - Execution du batch
+
+# Test step: Step 5 - Vérifier la table en base
+# Execute: Creer le dossier ./qualification/demo_env
+echo "Executing: Creer le dossier ./qualification/demo_env"
+stdout=$(Creer le dossier ./qualification/demo_env 2>&1)
+last_ret=$?
+
+echo 'ERROR: No directory specified for dir_ready validation'
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: le dossier est cree'
+    exit 1
+else
+    echo '✅ Validation passed: le dossier est cree'
+fi
+
+
+# Execute: Creer le fichier ./qualification/demo_env/initial.txt
+echo "Executing: Creer le fichier ./qualification/demo_env/initial.txt"
+stdout=$(Creer le fichier ./qualification/demo_env/initial.txt 2>&1)
+last_ret=$?
+
+echo 'ERROR: No file specified for file_present validation'
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: le fichier est cree'
+    exit 1
+else
+    echo '✅ Validation passed: le fichier est cree'
+fi
+
+
+# Execute: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name
+echo "Executing: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name"
+stdout=$(Définir la variable SQL_CONN = rootme/ffDDD584R@base_name 2>&1)
+last_ret=$?
+
+result_0=0
+if [ -n "$SQL_CONN" ]; then
+    result_0=1
+    actual="identifiants configurés"
+else
+    actual="non configuré"
+fi
+expected="identifiants configurés"
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: Les identifiants sont configurés'
+    exit 1
+else
+    echo '✅ Validation passed: Les identifiants sont configurés'
+fi
+
+
+# Execute: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000
+echo "Executing: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000"
+stdout=$(toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 2>&1)
+last_ret=$?
+
+result_0=0
+if [ -f "." ]; then
+    result_0=1
+    actual="date modifiée"
+else
+    actual="date inchangée"
+fi
 expected="date modifiée"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond3=1; else cond3=0; fi
-verdict="KO"
-if [ ${cond3} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-# ---- Step 3 - Nouveau fichier ----
-run_cmd "touch ./qualification/demo_env/newfile.txt && chmod 0644 ./qualification/demo_env/newfile.txt"
-# Attendu : fichier cree
-if [ $last_ret -eq 0 ]; then actual="fichier cree"; else actual="échec création"; fi
-expected="fichier cree"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond4=1; else cond4=0; fi
-verdict="KO"
-if [ ${cond4} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-run_cmd "touch -t 202401010101 ./qualification/demo_env/newfile.txt"
-# Attendu : date modifiee
-if [ $last_ret -eq 0 ]; then actual="date modifiée"; else actual="date inchangée"; fi
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: date modifiee'
+    exit 1
+else
+    echo '✅ Validation passed: date modifiee'
+fi
+
+
+# Execute: Creer le fichier ./qualification/demo_env/newfile.txt
+echo "Executing: Creer le fichier ./qualification/demo_env/newfile.txt"
+stdout=$(Creer le fichier ./qualification/demo_env/newfile.txt 2>&1)
+last_ret=$?
+
+echo 'ERROR: No matcher found for validation: fichier crée'
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: fichier crée'
+    exit 1
+else
+    echo '✅ Validation passed: fichier crée'
+fi
+
+
+# Execute: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101
+echo "Executing: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101"
+stdout=$(Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 2>&1)
+last_ret=$?
+
+result_0=0
+if [ -f "." ]; then
+    result_0=1
+    actual="date modifiée"
+else
+    actual="date inchangée"
+fi
 expected="date modifiée"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond5=1; else cond5=0; fi
-verdict="KO"
-if [ ${cond5} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-# ---- Step 4 - Execution du batch ----
-run_cmd "./qualification/purge.sh"
-# Attendu : retour 0
-if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
-expected="retour 0"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond6=1; else cond6=0; fi
-# Attendu : stdout contient "Succès complet"
-if echo "$last_stdout" | grep -q 'Succès complet'; then actual='Succès complet'; else actual=""; fi
-expected='Succès complet'
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond7=1; else cond7=0; fi
-# Attendu : stderr contient WARNING
-if echo "$last_stderr" | grep -q 'WARNING'; then actual='WARNING'; else actual=""; fi
-expected='WARNING'
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond8=1; else cond8=0; fi
-if [ ${cond7} -eq 1 ] || [ ${cond8} -eq 1 ]; then cond9=1; else cond9=0; fi
-if [ ${cond6} -eq 1 ] && [ ${cond9} -eq 1 ]; then cond10=1; else cond10=0; fi
-verdict="KO"
-if [ ${cond10} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-run_cmd "/opt/batch/migration.sh"
-# Attendu : retour 0
-if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
-expected="retour 0"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond11=1; else cond11=0; fi
-verdict="KO"
-if [ ${cond11} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-# ---- Step 5 - Vérifier la table en base ----
-run_cmd "sqlplus -S ${SQL_CONN:-user/password@db} <<'EOF'
-WHENEVER SQLERROR EXIT 1;
-@verification.sql
-EOF"
-# Attendu : retour 0
-if [ $last_ret -eq 0 ]; then actual="retour 0"; else actual="retour $last_ret"; fi
-expected="retour 0"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond12=1; else cond12=0; fi
-verdict="KO"
-if [ ${cond12} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
-# Attendu : fichier_identique ./output.txt ./output_attendu.txt
-if diff -q ./output.txt ./output_attendu.txt >/dev/null; then actual="Les fichiers sont identiques"; else actual="Les fichiers sont différents"; fi
-expected="Les fichiers sont identiques"
-log_diff "$expected" "$actual"
-if [ "$expected" = "$actual" ]; then cond13=1; else cond13=0; fi
-verdict="KO"
-if [ ${cond13} -eq 1 ]; then verdict="OK"; fi
-expected="OK"
-log_diff "$expected" "$verdict"
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: date modifiee'
+    exit 1
+else
+    echo '✅ Validation passed: date modifiee'
+fi
+
+
+# Execute: Exécuter ./qualification/purge.sh
+echo "Executing: Exécuter ./qualification/purge.sh"
+stdout=$(Exécuter ./qualification/purge.sh 2>&1)
+last_ret=$?
+
+result_0=0
+if [ $last_ret -eq 0 ]; then
+    result_0=1
+    actual="Le script retourne un code 0"
+else
+    actual="échec"
+fi
+expected="Le script retourne un code 0"
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: Le script retourne un code 0'
+    exit 1
+else
+    echo '✅ Validation passed: Le script retourne un code 0'
+fi
+
+echo 'ERROR: No matcher found for validation: (la sortie standard contient "Succès complet"'
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_1 -eq 0 ]; then
+    echo '❌ Validation failed: (la sortie standard contient "Succès complet"'
+    exit 1
+else
+    echo '✅ Validation passed: (la sortie standard contient "Succès complet"'
+fi
+
+echo 'ERROR: Exception in plugin stderr_contains: StderrContainsValidation.to_shell() missing 1 required positional argument: 'var''
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_2 -eq 0 ]; then
+    echo '❌ Validation failed: la sortie d'erreur contient WARNING)'
+    exit 1
+else
+    echo '✅ Validation passed: la sortie d'erreur contient WARNING)'
+fi
+
+
+# Execute: Exécuter /opt/batch/migration.sh
+echo "Executing: Exécuter /opt/batch/migration.sh"
+stdout=$(Exécuter /opt/batch/migration.sh 2>&1)
+last_ret=$?
+
+result_0=0
+if [ $last_ret -eq 0 ]; then
+    result_0=1
+    actual="Le script retourne un code 0"
+else
+    actual="échec"
+fi
+expected="Le script retourne un code 0"
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: Le script retourne un code 0'
+    exit 1
+else
+    echo '✅ Validation passed: Le script retourne un code 0'
+fi
+
+
+# Execute: Exécuter le script SQL verification.sql
+echo "Executing: Exécuter le script SQL verification.sql"
+stdout=$(Exécuter le script SQL verification.sql 2>&1)
+last_ret=$?
+
+result_0=0
+if [ $last_ret -eq 0 ]; then
+    result_0=1
+    actual="Le script retourne un code 0"
+else
+    actual="échec"
+fi
+expected="Le script retourne un code 0"
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: Le script s'execute avec succès'
+    exit 1
+else
+    echo '✅ Validation passed: Le script s'execute avec succès'
+fi
+
+
+# Execute: Comparer le fichier ./output.txt avec ./output_attendu.txt
+echo "Executing: Comparer le fichier ./output.txt avec ./output_attendu.txt"
+stdout=$(Comparer le fichier ./output.txt avec ./output_attendu.txt 2>&1)
+last_ret=$?
+
+echo 'ERROR: Need two files to compare for files_identical validation'
+echo "Expected: $expected"
+echo "Actual:   $actual"
+if [ $result_0 -eq 0 ]; then
+    echo '❌ Validation failed: Les fichiers sont identiques'
+    exit 1
+else
+    echo '✅ Validation passed: Les fichiers sont identiques'
+fi
+
+
+# Execute: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree.
+echo "Executing: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree."
+stdout=$(Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. 2>&1)
+last_ret=$?
+
+
+# Execute: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree.
+echo "Executing: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree."
+stdout=$(Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. 2>&1)
+last_ret=$?
+
+
+# Execute: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés.
+echo "Executing: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés."
+stdout=$(Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. 2>&1)
+last_ret=$?
+
+
+# Execute: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee.
+echo "Executing: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee."
+stdout=$(toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. 2>&1)
+last_ret=$?
+
+
+# Execute: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée.
+echo "Executing: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée."
+stdout=$(Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. 2>&1)
+last_ret=$?
+
+
+# Execute: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee.
+echo "Executing: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee."
+stdout=$(Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. 2>&1)
+last_ret=$?
+
+
+# Execute: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING).
+echo "Executing: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING)."
+stdout=$(Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). 2>&1)
+last_ret=$?
+
+
+# Execute: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0.
+echo "Executing: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0."
+stdout=$(Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. 2>&1)
+last_ret=$?
+
+
+# Execute: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès.
+echo "Executing: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès."
+stdout=$(Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. 2>&1)
+last_ret=$?
+
+
+# Execute: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques
+echo "Executing: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques"
+stdout=$(Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques 2>&1)
+last_ret=$?
+
+
+
+# Final result
+if [ "$test_passed" = true ]; then
+    echo "✅ Test passed"
+    exit 0
+else
+    echo "❌ Test failed"
+    exit 1
+fi

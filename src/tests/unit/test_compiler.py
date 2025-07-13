@@ -1,24 +1,13 @@
-import os
-import sys
-import unittest
+import pytest
+from shtest_compiler.compiler.compiler import compile_validation
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
+def test_compile_validation_stdout_ok():
+    expr = "stdout contient OK"
+    lines = compile_validation(expr)
+    assert any("grep -q" in line for line in lines)
+    assert any("OK" in line for line in lines)
 
-from compiler.compiler import compile_validation
-
-class TestValidationCompiler(unittest.TestCase):
-
-    def test_base_ready(self):
-        lines = compile_validation("base prête")
-        self.assertTrue(any("base prête" in line for line in lines))
-
-    def test_file_exists(self):
-        lines = compile_validation("le fichier test.txt existe")
-        self.assertTrue(any("test.txt" in line for line in lines))
-
-    def test_identifiants_configures(self):
-        lines = compile_validation("identifiants configurés")
-        self.assertTrue(any("SQL_CONN" in line for line in lines))
-
-if __name__ == "__main__":
-    unittest.main()
+def test_compile_validation_unknown(capsys):
+    expr = "expression inconnue"
+    lines = compile_validation(expr)
+    assert any("non vérifié" in line for line in lines) 

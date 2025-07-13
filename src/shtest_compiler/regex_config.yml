@@ -1,5 +1,5 @@
 step: '^(?:Étape|Etape|Step)\s*:\s*(.*)$'
-action_result: '^Action\s*:\s*(.*?)\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)$'
+action_result: '^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$'
 action_only: '^Action\s*:\s*(.*)$'
 result_only: '^R[ée]sultat\s*:\s*(.*)$'
 comment: '^\s*#.*$'

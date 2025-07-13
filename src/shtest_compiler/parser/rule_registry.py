@@ -1,6 +1,6 @@
 
 import re
-from typing import Callable, Dict, Any
+from typing import Callable, Dict, Any, Optional
 from shtest_compiler.common_patterns import SIMPLE_RULES
 
 def build_handler_map() -> Dict[str, Callable[..., None]]:
@@ -44,8 +44,30 @@ def load_default_rules(handler_map: Dict[str, Callable]) -> list:
     return rules
 
 def _make_handler(spec: str, handler_map: Dict[str, Callable]) -> Callable:
-    if "|" in spec:
-        name, *args = spec.split("|")
-        return lambda m, a: handler_map[name](a, *[m.group(int(i)) for i in args])
-    else:
-        return lambda m, a: handler_map[spec](a, *m.groups())
+    """Build a rule handler from *spec* using *handler_map*.
+
+    The *spec* syntax supports positional placeholders like ``{1}`` and
+    optional placeholders ``{{2}}`` which are replaced by the respective
+    regex groups when present. This mirrors the logic used by
+    :class:`Parser` so ``simple_rules.yml`` can be shared between the
+    module and the CLI parser.
+    """
+
+    tokens = spec.split()
+    name = tokens[0]
+    arg_specs = tokens[1:]
+
+    def get_value(match: re.Match, token: str) -> Optional[str]:
+        if token.startswith("{{") and token.endswith("}}"):
+            idx = int(token[2:-2])
+            return match.group(idx) if idx <= match.lastindex else None
+        if token.startswith("{") and token.endswith("}"):
+            idx = int(token[1:-1])
+            return match.group(idx)
+        return token
+
+    def handler(match: re.Match, actions: Dict[str, Any]) -> None:
+        args = [get_value(match, t) for t in arg_specs]
+        handler_map[name](actions, *args)
+
+    return handler

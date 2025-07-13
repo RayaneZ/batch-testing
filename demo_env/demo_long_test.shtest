@@ -7,7 +7,7 @@ Etape: Step 2 - Ancien fichier
 Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee.
 
 Etape: Step 3 - Nouveau fichier
-Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier cree.
+Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée.
 Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee.
 
 Etape: Step 4 - Execution du batch

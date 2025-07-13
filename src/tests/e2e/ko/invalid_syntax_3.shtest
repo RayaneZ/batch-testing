@@ -1,0 +1,8 @@
+# Test with malformed validation syntax
+Étape: Test malformed validation
+  Action: echo "test"
+  Vérifier: # Missing validation after Vérifier:
+
+Étape: Test another malformed validation
+  Action: echo "test"
+  Vérifier: Invalid validation phrase that doesn't exist 

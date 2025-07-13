@@ -1,0 +1,159 @@
+---
+actions:
+  - phrase: Créer le dossier {path}
+    handler: create_dir
+    aliases:
+      - créer un dossier {path}
+      - faire un dossier {path}
+      - nouveau dossier {path}
+      - cr[ée]er le dossier (.+)
+      - ^mkdir (.+)$
+  - phrase: Supprimer le dossier {path}
+    handler: delete_dir
+    aliases:
+      - effacer le dossier {path}
+      - enlever le dossier {path}
+      - retirer le dossier {path}
+      - ^rm -rf (.+)$
+  - phrase: Copier le dossier {src} vers {dest}
+    handler: copy_dir
+    aliases:
+      - dupliquer le dossier {src} vers {dest}
+      - copier le dossier {src} à {dest}
+      - ^cp -r (.+) (.+)$
+  - phrase: Déplacer le dossier {src} vers {dest}
+    handler: move_dir
+    aliases:
+      - déplacer le dossier {src} à {dest}
+      - ^mv (.+) (.+)$
+  - phrase: Purger le répertoire {path}
+    handler: purge_dir
+    aliases:
+      - vider le répertoire {path}
+      - nettoyer le répertoire {path}
+      - ^rm -rf (.+)/\\*$
+  - phrase: Créer le fichier {path}
+    handler: create_file
+    aliases:
+      - créer un fichier {path}
+      - faire un fichier {path}
+      - générer le fichier {path}
+      - nouveau fichier {path}
+      - cr[ée]er le fichier (.+)
+      - ^touch (.+)$
+  - phrase: Supprimer le fichier {path}
+    handler: delete_file
+    aliases:
+      - effacer le fichier {path}
+      - enlever le fichier {path}
+      - retirer le fichier {path}
+      - ^rm (.+)$
+  - phrase: Copier le fichier {src} vers {dest}
+    handler: copy_file
+    aliases:
+      - dupliquer le fichier {src} vers {dest}
+      - copier le fichier {src} à {dest}
+      - ^cp (.+) (.+)$
+      - copier le fichier {src} vers {dest}
+  - phrase: Déplacer le fichier {src} vers {dest}
+    handler: move_file
+    aliases:
+      - déplacer le fichier {src} à {dest}
+      - ^mv (.+) (.+)$
+      - déplacer le fichier {src} vers {dest}
+  - phrase: Afficher le contenu du fichier {path}
+    handler: cat_file
+    aliases:
+      - afficher le contenu du fichier = {path}
+      - cat le fichier = {path}
+      - lire le fichier = {path}
+      - voir le contenu du fichier = {path}
+      - consulter le fichier = {path}
+      - ouvrir le fichier = {path}
+      - ^cat (.+)$
+      - ^afficher le contenu du fichier = (.+)$
+      - ^lire le fichier = (.+)$
+      - voir le contenu du fichier {path}
+      - lire le fichier {path}
+      - consulter le fichier {path}
+      - ouvrir le fichier {path}
+  - phrase: Exécuter le script {script}
+    handler: run_script
+    aliases:
+      - exécuter {script}
+      - lancer {script}
+      - traiter {script}
+      - exécuter traitement.sh
+      - lancer traitement.sh
+      - traiter traitement.sh
+      - ^sh (.+)$
+      - lancer le script {script}
+      - faire tourner le script {script}
+      - démarrer le script {script}
+  - phrase: Exécuter le script SQL {script}
+    handler: run_sql_script
+    aliases:
+      - exécuter le script SQL {script}
+      - exécuter le script sql {script}
+      - lancer le script sql {script}
+      - ^sqlplus (.+)$
+  - phrase: Exécuter la requête SQL {query}
+    handler: sql_query
+    aliases:
+      - exécuter la requête SQL {query}
+      - exécuter la requête {query}
+      - lancer la requête SQL {query}
+      - lancer la requête {query}
+      - exécuter la requête {query}
+  - phrase: Exporter les résultats de la requête {query} vers {output}
+    handler: sql_export
+    aliases:
+      - exporter les résultats de la requête {query} vers {output}
+      - exporter les résultats {query} vers {output}
+      - exporter {query} vers {output}
+      - exporter les résultats de la requête {query} vers {output}
+  - phrase: Comparer les résultats de la requête {query1} avec {query2}
+    handler: sql_compare
+    aliases:
+      - comparer les résultats de la requête {query1} avec {query2}(?: \\(ignorer l'ordre lors de la comparaison\\))?
+      - comparer les résultats {query1} avec {query2}(?: \\(ignorer l'ordre lors de la comparaison\\))?
+      - comparer {query1} avec {query2}(?: \\(ignorer l'ordre lors de la comparaison\\))?
+      - comparer les résultats de la requête {query1} avec {query2}
+      - comparer les résultats {query1} avec {query2}
+      - comparer {query1} avec {query2}
+      - comparer les résultats de la requête {query1} avec {query2}
+  - phrase: Comparer le fichier {file1} avec {file2}
+    handler: compare_files
+    aliases:
+      - comparer le fichier {file1} avec {file2}
+      - comparer le fichier {file1} et {file2}
+      - ^diff (.+) (.+)$
+  - phrase: Définir la variable {var} = {value}
+    handler: export_var
+    aliases:
+      - définir la variable SQL_CONN = {value}
+      - définir la variable d'environnement {var} = {value}
+      - exporter la variable {var} = {value}
+      - ^export (.+)=(.+)$
+      - définir la variable {var} = {value}
+  - phrase: Mettre à jour la date du fichier {path} {timestamp}
+    handler: touch_ts
+    aliases:
+      - toucher le fichier {path} -t {timestamp}
+      - mettre à jour la date du fichier {path} {timestamp}
+      - ^touch -t (.+) (.+)$
+  - phrase: Créer le fichier {path} avec les droits {mode}
+    handler: create_file
+    aliases:
+      - créer le fichier = {path} avec les droits = {mode}
+      - nouveau fichier {path}
+  - phrase: Mettre à jour le fichier {path} avec les droits {mode}
+    handler: update_file
+    aliases:
+      - mettre à jour le fichier = {path} avec les droits = {mode}
+      - maj fichier {path} droits {mode}
+  - phrase: Créer le dossier {path} avec les droits {mode}
+    handler: create_dir
+    aliases:
+      - créer le dossier = {path} avec les droits = {mode}
+      - nouveau dossier {path}
