@@ -170,14 +170,19 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "extract-patterns": "npm run compile && node out/extractPluginPatterns.js"
   },
   "devDependencies": {
     "@types/vscode": "^1.101.0",
     "@types/node": "16.x",
+    "@types/js-yaml": "^4.0.0",
+    "@types/mocha": "^10.0.0",
+    "@vscode/test-electron": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "js-yaml": "^4.1.0"
   }
 }

@@ -151,7 +151,7 @@ jobs:
         run: |
           if [ -d src/shtest_compiler/plugins ]; then
             cd vscode
-            npx ts-node src/extractPluginPatterns.ts
+            npm run extract-patterns
           else
             echo "No plugins directory found, skipping pattern extraction."
           fi 
