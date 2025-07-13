@@ -1,0 +1,1431 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../plugin_tutorial/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Guide de style - KnightBatch Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#guide-de-style-knightbatch" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KnightBatch Documentation" class="md-header__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KnightBatch Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Guide de style
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KnightBatch Documentation" class="md-nav__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    KnightBatch Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accueil
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Outils CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Modulaire
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide Développeur
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode_extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension VS Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Rédigez vos tests
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Rédigez vos tests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shtest_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prise en main
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expressions détéctées
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing_and_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tests et Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Développement
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Développement
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Créer un Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Guide de style
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide de style
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#structure-des-fichiers-shtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure des fichiers .shtest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structure des fichiers .shtest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format général
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conventions-de-nommage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventions de nommage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressions-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions de validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expressions de validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validations-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validations de base
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validations-avancees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validations avancées
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-et-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables et arguments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variables et arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-de-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Définition de variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-darguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation d'arguments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripts-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scripts SQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripts SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-des-scripts-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format des scripts SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables SQL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-sur-les-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérations sur les fichiers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opérations sur les fichiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commentaires-et-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commentaires et documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commentaires et documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commentaires-dans-les-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commentaires dans les tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation des plugins
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonnes pratiques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bonnes pratiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lisibilite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lisibilité
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maintenabilite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maintenabilité
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#robustesse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Robustesse
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-complets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples complets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples complets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test simple
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-avec-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test avec variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test SQL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ressources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#structure-des-fichiers-shtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure des fichiers .shtest
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structure des fichiers .shtest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format général
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conventions-de-nommage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventions de nommage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressions-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions de validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expressions de validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validations-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validations de base
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validations-avancees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validations avancées
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables-et-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables et arguments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variables et arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-de-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Définition de variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-darguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation d'arguments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripts-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scripts SQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripts SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-des-scripts-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format des scripts SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables SQL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-sur-les-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérations sur les fichiers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opérations sur les fichiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commentaires-et-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commentaires et documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commentaires et documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commentaires-dans-les-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commentaires dans les tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation des plugins
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonnes pratiques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bonnes pratiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lisibilite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lisibilité
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maintenabilite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maintenabilité
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#robustesse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Robustesse
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-complets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples complets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples complets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test simple
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-avec-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test avec variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test SQL
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ressources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="guide-de-style-knightbatch">Guide de Style KnightBatch</h1>
+<p>Ce guide définit les conventions de style et les bonnes pratiques pour le développement avec KnightBatch.</p>
+<h2 id="structure-des-fichiers-shtest">Structure des fichiers .shtest</h2>
+<h3 id="format-general">Format général</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">Étape</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nom de l&#39;étape</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Description de l&#39;action en français</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Expression de validation attendue</span>
+</span></code></pre></div>
+<h3 id="conventions-de-nommage">Conventions de nommage</h3>
+<ul>
+<li><strong>Étapes</strong> : Utilisez des noms descriptifs en français</li>
+<li>✅ <code>Étape: Préparation de l'environnement</code></li>
+<li>
+<p>❌ <code>Étape: setup</code></p>
+</li>
+<li>
+<p><strong>Actions</strong> : Décrivez clairement l'action à effectuer</p>
+</li>
+<li>✅ <code>Action: Créer le dossier /tmp/test</code></li>
+<li>
+<p>❌ <code>Action: mkdir /tmp/test</code></p>
+</li>
+<li>
+<p><strong>Résultats</strong> : Utilisez les expressions de validation standard</p>
+</li>
+<li>✅ <code>Résultat: Le dossier est créé</code></li>
+<li>❌ <code>Résultat: folder exists</code></li>
+</ul>
+<h2 id="expressions-de-validation">Expressions de validation</h2>
+<h3 id="validations-de-base">Validations de base</h3>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Retour 0</code></td>
+<td>Vérifie que la commande retourne un code de sortie 0</td>
+</tr>
+<tr>
+<td><code>Le fichier existe</code></td>
+<td>Vérifie l'existence d'un fichier</td>
+</tr>
+<tr>
+<td><code>Le dossier est créé</code></td>
+<td>Vérifie l'existence d'un dossier</td>
+</tr>
+<tr>
+<td><code>Le contenu est affiché</code></td>
+<td>Vérifie que du contenu est affiché sur stdout</td>
+</tr>
+</tbody>
+</table>
+<h3 id="validations-avancees">Validations avancées</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stdout contient &#39;succès&#39;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stderr ne contient pas &#39;erreur&#39;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier /path/to/file contient &#39;texte attendu&#39;</span>
+</span></code></pre></div>
+<h2 id="variables-et-arguments">Variables et arguments</h2>
+<h3 id="definition-de-variables">Définition de variables</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable SQL_DRIVER = oracle</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable CONFIG_PATH = /etc/config</span>
+</span></code></pre></div>
+<h3 id="utilisation-darguments">Utilisation d'arguments</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Exécuter le script {script} avec l&#39;argument {arg}</span>
+</span></code></pre></div>
+<h2 id="scripts-sql">Scripts SQL</h2>
+<h3 id="format-des-scripts-sql">Format des scripts SQL</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Exécuter le script SQL {script}</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le script SQL s&#39;exécute sans erreur</span>
+</span></code></pre></div>
+<h3 id="variables-sql">Variables SQL</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable SQL_CONN = user/pass@host:port/service</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable SQL_DRIVER = oracle</span>
+</span></code></pre></div>
+<h2 id="operations-sur-les-fichiers">Opérations sur les fichiers</h2>
+<h3 id="creation">Création</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Créer le fichier /path/to/file</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Créer le dossier /path/to/directory</span>
+</span></code></pre></div>
+<h3 id="manipulation">Manipulation</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Copier le fichier source vers destination</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Déplacer le fichier source vers destination</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Supprimer le fichier /path/to/file</span>
+</span></code></pre></div>
+<h3 id="validation">Validation</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier est copié</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier est déplacé</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier est supprimé</span>
+</span></code></pre></div>
+<h2 id="commentaires-et-documentation">Commentaires et documentation</h2>
+<h3 id="commentaires-dans-les-tests">Commentaires dans les tests</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Ce test vérifie la création d&#39;un environnement de test</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">Étape</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Préparation de l&#39;environnement</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Créer le dossier /tmp/test_env</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le dossier est créé</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># Vérification de la configuration</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nt">Étape</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Configuration</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Copier le fichier config.ini vers /tmp/test_env/</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier est copié</span>
+</span></code></pre></div>
+<h3 id="documentation-des-plugins">Documentation des plugins</h3>
+<p>Chaque plugin doit inclure :</p>
+<ol>
+<li><strong>Description</strong> : Ce que fait le plugin</li>
+<li><strong>Patterns</strong> : Les expressions reconnues</li>
+<li><strong>Arguments</strong> : Les paramètres attendus</li>
+<li><strong>Exemples</strong> : Cas d'usage typiques</li>
+</ol>
+<h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+<h3 id="lisibilite">Lisibilité</h3>
+<ul>
+<li>Utilisez des noms d'étapes descriptifs</li>
+<li>Évitez les abréviations</li>
+<li>Commentez les sections complexes</li>
+</ul>
+<h3 id="maintenabilite">Maintenabilité</h3>
+<ul>
+<li>Groupez les actions logiquement</li>
+<li>Réutilisez les variables pour les chemins</li>
+<li>Testez chaque étape individuellement</li>
+</ul>
+<h3 id="robustesse">Robustesse</h3>
+<ul>
+<li>Vérifiez toujours les résultats</li>
+<li>Gérez les cas d'erreur</li>
+<li>Utilisez des chemins absolus quand possible</li>
+</ul>
+<h2 id="exemples-complets">Exemples complets</h2>
+<h3 id="test-simple">Test simple</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">Étape</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test de création de fichier</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Créer le fichier /tmp/test.txt</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier existe</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nt">Étape</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test de contenu</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Écrire &#39;Hello World&#39; dans /tmp/test.txt</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier contient &#39;Hello World&#39;</span>
+</span></code></pre></div>
+<h3 id="test-avec-variables">Test avec variables</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable TEST_DIR = /tmp/knightbatch_test</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Créer le dossier {TEST_DIR}</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le dossier est créé</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Créer le fichier {TEST_DIR}/config.ini</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le fichier existe</span>
+</span></code></pre></div>
+<h3 id="test-sql">Test SQL</h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable SQL_DRIVER = oracle</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Définir la variable SQL_CONN = user/pass@host:1521/service</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Exécuter le script SQL scripts/test.sql</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Le script SQL s&#39;exécute sans erreur</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nt">Résultat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stdout contient &#39;SUCCESS&#39;</span>
+</span></code></pre></div>
+<h2 id="ressources">Ressources</h2>
+<ul>
+<li><a href="../shtest_format/">Format SHTEST</a> - Documentation complète du format</li>
+<li><a href="../regex_documentation/">Expressions régulières</a> - Patterns reconnus</li>
+<li><a href="../plugin_tutorial/">Tutoriel des plugins</a> - Création de plugins personnalisés </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

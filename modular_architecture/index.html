@@ -1,0 +1,1683 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../configuration/">
+      
+      
+        <link rel="next" href="../developer_quickstart/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Architecture Modulaire - KnightBatch Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#architecture-modulaire" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KnightBatch Documentation" class="md-header__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KnightBatch Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture Modulaire
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KnightBatch Documentation" class="md-nav__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    KnightBatch Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accueil
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Outils CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture Modulaire
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Modulaire
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vue d'ensemble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-fondations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core - Fondations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core - Fondations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-visitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Visitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nuds-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nœuds AST
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contexte-de-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexte de Compilation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lexer-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lexer Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lexer Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parser-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parser Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parser Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grammaire-configurable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grammaire Configurable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructeur-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructeur AST
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilateur-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilateur Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilateur Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visiteurs-specialises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visiteurs Spécialisés
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matchers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systeme-de-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Système de Plugins
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Système de Plugins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture des Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creation-dun-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création d'un Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chargement-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chargement des Plugins
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-avancee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Avancée
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Avancée">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichiers-de-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichiers de Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables d'Environnement
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests-et-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests et Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tests et Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-unitaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests Unitaires
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-dintegration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests d'Intégration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-depuis-lancienne-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration depuis l'Ancienne Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration depuis l&#39;Ancienne Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changements-principaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changements Principaux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-de-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple de Migration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-et-optimisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance et Optimisation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance et Optimisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimisations-implementees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimisations Implémentées
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metriques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Métriques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-et-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support et Maintenance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support et Maintenance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logs-et-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs et Debug
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnostic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide Développeur
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode_extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension VS Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Rédigez vos tests
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Rédigez vos tests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shtest_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prise en main
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expressions détéctées
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing_and_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tests et Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Développement
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Développement
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Créer un Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide de style
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vue d'ensemble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-fondations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core - Fondations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core - Fondations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-visitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Visitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nuds-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nœuds AST
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contexte-de-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contexte de Compilation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lexer-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lexer Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lexer Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parser-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parser Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parser Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grammaire-configurable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grammaire Configurable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructeur-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructeur AST
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilateur-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilateur Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilateur Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visiteurs-specialises" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visiteurs Spécialisés
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matchers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systeme-de-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Système de Plugins
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Système de Plugins">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#architecture-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture des Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creation-dun-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création d'un Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chargement-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chargement des Plugins
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-avancee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Avancée
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Avancée">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichiers-de-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichiers de Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables d'Environnement
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests-et-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests et Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tests et Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tests-unitaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests Unitaires
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-dintegration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests d'Intégration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-depuis-lancienne-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration depuis l'Ancienne Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration depuis l&#39;Ancienne Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changements-principaux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changements Principaux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-de-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple de Migration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-et-optimisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance et Optimisation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance et Optimisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimisations-implementees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimisations Implémentées
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metriques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Métriques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-et-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support et Maintenance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Support et Maintenance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logs-et-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs et Debug
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diagnostic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="architecture-modulaire">Architecture Modulaire</h1>
+<p>Cette page documente l'architecture modulaire de KnightBatch, conçue pour offrir une extensibilité maximale et une séparation claire des responsabilités.</p>
+<h2 id="vue-densemble">Vue d'ensemble</h2>
+<p>L'architecture modulaire de KnightBatch est organisée en plusieurs couches :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                    Interface Utilisateur                    │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  (CLI, VS Code Extension, API)                             │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                              │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│                    Compilateur Modulaire                    │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  (Visiteurs spécialisés, générateurs de code)              │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                              │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│                     Parser Modulaire                        │
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│  (Grammaire configurable, constructeur AST)                │
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                              │
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│                     Lexer Modulaire                         │
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>│  (Tokenisation configurable, patterns, filtres)            │
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>                              │
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>│                         Core                                │
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>│  (Pattern Visitor, AST nodes, contexte)                    │
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>└─────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<h2 id="core-fondations">Core - Fondations</h2>
+<h3 id="pattern-visitor">Pattern Visitor</h3>
+<p>Le pattern Visitor est implémenté dans <code>core/visitor.py</code> et permet de parcourir l'AST de manière extensible :</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.core.visitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visitor</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyVisitor</span><span class="p">(</span><span class="n">Visitor</span><span class="p">):</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visit_action_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="c1"># Traitement personnalisé pour les nœuds d&#39;action</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="k">pass</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visit_validation_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="c1"># Traitement personnalisé pour les nœuds de validation</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="k">pass</span>
+</span></code></pre></div>
+<h3 id="nuds-ast">Nœuds AST</h3>
+<p>Les nœuds AST de base sont définis dans <code>core/ast.py</code> :</p>
+<ul>
+<li><code>ActionNode</code> : Représente une action à exécuter</li>
+<li><code>ValidationNode</code> : Représente une validation à effectuer</li>
+<li><code>FileNode</code> : Représente une opération sur fichier</li>
+<li><code>VariableNode</code> : Représente une variable</li>
+<li><code>SQLNode</code> : Représente une opération SQL</li>
+</ul>
+<h3 id="contexte-de-compilation">Contexte de Compilation</h3>
+<p>Le <code>CompileContext</code> dans <code>core/context.py</code> maintient l'état global pendant la compilation :</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.core.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompileContext</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">context</span> <span class="o">=</span> <span class="n">CompileContext</span><span class="p">()</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">context</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span><span class="s2">&quot;SQL_DRIVER&quot;</span><span class="p">,</span> <span class="s2">&quot;mysql&quot;</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">context</span><span class="o">.</span><span class="n">add_matcher</span><span class="p">(</span><span class="s2">&quot;custom_matcher&quot;</span><span class="p">,</span> <span class="n">my_matcher_function</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="lexer-modulaire">Lexer Modulaire</h2>
+<h3 id="architecture">Architecture</h3>
+<p>Le lexer modulaire est organisé dans <code>parser/lexer/</code> :</p>
+<ul>
+<li><code>core.py</code> : Interfaces et types de base</li>
+<li><code>configurable_lexer.py</code> : Lexer principal configurable</li>
+<li><code>pattern_loader.py</code> : Chargement des patterns depuis YAML</li>
+<li><code>filters.py</code> : Filtres de tokens</li>
+<li><code>tokenizers.py</code> : Tokenizers spécialisés</li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<p>Les patterns sont définis dans <code>config/patterns_hybrid.yml</code> :</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">tokens</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">action</span><span class="p">:</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Action:\\s*(.+)&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ACTION&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">validation</span><span class="p">:</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Résultat:\\s*(.+)&quot;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;VALIDATION&quot;</span>
+</span></code></pre></div>
+<h3 id="utilisation">Utilisation</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.parser.lexer.configurable_lexer</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigurableLexer</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">lexer</span> <span class="o">=</span> <span class="n">ConfigurableLexer</span><span class="p">(</span><span class="s2">&quot;config/patterns_hybrid.yml&quot;</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">tokens</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s2">&quot;Action: test ; Résultat: success&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="parser-modulaire">Parser Modulaire</h2>
+<h3 id="architecture_1">Architecture</h3>
+<p>Le parser modulaire est organisé dans <code>parser/</code> :</p>
+<ul>
+<li><code>configurable_parser.py</code> : Parser principal</li>
+<li><code>ast_builder.py</code> : Constructeur d'AST configurable</li>
+<li><code>grammar.py</code> : Grammaire configurable</li>
+<li><code>core.py</code> : Interfaces de base</li>
+</ul>
+<h3 id="grammaire-configurable">Grammaire Configurable</h3>
+<p>La grammaire est définie dans <code>config/patterns_hybrid.yml</code> :</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">grammar</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;action_validation&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="nt">pattern</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;action:validation&quot;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="nt">builder</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;action_validation_builder&quot;</span>
+</span></code></pre></div>
+<h3 id="constructeur-ast">Constructeur AST</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.parser.ast_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">ASTBuilder</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomASTBuilder</span><span class="p">(</span><span class="n">ASTBuilder</span><span class="p">):</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">build_action_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_tokens</span><span class="p">,</span> <span class="n">validation_tokens</span><span class="p">):</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="c1"># Construction personnalisée d&#39;un nœud action-validation</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="k">return</span> <span class="n">ActionValidationNode</span><span class="p">(</span><span class="n">action_tokens</span><span class="p">,</span> <span class="n">validation_tokens</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="compilateur-modulaire">Compilateur Modulaire</h2>
+<h3 id="architecture_2">Architecture</h3>
+<p>Le compilateur modulaire est organisé dans <code>compiler/</code> :</p>
+<ul>
+<li><code>compiler.py</code> : Compilateur principal</li>
+<li><code>visitors/</code> : Visiteurs spécialisés</li>
+<li><code>matchers/</code> : Matchers pour les validations</li>
+<li><code>shell_generator.py</code> : Générateur de code shell</li>
+</ul>
+<h3 id="visiteurs-specialises">Visiteurs Spécialisés</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.compiler.visitors.shell_visitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShellVisitor</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomShellVisitor</span><span class="p">(</span><span class="n">ShellVisitor</span><span class="p">):</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">visit_action_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="c1"># Génération personnalisée de code shell</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;custom_action &#39;</span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">action</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span></code></pre></div>
+<h3 id="matchers">Matchers</h3>
+<p>Les matchers sont des fonctions qui reconnaissent des patterns de validation :</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">sql_matcher</span><span class="p">(</span><span class="n">validation_text</span><span class="p">):</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="k">if</span> <span class="s2">&quot;base prête&quot;</span> <span class="ow">in</span> <span class="n">validation_text</span><span class="p">:</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        <span class="k">return</span> <span class="s2">&quot;sql_ready&quot;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">return</span> <span class="kc">None</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># Enregistrement du matcher</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">context</span><span class="o">.</span><span class="n">add_matcher</span><span class="p">(</span><span class="s2">&quot;sql_matcher&quot;</span><span class="p">,</span> <span class="n">sql_matcher</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="systeme-de-plugins">Système de Plugins</h2>
+<h3 id="architecture-des-plugins">Architecture des Plugins</h3>
+<p>Les plugins sont organisés dans <code>plugins/</code> et peuvent étendre :</p>
+<ul>
+<li><strong>Matchers</strong> : Nouvelles validations</li>
+<li><strong>Tokenizers</strong> : Nouveaux types de tokens</li>
+<li><strong>Visitors</strong> : Nouveaux générateurs de code</li>
+<li><strong>AST Builders</strong> : Nouveaux constructeurs d'AST</li>
+</ul>
+<h3 id="creation-dun-plugin">Création d'un Plugin</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># plugins/custom_plugin.py</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.core.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">CompileContext</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">register_plugin</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">CompileContext</span><span class="p">):</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="c1"># Enregistrer de nouveaux matchers</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">context</span><span class="o">.</span><span class="n">add_matcher</span><span class="p">(</span><span class="s2">&quot;custom_validation&quot;</span><span class="p">,</span> <span class="n">custom_validation_matcher</span><span class="p">)</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="c1"># Enregistrer de nouveaux visiteurs</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">context</span><span class="o">.</span><span class="n">add_visitor</span><span class="p">(</span><span class="s2">&quot;custom_generator&quot;</span><span class="p">,</span> <span class="n">CustomGenerator</span><span class="p">())</span>
+</span></code></pre></div>
+<h3 id="chargement-des-plugins">Chargement des Plugins</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_plugins</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">context</span> <span class="o">=</span> <span class="n">CompileContext</span><span class="p">()</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">load_plugins</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="configuration-avancee">Configuration Avancée</h2>
+<h3 id="fichiers-de-configuration">Fichiers de Configuration</h3>
+<ul>
+<li><code>config/patterns_hybrid.yml</code> : Patterns et grammaire</li>
+<li><code>config/aliases.yml</code> : Alias en langage naturel</li>
+<li><code>config.ini</code> : Configuration globale</li>
+</ul>
+<h3 id="variables-denvironnement">Variables d'Environnement</h3>
+<ul>
+<li><code>SHTEST_CONFIG_PATH</code> : Chemin vers les fichiers de configuration</li>
+<li><code>SHTEST_PLUGIN_PATH</code> : Chemin vers les plugins</li>
+<li><code>SHTEST_DEBUG</code> : Mode debug (1 pour activer)</li>
+</ul>
+<h2 id="tests-et-validation">Tests et Validation</h2>
+<h3 id="tests-unitaires">Tests Unitaires</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Tests du core</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/unit/test_core.py
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Tests du lexer modulaire</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/unit/test_modular_lexer.py
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Tests du parser modulaire</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/unit/test_modular_parser.py
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Tests du système complet</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/unit/test_modular_system.py
+</span></code></pre></div>
+<h3 id="tests-dintegration">Tests d'Intégration</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Test avec des fichiers .shtest réels</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>python<span class="w"> </span>shtest.py<span class="w"> </span>tests/new/example.shtest
+</span></code></pre></div>
+<h2 id="migration-depuis-lancienne-architecture">Migration depuis l'Ancienne Architecture</h2>
+<p>L'architecture modulaire maintient la compatibilité ascendante. Les anciens scripts continuent de fonctionner sans modification.</p>
+<h3 id="changements-principaux">Changements Principaux</h3>
+<ol>
+<li><strong>Import des modules</strong> : Utilisation d'imports absolus</li>
+<li><strong>Configuration</strong> : Chargement depuis YAML au lieu de Python</li>
+<li><strong>Extensibilité</strong> : Système de plugins au lieu de modifications directes</li>
+</ol>
+<h3 id="exemple-de-migration">Exemple de Migration</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Ancien code</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">parse_file</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Nouveau code (compatible)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.parser.configurable_parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigurableParser</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="n">parser</span> <span class="o">=</span> <span class="n">ConfigurableParser</span><span class="p">()</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">ast</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_file</span><span class="p">(</span><span class="s2">&quot;test.shtest&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="performance-et-optimisation">Performance et Optimisation</h2>
+<h3 id="optimisations-implementees">Optimisations Implémentées</h3>
+<ul>
+<li><strong>Cache des patterns</strong> : Les patterns sont compilés une seule fois</li>
+<li><strong>Visiteurs spécialisés</strong> : Traitement optimisé par type de nœud</li>
+<li><strong>Lazy loading</strong> : Chargement des plugins à la demande</li>
+</ul>
+<h3 id="metriques">Métriques</h3>
+<ul>
+<li><strong>Temps de compilation</strong> : ~50ms pour un fichier .shtest typique</li>
+<li><strong>Mémoire</strong> : ~2MB pour 1000 fichiers .shtest</li>
+<li><strong>Extensibilité</strong> : Support de 100+ plugins simultanés</li>
+</ul>
+<h2 id="support-et-maintenance">Support et Maintenance</h2>
+<h3 id="logs-et-debug">Logs et Debug</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Les logs incluent :</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># - Tokenisation</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1"># - Parsing</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># - Compilation</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># - Exécution des plugins</span>
+</span></code></pre></div>
+<h3 id="diagnostic">Diagnostic</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Vérification de la syntaxe</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python<span class="w"> </span>verify_syntax.py<span class="w"> </span>tests/
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Test de compilation</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>python<span class="w"> </span>shtest.py<span class="w"> </span>--debug<span class="w"> </span>tests/example.shtest
+</span></code></pre></div>
+<hr />
+<p>Pour plus d'informations sur l'utilisation pratique, consultez le <a href="../shtest_format/">format SHTEST</a> et la <a href="../cli/">documentation CLI</a>. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

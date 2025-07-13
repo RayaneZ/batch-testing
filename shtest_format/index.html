@@ -1,0 +1,1688 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../vscode_extension/">
+      
+      
+        <link rel="next" href="../regex_documentation/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Prise en main - KnightBatch Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#construire-des-fichiers-shtest" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KnightBatch Documentation" class="md-header__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KnightBatch Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Prise en main
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KnightBatch Documentation" class="md-nav__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    KnightBatch Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accueil
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Outils CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Modulaire
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide Développeur
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode_extension/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension VS Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Rédigez vos tests
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Rédigez vos tests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Prise en main
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prise en main
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entete-des-fichiers-generes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entête des fichiers générés
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manipulation-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation SQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manipulation SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definir-la-connexion-a-une-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Définir la connexion à une base de données
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executer-un-script-en-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exécuter un script en base de données
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#note-il-est-possible-dexporter-le-resultat-dun-select-dans-un-fichier-afin-de-le-comparer-a-un-resultat-attendu-a-laide-des-actions-de-manipulation-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      &gt; Note : il est possible d'exporter le résultat d'un SELECT dans un fichier afin de le comparer à un résultat attendu à l'aide des actions de manipulation de fichiers.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manipulation-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation de fichiers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manipulation de fichiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-et-copier-des-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Créer et copier des fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifier-les-metadonnees-dun-fichier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifier les métadonnées d’un fichier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-de-batchs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exécution de batchs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exécution de batchs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lancer-un-traitement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lancer un traitement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appliquer-des-validations-complexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appliquer des validations complexes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérifications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vérifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparaison de fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-de-sortie" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérification de sortie
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-des-erreurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des erreurs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestion des erreurs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifier-les-codes-de-retour-non-nuls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérifier les codes de retour non nuls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capturer-des-erreurs-dans-la-sortie-standard-ou-erreur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capturer des erreurs dans la sortie standard ou erreur
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combiner-erreurs-et-autres-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combiner erreurs et autres validations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nettoyage-des-ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nettoyage des ressources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nettoyage des ressources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-ou-purger-un-dossier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supprimer ou purger un dossier
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reinitialiser-un-fichier-ou-une-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Réinitialiser un fichier ou une base
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catalogue-complet-des-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Catalogue complet des actions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Catalogue complet des actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultation-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consultation de fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creation-et-copie-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création et copie de fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-dossiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des dossiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulation-de-dates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation de dates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-de-scripts-et-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exécution de scripts et SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrage-et-contexte" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramétrage et contexte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérifications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nettoyage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nettoyage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extrait-du-script-genere" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extrait du script généré
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilisation-de-sql_conn-pour-les-scripts-sql-multi-sgbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation de SQL_CONN pour les scripts SQL multi-SGBD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilisation de SQL_CONN pour les scripts SQL multi-SGBD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemples-dutilisation-dans-un-shtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples d'utilisation dans un .shtest :
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expressions détéctées
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing_and_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tests et Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Développement
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Développement
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Créer un Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide de style
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entete-des-fichiers-generes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entête des fichiers générés
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manipulation-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation SQL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manipulation SQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definir-la-connexion-a-une-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Définir la connexion à une base de données
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executer-un-script-en-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exécuter un script en base de données
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#note-il-est-possible-dexporter-le-resultat-dun-select-dans-un-fichier-afin-de-le-comparer-a-un-resultat-attendu-a-laide-des-actions-de-manipulation-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      &gt; Note : il est possible d'exporter le résultat d'un SELECT dans un fichier afin de le comparer à un résultat attendu à l'aide des actions de manipulation de fichiers.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manipulation-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation de fichiers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manipulation de fichiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-et-copier-des-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Créer et copier des fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifier-les-metadonnees-dun-fichier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifier les métadonnées d’un fichier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-de-batchs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exécution de batchs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exécution de batchs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lancer-un-traitement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lancer un traitement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#appliquer-des-validations-complexes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appliquer des validations complexes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérifications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vérifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparaison de fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-de-sortie" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérification de sortie
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-des-erreurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des erreurs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestion des erreurs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifier-les-codes-de-retour-non-nuls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérifier les codes de retour non nuls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capturer-des-erreurs-dans-la-sortie-standard-ou-erreur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capturer des erreurs dans la sortie standard ou erreur
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combiner-erreurs-et-autres-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combiner erreurs et autres validations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nettoyage-des-ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nettoyage des ressources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nettoyage des ressources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-ou-purger-un-dossier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supprimer ou purger un dossier
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reinitialiser-un-fichier-ou-une-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Réinitialiser un fichier ou une base
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catalogue-complet-des-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Catalogue complet des actions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Catalogue complet des actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultation-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consultation de fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creation-et-copie-de-fichiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Création et copie de fichiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-dossiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestion des dossiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manipulation-de-dates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manipulation de dates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-de-scripts-et-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exécution de scripts et SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrage-et-contexte" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramétrage et contexte
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifications_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérifications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nettoyage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nettoyage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extrait-du-script-genere" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extrait du script généré
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilisation-de-sql_conn-pour-les-scripts-sql-multi-sgbd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation de SQL_CONN pour les scripts SQL multi-SGBD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilisation de SQL_CONN pour les scripts SQL multi-SGBD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemples-dutilisation-dans-un-shtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples d'utilisation dans un .shtest :
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="construire-des-fichiers-shtest">Construire des fichiers <code>.shtest</code></h1>
+<p>Ce document décrit la syntaxe utilisée pour écrire les scénarios de test automatisés au format <code>.shtest</code>.<br />
+Chaque instruction est une <strong>ligne unique</strong> au format :</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Action:<span class="w"> </span>...<span class="w"> </span><span class="p">;</span><span class="w"> </span>Résultat:<span class="w"> </span>...
+</span></code></pre></div>
+<p>Les validations sont ensuite traduites en instructions exécutables (shell, SQL, etc.).</p>
+<hr />
+<h2 id="entete-des-fichiers-generes">Entête des fichiers générés</h2>
+<p>Les fichiers shell générés contiennent tous la base suivante :</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">set</span><span class="w"> </span>-e
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>run_cmd<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nb">local</span><span class="w"> </span><span class="nv">_stdout</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="k">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nb">local</span><span class="w"> </span><span class="nv">_stderr</span><span class="o">=</span><span class="k">$(</span>mktemp<span class="k">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span>/bin/sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="s2">&quot;</span><span class="nv">$_stdout</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="s2">&quot;_stderr&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nv">last_ret</span><span class="o">=</span><span class="nv">$?</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nv">last_stdout</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$_stdout</span><span class="s2">&quot;</span><span class="k">)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nv">last_stderr</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$_stderr</span><span class="s2">&quot;</span><span class="k">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$_stdout</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$_stderr</span><span class="s2">&quot;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$last_ret</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;STDERR: </span><span class="nv">$last_stderr</span><span class="s2">&quot;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="k">fi</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="o">}</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>log_diff<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;Différence détectée :&#39;</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Attendu : </span><span class="nv">$expected</span><span class="s2">&quot;</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- Obtenu : </span><span class="nv">$actual</span><span class="s2">&quot;</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">  </span><span class="k">fi</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="o">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="manipulation-sql">Manipulation SQL</h2>
+<p>Ce chapitre couvre la configuration de la connexion à une base de données, ainsi que l’exécution de scripts SQL depuis un scénario.</p>
+<h3 id="definir-la-connexion-a-une-base-de-donnees">Définir la connexion à une base de données</h3>
+<p>Définissez les variables nécessaires pour accéder à une base de données (driver et chaîne de connexion). 
+KnightBatch utilise les variables réservées <code>SQL_DRIVER</code> et <code>SQL_CONN</code> pour générer des instructions compatibles avec votre moteur de base de données.
+Il est possible de réécrire la variable SQL_DRIVER plusieurs fois dans le même test si vous utilisez plusieurs bases de données.</p>
+<p>Pour définir le moteur de base de données :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Action: Définir la variable SQL_DRIVER = mysql ; Résultat: identifiants configurés.
+</span></code></pre></div>
+Pour définir la chaine de connexion à la base de données :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: identifiants configurés.
+</span></code></pre></div></p>
+<p>Les lignes ci-dessus sont traduites en shell de la manière suivante : 
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SQL_DRIVER</span><span class="o">=</span><span class="s2">&quot;mysql&quot;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SQL_CONN</span><span class="o">=</span><span class="s2">&quot;rootme/ffDDD584R@base_name&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Attendu : identifiants configurés</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SQL_CONN</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;identifiants configurés&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;non configuré&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;identifiants configurés&quot;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">cond1</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">cond1</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;KO&quot;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">cond1</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$verdict</span><span class="s2">&quot;</span>
+</span></code></pre></div></p>
+<h3 id="executer-un-script-en-base-de-donnees">Exécuter un script en base de données</h3>
+<p>Il est possible d'exécuter des scripts SQL de la manière suivante :</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Action: Exécuter le script SQL ./init_bdd.sql ; Résultat: La base est prête pour le test.
+</span></code></pre></div>
+Ce qui produira : 
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>run_cmd<span class="w"> </span><span class="s2">&quot;mysql </span><span class="si">${</span><span class="nv">SQL_CONN</span><span class="k">:-</span><span class="nv">user</span><span class="p">/password@db</span><span class="si">}</span><span class="s2"> &lt; init_bdd.sql&quot;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># Attendu : base prête</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$last_ret</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;base prête&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;base non prête&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;base prête&quot;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">cond2</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">cond2</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;KO&quot;</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">cond2</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$verdict</span><span class="s2">&quot;</span>
+</span></code></pre></div></p>
+<p>S'il ne s'agit pas d'une initialisation, il est également possible d'utiliser des alias tels que :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Action: Exécuter le script SQL verification.sql ; Résultat: Le script s’exécute avec succès.
+</span></code></pre></div>
+Ce qui produira un script similaire : 
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>run_cmd<span class="w"> </span><span class="s2">&quot;mysql </span><span class="si">${</span><span class="nv">SQL_CONN</span><span class="k">:-</span><span class="nv">user</span><span class="p">/password@db</span><span class="si">}</span><span class="s2"> &lt; verification.sql&quot;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># Attendu : retour 0</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$last_ret</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;retour 0&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;retour </span><span class="nv">$last_ret</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;retour 0&quot;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">cond4</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">cond4</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;KO&quot;</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">cond4</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$verdict</span><span class="s2">&quot;</span>
+</span></code></pre></div></p>
+<h2 id="note-il-est-possible-dexporter-le-resultat-dun-select-dans-un-fichier-afin-de-le-comparer-a-un-resultat-attendu-a-laide-des-actions-de-manipulation-de-fichiers">&gt; Note : il est possible d'exporter le résultat d'un <code>SELECT</code> dans un fichier afin de le comparer à un résultat attendu à l'aide des actions de manipulation de fichiers.</h2>
+<h2 id="manipulation-de-fichiers">Manipulation de fichiers</h2>
+<p>Cette section regroupe toutes les actions relatives à la gestion de fichiers : création, copie, modification de dates.</p>
+<h3 id="creer-et-copier-des-fichiers">Créer et copier des fichiers</h3>
+<p>Vous pouvez créer des fichiers avec des permissions précises ou les dupliquer dans d'autres emplacements.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Action: Créer le fichier /tmp/test.txt avec les droits 0600 ; Résultat: le fichier est présent.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Action: Copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+</span></code></pre></div></p>
+<h3 id="modifier-les-metadonnees-dun-fichier">Modifier les métadonnées d’un fichier</h3>
+<p>Modifiez les dates de fichiers pour simuler des cas de traitement différé ou obsolète.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Action: Toucher le fichier ./ancien.txt -t 202201010000 ; Résultat: date modifiée.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Action: Mettre à jour la date du fichier ./nouveau.txt 202401010101 ; Résultat: date modifiée.
+</span></code></pre></div></p>
+<hr />
+<h2 id="execution-de-batchs">Exécution de batchs</h2>
+<p>Ce chapitre montre comment exécuter des scripts batch et tester leur exécution à travers leurs retours ou leurs sorties.</p>
+<h3 id="lancer-un-traitement">Lancer un traitement</h3>
+<p>Voici des instructions pour lancer un script et valider son exécution correcte.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Action: Exécuter ./scripts/purge.sh ; Résultat: retour 0.
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Action: Exécuter /opt/batch/migration.sh ; Résultat: retour 0.
+</span></code></pre></div>
+<h3 id="appliquer-des-validations-complexes">Appliquer des validations complexes</h3>
+<p>Vous pouvez aussi vérifier les sorties standard ou d'erreur pour affiner les vérifications.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Action: Exécuter ./traitement.sh ; Résultat: retour 0 et stdout contient &quot;Succès complet&quot;.
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Action: Exécuter ./verif.sh ; Résultat: stderr contient &quot;WARNING&quot;.
+</span></code></pre></div>
+<hr />
+<h2 id="verifications">Vérifications</h2>
+<p>Ces instructions permettent de valider l’exactitude des fichiers produits ou des messages retournés.</p>
+<h3 id="comparaison-de-fichiers">Comparaison de fichiers</h3>
+<p>Compare deux fichiers pour vérifier que le traitement a produit la sortie attendue.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Action: Comparer le fichier ./resultat.txt avec ./attendu.txt ; Résultat: fichiers identiques.
+</span></code></pre></div>
+<h3 id="verification-de-sortie">Vérification de sortie</h3>
+<p>Assurez-vous que les scripts produisent les bons messages sur la sortie standard ou erreur.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Action: Exécuter ./analyse.sh ; Résultat: stdout contient &quot;Analyse terminée&quot;.
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Action: Exécuter ./check.sh ; Résultat: stderr contient &quot;Erreur détectée&quot;.
+</span></code></pre></div>
+<hr />
+<h2 id="gestion-des-erreurs">Gestion des erreurs</h2>
+<p>Il est important de tester les cas d’erreur, qu’ils soient attendus ou bloquants.</p>
+<h3 id="verifier-les-codes-de-retour-non-nuls">Vérifier les codes de retour non nuls</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Action: Exécuter ./script_noncritique.sh ; Résultat: retour 1.
+</span></code></pre></div>
+<h3 id="capturer-des-erreurs-dans-la-sortie-standard-ou-erreur">Capturer des erreurs dans la sortie standard ou erreur</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Action: Exécuter ./script.sh ; Résultat: stdout contient &quot;Erreur détectée&quot;.
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Action: Exécuter ./script.sh ; Résultat: stderr contient &quot;Permission denied&quot;.
+</span></code></pre></div>
+<h3 id="combiner-erreurs-et-autres-validations">Combiner erreurs et autres validations</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Action: Exécuter ./traitement.sh ; Résultat: retour 1 ou stderr contient &quot;Erreur de validation&quot;.
+</span></code></pre></div>
+<hr />
+<h2 id="nettoyage-des-ressources">Nettoyage des ressources</h2>
+<p>Les scénarios de test doivent parfois remettre l’environnement dans un état propre.</p>
+<h3 id="supprimer-ou-purger-un-dossier">Supprimer ou purger un dossier</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Action: Supprimer le dossier /tmp/test_env ; Résultat: dossier supprimé.
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Action: Purger le contenu du dossier ./temp ; Résultat: dossier vidé.
+</span></code></pre></div>
+<h3 id="reinitialiser-un-fichier-ou-une-base">Réinitialiser un fichier ou une base</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Action: Réinitialiser le fichier ./data.json ; Résultat: fichier vide.
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>Action: Exécuter le script SQL cleanup.sql ; Résultat: base réinitialisée.
+</span></code></pre></div>
+<hr />
+<h2 id="catalogue-complet-des-actions">Catalogue complet des actions</h2>
+<p>Les exemples ci-dessous récapitulent toutes les actions observées dans le dossier <code>tests</code>.
+Elles sont classées par thème et accompagnées du résultat attendu.</p>
+<h3 id="consultation-de-fichiers">Consultation de fichiers</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Action: Afficher le contenu du fichier /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché.
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>Action: Afficher le contenu du fichier /tmp/JDD_Extra.sql ; Résultat: Le script est affiché.
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>Action: Afficher le contenu du fichier /tmp/file.txt ; Résultat: Le contenu est correct.
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>Action: Afficher le contenu du fichier /tmp/file.txt ; Résultat: contenu correct.
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>Action: Afficher le contenu du fichier /tmp/output.txt ; Résultat: Le contenu est correct.
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>Action: Afficher le contenu du fichier /tmp/test.txt ; Résultat: Le contenu est affiché.
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>Action: Afficher le contenu du fichier /tmp/test.txt ; Résultat: Le script est affiché.
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>Action: Afficher le contenu du fichier /tmp/test.txt ; Résultat: contenu affiché.
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>Action: Afficher le contenu du fichier /tmp/test.txt ; Résultat: le contenu est lisible.
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>Action: Afficher le contenu du fichier /tmp/test_folder/test.txt ; Résultat: le contenu est lisible.
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>Action: lire le fichier = /tmp/test.txt ; Résultat: contenu affiché.
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>Action: cat le fichier = /tmp/test.txt ; Résultat: contenu affiché.
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>Action: afficher le contenu du fichier /tmp/test.txt ; Résultat: contenu affiché.
+</span></code></pre></div>
+<h3 id="creation-et-copie-de-fichiers">Création et copie de fichiers</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Action: Créer le fichier /tmp/output.txt avec les droits = 0644 ; Résultat: Le fichier est présent.
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Action: Créer le fichier /tmp/test_folder/test.txt avec les droits = 0600 ; Résultat: le fichier est créé.
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>Action: créer le fichier /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié.
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>Action: Copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: le fichier est copié.
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>Action: Copier le dossier /tmp/data vers /tmp/backup ; Résultat: le dossier est copié.
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié.
+</span></code></pre></div>
+<h3 id="gestion-des-dossiers">Gestion des dossiers</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Action: Créer le dossier /tmp/data avec les droits = 0755 ; Résultat: Le dossier est créé.
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>Action: Créer le dossier /tmp/newdir ; Résultat: Le dossier est créé.
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>Action: Créer le dossier /tmp/newdir ; Résultat: dossier créé.
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>Action: Créer le dossier /tmp/newdir ; Résultat: le dossier est prêt.
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>Action: Créer le dossier /tmp/test_folder avec les droits = 0700 ; Résultat: le dossier est prêt.
+</span></code></pre></div>
+<h3 id="manipulation-de-dates">Manipulation de dates</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Action: Toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé.
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Action: toucher le fichier /tmp/test.txt -t 202501010101 ; Résultat: date modifiée.
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: La date est modifiée.
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>Action: Mettre à jour la date du fichier /tmp/file.txt 202501010101 ; Résultat: date modifiée.
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>Action: Mettre à jour la date du fichier /tmp/output.txt 202501021200 ; Résultat: La date est modifiée.
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>Action: mettre à jour la date du fichier /tmp/test.txt 202501010101 ; Résultat: date modifiée.
+</span></code></pre></div>
+<h3 id="execution-de-scripts-et-sql">Exécution de scripts et SQL</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Action: Exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0 et (La sortie standard contient &quot;OK&quot; ou La sortie d&#39;erreur contient WARNING).
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (la sortie standard contient &quot;Succès complet&quot; ou la sortie d&#39;erreur contient WARNING).
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>Action: Exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient &quot;OK&quot; ou stderr contient WARNING).
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>Action: Exécuter /opt/batch/traitement.sh avec l&#39;argument produit=123 et la quantité=10 ; Résultat: retour 0.
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>Action: Exécuter /opt/batch/traitement.sh avec l&#39;argument produit=567 et la quantité=20 ; Résultat: retour 0 et (stdout contient &quot;Traitement OK&quot; ou stderr contient WARNING).
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>Action: exécuter traitement.sh ; Résultat: retour 0.
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>Action: lancer traitement.sh ; Résultat: retour 0.
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>Action: traiter traitement.sh ; Résultat: retour 0.
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>Action: exécuter dummy.sh ; Résultat: retour 0.
+</span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a>Action: Exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête.
+</span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a>Action: Exécuter le script SQL JDD_Commun.sql puis JDD_Extra.sql ; Résultat: La base est prête pour le test.
+</span><span id="__span-26-12"><a id="__codelineno-26-12" name="__codelineno-26-12" href="#__codelineno-26-12"></a>Action: Exécuter script.sh ; Résultat: La base de test est prête.
+</span><span id="__span-26-13"><a id="__codelineno-26-13" name="__codelineno-26-13" href="#__codelineno-26-13"></a>Action: Exécuter script.sh ; Résultat: La base est prête pour le test.
+</span><span id="__span-26-14"><a id="__codelineno-26-14" name="__codelineno-26-14" href="#__codelineno-26-14"></a>Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique a /tmp/b.txt.
+</span><span id="__span-26-15"><a id="__codelineno-26-15" name="__codelineno-26-15" href="#__codelineno-26-15"></a>Action: Exécuter script.sh ; Résultat: Le fichier /tmp/a.txt est identique à /tmp/b.txt.
+</span><span id="__span-26-16"><a id="__codelineno-26-16" name="__codelineno-26-16" href="#__codelineno-26-16"></a>Action: Exécuter script.sh ; Résultat: base prête.
+</span><span id="__span-26-17"><a id="__codelineno-26-17" name="__codelineno-26-17" href="#__codelineno-26-17"></a>Action: Exécuter script.sh ; Résultat: fichier_identique /tmp/a.txt /tmp/b.txt.
+</span></code></pre></div>
+<h3 id="parametrage-et-contexte">Paramétrage et contexte</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Action: Définir la variable SQL_CONN sqlplus -S user/password@db ; Résultat: Les identifiants sont configurés.
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>Action: Définir la variable SQL_CONN = sqlplus -S user/password@db ; Résultat: identifiants configurés.
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>Action: Indiquer le chemin des logs /var/log/sys.log ; Résultat: les logs sont accessibles.
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>Action: Indiquer le chemin des logs /var/log/sys.log ; Résultat: logs accessibles.
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>Action: Indiquer le chemin des logs /var/log/system.log ; Résultat: les logs sont accessibles.
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>Action: configurer le contexte ; Résultat: base prête.
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>Action: créer le contexte ; Résultat: base prête.
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>Action: initialiser le contexte ; Résultat: base prête.
+</span></code></pre></div>
+<h3 id="verifications_1">Vérifications</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Action: Vérifier qu&#39;aucune erreur n&#39;apparaît ; Résultat: le script affiche un code &quot;030&quot;.
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>Action: Vérifier qu&#39;il n&#39;y a pas d&#39;erreur ; Résultat: aucun message d&#39;erreur.
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>Action: Vérifier qu&#39;il n&#39;y a pas d&#39;erreur ; Résultat: stderr=.
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>Action: Vérifier qu&#39;il n&#39;y a pas d&#39;erreurs dans les logs ; Résultat: aucun message d&#39;erreur.
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>Action: Vérifier que la date du fichier /tmp/test.log est 202501010000 ; Résultat: la date du fichier /tmp/test.log est 202501010000.
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>Action: Vérifier que le dossier /tmp/testdir a les droits 0755 ; Résultat: le dossier /tmp/testdir a les droits 0755.
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>Action: Vérifier que le dossier /tmp/testdir contient 2 fichiers *.txt ; Résultat: le dossier /tmp/testdir contient 2 fichiers *.txt.
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>Action: Vérifier que le dossier /tmp/testdir existe ; Résultat: le dossier /tmp/testdir existe.
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier /tmp/dest.txt existe ;
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>Action: Vérifier que le fichier /tmp/dest.txt existe ; Résultat: le fichier est présent et (le fichier /tmp/dest.txt existe ; ou la sortie d&#39;erreur contient &quot;Erreur de copie&quot;).
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>Action: Vérifier que le fichier /tmp/test.log a les droits 0644 ; Résultat: le fichier /tmp/test.log a les droits 0644.
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>Action: Vérifier que le fichier /tmp/test.log contient OK ; Résultat: le fichier /tmp/test.log contient OK.
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>Action: Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD ; Résultat: le fichier /tmp/test.log contient exactement ALLGOOD.
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>Action: Vérifier que le fichier /tmp/test.log existe ; Résultat: le fichier /tmp/test.log existe.
+</span></code></pre></div>
+<h3 id="nettoyage">Nettoyage</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>Action: Vider le répertoire /tmp/cache ; Résultat: le dossier est prêt.
+</span></code></pre></div>
+<h3 id="extrait-du-script-genere">Extrait du script généré</h3>
+<p>Pour illustrer la transformation, toutes ces actions ont été réunies dans un unique fichier <code>.shtest</code> puis converties en script shell :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>python<span class="w"> </span>src/run_all.py<span class="w"> </span>--input<span class="w"> </span>docs/catalogue_tests<span class="w"> </span>--output<span class="w"> </span>docs/catalogue_output<span class="w"> </span>--no-excel
+</span></code></pre></div>
+<p>Les premières lignes du script obtenu sont :</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="w">    </span><span class="o">}</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="c1"># ---- catalogue ----</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span>run_cmd<span class="w"> </span><span class="s2">&quot;cat /tmp/JDD_Commun.sql&quot;</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">    </span><span class="c1"># Attendu : contenu affiché</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$last_ret</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;contenu affiché&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;contenu non affiché&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">    </span><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;contenu affiché&quot;</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">    </span>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">cond1</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">cond1</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">    </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;KO&quot;</span>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">cond1</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">    </span><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="w">    </span>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$verdict</span><span class="s2">&quot;</span>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">    </span>run_cmd<span class="w"> </span><span class="s2">&quot;cat /tmp/JDD_Extra.sql&quot;</span>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="w">    </span><span class="c1"># Attendu : le script est affiché</span>
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$last_ret</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;contenu affiché&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">actual</span><span class="o">=</span><span class="s2">&quot;contenu non affiché&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a><span class="w">    </span><span class="nv">expected</span><span class="o">=</span><span class="s2">&quot;contenu affiché&quot;</span>
+</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a><span class="w">    </span>log_diff<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span>
+</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$expected</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$actual</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">cond2</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nv">cond2</span><span class="o">=</span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a><span class="w">    </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;KO&quot;</span>
+</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">cond2</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nv">verdict</span><span class="o">=</span><span class="s2">&quot;OK&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+</span></code></pre></div>
+<p>Après amélioration des règles de conversion, toutes les validations sont désormais vérifiées dans le script généré.</p>
+<h2 id="utilisation-de-sql_conn-pour-les-scripts-sql-multi-sgbd">Utilisation de SQL_CONN pour les scripts SQL multi-SGBD</h2>
+<p>Pour tous les SGBD, la variable d'environnement <code>SQL_CONN</code> doit être définie dans le <code>.shtest</code> avant toute action SQL. Le format attendu dépend du SGBD sélectionné via <code>SQL_DRIVER</code>.</p>
+<h3 id="exemples-dutilisation-dans-un-shtest">Exemples d'utilisation dans un <code>.shtest</code> :</h3>
+<p><strong>Oracle</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>Action: Définir la variable SQL_DRIVER = oracle ;
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>Action: Définir la variable SQL_CONN = user/password@db ;
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>Action: Exécuter le script SQL mon_script.sql ;
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a># Commande générée :
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>#   sqlplus -s user/password@db @mon_script.sql
+</span></code></pre></div></p>
+<p><strong>PostgreSQL</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>Action: Définir la variable SQL_DRIVER = postgres ;
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>Action: Définir la variable SQL_CONN = postgres://user:password@host:5432/dbname ;
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>Action: Exécuter le script SQL mon_script.sql ;
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a># Commande générée :
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>#   psql &quot;postgres://user:password@host:5432/dbname&quot; -f mon_script.sql
+</span></code></pre></div></p>
+<p><strong>MySQL</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Action: Définir la variable SQL_DRIVER = mysql ;
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>Action: Définir la variable SQL_CONN = mysql://user:password@host:3306/dbname ;
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>Action: Exécuter le script SQL mon_script.sql ;
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a># Commande générée :
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>#   mysql &quot;mysql://user:password@host:3306/dbname&quot; &lt; mon_script.sql
+</span></code></pre></div></p>
+<p><strong>Redis</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>Action: Définir la variable SQL_DRIVER = redis ;
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>Action: Définir la variable SQL_CONN = -h myhost -p 6380 -a mypass ;
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>Action: Exécuter le script SQL mon_script.redis ;
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a># Commande générée :
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>#   redis-cli -h myhost -p 6380 -a mypass &lt; mon_script.redis
+</span></code></pre></div></p>
+<blockquote>
+<p><strong>Note :</strong>
+- Il n'est pas nécessaire de générer ou d'exporter SQL_DRIVER dans le shell, il sert uniquement à la génération du script.
+- Adaptez la valeur de SQL_CONN selon le SGBD utilisé.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

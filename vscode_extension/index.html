@@ -1,0 +1,2154 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../developer_quickstart/">
+      
+      
+        <link rel="next" href="../shtest_format/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Extension VS Code - KnightBatch Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#extension-vs-code" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KnightBatch Documentation" class="md-header__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KnightBatch Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Extension VS Code
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="KnightBatch Documentation" class="md-nav__button md-logo" aria-label="KnightBatch Documentation" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    KnightBatch Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Accueil
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Outils CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Modulaire
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer_quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide Développeur
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Extension VS Code
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Extension VS Code
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vue d'ensemble
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vue d&#39;ensemble">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonctionnalites-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fonctionnalités Principales
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depuis-le-marketplace-vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depuis le Marketplace VS Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depuis-un-fichier-vsix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depuis un fichier VSIX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depuis-les-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depuis les sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commandes-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commandes Disponibles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commandes Disponibles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-compile-current-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Compile Current File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-compile-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Compile Directory
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vérification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-verify-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Verify Syntax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-show-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Show AST
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-show-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Show Tokens
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-export-to-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Export to Excel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coloration-syntaxique" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coloration Syntaxique
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coloration Syntaxique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elements-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Éléments de Base
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérations SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-fichier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérations Fichier
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operateurs-logiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérateurs Logiques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Snippets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snippets-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets de Base
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets de Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-avances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets Avancés
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres-vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramètres VS Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametres-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramètres Disponibles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-par-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration par Workspace
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples d'Utilisation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples d&#39;Utilisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-de-test-complet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scénario de Test Complet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-des-snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation des Snippets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilation-rapide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation Rapide
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-avec-larchitecture-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intégration avec l'Architecture Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intégration avec l&#39;Architecture Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#support-des-patterns-configurables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support des Patterns Configurables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support des Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-et-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug et Diagnostic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dépannage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dépannage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problèmes Courants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problèmes Courants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-ne-se-charge-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension ne se charge pas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandes-non-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commandes non disponibles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs-de-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erreurs de compilation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-ne-fonctionnent-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets ne fonctionnent pas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode Debug
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-dextension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs d'Extension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developpement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Développement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Développement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-du-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure du Projet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajouter-de-nouveaux-snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ajouter de Nouveaux Snippets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifier-la-coloration-syntaxique" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifier la Coloration Syntaxique
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ressources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Rédigez vos tests
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Rédigez vos tests
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shtest_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Prise en main
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex_documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Expressions détéctées
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing_and_validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tests et Validation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Développement
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Développement
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugin_tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Créer un Plugin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../style-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guide de style
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vue d'ensemble
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vue d&#39;ensemble">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonctionnalites-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fonctionnalités Principales
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depuis-le-marketplace-vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depuis le Marketplace VS Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depuis-un-fichier-vsix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depuis un fichier VSIX
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depuis-les-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Depuis les sources
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commandes-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commandes Disponibles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commandes Disponibles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-compile-current-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Compile Current File
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-compile-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Compile Directory
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vérification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vérification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-verify-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Verify Syntax
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analyse
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analyse">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-show-ast" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Show AST
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-show-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Show Tokens
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Export">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#knightbatch-export-to-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      KnightBatch: Export to Excel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coloration-syntaxique" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coloration Syntaxique
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coloration Syntaxique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elements-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Éléments de Base
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérations SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-fichier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérations Fichier
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operateurs-logiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opérateurs Logiques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Snippets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snippets-de-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets de Base
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets SQL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets de Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-avances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets Avancés
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametres-vs-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramètres VS Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametres-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Paramètres Disponibles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-par-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration par Workspace
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples d'Utilisation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples d&#39;Utilisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-de-test-complet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scénario de Test Complet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation-des-snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation des Snippets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilation-rapide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation Rapide
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-avec-larchitecture-modulaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intégration avec l'Architecture Modulaire
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intégration avec l&#39;Architecture Modulaire">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#support-des-patterns-configurables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support des Patterns Configurables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-des-plugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support des Plugins
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-et-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug et Diagnostic
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dépannage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dépannage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problèmes Courants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problèmes Courants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-ne-se-charge-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extension ne se charge pas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandes-non-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commandes non disponibles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erreurs-de-compilation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Erreurs de compilation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snippets-ne-fonctionnent-pas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snippets ne fonctionnent pas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode Debug
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-dextension" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs d'Extension
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#developpement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Développement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Développement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-du-projet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure du Projet
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajouter-de-nouveaux-snippets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ajouter de Nouveaux Snippets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifier-la-coloration-syntaxique" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifier la Coloration Syntaxique
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ressources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ressources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="extension-vs-code">Extension VS Code</h1>
+<p>Cette page documente l'extension VS Code pour KnightBatch, qui fournit un support complet pour l'édition et la compilation de fichiers <code>.shtest</code>.</p>
+<h2 id="vue-densemble">Vue d'ensemble</h2>
+<p>L'extension VS Code KnightBatch offre une expérience de développement intégrée pour créer, éditer et compiler des scénarios de test <code>.shtest</code>. Elle supporte la nouvelle architecture modulaire et maintient la compatibilité avec les anciens patterns.</p>
+<h3 id="fonctionnalites-principales">Fonctionnalités Principales</h3>
+<ul>
+<li><strong>🎨 Coloration syntaxique</strong> : Support complet pour tous les éléments <code>.shtest</code></li>
+<li><strong>⚡ Commandes intégrées</strong> : Compilation, vérification, visualisation AST</li>
+<li><strong>📝 Snippets intelligents</strong> : Templates pour patterns courants</li>
+<li><strong>⚙️ Configuration flexible</strong> : Paramètres personnalisables</li>
+<li><strong>🔍 IntelliSense</strong> : Autocomplétion et validation en temps réel</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<h3 id="depuis-le-marketplace-vs-code">Depuis le Marketplace VS Code</h3>
+<ol>
+<li>Ouvrez VS Code</li>
+<li>Allez dans Extensions (Ctrl+Shift+X)</li>
+<li>Recherchez "KnightBatch"</li>
+<li>Cliquez sur "Installer"</li>
+</ol>
+<h3 id="depuis-un-fichier-vsix">Depuis un fichier VSIX</h3>
+<ol>
+<li>Téléchargez le fichier <code>.vsix</code> depuis les releases</li>
+<li>Dans VS Code, allez dans Extensions (Ctrl+Shift+X)</li>
+<li>Cliquez sur "..." et sélectionnez "Installer depuis VSIX..."</li>
+<li>Sélectionnez le fichier téléchargé</li>
+</ol>
+<h3 id="depuis-les-sources">Depuis les sources</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>vscode
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>npm<span class="w"> </span>install
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>npm<span class="w"> </span>run<span class="w"> </span>compile
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>npx<span class="w"> </span>vsce<span class="w"> </span>package
+</span></code></pre></div>
+<p>Puis installez le fichier <code>.vsix</code> généré.</p>
+<h2 id="commandes-disponibles">Commandes Disponibles</h2>
+<h3 id="compilation">Compilation</h3>
+<h4 id="knightbatch-compile-current-file">KnightBatch: Compile Current File</h4>
+<p>Compile le fichier <code>.shtest</code> actuellement ouvert en script shell.</p>
+<p><strong>Utilisation :</strong>
+- Ouvrez un fichier <code>.shtest</code>
+- Appuyez sur Ctrl+Shift+P
+- Tapez "KnightBatch: Compile Current File"
+- Le script shell sera généré dans le dossier de sortie configuré</p>
+<p><strong>Résultat :</strong>
+- Script shell généré dans le dossier de sortie
+- Ouverture automatique du fichier généré
+- Message de confirmation ou d'erreur</p>
+<h4 id="knightbatch-compile-directory">KnightBatch: Compile Directory</h4>
+<p>Compile tous les fichiers <code>.shtest</code> du workspace.</p>
+<p><strong>Utilisation :</strong>
+- Clic droit sur un dossier dans l'explorateur
+- Sélectionnez "KnightBatch: Compile Directory"
+- Ou utilisez la palette de commandes</p>
+<p><strong>Résultat :</strong>
+- Tous les fichiers <code>.shtest</code> sont compilés
+- Rapport du nombre de fichiers traités</p>
+<h3 id="verification">Vérification</h3>
+<h4 id="knightbatch-verify-syntax">KnightBatch: Verify Syntax</h4>
+<p>Vérifie la syntaxe du fichier <code>.shtest</code> actuel.</p>
+<p><strong>Utilisation :</strong>
+- Ouvrez un fichier <code>.shtest</code>
+- Appuyez sur Ctrl+Shift+P
+- Tapez "KnightBatch: Verify Syntax"</p>
+<p><strong>Résultat :</strong>
+- Message de succès si la syntaxe est correcte
+- Détails des erreurs si la syntaxe est incorrecte</p>
+<h3 id="analyse">Analyse</h3>
+<h4 id="knightbatch-show-ast">KnightBatch: Show AST</h4>
+<p>Affiche l'Arbre de Syntaxe Abstraite (AST) du fichier actuel.</p>
+<p><strong>Utilisation :</strong>
+- Ouvrez un fichier <code>.shtest</code>
+- Appuyez sur Ctrl+Shift+P
+- Tapez "KnightBatch: Show AST"</p>
+<p><strong>Résultat :</strong>
+- Nouvel onglet avec l'AST au format JSON
+- Structure détaillée des nœuds et relations</p>
+<h4 id="knightbatch-show-tokens">KnightBatch: Show Tokens</h4>
+<p>Affiche les tokens générés par le lexer.</p>
+<p><strong>Utilisation :</strong>
+- Ouvrez un fichier <code>.shtest</code>
+- Appuyez sur Ctrl+Shift+P
+- Tapez "KnightBatch: Show Tokens"</p>
+<p><strong>Résultat :</strong>
+- Nouvel onglet avec la liste des tokens
+- Informations sur le type et la valeur de chaque token</p>
+<h3 id="export">Export</h3>
+<h4 id="knightbatch-export-to-excel">KnightBatch: Export to Excel</h4>
+<p>Exporte tous les scénarios de test vers un fichier Excel.</p>
+<p><strong>Utilisation :</strong>
+- Clic droit sur un fichier <code>.shtest</code> dans l'explorateur
+- Sélectionnez "KnightBatch: Export to Excel"</p>
+<p><strong>Résultat :</strong>
+- Fichier Excel généré avec tous les scénarios
+- Rapport du nombre de fichiers exportés</p>
+<h2 id="coloration-syntaxique">Coloration Syntaxique</h2>
+<p>L'extension fournit une coloration syntaxique complète pour tous les éléments <code>.shtest</code> :</p>
+<h3 id="elements-de-base">Éléments de Base</h3>
+<ul>
+<li><strong>Actions</strong> : <code>Action:</code> en bleu</li>
+<li><strong>Résultats</strong> : <code>Résultat:</code> en vert</li>
+<li><strong>Étapes</strong> : <code>Etape:</code> en violet</li>
+<li><strong>Commentaires</strong> : <code>#</code> en gris</li>
+</ul>
+<h3 id="operations-sql">Opérations SQL</h3>
+<ul>
+<li><strong>Variables SQL</strong> : <code>SQL_DRIVER</code>, <code>SQL_CONN</code> en orange</li>
+<li><strong>Moteurs SQL</strong> : <code>mysql</code>, <code>oracle</code>, <code>postgres</code> en cyan</li>
+<li><strong>Scripts SQL</strong> : <code>script SQL</code> en jaune</li>
+</ul>
+<h3 id="operations-fichier">Opérations Fichier</h3>
+<ul>
+<li><strong>Actions fichier</strong> : <code>créer</code>, <code>copier</code>, <code>toucher</code> en bleu</li>
+<li><strong>Permissions</strong> : <code>0600</code>, <code>0644</code>, <code>0755</code> en rouge</li>
+<li><strong>États fichier</strong> : <code>présent</code>, <code>existe</code>, <code>créé</code> en vert</li>
+</ul>
+<h3 id="operateurs-logiques">Opérateurs Logiques</h3>
+<ul>
+<li><strong>Connecteurs</strong> : <code>et</code>, <code>ou</code> en violet</li>
+<li><strong>Flux</strong> : <code>stdout</code>, <code>stderr</code> en orange</li>
+<li><strong>Comparaisons</strong> : <code>contient</code>, <code>est</code>, <code>identique</code> en jaune</li>
+</ul>
+<h2 id="snippets">Snippets</h2>
+<p>L'extension fournit des snippets organisés pour accélérer l'écriture :</p>
+<h3 id="snippets-de-base">Snippets de Base</h3>
+<ul>
+<li><code>step</code> - Créer un nouveau bloc d'étape</li>
+<li><code>action</code> - Créer une action avec résultat</li>
+<li><code>exec</code> - Exécuter un script</li>
+<li><code>createfile</code> - Créer un fichier</li>
+<li><code>createdir</code> - Créer un dossier</li>
+</ul>
+<h3 id="snippets-sql">Snippets SQL</h3>
+<ul>
+<li><code>sqlconn</code> - Configuration de connexion SQL</li>
+<li><code>sqlscript</code> - Exécution de script SQL</li>
+</ul>
+<h3 id="snippets-de-validation">Snippets de Validation</h3>
+<ul>
+<li><code>fileexists</code> - Vérifier l'existence d'un fichier</li>
+<li><code>filecontent</code> - Vérifier le contenu d'un fichier</li>
+<li><code>noerrors</code> - Vérifier l'absence d'erreurs</li>
+<li><code>complex</code> - Validation complexe avec opérateurs logiques</li>
+</ul>
+<h3 id="snippets-avances">Snippets Avancés</h3>
+<ul>
+<li><code>execout</code> - Exécution avec validation de sortie</li>
+<li><code>execargs</code> - Exécution avec arguments</li>
+<li><code>checkperm</code> - Vérification de permissions</li>
+<li><code>checkdate</code> - Vérification de date</li>
+</ul>
+<p><strong>Utilisation :</strong>
+1. Tapez le préfixe du snippet
+2. Appuyez sur Tab
+3. Remplissez les variables <code>$1</code>, <code>$2</code>, etc.</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="parametres-vs-code">Paramètres VS Code</h3>
+<p>Ajoutez ces paramètres dans vos paramètres VS Code :</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;knightbatch.configPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;config/patterns_hybrid.yml&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;knightbatch.aliasesPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;config/aliases.yml&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;knightbatch.outputDirectory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">&quot;knightbatch.sqlDriver&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mysql&quot;</span><span class="p">,</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">&quot;knightbatch.debugMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="parametres-disponibles">Paramètres Disponibles</h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Description</th>
+<th>Défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>configPath</code></td>
+<td>Chemin vers le fichier de patterns</td>
+<td><code>config/patterns_hybrid.yml</code></td>
+</tr>
+<tr>
+<td><code>aliasesPath</code></td>
+<td>Chemin vers le fichier d'alias</td>
+<td><code>config/aliases.yml</code></td>
+</tr>
+<tr>
+<td><code>outputDirectory</code></td>
+<td>Dossier de sortie pour les scripts</td>
+<td><code>output</code></td>
+</tr>
+<tr>
+<td><code>sqlDriver</code></td>
+<td>Moteur SQL par défaut</td>
+<td><code>mysql</code></td>
+</tr>
+<tr>
+<td><code>debugMode</code></td>
+<td>Mode debug pour logs détaillés</td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="configuration-par-workspace">Configuration par Workspace</h3>
+<p>Créez un fichier <code>.vscode/settings.json</code> dans votre workspace :</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;knightbatch.configPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;config/custom_patterns.yml&quot;</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;knightbatch.outputDirectory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;generated_scripts&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;knightbatch.sqlDriver&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;oracle&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="exemples-dutilisation">Exemples d'Utilisation</h2>
+<h3 id="scenario-de-test-complet">Scénario de Test Complet</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Test d&#39;intégration base de données
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Etape: Configuration
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Action: Définir la variable SQL_DRIVER = mysql ; Résultat: identifiants configurés.
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Action: Définir la variable SQL_CONN = user/pass@testdb ; Résultat: identifiants configurés.
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Etape: Préparation
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Action: Créer le dossier /tmp/test avec les droits 0755 ; Résultat: le dossier est créé.
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Action: Créer le fichier /tmp/test/input.txt avec les droits 0644 ; Résultat: le fichier est présent.
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Etape: Exécution
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Action: Exécuter le script SQL init.sql ; Résultat: La base est prête.
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Action: Exécuter /opt/batch/process.sh ; Résultat: retour 0 et stdout contient &quot;SUCCESS&quot;.
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>Etape: Validation
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>Action: Vérifier que le fichier /tmp/test/output.txt existe ; Résultat: le fichier existe.
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>Action: Comparer le fichier /tmp/test/output.txt avec /tmp/test/expected.txt ; Résultat: fichiers identiques.
+</span></code></pre></div>
+<h3 id="utilisation-des-snippets">Utilisation des Snippets</h3>
+<ol>
+<li><strong>Créer une étape</strong> : Tapez <code>step</code> + Tab</li>
+<li><strong>Ajouter une action</strong> : Tapez <code>action</code> + Tab</li>
+<li><strong>Configurer SQL</strong> : Tapez <code>sqlconn</code> + Tab</li>
+<li><strong>Valider un fichier</strong> : Tapez <code>fileexists</code> + Tab</li>
+</ol>
+<h3 id="compilation-rapide">Compilation Rapide</h3>
+<ol>
+<li>Ouvrez un fichier <code>.shtest</code></li>
+<li>Appuyez sur Ctrl+Shift+P</li>
+<li>Tapez "KnightBatch: Compile Current File"</li>
+<li>Le script shell est généré automatiquement</li>
+</ol>
+<h2 id="integration-avec-larchitecture-modulaire">Intégration avec l'Architecture Modulaire</h2>
+<p>L'extension supporte pleinement la nouvelle architecture modulaire :</p>
+<h3 id="support-des-patterns-configurables">Support des Patterns Configurables</h3>
+<ul>
+<li>Utilise les patterns définis dans <code>patterns_hybrid.yml</code></li>
+<li>Support des alias définis dans <code>aliases.yml</code></li>
+<li>Chargement dynamique de la configuration</li>
+</ul>
+<h3 id="support-des-plugins">Support des Plugins</h3>
+<ul>
+<li>Les plugins sont automatiquement détectés</li>
+<li>Les nouveaux matchers sont disponibles dans l'IntelliSense</li>
+<li>Les nouvelles validations sont reconnues</li>
+</ul>
+<h3 id="debug-et-diagnostic">Debug et Diagnostic</h3>
+<ul>
+<li>Mode debug pour logs détaillés</li>
+<li>Affichage AST pour diagnostic</li>
+<li>Affichage tokens pour débogage</li>
+</ul>
+<h2 id="depannage">Dépannage</h2>
+<h3 id="problemes-courants">Problèmes Courants</h3>
+<h4 id="extension-ne-se-charge-pas">Extension ne se charge pas</h4>
+<ol>
+<li>Vérifiez que vous êtes dans un workspace avec des fichiers <code>.shtest</code></li>
+<li>Redémarrez VS Code</li>
+<li>Vérifiez les logs d'extension (Help &gt; Toggle Developer Tools)</li>
+</ol>
+<h4 id="commandes-non-disponibles">Commandes non disponibles</h4>
+<ol>
+<li>Vérifiez que l'extension est activée</li>
+<li>Ouvrez un fichier <code>.shtest</code></li>
+<li>Vérifiez que vous êtes dans le bon workspace</li>
+</ol>
+<h4 id="erreurs-de-compilation">Erreurs de compilation</h4>
+<ol>
+<li>Activez le mode debug dans les paramètres</li>
+<li>Vérifiez les chemins de configuration</li>
+<li>Vérifiez que KnightBatch est installé dans le workspace</li>
+</ol>
+<h4 id="snippets-ne-fonctionnent-pas">Snippets ne fonctionnent pas</h4>
+<ol>
+<li>Vérifiez que le fichier a l'extension <code>.shtest</code></li>
+<li>Vérifiez que la langue est détectée comme "shtest"</li>
+<li>Redémarrez VS Code</li>
+</ol>
+<h3 id="mode-debug">Mode Debug</h3>
+<p>Activez le mode debug pour obtenir des informations détaillées :</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;knightbatch.debugMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Les logs apparaîtront dans la console de développement (Help &gt; Toggle Developer Tools).</p>
+<h3 id="logs-dextension">Logs d'Extension</h3>
+<p>Pour voir les logs de l'extension :
+1. Appuyez sur Ctrl+Shift+P
+2. Tapez "Developer: Show Logs"
+3. Sélectionnez "Extension Host"</p>
+<h2 id="developpement">Développement</h2>
+<h3 id="structure-du-projet">Structure du Projet</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>vscode/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>├── src/
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│   ├── extension.ts          # Point d&#39;entrée principal
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│   └── test/                 # Tests unitaires
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>├── syntaxes/
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│   └── shtest.tmLanguage.json # Coloration syntaxique
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>├── snippets/
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│   └── shtest.code-snippets  # Snippets
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>├── themes/
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   └── shellTest.colorTheme.json # Thème de couleur
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>└── package.json              # Configuration de l&#39;extension
+</span></code></pre></div>
+<h3 id="ajouter-de-nouveaux-snippets">Ajouter de Nouveaux Snippets</h3>
+<ol>
+<li>Éditez <code>snippets/shtest.code-snippets</code></li>
+<li>Ajoutez un nouveau snippet :</li>
+</ol>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;Nouveau Snippet&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;newsnippet&quot;</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">      </span><span class="s2">&quot;Action: $1 ; Résultat: $2&quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">],</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Description du nouveau snippet&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="modifier-la-coloration-syntaxique">Modifier la Coloration Syntaxique</h3>
+<ol>
+<li>Éditez <code>syntaxes/shtest.tmLanguage.json</code></li>
+<li>Ajoutez de nouveaux patterns dans la section appropriée</li>
+<li>Testez avec Ctrl+Shift+P &gt; "Developer: Reload Window"</li>
+</ol>
+<h3 id="tests">Tests</h3>
+<p>Exécutez les tests de l'extension :</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>vscode
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>npm<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+<h2 id="ressources">Ressources</h2>
+<ul>
+<li><a href="../modular_architecture/">Documentation de l'architecture modulaire</a></li>
+<li><a href="../configuration/">Guide de configuration</a></li>
+<li><a href="../shtest_format/">Format SHTEST</a></li>
+<li><a href="https://github.com/knightbatch/shtest-compiler">Repository GitHub</a></li>
+</ul>
+<hr />
+<p>Pour plus d'informations sur l'utilisation pratique, consultez les <a href="../shtest_format/">exemples d'utilisation</a> et la <a href="../cli/">documentation CLI</a>. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
