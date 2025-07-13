@@ -5,8 +5,9 @@ Utility functions for the compiler module.
 from shtest_compiler.parser.shunting_yard import parse_validation_expression
 from shtest_compiler.core.context import CompileContext
 from shtest_compiler.compiler.visitors import CompilerVisitor
+from typing import List, Union
 
-def compile_validation(expr: str, counter=None, last_file_var=None, verbose=False) -> list[str]:
+def compile_validation(expr: str, counter=None, last_file_var=None, verbose=False) -> List[str]:
     context = CompileContext(counter, last_file_var, verbose)
     ast = parse_validation_expression(expr)
     if verbose:
@@ -29,7 +30,7 @@ def strip_accents(text: str) -> str:
     )
 
 
-def shell_condition(success_val: str, fail_val: str, scope: str = "global") -> list[str]:
+def shell_condition(success_val: str, fail_val: str, scope: str = "global") -> List[str]:
     """Return shell instructions validating that the last command succeeded.
     The scope can be 'global' or 'last_action' to determine the context of the validation.
     """
@@ -41,7 +42,7 @@ def shell_condition(success_val: str, fail_val: str, scope: str = "global") -> l
     ]
 
 
-def retcode_condition(code: int | str, scope: str = "global") -> list[str]:
+def retcode_condition(code: Union[int, str], scope: str = "global") -> List[str]:
     """Return instructions checking that ``$last_ret`` matches *code*.
     The scope can be 'global' or 'last_action' to determine the context of the validation.
     """

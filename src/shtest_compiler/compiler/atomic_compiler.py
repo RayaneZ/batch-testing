@@ -7,7 +7,7 @@ expressions into shell code.
 
 import re
 import importlib
-from typing import List, Optional, Tuple, Any
+from typing import List, Optional, Tuple, Any, Union
 from ..config.debug_config import is_debug_enabled, debug_print
 from .matcher_registry import MatcherRegistry
 
