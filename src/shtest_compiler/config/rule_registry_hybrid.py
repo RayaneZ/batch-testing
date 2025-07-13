@@ -7,21 +7,31 @@ Registry central des matchers (patterns) et handlers pour SHTEST.
 """
 import re
 import yaml
+import sys
 from pathlib import Path
 import glob
 import importlib.util
+from shtest_compiler.config.debug_config import debug_print
 
 # === 1. Charger les patterns d'actions et de validations ===
 ACTIONS_CONFIG_PATH = Path(__file__).parent / "patterns_actions.yml"
 VALIDATIONS_CONFIG_PATH = Path(__file__).parent / "patterns_validations.yml"
 
-print("Loading YAML from", ACTIONS_CONFIG_PATH)
-with open(ACTIONS_CONFIG_PATH, encoding="utf-8") as f:
-    actions_patterns = yaml.safe_load(f)["actions"]
+debug_print("Loading YAML from", ACTIONS_CONFIG_PATH)
+try:
+    with open(ACTIONS_CONFIG_PATH, encoding="utf-8") as f:
+        actions_patterns = yaml.safe_load(f)["actions"]
+except yaml.scanner.ScannerError as e:
+    debug_print(f"YAML format error in {ACTIONS_CONFIG_PATH}: {e}")
+    raise
 
-print("Loading YAML from", VALIDATIONS_CONFIG_PATH)
-with open(VALIDATIONS_CONFIG_PATH, encoding="utf-8") as f:
-    validations_patterns = yaml.safe_load(f)["validations"]
+debug_print("Loading YAML from", VALIDATIONS_CONFIG_PATH)
+try:
+    with open(VALIDATIONS_CONFIG_PATH, encoding="utf-8") as f:
+        validations_patterns = yaml.safe_load(f)["validations"]
+except yaml.scanner.ScannerError as e:
+    debug_print(f"YAML format error in {VALIDATIONS_CONFIG_PATH}: {e}")
+    raise
 
 # === 2. Charger dynamiquement les patterns de chaque plugin ===
 PLUGINS_DIR = Path(__file__).parent.parent / "plugins"

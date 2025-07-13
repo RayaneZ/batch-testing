@@ -1,2 +1,0 @@
-Action: créer le fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.
-Action: mettre à jour le fichier = /tmp/test.txt avec les droits = 0600 ; Résultat: Le fichier est présent.

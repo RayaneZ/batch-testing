@@ -3,8 +3,9 @@ Tests for the new Core architecture and Visitor Pattern.
 """
 
 import pytest
-from shtest_compiler.core.visitor import ASTNode, BaseVisitor, ASTVisitor
+from shtest_compiler.ast.visitor import ASTNode, ASTVisitor
 from shtest_compiler.core.ast import Program, Line, Comment, Step, Texte
+from shtest_compiler.core.ast import ExpressionLogique, Terme, ResultatSimple, OperateurLogique
 from shtest_compiler.core.context import CompileContext
 
 # Test AST nodes - removed __init__ to avoid pytest collection warning
@@ -19,7 +20,7 @@ class AnotherNode(ASTNode):
         self.data = data
 
 # Test visitors
-class TestVisitor(BaseVisitor[str]):
+class TestVisitor(ASTVisitor):
     def visit_testnode(self, node: TestNode) -> str:
         return f"visited_testnode_{node.value}"
     
@@ -29,7 +30,7 @@ class TestVisitor(BaseVisitor[str]):
     def generic_visit(self, node: ASTNode) -> str:
         return f"generic_visit_{type(node).__name__}"
 
-class StringVisitor(BaseVisitor[str]):
+class StringVisitor(ASTVisitor):
     def generic_visit(self, node: ASTNode) -> str:
         return str(node)
 
@@ -113,7 +114,6 @@ def test_program_ast():
 
 def test_expression_logique():
     """Test ExpressionLogique AST node"""
-    from shtest_compiler.core.ast import ExpressionLogique, Terme, ResultatSimple, OperateurLogique
     
     expr = ExpressionLogique()
     

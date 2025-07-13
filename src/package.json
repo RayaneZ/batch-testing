@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "shellcheck": "^3.1.0"
+  },
+  "dependencies": {
+    "yaml-validator": "^5.1.0"
+  }
+}

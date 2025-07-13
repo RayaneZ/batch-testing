@@ -1,0 +1,137 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 20 lines
+[DEBUG] Lexing text with 20 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=stdout, result=('stdout',), original=Étape: stdout at line 1
+[DEBUG] Yielding token: STEP@1:0 'stdout' -> '('stdout',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Bonjour" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Bonjour" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "Bonjour", result=('echo "Bonjour"',), original=Action: echo "Bonjour" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "Bonjour"' -> '('echo "Bonjour"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Bonjour at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Bonjour at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stdout contient Bonjour at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stdout contient Bonjour, result=('stdout contient Bonjour',), original=Résultat: stdout contient Bonjour at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stdout contient Bonjour' -> '('stdout contient Bonjour',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=stderr, result=('stderr',), original=Étape: stderr at line 1
+[DEBUG] Yielding token: STEP@1:0 'stderr' -> '('stderr',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Erreur grave" 1>&2 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "Erreur grave" 1>&2 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "Erreur grave" 1>&2, result=('echo "Erreur grave" 1>&2',), original=Action: echo "Erreur grave" 1>&2 at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "Erreur grave" 1>&2' -> '('echo "Erreur grave" 1>&2',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stderr contient Erreur at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stderr contient Erreur at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: stderr contient Erreur at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=stderr contient Erreur, result=('stderr contient Erreur',), original=Résultat: stderr contient Erreur at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'stderr contient Erreur' -> '('stderr contient Erreur',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=fichier contient, result=('fichier contient',), original=Étape: fichier contient at line 1
+[DEBUG] Yielding token: STEP@1:0 'fichier contient' -> '('fichier contient',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "KO" > logs.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "KO" > logs.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "KO" > logs.txt, result=('echo "KO" > logs.txt',), original=Action: echo "KO" > logs.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "KO" > logs.txt' -> '('echo "KO" > logs.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier logs.txt contient KO at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier logs.txt contient KO at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier logs.txt contient KO at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=fichier logs.txt contient KO, result=('fichier logs.txt contient KO',), original=Résultat: fichier logs.txt contient KO at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'fichier logs.txt contient KO' -> '('fichier logs.txt contient KO',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=fichier existe, result=('fichier existe',), original=Étape: fichier existe at line 1
+[DEBUG] Yielding token: STEP@1:0 'fichier existe' -> '('fichier existe',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: touch fichier.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: touch fichier.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=touch fichier.txt, result=('touch fichier.txt',), original=Action: touch fichier.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'touch fichier.txt' -> '('touch fichier.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier fichier.txt existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier fichier.txt existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier fichier.txt existe at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=fichier fichier.txt existe, result=('fichier fichier.txt existe',), original=Résultat: fichier fichier.txt existe at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'fichier fichier.txt existe' -> '('fichier fichier.txt existe',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=fichier vide, result=('fichier vide',), original=Étape: fichier vide at line 1
+[DEBUG] Yielding token: STEP@1:0 'fichier vide' -> '('fichier vide',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: > vide.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: > vide.txt at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=> vide.txt, result=('> vide.txt',), original=Action: > vide.txt at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 '> vide.txt' -> '('> vide.txt',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier vide.txt est vide at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier vide.txt est vide at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Résultat: fichier vide.txt est vide at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.RESULT_ONLY, value=fichier vide.txt est vide, result=('fichier vide.txt est vide',), original=Résultat: fichier vide.txt est vide at line 1
+[DEBUG] Yielding token: RESULT_ONLY@1:0 'fichier vide.txt est vide' -> '('fichier vide.txt est vide',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 21 tokens
+[DEBUG] Grammar: _merge_action_result called with 21 tokens
+[DEBUG] Grammar: Token 0: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 1: kind=STEP, value='stdout'
+[DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value='echo "Bonjour"'
+[DEBUG] Grammar: Token 3: kind=RESULT_ONLY, value='stdout contient Bonjour'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=STEP, value='stderr'
+[DEBUG] Grammar: Token 6: kind=ACTION_ONLY, value='echo "Erreur grave" 1>&2'
+[DEBUG] Grammar: Token 7: kind=RESULT_ONLY, value='stderr contient Erreur'
+[DEBUG] Grammar: Token 8: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 9: kind=STEP, value='fichier contient'
+[DEBUG] Grammar: Token 10: kind=ACTION_ONLY, value='echo "KO" > logs.txt'
+[DEBUG] Grammar: Token 11: kind=RESULT_ONLY, value='fichier logs.txt contient KO'
+[DEBUG] Grammar: Token 12: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 13: kind=STEP, value='fichier existe'
+[DEBUG] Grammar: Token 14: kind=ACTION_ONLY, value='touch fichier.txt'
+[DEBUG] Grammar: Token 15: kind=RESULT_ONLY, value='fichier fichier.txt existe'
+[DEBUG] Grammar: Token 16: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 17: kind=STEP, value='fichier vide'
+[DEBUG] Grammar: Token 18: kind=ACTION_ONLY, value='> vide.txt'
+[DEBUG] Grammar: Token 19: kind=RESULT_ONLY, value='fichier vide.txt est vide'
+[DEBUG] Grammar: Token 20: kind=EMPTY, value=''
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "Bonjour"' with RESULT_ONLY 'stdout contient Bonjour'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "Erreur grave" 1>&2' with RESULT_ONLY 'stderr contient Erreur'
+[DEBUG] Grammar: Merging ACTION_ONLY 'echo "KO" > logs.txt' with RESULT_ONLY 'fichier logs.txt contient KO'
+[DEBUG] Grammar: Merging ACTION_ONLY 'touch fichier.txt' with RESULT_ONLY 'fichier fichier.txt existe'
+[DEBUG] Grammar: Merging ACTION_ONLY '> vide.txt' with RESULT_ONLY 'fichier vide.txt est vide'
+[DEBUG] Grammar: _merge_action_result returning 16 tokens
+[DEBUG] compile_atomic called with: expected='stdout contient Bonjour', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "Bonjour"'}
+[DEBUG] canonize_validation result: {'phrase': '^stdout contient (.+)$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'La sortie standard contient {text}', 'handler': 'stdout_contains', 'scope': 'last_action', 'opposite': {'phrase': 'La sortie standard ne contient pas {text}'}, 'aliases': ['stdout contient {text}', 'la sortie contient {text}', 'la sortie standard affiche {text}', '^stdout contient (.+)$', '^la sortie standard contient (.+)$']}, 'params': {'text': 'bonjour'}}
+[DEBUG] Trying to extract parameters from action command: 'echo "Bonjour"'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stdout contient bonjour', actual_cmd='if echo "$stdout" | grep -q "bonjour"; then echo \'stdout contient bonjour\'; else echo \'stdout ne contient pas bonjour\'; fi', handler='stdout_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='stderr contient Erreur', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "Erreur grave" 1>&2'}
+[DEBUG] canonize_validation result: {'phrase': '^stderr contient (.+)$', 'handler': 'stderr_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': "La sortie d'erreur contient {text}", 'handler': 'stderr_contains', 'scope': 'last_action', 'opposite': {'phrase': "La sortie d'erreur ne contient pas {text}"}, 'aliases': ['stderr contient {text}', "la sortie d'erreur affiche {text}", '^stderr contient (.+)$', "^la sortie d'erreur contient (.+)$"]}, 'params': {'text': 'erreur'}}
+[DEBUG] Trying to extract parameters from action command: 'echo "Erreur grave" 1>&2'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stderr_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='stderr contient erreur', actual_cmd='if echo "$stderr" | grep -q "erreur"; then echo \'stderr contient erreur\'; else echo \'stderr ne contient pas erreur\'; fi', handler='stderr_contains', scope='global', params={})
+[DEBUG] compile_atomic called with: expected='fichier logs.txt contient KO', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'echo "KO" > logs.txt'}
+[DEBUG] canonize_validation result: {'phrase': '^fichier ([^ ]+) contient (.+)$', 'handler': 'file_contains', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier {file} contient {text}', 'handler': 'file_contains', 'scope': 'global', 'opposite': {'phrase': 'Le fichier {file} ne contient pas {text}'}, 'aliases': ['fichier {file} contient {text}', '^fichier ([^ ]+) contient (.+)$', '^le fichier ([^ ]+) contient (.+)$']}, 'params': {'file': 'logs.txt', 'text': 'ko'}}
+[DEBUG] Trying to extract parameters from action command: 'echo "KO" > logs.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_contains
+[DEBUG] Core handler returned: ValidationCheck(expected='^fichier ([^ ]+) contient (.+)$', actual_cmd='if grep -q "{text}" "{file}"; then echo \'{expected}\'; else echo \'{opposite}\'; fi', handler='file_contains', scope='global', params={'file': 'logs.txt', 'text': 'ko', 'opposite': 'NOT(^fichier ([^ ]+) contient (.+)$)'})
+[DEBUG] compile_atomic called with: expected='fichier fichier.txt existe', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'touch fichier.txt'}
+[DEBUG] canonize_validation result: {'phrase': '^fichier ([^ ]+) existe$', 'handler': 'file_exists', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier {file} existe', 'handler': 'file_exists', 'scope': 'global', 'opposite': {'phrase': "Le fichier {file} n'existe pas"}, 'aliases': ['fichier {file} existe', '^fichier ([^ ]+) existe$', '^le fichier ([^ ]+) existe$']}, 'params': {'file': 'fichier.txt'}}
+[DEBUG] Trying to extract parameters from action command: 'touch fichier.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_exists
+[DEBUG] Core handler returned: ValidationCheck(expected='^fichier ([^ ]+) existe$', actual_cmd="if [ -f 'fichier.txt' ]; then echo '^fichier ([^ ]+) existe$'; else echo 'le fichier fichier.txt n'\\''existe pas'; fi", handler='file_exists', scope='global', params={'file_path': 'fichier.txt', 'opposite': "le fichier fichier.txt n'existe pas"})
+[DEBUG] compile_atomic called with: expected='fichier vide.txt est vide', varname='result', last_file_var=None, extracted_args=None, action_context={'command': '> vide.txt'}
+[DEBUG] canonize_validation result: {'phrase': '^fichier ([^ ]+) est vide$', 'handler': 'file_empty', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier {file} est vide', 'handler': 'file_empty', 'scope': 'global', 'opposite': {'phrase': "Le fichier {file} n'est pas vide"}, 'aliases': ['fichier {file} est vide', '^fichier ([^ ]+) est vide$', '^le fichier ([^ ]+) est vide$']}, 'params': {'file': 'vide.txt'}}
+[DEBUG] Trying to extract parameters from action command: '> vide.txt'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_empty
+[DEBUG] Core handler returned: ValidationCheck(expected='^fichier ([^ ]+) est vide$', actual_cmd="if [ ! -s 'vide.txt' ]; then echo '^fichier ([^ ]+) est vide$'; else echo 'le fichier vide.txt n'\\''est pas vide'; fi", handler='file_empty', scope='global', params={'file_path': 'vide.txt', 'opposite': "le fichier vide.txt n'est pas vide"})
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_all_validations.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_all_validations.sh

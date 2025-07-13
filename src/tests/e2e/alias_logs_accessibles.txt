@@ -1,0 +1,37 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 3 lines
+[DEBUG] Lexing text with 3 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Vérification des logs, result=('Vérification des logs',), original=Étape: Vérification des logs at line 1
+[DEBUG] Yielding token: STEP@1:0 'Vérification des logs' -> '('Vérification des logs',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: indiquer le chemin des logs /var/log/sys.log ; Résultat: les logs sont accessibles at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=indiquer le chemin des logs /var/log/sys.log, result=('indiquer le chemin des logs /var/log/sys.log', 'les logs sont accessibles', None), original=Action: indiquer le chemin des logs /var/log/sys.log ; Résultat: les logs sont accessibles at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'indiquer le chemin des logs /var/log/sys.log' -> '('indiquer le chemin des logs /var/log/sys.log', 'les logs sont accessibles', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 4 tokens
+[DEBUG] Grammar: _merge_action_result called with 4 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Vérification des logs'
+[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='indiquer le chemin des logs /var/log/sys.log'
+[DEBUG] Grammar: Token 3: kind=EMPTY, value=''
+[DEBUG] Grammar: _merge_action_result returning 4 tokens
+[DEBUG] compile_atomic called with: expected='les logs sont accessibles', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'indiquer le chemin des logs /var/log/sys.log'}
+[DEBUG] canonize_validation result: {'phrase': 'les logs sont accessibles', 'handler': 'logs_accessible', 'scope': 'global', 'pattern_entry': {'phrase': 'Logs accessibles', 'handler': 'logs_accessible', 'scope': 'global', 'opposite': {'phrase': 'Logs non accessibles'}, 'aliases': ['logs accessibles', 'les logs sont accessibles', '^logs accessibles$', '^les logs sont accessibles$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'indiquer le chemin des logs /var/log/sys.log'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.logs_accessible
+[DEBUG] Core handler returned: ValidationCheck(expected='les logs sont accessibles', actual_cmd="if [ -f '{file_path}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='logs_accessible', scope='global', params={'file_path': None, 'opposite': "le fichier None n'est pas accessible"})
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\alias_logs_accessibles.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\alias_logs_accessibles.sh

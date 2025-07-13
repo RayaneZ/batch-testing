@@ -4,16 +4,16 @@ Generates shell script code from AST nodes.
 """
 
 from typing import List, Tuple, Any
-from shtest_compiler.core.visitor import BaseVisitor
-from shtest_compiler.core.ast import ASTNode
+from shtest_compiler.ast.visitor import ASTVisitor
 from shtest_compiler.core.context import CompileContext
+from shtest_compiler.core.ast import ASTNode
 from shtest_compiler.parser.shunting_yard import (
     SQLScriptExecution, FileEquals, FileSizeCheck, FileLineCount, 
     VarEquals, FileEmpty, FileExists, Atomic, BinaryOp, 
     StdoutContains, StderrContains, FileContains
 )
 
-class ShellVisitor(BaseVisitor[Tuple[List[str], str]]):
+class ShellVisitor(ASTVisitor[Tuple[List[str], str]]):
     """
     Visitor for generating shell script code from AST nodes.
     Returns (shell_lines, condition_variable_name)
@@ -27,7 +27,8 @@ class ShellVisitor(BaseVisitor[Tuple[List[str], str]]):
         from shtest_compiler.compiler.atomic_compiler import compile_atomic
         
         var = self.context.get_condition_var()
-        print(var)
+        if node.value.strip().lower() == "true":
+            return [f"{var}=1"], var
         lines = compile_atomic(node.value, var, self.context.last_file_var, context=self.context)
         
         if self.context.verbose:

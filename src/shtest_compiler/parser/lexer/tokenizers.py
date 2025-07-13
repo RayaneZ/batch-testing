@@ -28,16 +28,22 @@ def _token_type_from_str(type_str: str) -> TokenType:
 class RegexTokenizer(Tokenizer):
     """Tokenizer that uses regex patterns."""
     
-    def __init__(self, pattern: str, token_type: str):
+    def __init__(self, pattern, token_type: str, debug: bool = False):
         """
         Initialize the regex tokenizer.
         
         Args:
-            pattern: Regex pattern to match
+            pattern: Regex pattern to match (string or compiled pattern)
             token_type: Type of token to create (string, e.g. 'ACTION_ONLY')
+            debug: Enable debug output for this tokenizer
         """
-        self.pattern = re.compile(pattern, re.IGNORECASE)
+        import re
+        if isinstance(pattern, str):
+            self.pattern = re.compile(pattern, re.IGNORECASE)
+        else:
+            self.pattern = pattern  # already compiled
         self.token_type = _token_type_from_str(token_type)
+        self.debug = debug
     
     def tokenize(self, text: str) -> Iterator[Token]:
         """Tokenize text using regex patterns."""
@@ -48,7 +54,7 @@ class RegexTokenizer(Tokenizer):
             
             # Skip empty lines
             if not stripped:
-                if is_debug_enabled():
+                if self.debug or is_debug_enabled():
                     debug_print(f"[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line {lineno}")
                 yield Token(type=TokenType.EMPTY, value="", lineno=lineno, original=line)
                 continue
@@ -63,13 +69,13 @@ class RegexTokenizer(Tokenizer):
                     lineno=lineno,
                     original=line
                 )
-                if is_debug_enabled():
+                if self.debug or is_debug_enabled():
                     debug_print(f"[DEBUG] RegexTokenizer.tokenize: Yielding token type={token.type}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)} at line {lineno}")
                 yield token
             else:
                 # No match, yield as TEXT token
                 token = Token(type=TokenType.TEXT, value=stripped, lineno=lineno, original=line)
-                if is_debug_enabled():
+                if self.debug or is_debug_enabled():
                     debug_print(f"[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value={stripped} at line {lineno}")
                 yield token
 

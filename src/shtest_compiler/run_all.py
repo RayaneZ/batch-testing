@@ -61,6 +61,8 @@ def main():
     
     # Set global debug configuration
     set_debug(args.debug)
+    if args.debug:
+        os.environ["SHTEST_DEBUG"] = "1"
 
     config_input, config_output, config_driver = read_config()
     input_dir = args.input or config_input

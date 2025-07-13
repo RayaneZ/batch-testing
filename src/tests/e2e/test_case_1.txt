@@ -1,0 +1,55 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 5 lines
+[DEBUG] Lexing text with 5 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Initialisation, result=('Initialisation',), original=Étape: Initialisation at line 1
+[DEBUG] Yielding token: STEP@1:0 'Initialisation' -> '('Initialisation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=toucher le fichier /tmp/init.flag 202501010000, result=('toucher le fichier /tmp/init.flag 202501010000', 'Le fichier est initialisé', None), original=Action: toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'toucher le fichier /tmp/init.flag 202501010000' -> '('toucher le fichier /tmp/init.flag 202501010000', 'Le fichier est initialisé', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=exécuter le script SQL JDD_Commun.sql, result=('exécuter le script SQL JDD_Commun.sql', 'La base de test est prête', None), original=Action: exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'exécuter le script SQL JDD_Commun.sql' -> '('exécuter le script SQL JDD_Commun.sql', 'La base de test est prête', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: afficher le contenu du fichier /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=afficher le contenu du fichier /tmp/JDD_Commun.sql, result=('afficher le contenu du fichier /tmp/JDD_Commun.sql', 'Le contenu est affiché', None), original=Action: afficher le contenu du fichier /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'afficher le contenu du fichier /tmp/JDD_Commun.sql' -> '('afficher le contenu du fichier /tmp/JDD_Commun.sql', 'Le contenu est affiché', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 6 tokens
+[DEBUG] Grammar: _merge_action_result called with 6 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='Initialisation'
+[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='toucher le fichier /tmp/init.flag 202501010000'
+[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='exécuter le script SQL JDD_Commun.sql'
+[DEBUG] Grammar: Token 4: kind=ACTION_RESULT, value='afficher le contenu du fichier /tmp/JDD_Commun.sql'
+[DEBUG] Grammar: Token 5: kind=EMPTY, value=''
+[DEBUG] Grammar: _merge_action_result returning 6 tokens
+[DEBUG] compile_atomic called with: expected='Le fichier est initialisé', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'toucher le fichier /tmp/init.flag 202501010000'}
+[DEBUG] canonize_validation result: {'phrase': 'le fichier est initialisé', 'handler': 'file_present', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'opposite': {'phrase': 'Le fichier est absent'}, 'aliases': ['Le fichier est présent', 'le fichier existe', 'fichier présent', 'le fichier est cree', 'fichier cree', 'le fichier est créé', 'fichier créé', 'le fichier est initialisé', 'fichier initialisé', '^le fichier est présent$', '^le fichier existe$', '^fichier présent$', '^le fichier est cree$', '^fichier cree$', '^le fichier est créé$', '^fichier créé$', '^le fichier est initialisé$', '^fichier initialisé$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'toucher le fichier /tmp/init.flag 202501010000'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_present
+[DEBUG] Core handler returned: ValidationCheck(expected='le fichier est initialisé', actual_cmd="if [ -f  ]; then echo 'le fichier est initialisé'; else echo 'le fichier None est absent'; fi", handler='file_present', scope='global', params={'file_path': None, 'opposite': 'le fichier None est absent'})
+[DEBUG] compile_atomic called with: expected='La base de test est prête', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'exécuter le script SQL JDD_Commun.sql'}
+[DEBUG] canonize_validation result: {'phrase': 'La base de test est prête', 'handler': 'base_ready', 'scope': 'global', 'pattern_entry': {'phrase': 'Base prête', 'handler': 'base_ready', 'scope': 'global', 'opposite': {'phrase': 'Base non prête'}, 'aliases': ['base prête', 'base prete', 'La base de test est prête', 'La base est prête pour le test', '^base prête$', '^base prete$', '^la base de test est prête$', '^la base est prête pour le test$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'exécuter le script SQL JDD_Commun.sql'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.base_ready
+[DEBUG] Core handler returned: ValidationCheck(expected='La base de test est prête', actual_cmd="if [ -f 'db_ready.flag' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='base_ready', scope='global', params={'opposite': "la base n'est pas prête"})
+[DEBUG] compile_atomic called with: expected='Le contenu est affiché', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'afficher le contenu du fichier /tmp/JDD_Commun.sql'}
+[DEBUG] canonize_validation result: {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
+[DEBUG] Trying to extract parameters from action command: 'afficher le contenu du fichier /tmp/JDD_Commun.sql'
+[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.content_displayed
+[DEBUG] Core handler returned: ValidationCheck(expected='Le contenu est affiché', actual_cmd="if [ -s '{file_path}' ]; then echo '{expected}'; else echo '{opposite}'; fi", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_case_1.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\to_implement\test_case_1.sh

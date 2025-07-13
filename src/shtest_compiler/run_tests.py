@@ -15,7 +15,8 @@ from pathlib import Path
 def run_unit_tests(verbose=False):
     """Run all unit tests"""
     print("Running Unit Tests...")
-    cmd = ["python", "-m", "pytest", "tests/unit/"]
+    unit_test_dir = Path(__file__).parent.parent / "tests" / "unit"
+    cmd = ["python", "-m", "pytest", str(unit_test_dir)]
     if verbose:
         cmd.append("-v")
     

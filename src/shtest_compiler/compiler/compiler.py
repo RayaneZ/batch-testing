@@ -11,11 +11,12 @@ from pathlib import Path
 
 from ..parser import ConfigurableParser, grammar_registry, ast_builder_registry
 from ..parser.shtest_ast import ShtestFile
-from ..core.visitor import ASTVisitor
+from shtest_compiler.ast.visitor import ASTVisitor
 from ..core.context import CompileContext
 from .shell_generator import ShellGenerator
 from .matcher_registry import MatcherRegistry
-from ..config.debug_config import is_debug_enabled, debug_print
+from ..config.debug_config import is_debug_enabled, debug_print, DebugConfig
+from ..ast.shell_framework_ast import pretty_print_ast
 
 
 class ModularCompiler:
@@ -24,7 +25,8 @@ class ModularCompiler:
     def __init__(self, 
                  grammar_name: str = "default",
                  ast_builder_name: str = "default",
-                 debug: bool = False):
+                 debug: bool = False,
+                 debug_output_path: str = None):
         """
         Initialize the modular compiler.
         
@@ -32,11 +34,13 @@ class ModularCompiler:
             grammar_name: Name of the grammar to use (from grammar_registry)
             ast_builder_name: Name of the AST builder to use (from ast_builder_registry)
             debug: Enable debug mode (deprecated, use global debug config)
+            debug_output_path: Path to debug output file (optional)
         """
         # Use global debug configuration
         self.debug = debug or is_debug_enabled()
         self.grammar_name = grammar_name
         self.ast_builder_name = ast_builder_name
+        self.debug_output_path = debug_output_path
         
         # Create parser with specified components
         self.parser = ConfigurableParser(
@@ -46,7 +50,7 @@ class ModularCompiler:
         )
         
         # Initialize other components
-        self.shell_generator = ShellGenerator()
+        self.shell_generator = ShellGenerator(debug_output_path=debug_output_path)
         self.matcher_registry = MatcherRegistry()
         self.context = CompileContext()
         
@@ -54,54 +58,66 @@ class ModularCompiler:
         self.grammar_registry = grammar_registry
         self.ast_builder_registry = ast_builder_registry
     
-    def compile_file(self, file_path: str, output_path: Optional[str] = None) -> str:
-        """
-        Compile a .shtest file to a shell script.
-        
-        Args:
-            file_path: Path to the .shtest file
-            output_path: Optional output path for the shell script
-            
-        Returns:
-            Path to the generated shell script
-        """
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File not found: {file_path}")
-        
-        # Parse the file
-        ast = self.parser.parse_file(file_path)
-        
-        # Generate shell script
-        shell_script = self._generate_shell_script(ast)
-        
-        # Write output
-        if output_path is None:
-            output_path = self._get_default_output_path(file_path)
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(shell_script)
-        
-        if self.debug:
-            debug_print(f"Compiled {file_path} -> {output_path}")
-        
-        return output_path
+    def compile_file(self, file_path: str, output_path: Optional[str] = None, debug_output_path: str = None, debug_ast: bool = False) -> str:
+        try:
+            if not os.path.exists(file_path):
+                raise FileNotFoundError(f"File not found: {file_path}")
+            # Parse the file
+            ast = self.parser.parse_file(file_path)
+            if debug_ast:
+                pretty_print_ast(ast)
+            # Set debug_output_path to match test name if not provided
+            if debug_output_path is None:
+                base = os.path.splitext(os.path.basename(file_path))[0]
+                dir_path = os.path.dirname(os.path.abspath(file_path))
+                debug_output_path = os.path.join(dir_path, base + ".txt")
+            # Generate shell script
+            shell_script = self._generate_shell_script(ast, debug_output_path=debug_output_path)
+            # Write output
+            if output_path is None:
+                output_path = self._get_default_output_path(file_path)
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(shell_script)
+            if self.debug:
+                debug_print(f"Compiled {file_path} -> {output_path}")
+            # Export debug log if enabled
+            if self.debug and debug_output_path:
+                DebugConfig.export_log(debug_output_path)
+            return output_path
+        except Exception as e:
+            import traceback
+            error_msg = f"[ERROR] {type(e).__name__}: {e}"
+            stack = traceback.format_exc()
+            debug_print(error_msg)
+            debug_print(stack)
+            print(error_msg)
+            if debug_output_path:
+                DebugConfig.export_log(debug_output_path)
+            # Optionally, write a fallback shell script
+            if output_path:
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    f.write(f'echo "{error_msg}"\nexit 1')
+            raise
     
-    def compile_text(self, text: str, output_path: Optional[str] = None) -> str:
+    def compile_text(self, text: str, output_path: Optional[str] = None, debug_output_path: str = None, debug_ast: bool = False) -> str:
         """
         Compile .shtest text to a shell script.
         
         Args:
             text: The .shtest content
             output_path: Optional output path for the shell script
+            debug_output_path: Path to debug output file (optional)
             
         Returns:
             Path to the generated shell script
         """
         # Parse the text
         ast = self.parser.parse(text)
+        if debug_ast:
+            pretty_print_ast(ast)
         
         # Generate shell script
-        shell_script = self._generate_shell_script(ast)
+        shell_script = self._generate_shell_script(ast, debug_output_path=debug_output_path)
         
         # Write output
         if output_path is None:
@@ -115,16 +131,14 @@ class ModularCompiler:
         
         return output_path
     
-    def _generate_shell_script(self, ast: ShtestFile) -> str:
+    def _generate_shell_script(self, ast: ShtestFile, debug_output_path: str = None) -> str:
         """Generate shell script from AST."""
         # Reset context for new compilation
         self.context.reset()
-        
         # Visit the AST to generate shell code
-        visitor = ShellGenerator()
+        visitor = ShellGenerator(debug_output_path=debug_output_path or self.debug_output_path)
         visitor.context = self.context
         visitor.matcher_registry = self.matcher_registry
-        
         return visitor.visit(ast)
     
     def _get_default_output_path(self, input_path: str) -> str:

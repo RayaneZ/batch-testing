@@ -7,139 +7,144 @@ expressions into shell code.
 
 import re
 import importlib
+import os
 from typing import List, Optional, Tuple, Any, Union
 from ..config.debug_config import is_debug_enabled, debug_print
-from .matcher_registry import MatcherRegistry
+from shtest_compiler.core.errors import ValidationParseError
+import yaml
 
 
-def compile_atomic(expected: str, varname: str = "result", last_file_var: Optional[str] = None, extracted_args: Optional[dict] = None) -> List[str]:
-    """
-    Compile a single validation expression into shell code.
-    
-    Args:
-        expected: The validation expression to compile
-        varname: Variable name to use for the result
-        last_file_var: Last file variable from previous action
-        extracted_args: Dict of arguments extracted from the action command
-        
-    Returns:
-        List of shell code lines
-    """
-    # Use global debug configuration
+def compile_atomic(expected: str, varname: str = "result", last_file_var: Optional[str] = None, extracted_args: Optional[dict] = None, action_context: Optional[dict] = None) -> List[str]:
     debug_enabled = is_debug_enabled()
-    
     if debug_enabled:
-        debug_print(f"[DEBUG] compile_atomic called with: expected='{expected}', varname='{varname}', last_file_var={last_file_var}, extracted_args={extracted_args}")
-    
-    # Canonicalize the validation expression
+        debug_print(f"[DEBUG] compile_atomic called with: expected='{expected}', varname='{varname}', last_file_var={last_file_var}, extracted_args={extracted_args}, action_context={action_context}")
     canon = canonize_validation(expected)
     if debug_enabled:
         debug_print(f"[DEBUG] canonize_validation result: {canon}")
-    
     if not canon:
-        return [f"echo 'ERROR: No matcher found for validation: {expected}'"]
+        raise ValidationParseError(f"No matcher found for validation: '{expected}'")
+    handler = canon['handler']
+    scope = canon['scope']
+    params = canon['params']
     
-    phrase_canonique, handler, scope, pattern_entry = canon
-    # Check for negation/opposite
-    if 'opposite' in pattern_entry:
-        opp = pattern_entry['opposite']
-        # If the expected matches the opposite phrase or any of its aliases, use the opposite handler
-        opp_phrase = opp.get('phrase', '').lower().strip()
-        if expected.lower().strip() == opp_phrase:
-            handler = opp.get('handler', handler)
-            phrase_canonique = opp_phrase
-    if debug_enabled:
-        debug_print(f"[DEBUG] Canonical validation: '{phrase_canonique}' (handler: {handler}, scope: {scope}) for '{expected}'")
+    # Fill in missing parameters from action_context if available
+    if action_context and action_context.get('command'):
+        from shtest_compiler.compiler.argument_extractor import extract_action_args
+        from shtest_compiler.compiler.shell_generator import extract_action_groups, canonize_action
+        
+        command = action_context['command']
+        if debug_enabled:
+            debug_print(f"[DEBUG] Trying to extract parameters from action command: '{command}'")
+        
+        # Try to extract missing parameters from the action command
+        for pname, pval in params.items():
+            if pval is None:
+                if debug_enabled:
+                    debug_print(f"[DEBUG] Parameter '{pname}' is None, trying to extract from action")
+                # Method 1: Try using extract_action_args
+                extracted_args_from_action = extract_action_args(command)
+                if debug_enabled:
+                    debug_print(f"[DEBUG] extract_action_args result: {extracted_args_from_action}")
+                if extracted_args_from_action and pname in extracted_args_from_action:
+                    params[pname] = extracted_args_from_action[pname]
+                    if debug_enabled:
+                        debug_print(f"[DEBUG] Found '{pname}' in extracted_args: {extracted_args_from_action[pname]}")
+                    continue
+                elif debug_enabled:
+                    debug_print(f"[DEBUG] extract_action_args returned None or missing '{pname}'")
+                
+                # Method 2: Try using canonize_action + extract_action_groups
+                canon_action = canonize_action(command)
+                if debug_enabled:
+                    debug_print(f"[DEBUG] canonize_action result: {canon_action}")
+                if canon_action:
+                    phrase_canonique, handler_name, pattern_entry = canon_action
+                    # Find matching pattern
+                    matched_pattern = None
+                    for alias in [pattern_entry["phrase"]] + pattern_entry.get("aliases", []):
+                        if not isinstance(alias, str):
+                            continue
+                        if alias.lower() == command.lower().strip():
+                            matched_pattern = alias
+                            break
+                        if alias.startswith("^") and alias.endswith("$"):
+                            try:
+                                if re.match(alias, command.lower().strip(), re.IGNORECASE):
+                                    matched_pattern = alias
+                                    break
+                            except re.error:
+                                continue
+                    
+                    if debug_enabled:
+                        debug_print(f"[DEBUG] Matched pattern: {matched_pattern}")
+                    if matched_pattern:
+                        groups = extract_action_groups(command, matched_pattern)
+                        if debug_enabled:
+                            debug_print(f"[DEBUG] extract_action_groups result: {groups}")
+                        # Extract parameter names from the pattern
+                        param_names = re.findall(r'\{(\w+)\}', matched_pattern)
+                        if debug_enabled:
+                            debug_print(f"[DEBUG] Parameter names from pattern: {param_names}")
+                        # Map parameter names to groups
+                        for i, param_name in enumerate(param_names):
+                            if param_name == pname and i < len(groups):
+                                params[pname] = groups[i]
+                                if debug_enabled:
+                                    debug_print(f"[DEBUG] Mapped '{param_name}' to '{groups[i]}'")
+                                break
+                        # Also try to map common parameter name variations
+                        if pname == 'file' and 'path' in param_names:
+                            path_idx = param_names.index('path')
+                            if path_idx < len(groups):
+                                params[pname] = groups[path_idx]
+                                if debug_enabled:
+                                    debug_print(f"[DEBUG] Mapped 'file' to 'path' value: {groups[path_idx]}")
+                        elif pname == 'date' and 'timestamp' in param_names:
+                            timestamp_idx = param_names.index('timestamp')
+                            if timestamp_idx < len(groups):
+                                params[pname] = groups[timestamp_idx]
+                                if debug_enabled:
+                                    debug_print(f"[DEBUG] Mapped 'date' to 'timestamp' value: {groups[timestamp_idx]}")
     
-    # Find matching validation pattern
-    matcher_registry = MatcherRegistry()
-    matched_pattern = matcher_registry.find_matcher(expected, scope=scope)
-    if debug_enabled:
-        debug_print(f"[DEBUG] find_matcher result: {matched_pattern}")
-    
-    if not matched_pattern:
-        return [f"echo 'ERROR: No matcher found for validation: {expected}'"]
-    
-    # Extract validation groups from the matched pattern
-    groups = extract_validation_groups(expected, matched_pattern)
-    if debug_enabled:
-        debug_print(f"[DEBUG] extract_validation_groups result: {groups}")
-    
-    # Try to import and use the validation plugin
+    # Add extra context
+    params['scope'] = scope
+    params['canonical_phrase'] = canon['phrase']
+    params['varname'] = varname
+    params['last_file_var'] = last_file_var
+    if extracted_args:
+        params.update(extracted_args)
+    # Try to import and use the core handler first
     try:
         if debug_enabled:
-            debug_print(f"[DEBUG] Trying to import plugin: shtest_compiler.plugins.{handler}")
-        
-        plugin_module = importlib.import_module(f"shtest_compiler.plugins.{handler}")
-        if debug_enabled:
-            debug_print(f"[DEBUG] Plugin imported successfully: {plugin_module}")
-        
-        # Check if plugin has handle method
-        if hasattr(plugin_module, 'handle'):
+            debug_print(f"[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.{handler}")
+        core_module = importlib.import_module(f"shtest_compiler.core.handlers.{handler}")
+        if hasattr(core_module, 'handle'):
+            result = core_module.handle(params)
             if debug_enabled:
-                debug_print(f"[DEBUG] Plugin has handle method, calling with groups={groups}, scope={scope}")
-            
-            validation_obj = plugin_module.handle(groups, scope=scope)
-            if debug_enabled:
-                debug_print(f"[DEBUG] Plugin handle returned: {validation_obj}")
-            
-            # Check if validation object has to_shell method
-            if hasattr(validation_obj, 'to_shell'):
-                import inspect
-                sig = inspect.signature(validation_obj.to_shell)
-                param_names = list(sig.parameters.keys())
-                if debug_enabled:
-                    debug_print(f"[DEBUG] to_shell signature: {sig}, param_names: {param_names}")
-                
-                # Prepare arguments for to_shell
-                kwargs = {}
-                if 'varname' in param_names:
-                    kwargs['varname'] = varname
-                if 'last_file_var' in param_names:
-                    kwargs['last_file_var'] = last_file_var
-                # Pass extracted_args if plugin expects them
-                if extracted_args:
-                    for k, v in extracted_args.items():
-                        if k in param_names:
-                            kwargs[k] = v
-                # Call to_shell with appropriate parameters
-                matched = validation_obj.to_shell(**kwargs)
-                if debug_enabled:
-                    debug_print(f"[DEBUG] Generated shell code: {matched}")
-                if isinstance(matched, list):
-                    return matched
-                elif isinstance(matched, str):
-                    return [matched]
-                else:
-                    return [f"echo 'ERROR: Invalid return type from plugin {handler}'"]
+                debug_print(f"[DEBUG] Core handler returned: {result}")
+            if hasattr(result, 'expected') and hasattr(result, 'actual_cmd'):
+                # It's a ValidationCheck, let the emitter handle it
+                return [result]
+            elif isinstance(result, list):
+                return result
+            elif isinstance(result, str):
+                return [result]
             else:
-                return [f"echo 'ERROR: Plugin {handler} does not have to_shell method'"]
+                return [f"echo 'ERROR: Invalid return type from core handler {handler}'"]
         else:
-            return [f"echo 'ERROR: Plugin {handler} does not have handle method'"]
-            
+            return [f"echo 'ERROR: Core handler {handler} does not have handle method'"]
     except ImportError as e:
         if debug_enabled:
-            debug_print(f"[DEBUG] ImportError: {e}")
-        return [f"echo 'ERROR: Could not import plugin {handler}: {e}'"]
+            debug_print(f"[DEBUG] Core handler ImportError: {e}")
+        return [f"echo 'ERROR: Could not import handler {handler}: {e}'"]
     except Exception as e:
         if debug_enabled:
-            debug_print(f"[DEBUG] Exception in plugin {handler}: {e}")
-        return [f"echo 'ERROR: Exception in plugin {handler}: {e}'"]
-    
-    # If we get here, we found a matcher but couldn't use the plugin
-    if debug_enabled:
-        debug_print(f"[DEBUG] Matcher found for: '{expected}' (scope: {scope})")
-    
+            debug_print(f"[DEBUG] Exception in core handler {handler}: {e}")
+        return [f"echo 'ERROR: Exception in core handler {handler}: {e}'"]
     return [f"echo 'ERROR: No handler found for validation: {expected}'"]
 
 
-def canonize_validation(validation: str) -> Optional[Tuple[str, str, str, dict]]:
-    """
-    Canonicalize a validation expression to find the appropriate handler.
-    Returns (canonical_phrase, handler_name, scope, pattern_entry) or None if not found
-    """
-    import yaml
-    import os
+def canonize_validation(validation: str):
     patterns_path = os.path.join(os.path.dirname(__file__), "../config/patterns_validations.yml")
     if not os.path.exists(patterns_path):
         return None
@@ -148,34 +153,57 @@ def canonize_validation(validation: str) -> Optional[Tuple[str, str, str, dict]]
         validation_patterns = data.get("validations", [])
     validation_lower = validation.lower().strip()
     for pattern_entry in validation_patterns:
-        # Check exact phrase match
-        if pattern_entry["phrase"].lower() == validation_lower:
-            return (
-                pattern_entry["phrase"],
-                pattern_entry["handler"],
-                pattern_entry.get("scope", "global"),
-                pattern_entry
-            )
-        # Check aliases
+        phrase = pattern_entry["phrase"]
+        # Extract parameter names from phrase
+        param_names = re.findall(r"\{([^}]+)\}", phrase)
+        # Placeholder regex for phrase
+        if param_names:
+            placeholder_regex = "^" + re.sub(r"\{[^}]+\}", r"(.+)", phrase) + "$"
+            match = re.match(placeholder_regex, validation_lower)
+            if match:
+                groups = list(match.groups())
+                params = dict(zip(param_names, groups))
+                return {
+                    'phrase': phrase,
+                    'handler': pattern_entry["handler"],
+                    'scope': pattern_entry.get("scope", "global"),
+                    'pattern_entry': pattern_entry,
+                    'params': params
+                }
+        # Exact match
+        if phrase.lower() == validation_lower:
+            return {
+                'phrase': phrase,
+                'handler': pattern_entry["handler"],
+                'scope': pattern_entry.get("scope", "global"),
+                'pattern_entry': pattern_entry,
+                'params': {}
+            }
+        # Aliases
         for alias in pattern_entry.get("aliases", []):
             if alias.lower() == validation_lower:
-                return (
-                    pattern_entry["phrase"],
-                    pattern_entry["handler"],
-                    pattern_entry.get("scope", "global"),
-                    pattern_entry
-                )
+                return {
+                    'phrase': alias,
+                    'handler': pattern_entry["handler"],
+                    'scope': pattern_entry.get("scope", "global"),
+                    'pattern_entry': pattern_entry,
+                    'params': {}
+                }
+            # Regex alias
             if alias.startswith("^") and alias.endswith("$"):
-                try:
-                    if re.match(alias, validation_lower, re.IGNORECASE):
-                        return (
-                            pattern_entry["phrase"],
-                            pattern_entry["handler"],
-                            pattern_entry.get("scope", "global"),
-                            pattern_entry
-                        )
-                except re.error:
-                    continue
+                regex = alias
+                match = re.match(regex, validation_lower)
+                if match:
+                    groups = list(match.groups()) if match else []
+                    # Try to extract param names from alias if possible
+                    params = dict(zip(param_names, groups)) if param_names else {}
+                    return {
+                        'phrase': alias,
+                        'handler': pattern_entry["handler"],
+                        'scope': pattern_entry.get("scope", "global"),
+                        'pattern_entry': pattern_entry,
+                        'params': params
+                    }
     return None
 
 

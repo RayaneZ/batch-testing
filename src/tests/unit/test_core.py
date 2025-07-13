@@ -3,6 +3,8 @@ import pytest
 from shtest_compiler.parser.parser import Parser
 from shtest_compiler.parser.lexer.configurable_lexer import ConfigurableLexer
 from shtest_compiler.parser.shunting_yard import parse_validation_expression
+from shtest_compiler.ast.shell_framework_ast import ShellFrameworkAST, ShellTestStep, ValidationCheck
+from shtest_compiler.ast.shell_framework_binder import ShellFrameworkBinder
 
 
 def test_lexer_basic_tokens():
@@ -55,3 +57,16 @@ def test_validation_expression():
         parse_validation_expression(expr)
     except Exception:
         pytest.fail("L'expression de validation devrait être valide")
+
+
+def test_scope_enforcement_raises_on_local_validation_without_action():
+    # Create a fake local validation
+    local_validation = ValidationCheck()
+    local_validation.scope = 'last_action'
+    local_validation.phrase = 'Fake local validation'
+    # Create a step with no actions but with a local validation
+    step = ShellTestStep(name='Step 1', actions=[], validations=[local_validation])
+    ast = ShellFrameworkAST(helpers=[], steps=[step], global_code=[])
+    binder = ShellFrameworkBinder(ast)
+    with pytest.raises(ValueError, match="must follow an action"):
+        binder.bind()

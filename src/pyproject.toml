@@ -18,3 +18,10 @@ run_tests = "shtest_compiler.run_tests:main"
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["shtest_compiler*"]

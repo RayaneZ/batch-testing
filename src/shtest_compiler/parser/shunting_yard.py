@@ -214,13 +214,8 @@ def _to_postfix(tokens: List[str]) -> List[str]:
 
 
 def parse_validation_expression(expression: str) -> ASTNode:
-    # The AliasResolver is removed as per the edit hint.
-    # The parsing logic for atomic nodes will now rely on result_atom_to_ast.
     tokens = _tokenize_expression(expression)
-    # The following line is removed as per the edit hint.
-    # tokens = [resolver.resolve(t)[0] if t not in ("et", "ou", "(", ")") else t for t in tokens]
     postfix = _to_postfix(tokens)
-
     stack: List[ASTNode] = []
     for tok in postfix:
         if tok in ("et", "ou"):
@@ -229,8 +224,11 @@ def parse_validation_expression(expression: str) -> ASTNode:
             stack.append(BinaryOp(tok, left, right))
         else:
             stack.append(Atomic(tok))
-
-    return stack[0]
+    ast = stack[0]
+    # If the AST is a single Atomic, wrap it as BinaryOp('et', Atomic, Atomic('true'))
+    if isinstance(ast, Atomic):
+        ast = BinaryOp("et", ast, Atomic("true"))
+    return ast
 
 
 __all__ = ["VarEquals"]

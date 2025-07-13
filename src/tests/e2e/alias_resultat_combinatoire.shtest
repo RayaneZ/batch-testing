@@ -1,0 +1,4 @@
+Étape: Résultat combinatoire
+
+Action: exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient OK ou stderr contient WARNING)
+Action: exécuter /opt/batch/traitement.sh ; Résultat: Le script retourne un code 0 et (La sortie standard contient OK ou La sortie d'erreur contient WARNING)

@@ -1,0 +1,74 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 10 lines
+[DEBUG] Lexing text with 10 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=preparation, result=('preparation',), original=Step: preparation at line 1
+[DEBUG] Yielding token: STEP@1:0 'preparation' -> '('preparation',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Définir la variable SQL_DRIVER = mysql ; Résultat: La variable d'environnement à été définie at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Définir la variable SQL_DRIVER = mysql, result=('Définir la variable SQL_DRIVER = mysql', "La variable d'environnement à été définie", None), original=Action: Définir la variable SQL_DRIVER = mysql ; Résultat: La variable d'environnement à été définie at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Définir la variable SQL_DRIVER = mysql' -> '('Définir la variable SQL_DRIVER = mysql', "La variable d'environnement à été définie", None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Définir la variable SQL_CONN = rootme/ffDDD584R@base_name, result=('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None), original=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Définir la variable SQL_CONN = rootme/ffDDD584R@base_name' -> '('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter le script SQL init_bdd.sql ; Résultat: La base est prête pour le test. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter le script SQL init_bdd.sql, result=('Exécuter le script SQL init_bdd.sql', 'La base est prête pour le test.', None), original=Action: Exécuter le script SQL init_bdd.sql ; Résultat: La base est prête pour le test. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter le script SQL init_bdd.sql' -> '('Exécuter le script SQL init_bdd.sql', 'La base est prête pour le test.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=execution, result=('execution',), original=Step: execution at line 1
+[DEBUG] Yielding token: STEP@1:0 'execution' -> '('execution',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter /opt/batch/migration.sh, result=('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None), original=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter /opt/batch/migration.sh' -> '('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=verification, result=('verification',), original=Step: verification at line 1
+[DEBUG] Yielding token: STEP@1:0 'verification' -> '('verification',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter le script SQL verification.sql, result=('Exécuter le script SQL verification.sql', "Le script s'execute avec succès", None), original=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès at line 1
+[DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter le script SQL verification.sql' -> '('Exécuter le script SQL verification.sql', "Le script s'execute avec succès", None)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] Got 11 tokens
+[DEBUG] Grammar: _merge_action_result called with 11 tokens
+[DEBUG] Grammar: Token 0: kind=STEP, value='preparation'
+[DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='Définir la variable SQL_DRIVER = mysql'
+[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='Définir la variable SQL_CONN = rootme/ffDDD584R@base_name'
+[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='Exécuter le script SQL init_bdd.sql'
+[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 5: kind=STEP, value='execution'
+[DEBUG] Grammar: Token 6: kind=ACTION_RESULT, value='Exécuter /opt/batch/migration.sh'
+[DEBUG] Grammar: Token 7: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 8: kind=STEP, value='verification'
+[DEBUG] Grammar: Token 9: kind=ACTION_RESULT, value='Exécuter le script SQL verification.sql'
+[DEBUG] Grammar: Token 10: kind=EMPTY, value=''
+[DEBUG] Grammar: _merge_action_result returning 11 tokens
+[DEBUG] compile_atomic called with: expected='La variable d'environnement à été définie', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Définir la variable SQL_DRIVER = mysql'}
+[DEBUG] canonize_validation result: None
+[ERROR] ValidationParseError: No matcher found for validation: 'La variable d'environnement à été définie'
+Traceback (most recent call last):
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 316, in visit
+    shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+    return visitor_method(node)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 49, in visit_shtestfile
+    lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 25, in compile_atomic
+    raise ValidationParseError(f"No matcher found for validation: '{expected}'")
+shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'La variable d'environnement à été définie'
+
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\bdd_example.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\bdd_example.sh
