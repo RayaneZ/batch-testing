@@ -1,0 +1,9 @@
+Action: echo "This is an orphan action"
+Résultat: stdout contient orphan
+
+Action: echo "Another orphan"
+Résultat: stdout contient another
+
+Étape: Main Step
+Action: echo "This is a normal action"
+Résultat: stdout contient normal 

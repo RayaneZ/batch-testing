@@ -15,6 +15,7 @@ from ..core.visitor import ASTVisitor
 from ..core.context import CompileContext
 from .shell_generator import ShellGenerator
 from .matcher_registry import MatcherRegistry
+from ..config.debug_config import is_debug_enabled, debug_print
 
 
 class ModularCompiler:
@@ -30,9 +31,10 @@ class ModularCompiler:
         Args:
             grammar_name: Name of the grammar to use (from grammar_registry)
             ast_builder_name: Name of the AST builder to use (from ast_builder_registry)
-            debug: Enable debug mode
+            debug: Enable debug mode (deprecated, use global debug config)
         """
-        self.debug = debug
+        # Use global debug configuration
+        self.debug = debug or is_debug_enabled()
         self.grammar_name = grammar_name
         self.ast_builder_name = ast_builder_name
         
@@ -40,7 +42,7 @@ class ModularCompiler:
         self.parser = ConfigurableParser(
             grammar=grammar_registry.create(grammar_name),
             ast_builder=ast_builder_registry.create(ast_builder_name),
-            debug=debug
+            debug=self.debug
         )
         
         # Initialize other components
@@ -80,7 +82,7 @@ class ModularCompiler:
             f.write(shell_script)
         
         if self.debug:
-            print(f"Compiled {file_path} -> {output_path}")
+            debug_print(f"Compiled {file_path} -> {output_path}")
         
         return output_path
     
@@ -109,7 +111,7 @@ class ModularCompiler:
             f.write(shell_script)
         
         if self.debug:
-            print(f"Compiled text -> {output_path}")
+            debug_print(f"Compiled text -> {output_path}")
         
         return output_path
     

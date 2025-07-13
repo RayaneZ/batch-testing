@@ -8,6 +8,7 @@ with custom rules, transformations, and validation.
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional, Callable
 from .core import TokenLike, Grammar
+from .lexer.core import Token, TokenType
 
 
 class GrammarRule:
@@ -58,6 +59,15 @@ class DefaultGrammar(Grammar):
     
     def _setup_default_rules(self):
         """Setup default grammar rules."""
+        # Add merge rule for ACTION_ONLY + RESULT_ONLY
+        self.transformer.add_rule(
+            GrammarRule(
+                "merge_action_result",
+                "ACTION_ONLY + RESULT_ONLY",
+                self._merge_action_result,
+                priority=200
+            )
+        )
         # Add basic validation rule
         self.transformer.add_rule(
             GrammarRule(
@@ -74,11 +84,57 @@ class DefaultGrammar(Grammar):
         step_tokens = [t for t in tokens if t.kind == "STEP"]
         if not step_tokens:
             # Add a default step if none exists
-            from .lexer import Token
-            default_step = Token("STEP", "Default Step", 1, None, "Step: Default Step")
+            default_step = Token(type=TokenType.STEP, value="Default Step", lineno=1, original="Step: Default Step")
             tokens.insert(0, default_step)
         
         return tokens
+
+    def _merge_action_result(self, tokens: List[TokenLike]) -> List[TokenLike]:
+        """Merge ACTION_ONLY followed by RESULT_ONLY into ACTION_RESULT tokens."""
+        if not tokens:
+            return tokens
+        
+        from shtest_compiler.config.debug_config import is_debug_enabled, debug_print
+        debug_enabled = is_debug_enabled()
+        
+        if debug_enabled:
+            debug_print(f"[DEBUG] Grammar: _merge_action_result called with {len(tokens)} tokens")
+            for i, t in enumerate(tokens):
+                debug_print(f"[DEBUG] Grammar: Token {i}: kind={t.kind}, value='{t.value}'")
+        
+        merged = []
+        i = 0
+        while i < len(tokens):
+            t = tokens[i]
+            if (
+                t.kind == "ACTION_ONLY"
+                and i + 1 < len(tokens)
+                and tokens[i + 1].kind == "RESULT_ONLY"
+            ):
+                # Merge into ACTION_RESULT
+                action_token = t
+                result_token = tokens[i + 1]
+                if debug_enabled:
+                    debug_print(f"[DEBUG] Grammar: Merging ACTION_ONLY '{action_token.value}' with RESULT_ONLY '{result_token.value}'")
+                
+                merged_token = type(t)(
+                    TokenType.ACTION_RESULT,
+                    action_token.value,
+                    action_token.lineno,
+                    action_token.column,
+                    result_token.value,
+                    action_token.original + " ; " + result_token.original
+                )
+                merged.append(merged_token)
+                i += 2
+            else:
+                merged.append(t)
+                i += 1
+        
+        if debug_enabled:
+            debug_print(f"[DEBUG] Grammar: _merge_action_result returning {len(merged)} tokens")
+        
+        return merged
     
     def match(self, tokens: List[TokenLike]) -> List[TokenLike]:
         """Apply grammar rules to tokens."""

@@ -17,6 +17,7 @@ nav:
   - Rédigez vos tests:
     - Prise en main : shtest_format.md
     - Expressions détéctées: regex_documentation.md
+  - Tests et Validation: testing_and_validation.md
   - Guide de style: style-guide.md
 plugins:
   - search

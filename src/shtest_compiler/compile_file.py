@@ -12,6 +12,7 @@ from pathlib import Path
 
 from .compiler.compiler import ModularCompiler
 from .plugins import load_plugins_from_directory, plugin_registry
+from .config.debug_config import is_debug_enabled, debug_print
 
 
 def compile_file(input_path: str, 
@@ -28,38 +29,41 @@ def compile_file(input_path: str,
         output_path: Optional output path for the shell script
         grammar: Name of the grammar to use
         ast_builder: Name of the AST builder to use
-        debug: Enable debug mode
+        debug: Enable debug mode (deprecated, use global debug config)
         plugin_dir: Optional directory to load plugins from
         
     Returns:
         Path to the generated shell script
     """
+    # Use global debug configuration
+    debug_enabled = debug or is_debug_enabled()
+    
     # Load plugins if specified
     if plugin_dir and os.path.exists(plugin_dir):
         try:
             plugins = load_plugins_from_directory(plugin_dir)
-            if debug:
-                print(f"Loaded {len(plugins)} plugins from {plugin_dir}")
+            if debug_enabled:
+                debug_print(f"Loaded {len(plugins)} plugins from {plugin_dir}")
         except Exception as e:
-            if debug:
-                print(f"Warning: Failed to load plugins from {plugin_dir}: {e}")
+            if debug_enabled:
+                debug_print(f"Warning: Failed to load plugins from {plugin_dir}: {e}")
     
     # Create compiler with specified configuration
     compiler = ModularCompiler(
         grammar_name=grammar,
         ast_builder_name=ast_builder,
-        debug=debug
+        debug=debug_enabled
     )
     
     # Install any loaded plugins
     for plugin in plugin_registry.values():
         try:
             plugin.install(compiler)
-            if debug:
-                print(f"Installed plugin: {plugin.name}")
+            if debug_enabled:
+                debug_print(f"Installed plugin: {plugin.name}")
         except Exception as e:
-            if debug:
-                print(f"Warning: Failed to install plugin {plugin.name}: {e}")
+            if debug_enabled:
+                debug_print(f"Warning: Failed to install plugin {plugin.name}: {e}")
     
     # Compile the file
     return compiler.compile_file(input_path, output_path)
@@ -78,16 +82,19 @@ def compile_text(text: str,
         output_path: Optional output path for the shell script
         grammar: Name of the grammar to use
         ast_builder: Name of the AST builder to use
-        debug: Enable debug mode
+        debug: Enable debug mode (deprecated, use global debug config)
         
     Returns:
         Path to the generated shell script
     """
+    # Use global debug configuration
+    debug_enabled = debug or is_debug_enabled()
+    
     # Create compiler with specified configuration
     compiler = ModularCompiler(
         grammar_name=grammar,
         ast_builder_name=ast_builder,
-        debug=debug
+        debug=debug_enabled
     )
     
     # Compile the text

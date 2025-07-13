@@ -2,6 +2,23 @@ import argparse
 from shtest_compiler.parser.parser import Parser
 
 
+def check_file(file_path: str, debug: bool = False) -> bool:
+    """Check the syntax of a single .shtest file."""
+    try:
+        with open(file_path, encoding="utf-8") as f:
+            content = f.read()
+
+        parser = Parser()
+        parser.parse(content, path=file_path, debug=debug)
+        return True
+
+    except Exception as e:
+        if debug:
+            print(f"[ERROR] Erreur de syntaxe dans {file_path}: {e}")
+        # Re-raise the exception so it propagates up
+        raise
+
+
 def main():
     parser = argparse.ArgumentParser(description="Vérifie uniquement la syntaxe d'un fichier .shtest")
     parser.add_argument("file", help="Fichier .shtest à vérifier")
@@ -10,16 +27,13 @@ def main():
     args = parser.parse_args()
 
     try:
-        with open(args.file, encoding="utf-8") as f:
-            content = f.read()
-
-        parser = Parser()
-        parser.parse(content, path=args.file, debug=args.verbose)
-
-        print("[✔] Syntaxe valide.")
-
+        if check_file(args.file, debug=args.verbose):
+            print("[✔] Syntaxe valide.")
+        else:
+            print("[ERROR] Erreur de syntaxe.")
+            exit(1)
     except Exception as e:
-        print("[❌] Erreur de syntaxe :", e)
+        print(f"[ERROR] Erreur de syntaxe: {e}")
         exit(1)
 
 

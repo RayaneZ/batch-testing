@@ -31,6 +31,23 @@ Options:
   --help, -h           Afficher l'aide
 ```
 
+### Gestion d'Erreurs
+
+Le compilateur dispose d'un système de validation robuste qui détecte et signale les erreurs :
+
+```bash
+# Erreur de syntaxe - fichier invalide
+python shtest.py tests/e2e/ko/invalid_syntax_1.shtest
+# Sortie: [ERROR] Parse error in file: AST validation failed: Found orphaned action...
+
+# Erreur de validation - fichier vide
+python shtest.py tests/e2e/ko/empty_file.shtest
+# Sortie: [ERROR] Parse error in file: AST validation failed: File is empty or contains no steps
+
+# Code de sortie non-zéro en cas d'erreur
+echo $?  # Affiche 1 en cas d'erreur
+```
+
 ### Exemples d'utilisation
 
 ```bash
@@ -44,15 +61,46 @@ python shtest.py tests/legacy/test_case_1.shtest --config custom_config.yml
 python shtest.py tests/new/sql_script_test.shtest --debug
 ```
 
-## `generate_tests.py` - Générateur de Tests (Legacy)
+## `run_all.py` - Pipeline Complet
 
-Convertit les fichiers `.shtest` en scripts shell exécutables stockés dans le dossier configuré.
+Enchaîne la vérification, la génération des scripts et l'export Excel en une seule commande :
 
 ```bash
-python src/generate_tests.py --input-dir src/tests --output output
+python src/run_all.py --input src/tests --output output --excel tests.xlsx
 ```
 
-Les chemins peuvent être personnalisés via `--input-dir` et `--output` ou par le fichier `config.ini`.
+### Validation Robuste
+
+Le pipeline inclut une validation complète qui échoue rapidement sur les erreurs :
+
+```bash
+# Validation d'un fichier invalide
+python src/run_all.py --input tests/e2e/ko/invalid_syntax_1.shtest
+# Sortie: [1/3] Vérification de la syntaxe...
+#         Erreurs de syntaxe détectées:
+#           - tests/e2e/ko/invalid_syntax_1.shtest: AST validation failed: Found orphaned action...
+
+# Validation d'un répertoire mixte
+python src/run_all.py --input tests/e2e/
+# Sortie: [1/3] Vérification de la syntaxe...
+#         Erreurs de syntaxe détectées:
+#           - tests/e2e/ko/invalid_syntax_1.shtest: AST validation failed: Found orphaned action...
+#         [FAIL] One or more files failed to compile.
+```
+
+### Options complètes
+
+```bash
+python src/run_all.py [OPTIONS]
+
+Options:
+  --input, -i PATH     Répertoire d'entrée ou fichier unique
+  --output, -o PATH    Répertoire de sortie
+  --excel PATH         Fichier Excel de sortie
+  --no-shell           Désactiver la génération de scripts shell
+  --no-excel           Désactiver l'export Excel
+  --debug, -d          Mode debug avec logs détaillés
+```
 
 ## `verify_syntax.py` - Vérificateur de Syntaxe
 
@@ -62,7 +110,28 @@ Vérifie la validité des fichiers `.shtest` et affiche les erreurs rencontrées
 python src/verify_syntax.py src/tests
 ```
 
-Si aucune erreur n'est détectée, la commande affiche `Syntax OK` et renvoie le code de sortie `0`.
+### Validation Avancée
+
+Le vérificateur utilise le système de validation AST pour détecter :
+
+- **Fichiers vides** ou contenant seulement des commentaires
+- **Actions orphelines** sans mot-clé `Étape:`
+- **Actions malformées** avec commandes vides ou invalides
+- **Validations incomplètes** ou malformées
+- **Structure invalide** (imbrication incorrecte, etc.)
+
+```bash
+# Validation d'un fichier valide
+python src/verify_syntax.py tests/e2e/ok/example.shtest
+# Sortie: [✔] Syntaxe valide.
+
+# Validation d'un fichier invalide
+python src/verify_syntax.py tests/e2e/ko/invalid_syntax_1.shtest
+# Sortie: [ERROR] Erreur de syntaxe: AST validation failed: Found orphaned action...
+
+# Mode verbose pour plus de détails
+python src/verify_syntax.py tests/e2e/ko/invalid_syntax_1.shtest --verbose
+```
 
 ### Options avancées
 
@@ -70,58 +139,34 @@ Si aucune erreur n'est détectée, la commande affiche `Syntax OK` et renvoie le
 python src/verify_syntax.py [OPTIONS] <input_path>
 
 Options:
-  --config PATH        Fichier de configuration YAML
   --verbose, -v        Affichage détaillé des erreurs
-  --format FORMAT      Format de sortie (text, json, xml)
-```
-
-## `export_to_excel.py` - Export Excel
-
-Génère un fichier Excel récapitulatif de vos scénarios de test.
-
-```bash
-python src/export_to_excel.py --input-dir src/tests --output tests.xlsx
-```
-
-### Options
-
-```bash
-python src/export_to_excel.py [OPTIONS]
-
-Options:
-  --input-dir, -i PATH  Répertoire contenant les fichiers .shtest
-  --output, -o PATH     Fichier Excel de sortie
-  --template PATH       Template Excel personnalisé
-  --format FORMAT       Format de sortie (xlsx, csv, json)
-```
-
-## `run_all.py` - Pipeline Complet
-
-Enchaîne la vérification, la génération des scripts et l'export Excel en une seule commande :
-
-```bash
-python src/run_all.py --input src/tests --output output --excel tests.xlsx
-```
-
-Chaque étape peut être désactivée via `--no-shell` ou `--no-excel`.
-
-### Options complètes
-
-```bash
-python src/run_all.py [OPTIONS]
-
-Options:
-  --input, -i PATH     Répertoire d'entrée
-  --output, -o PATH    Répertoire de sortie
-  --excel PATH         Fichier Excel de sortie
-  --no-verify          Désactiver la vérification de syntaxe
-  --no-shell           Désactiver la génération de scripts shell
-  --no-excel           Désactiver l'export Excel
-  --config PATH        Fichier de configuration
-  --debug, -d          Mode debug
+  --debug, -d          Mode debug avec tokens et AST
 ```
 
 ## Tests et Validation
+
+### Tests E2E
+
+```bash
+# Exécuter tous les tests E2E
+python tests/e2e/run_e2e_tests.py
+
+# Tests positifs uniquement
+python tests/e2e/run_e2e_tests.py --positive-only
+
+# Tests négatifs uniquement
+python tests/e2e/ko/run_ko_tests.py
+```
+
+### Tests Négatifs (Validation d'Erreurs)
+
+```bash
+# Exécuter la suite de tests négatifs
+python tests/e2e/ko/run_ko_tests.py
+
+# Tester un fichier spécifique
+python -m shtest_compiler.run_all --input tests/e2e/ko/invalid_syntax_1.shtest
+```
 
 ### Tests Unitaires
 
@@ -154,6 +199,33 @@ for file in tests/new/*.shtest; do
 done
 ```
 
+## Outils de Diagnostic
+
+### Debug Parser
+
+```bash
+# Analyser le comportement du parser sur un fichier
+python tests/e2e/ko/debug_parser.py
+
+# Debug d'un fichier spécifique
+python -c "
+import sys
+sys.path.insert(0, 'src')
+from tests.e2e.ko.debug_parser import debug_file
+debug_file('tests/e2e/ko/invalid_syntax_1.shtest')
+"
+```
+
+### Mode Debug Complet
+
+```bash
+# Activer le mode debug global
+export SHTEST_DEBUG=1
+
+# Exécuter avec logs détaillés
+python src/run_all.py --input tests/example.shtest --debug
+```
+
 ## Configuration
 
 ### Fichier config.ini
@@ -180,6 +252,34 @@ export SHTEST_PLUGIN_PATH="plugins/"
 
 # Mode debug
 export SHTEST_DEBUG=1
+
+# Driver SQL par défaut
+export SQL_DRIVER="oracle"
+```
+
+## Codes de Sortie
+
+Le système utilise des codes de sortie standardisés :
+
+- **0** : Succès - Aucune erreur détectée
+- **1** : Erreur de validation ou de compilation
+- **2** : Erreur de configuration
+- **3** : Erreur système
+
+### Exemples
+
+```bash
+# Succès
+python src/run_all.py --input tests/e2e/ok/example.shtest
+echo $?  # Affiche 0
+
+# Erreur de validation
+python src/run_all.py --input tests/e2e/ko/invalid_syntax_1.shtest
+echo $?  # Affiche 1
+
+# Erreur de configuration
+python src/run_all.py --input nonexistent/
+echo $?  # Affiche 2
 ```
 
 ## Diagnostic et Dépannage
@@ -198,32 +298,17 @@ python shtest.py tests/example.shtest --debug
 # Vérifier que tous les modules sont installés
 python -c "import shtest_compiler; print('Installation OK')"
 
-# Vérifier la configuration
-python -c "from shtest_compiler.config import load_config; print(load_config())"
+# Vérifier les dépendances
+python -c "import yaml, openpyxl, sqlalchemy; print('Dépendances OK')"
 ```
 
-### Problèmes Courants
+### Messages d'Erreur Courants
 
-1. **Erreur d'import** : Vérifiez que vous êtes dans le bon répertoire (`src/`)
-2. **Fichier de configuration manquant** : Vérifiez le chemin dans `config.ini`
-3. **Patterns non reconnus** : Vérifiez `config/patterns_hybrid.yml` et `config/aliases.yml`
-
-## Intégration avec VS Code
-
-L'extension VS Code pour KnightBatch fournit :
-
-- **Syntax highlighting** pour les fichiers `.shtest`
-- **IntelliSense** pour les actions et validations
-- **Compilation intégrée** via la palette de commandes
-- **Validation en temps réel** de la syntaxe
-
-### Commandes VS Code
-
-- `KnightBatch: Compile Current File` : Compile le fichier actuel
-- `KnightBatch: Verify Syntax` : Vérifie la syntaxe du fichier actuel
-- `KnightBatch: Show AST` : Affiche l'AST du fichier actuel
-
----
-
-Pour plus d'informations sur l'architecture modulaire, consultez la [documentation technique](modular_architecture.md).
+| Erreur | Cause | Solution |
+|--------|-------|----------|
+| `File is empty or contains no steps` | Fichier vide ou commentaires uniquement | Ajouter au moins une étape |
+| `Step 'X' has no actions` | Étape sans actions | Ajouter des actions à l'étape |
+| `Found orphaned action` | Action sans mot-clé `Étape:` | Préfixer l'action avec `Étape:` |
+| `Action has empty command` | Action sans commande | Ajouter une commande à l'action |
+| `Invalid validation phrase` | Validation malformée | Corriger la syntaxe de validation |
 

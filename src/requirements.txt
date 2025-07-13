@@ -12,3 +12,5 @@ string
 templates
 unicodedata
 verify_syntax
+pandas
+numpy

@@ -1,0 +1,43 @@
+Étape: Test des vérifications de base
+
+Action: echo "Test de base"
+Résultat: base prete
+
+Action: touch test_file.txt
+Résultat: fichier cree
+
+Action: mkdir test_dir
+Résultat: dossier cree
+
+Action: echo "Test contenu"
+Résultat: contenu affiche
+
+Action: echo "Test correct"
+Résultat: contenu correct
+
+Action: ls -la
+Résultat: logs accessibles
+
+Action: echo "Test fichier"
+Résultat: le fichier est present
+
+Action: cp test_file.txt test_file2.txt
+Résultat: le fichier est deplace
+
+Action: mv test_dir test_dir2
+Résultat: le dossier est deplace
+
+Action: test -f test_file.txt
+Résultat: fichier present
+
+Action: test -d test_dir2
+Résultat: dossier present
+
+Action: test -e test_file.txt
+Résultat: fichier existe
+
+Action: echo $SQL_CONN
+Résultat: identifiants configures
+
+Action: exit 0
+Résultat: retour 0 

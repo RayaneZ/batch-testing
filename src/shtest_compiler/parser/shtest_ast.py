@@ -19,6 +19,7 @@ class TestStep:
 class ShtestFile:
     steps: List[TestStep] = field(default_factory=list)
     variables: Dict[str, str] = field(default_factory=dict)  # SQL_DRIVER, SQL_CONN, etc.
+    arguments: Dict[str, str] = field(default_factory=dict)  # Legacy argument storage
     last_file_var: List[Optional[str]] = field(default_factory=lambda: [None])
     path: Optional[str] = None
 

@@ -40,8 +40,15 @@ class Parser:
                 pattern, handler = rule
                 match = pattern.search(token.original or token.value)
                 if match:
-                    handler(shtest, *match.groups())
-                    self._handle_arguments(match, shtest)
+                    if debug:
+                        print(f"DEBUG: Calling handler {handler.__name__ if hasattr(handler, '__name__') else str(handler)} with {len(match.groups())} groups: {match.groups()}")
+                    try:
+                        handler(shtest, *match.groups())
+                        self._handle_arguments(match, shtest)
+                    except Exception as e:
+                        if debug:
+                            print(f"DEBUG: Error in handler: {e}")
+                        raise
             
             # Extract inline arguments from actions
             if token.kind in ["ACTION_RESULT", "ACTION_ONLY"] and token.value:
@@ -53,6 +60,10 @@ class Parser:
 
     def _handle_arguments(self, match: re.Match, shtest: ShtestFile) -> None:
         """Handle legacy argument extraction."""
+        # Initialize arguments dict if it doesn't exist
+        if not hasattr(shtest, 'arguments'):
+            shtest.arguments = {}
+        
         for m in self.arg_pattern.finditer(match.string):
             shtest.arguments[m[1].strip()] = m[2].strip()
 

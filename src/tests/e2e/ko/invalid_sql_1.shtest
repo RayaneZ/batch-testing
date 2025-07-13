@@ -1,0 +1,8 @@
+# Test with invalid SQL syntax
+Étape: Test invalid SQL
+  Action: Exécuter la requête SQL: SELECT * FROM nonexistent_table
+  Vérifier: Le code de retour est 0
+
+Étape: Test malformed SQL
+  Action: Exécuter la requête SQL: SELECT * FROM table WHERE column = 'unclosed quote
+  Vérifier: Le code de retour est 0 

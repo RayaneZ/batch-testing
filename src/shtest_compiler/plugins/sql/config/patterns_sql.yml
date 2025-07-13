@@ -2,9 +2,18 @@ patterns:
   sql_script:
     - handler: sql_script
       pattern: "(exécuter|executer) (?:le script SQL )?(.+\\.sql)"
+  sql_query:
+    - handler: sql_query
+      pattern: "(?:exécuter|executer) (?:la requête SQL )?(SELECT .+)"
+  sql_compare:
+    - handler: sql_compare
+      pattern: "(comparer|comparer les résultats) (?:de la requête )?(.+) (?:avec|à) (.+)"
+  sql_export:
+    - handler: sql_export
+      pattern: "(exporter|exporter les résultats) (?:de la requête )?(.+) (?:vers|dans) (.+)"
   set_variable:
     - handler: set_variable
-      pattern: "définir la variable SQL_CONN = (.+)"
+      pattern: "définir la variable (\\S+)[ ]*=[ ]*(.+)"
   validation:
     - handler: validation
       pattern: "la base (est prête|de test est prête|est prête pour le test)"

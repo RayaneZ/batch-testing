@@ -1,255 +1,226 @@
 """
-Configurable lexer for KnightBatch.
-
-This module provides the main lexer interface that combines pattern loading,
-tokenization, and filtering into a unified, configurable system.
+Configurable lexer that can use different tokenizers and filters.
 """
 
-from typing import Iterator, Optional, List
-from pathlib import Path
-
-from .core import Token, TokenType, LexerError
+import os
+import yaml
+from typing import Iterator, Optional, Dict, Any
+from .core import Token
+from .tokenizers import Tokenizer, RegexTokenizer, FallbackTokenizer
+from .filters import Filter, EmptyFilter, WhitespaceFilter
 from .pattern_loader import PatternLoader
-from .tokenizers import Tokenizer, RegexTokenizer, DefaultTokenizer, FlexibleTokenizer
-from .filters import TokenFilter, CompositeFilter, EmptyLineFilter, CommentFilter, DebugFilter
+from ...config.debug_config import is_debug_enabled, debug_print
+
+debug_print("LEXER DEBUG ACTIVE: src/shtest_compiler/parser/lexer/configurable_lexer.py loaded")
 
 
 class ConfigurableLexer:
-    """Main configurable lexer class."""
+    """A lexer that can be configured with different tokenizers and filters."""
     
     def __init__(self, 
                  config_path: Optional[str] = None,
-                 tokenizer: Optional[Tokenizer] = None,
-                 filters: Optional[List[TokenFilter]] = None,
+                 tokenizers: Optional[list] = None,
+                 filters: Optional[list] = None,
                  debug: bool = False):
-        """Initialize the configurable lexer.
+        """
+        Initialize the configurable lexer.
         
         Args:
-            config_path: Path to YAML configuration file.
-            tokenizer: Tokenizer to use. If None, creates default.
-            filters: List of filters to apply. If None, uses default filters.
-            debug: Whether to enable debug mode.
+            config_path: Path to YAML configuration file
+            tokenizers: List of tokenizer instances
+            filters: List of filter instances
+            debug: Enable debug mode (deprecated, use global debug config)
         """
+        # Use global debug configuration
+        self.debug = debug or is_debug_enabled()
         self.config_path = config_path
-        self.debug = debug
+        self.tokenizers = tokenizers or []
+        self.filters = filters or []
         
-        # Initialize pattern loader
-        self.pattern_loader = PatternLoader(config_path)
+        # Load configuration if provided
+        if config_path:
+            self._load_config(config_path)
         
-        # Initialize tokenizer
-        if tokenizer is None:
-            self.tokenizer = self._create_default_tokenizer()
-        else:
-            self.tokenizer = tokenizer
+        # Add default components if none provided
+        if not self.tokenizers:
+            self._add_default_tokenizers()
         
-        # Initialize filters
-        if filters is None:
-            self.filters = self._create_default_filters()
-        else:
-            self.filters = filters
-        
-        # Create composite filter
-        self.composite_filter = CompositeFilter(self.filters)
+        if not self.filters:
+            self._add_default_filters()
     
-    def _create_default_tokenizer(self) -> Tokenizer:
-        """Create default tokenizer with loaded patterns."""
+    def _load_config(self, config_path: str) -> None:
+        """Load configuration from YAML file."""
         try:
-            patterns = self.pattern_loader.load()
-            return RegexTokenizer(patterns)
-        except (FileNotFoundError, Exception) as e:
-            # Fallback to default patterns if config loading fails
+            with open(config_path, 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+            
+            # Load tokenizers
+            if 'tokenizers' in config:
+                for tokenizer_config in config['tokenizers']:
+                    tokenizer = self._create_tokenizer(tokenizer_config)
+                    if tokenizer:
+                        self.tokenizers.append(tokenizer)
+            
+            # Load filters
+            if 'filters' in config:
+                for filter_config in config['filters']:
+                    filter_obj = self._create_filter(filter_config)
+                    if filter_obj:
+                        self.filters.append(filter_obj)
+                        
+        except Exception as e:
             if self.debug:
-                print(f"[DEBUG] Using fallback tokenizer: {e}")
-            return DefaultTokenizer()
+                debug_print(f"[DEBUG] Using fallback tokenizer: {e}")
+            self._add_default_tokenizers()
     
-    def _create_default_filters(self) -> List[TokenFilter]:
-        """Create default filter chain."""
-        filters = []
+    def _create_tokenizer(self, config: Dict[str, Any]) -> Optional[Tokenizer]:
+        """Create a tokenizer from configuration."""
+        tokenizer_type = config.get('type', 'regex')
         
-        # Always filter empty lines
-        filters.append(EmptyLineFilter(enabled=True))
+        if tokenizer_type == 'regex':
+            pattern = config.get('pattern', '')
+            token_type = config.get('token_type', 'TEXT')
+            return RegexTokenizer(pattern, token_type)
         
-        # Filter comments unless in debug mode
-        filters.append(CommentFilter(enabled=not self.debug))
+        return None
+    
+    def _create_filter(self, config: Dict[str, Any]) -> Optional[Filter]:
+        """Create a filter from configuration."""
+        filter_type = config.get('type', 'empty')
         
-        # Add debug filter if debug mode is enabled
-        if self.debug:
-            filters.append(DebugFilter(enabled=True, verbose=True))
+        if filter_type == 'empty':
+            return EmptyFilter()
+        elif filter_type == 'whitespace':
+            return WhitespaceFilter()
         
-        return filters
+        return None
+    
+    def _add_default_tokenizers(self) -> None:
+        """Add default tokenizers using patterns from regex_config.yml."""
+        try:
+            # Load patterns from regex_config.yml
+            pattern_loader = PatternLoader()
+            patterns = pattern_loader.load()
+            
+            if self.debug:
+                debug_print(f"[DEBUG] Loaded patterns: {list(patterns.keys())}")
+            
+            # Add tokenizers in order of specificity (most specific first)
+            # 1. STEP pattern
+            if 'step' in patterns:
+                self.tokenizers.append(RegexTokenizer(patterns['step'].pattern, 'STEP'))
+                if self.debug:
+                    debug_print(f"[DEBUG] Added STEP tokenizer with pattern: {patterns['step'].pattern}")
+            
+            # 2. ACTION_RESULT pattern (most specific - action and result on same line)
+            if 'action_result' in patterns:
+                self.tokenizers.append(RegexTokenizer(patterns['action_result'].pattern, 'ACTION_RESULT'))
+                if self.debug:
+                    debug_print(f"[DEBUG] Added ACTION_RESULT tokenizer with pattern: {patterns['action_result'].pattern}")
+            
+            # 3. ACTION_ONLY pattern
+            if 'action_only' in patterns:
+                self.tokenizers.append(RegexTokenizer(patterns['action_only'].pattern, 'ACTION_ONLY'))
+                if self.debug:
+                    debug_print(f"[DEBUG] Added ACTION_ONLY tokenizer with pattern: {patterns['action_only'].pattern}")
+            
+            # 4. RESULT_ONLY pattern
+            if 'result_only' in patterns:
+                self.tokenizers.append(RegexTokenizer(patterns['result_only'].pattern, 'RESULT_ONLY'))
+                if self.debug:
+                    debug_print(f"[DEBUG] Added RESULT_ONLY tokenizer with pattern: {patterns['result_only'].pattern}")
+            
+            # 5. Add fallback tokenizer last
+            self.tokenizers.append(FallbackTokenizer())
+            if self.debug:
+                debug_print("[DEBUG] Added FallbackTokenizer")
+                
+        except Exception as e:
+            if self.debug:
+                debug_print(f"[DEBUG] Failed to load patterns from regex_config.yml: {e}")
+                debug_print("[DEBUG] Using hardcoded fallback patterns")
+            
+            # Fallback to hardcoded patterns
+            self.tokenizers.append(RegexTokenizer(r'^(?:Étape|Etape|Step)\s*:\s*(.+)$', 'STEP'))
+            self.tokenizers.append(RegexTokenizer(r'^Action:\s*(.+)$', 'ACTION_ONLY'))
+            self.tokenizers.append(RegexTokenizer(r'^Résultat:\s*(.+)$', 'RESULT_ONLY'))
+            self.tokenizers.append(FallbackTokenizer())
+    
+    def _add_default_filters(self) -> None:
+        """Add default filters."""
+        self.filters.append(EmptyFilter())
+        self.filters.append(WhitespaceFilter())
     
     def lex(self, text: str) -> Iterator[Token]:
-        """Tokenize text using the configured lexer.
-        
-        Args:
-            text: Input text to tokenize.
-            
-        Yields:
-            Tokens from the input text.
-        """
+        """Lex text into tokens."""
         if self.debug:
-            print(f"[DEBUG] Lexing text with {len(text.splitlines())} lines")
+            debug_print(f"[DEBUG] Lexing text with {len(text.splitlines())} lines")
         
-        # Tokenize the text
-        tokens = self.tokenizer.tokenize(text)
+        # Apply tokenizers
+        tokens = []
+        for tokenizer in self.tokenizers:
+            try:
+                for token in tokenizer.tokenize(text):
+                    tokens.append(token)
+                    if self.debug:
+                        debug_print(f"[DEBUG] Yielding token: {token}")
+            except Exception as e:
+                if self.debug:
+                    debug_print(f"[DEBUG] Tokenizer error: {e}")
         
         # Apply filters
-        filtered_tokens = self.composite_filter(tokens)
+        for filter_obj in self.filters:
+            tokens = list(filter_obj.filter(tokens, verbose=self.debug))
         
         # Yield filtered tokens
-        for token in filtered_tokens:
+        for token in tokens:
             if self.debug:
-                print(f"[DEBUG] Yielding token: {token}")
+                debug_print(f"[DEBUG] ConfigurableLexer.lex: Produced token kind={token.kind}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)}")
             yield token
     
     def lex_file(self, file_path: str) -> Iterator[Token]:
-        """Tokenize a file using the configured lexer.
-        
-        Args:
-            file_path: Path to the file to tokenize.
-            
-        Yields:
-            Tokens from the file.
-            
-        Raises:
-            FileNotFoundError: If the file doesn't exist.
-            LexerError: If there's an error during tokenization.
-        """
-        file_path = Path(file_path)
-        
-        if not file_path.exists():
-            raise FileNotFoundError(f"File not found: {file_path}")
-        
+        """Lex a file into tokens."""
         if self.debug:
-            print(f"[DEBUG] Lexing file: {file_path}")
+            debug_print(f"[DEBUG] Lexing file: {file_path}")
         
         try:
-            with open(file_path, encoding="utf-8") as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 text = f.read()
             
-            yield from self.lex(text)
-            
-        except UnicodeDecodeError as e:
-            raise LexerError(f"Unicode decode error in {file_path}: {e}", 0)
-        except Exception as e:
-            raise LexerError(f"Error reading file {file_path}: {e}", 0)
-    
-    def reload_config(self) -> None:
-        """Reload the configuration and recreate the tokenizer."""
-        if self.debug:
-            print("[DEBUG] Reloading configuration")
-        
-        try:
-            # Reload patterns
-            self.pattern_loader.reload()
-            
-            # Recreate tokenizer with new patterns
-            if isinstance(self.tokenizer, RegexTokenizer):
-                patterns = self.pattern_loader.load()
-                self.tokenizer = RegexTokenizer(patterns)
-            
+            for token in self.lex(text):
+                if self.debug:
+                    debug_print(f"[DEBUG] ConfigurableLexer.lex_file: Yielding token kind={token.kind}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)}")
+                yield token
+                
         except Exception as e:
             if self.debug:
-                print(f"[DEBUG] Failed to reload config: {e}")
-            raise LexerError(f"Failed to reload configuration: {e}", 0)
+                debug_print(f"[DEBUG] File lexing error: {e}")
+            raise
     
-    def add_filter(self, filter_obj: TokenFilter) -> None:
-        """Add a filter to the filter chain.
-        
-        Args:
-            filter_obj: Filter to add.
-        """
-        self.composite_filter.add_filter(filter_obj)
+    def reload_config(self) -> None:
+        """Reload configuration from file."""
+        if self.config_path:
+            if self.debug:
+                debug_print("[DEBUG] Reloading configuration")
+            try:
+                self._load_config(self.config_path)
+            except Exception as e:
+                if self.debug:
+                    debug_print(f"[DEBUG] Failed to reload config: {e}")
     
-    def remove_filter(self, filter_class: type) -> None:
-        """Remove filters of a specific class.
-        
-        Args:
-            filter_class: Class of filters to remove.
-        """
-        self.composite_filter.remove_filter(filter_class)
+    def add_tokenizer(self, tokenizer: Tokenizer) -> None:
+        """Add a tokenizer to the lexer."""
+        self.tokenizers.append(tokenizer)
     
-    def set_debug(self, enabled: bool) -> None:
-        """Enable or disable debug mode.
-        
-        Args:
-            enabled: Whether to enable debug mode.
-        """
-        self.debug = enabled
-        
-        # Update debug filter
-        debug_filters = [f for f in self.filters if isinstance(f, DebugFilter)]
-        if debug_filters:
-            debug_filters[0].enabled = enabled
-            debug_filters[0].verbose = enabled
-        else:
-            # Add debug filter if not present
-            self.add_filter(DebugFilter(enabled=enabled, verbose=enabled))
-        
-        # Update comment filter
-        comment_filters = [f for f in self.filters if isinstance(f, CommentFilter)]
-        if comment_filters:
-            comment_filters[0].enabled = not enabled
+    def add_filter(self, filter_obj: Filter) -> None:
+        """Add a filter to the lexer."""
+        self.filters.append(filter_obj)
     
-    def get_patterns(self) -> dict:
-        """Get current patterns.
-        
-        Returns:
-            Dictionary of current patterns.
-        """
-        return self.pattern_loader.load()
-    
-    def add_pattern(self, name: str, pattern: str, token_type: TokenType) -> None:
-        """Add a new pattern to the tokenizer.
-        
-        Args:
-            name: Pattern name.
-            pattern: Regex pattern string.
-            token_type: Token type for this pattern.
-        """
-        if isinstance(self.tokenizer, FlexibleTokenizer):
-            self.tokenizer.add_pattern(name, pattern, token_type)
-        else:
-            # Add to pattern loader for future reloads
-            self.pattern_loader.add_pattern(name, pattern)
-            
-            # Recreate tokenizer with new patterns
-            patterns = self.pattern_loader.load()
-            self.tokenizer = RegexTokenizer(patterns)
-    
-    def list_patterns(self) -> list[str]:
-        """List all available patterns.
-        
-        Returns:
-            List of pattern names.
-        """
-        return self.pattern_loader.list_patterns()
-
-
-# Convenience functions for backward compatibility
-def lex(text: str, debug: bool = False) -> Iterator[Token]:
-    """Tokenize text using default configuration.
-    
-    Args:
-        text: Input text to tokenize.
-        debug: Whether to enable debug mode.
-        
-    Yields:
-        Tokens from the input text.
-    """
-    lexer = ConfigurableLexer(debug=debug)
-    yield from lexer.lex(text)
-
-
-def lex_file(path: str, debug: bool = False) -> Iterator[Token]:
-    """Tokenize a file using default configuration.
-    
-    Args:
-        path: Path to the file to tokenize.
-        debug: Whether to enable debug mode.
-        
-    Yields:
-        Tokens from the file.
-    """
-    lexer = ConfigurableLexer(debug=debug)
-    yield from lexer.lex_file(path) 
+    def get_tokenizer_info(self) -> Dict[str, Any]:
+        """Get information about the lexer configuration."""
+        return {
+            "tokenizers": [type(t).__name__ for t in self.tokenizers],
+            "filters": [type(f).__name__ for f in self.filters],
+            "config_path": self.config_path,
+            "debug": self.debug
+        } 

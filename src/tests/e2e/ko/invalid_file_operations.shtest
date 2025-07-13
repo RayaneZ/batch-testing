@@ -1,0 +1,12 @@
+# Test with invalid file operations
+Étape: Test invalid file path
+  Action: Créer le fichier: /invalid/path/with/special/chars/\0\1\2
+  Vérifier: Le fichier existe
+
+Étape: Test invalid directory
+  Action: Créer le dossier: /root/system/directory/that/should/fail
+  Vérifier: Le dossier existe
+
+Étape: Test invalid file copy
+  Action: Copier le fichier: nonexistent_source.txt vers: destination.txt
+  Vérifier: Le fichier existe 

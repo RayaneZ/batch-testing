@@ -1,9 +1,9 @@
 patterns:
   execution:
     - handler: execution
-      pattern: "(exécuter|executer|lancer|traiter) (?:le script )?(\\S+\\.sh)"
+      pattern: "(?:exécuter|executer|lancer|traiter) (?:le script )?(\\S+\\.sh)"
     - handler: execution
-      pattern: "(exécuter|executer|lancer|traiter) (\\S+)"
+      pattern: "(?:exécuter|executer|lancer|traiter) (\\S+)"
   validation:
     - handler: validation
       pattern: "script exécuté avec succès"

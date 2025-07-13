@@ -1,9 +1,7 @@
-class ScriptCommand:
-    def __init__(self, script):
-        self.script = script
-    def to_shell(self):
-        return f'run_cmd "{self.script}"'
-
-def handle(groups):
-    script, = groups
-    return ScriptCommand(script=script) 
+class RunScriptAction:
+    def __init__(self, groups):
+        self.script = groups[0] if groups else None
+    def to_shell(self, **kwargs):
+        return [f"sh '{self.script}'"]
+def handle(groups, **kwargs):
+    return RunScriptAction(groups) 

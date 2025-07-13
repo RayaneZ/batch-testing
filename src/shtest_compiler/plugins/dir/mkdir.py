@@ -1,9 +1,7 @@
-class MkdirCommand:
-    def __init__(self, path):
-        self.path = path
-    def to_shell(self):
-        return f'run_cmd "mkdir -p {self.path}"'
-
-def handle(groups):
-    path, = groups
-    return MkdirCommand(path=path) 
+class CreateDirAction:
+    def __init__(self, groups):
+        self.path = groups[0] if groups else None
+    def to_shell(self, **kwargs):
+        return [f"mkdir -p '{self.path}'"]
+def handle(groups, **kwargs):
+    return CreateDirAction(groups) 

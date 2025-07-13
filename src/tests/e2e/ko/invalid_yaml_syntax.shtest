@@ -1,0 +1,8 @@
+# Test with YAML-like syntax that should fail
+Étape: Test YAML syntax
+  Action: 
+    command: echo "test"
+    args: ["hello", "world"]
+  Vérifier: 
+    type: return_code
+    expected: 0 

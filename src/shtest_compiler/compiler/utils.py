@@ -29,19 +29,25 @@ def strip_accents(text: str) -> str:
     )
 
 
-def shell_condition(success_val: str, fail_val: str, expected_val: str | None = None) -> list[str]:
-    """Return shell instructions validating that the last command succeeded."""
-    if expected_val is None:
-        expected_val = success_val
+def shell_condition(success_val: str, fail_val: str, scope: str = "global") -> list[str]:
+    """Return shell instructions validating that the last command succeeded.
+    The scope can be 'global' or 'last_action' to determine the context of the validation.
+    """
+    # Pour l'instant, on utilise le même comportement pour tous les scopes
+    # Mais on pourrait adapter le code shell selon le scope si nécessaire
     return [
         f"if [ $last_ret -eq 0 ]; then actual=\"{success_val}\"; else actual=\"{fail_val}\"; fi",
-        f"expected=\"{expected_val}\"",
+        f"expected=\"{success_val}\"",
     ]
 
 
-def retcode_condition(code: int | str) -> list[str]:
-    """Return instructions checking that ``$last_ret`` matches *code*."""
+def retcode_condition(code: int | str, scope: str = "global") -> list[str]:
+    """Return instructions checking that ``$last_ret`` matches *code*.
+    The scope can be 'global' or 'last_action' to determine the context of the validation.
+    """
     code = int(code)
+    # Pour l'instant, on utilise le même comportement pour tous les scopes
+    # Mais on pourrait adapter le code shell selon le scope si nécessaire
     return [
         f"if [ $last_ret -eq {code} ]; then actual=\"retour {code}\"; else actual=\"retour $last_ret\"; fi",
         f"expected=\"retour {code}\"",

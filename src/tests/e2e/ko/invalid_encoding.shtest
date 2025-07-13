@@ -1,0 +1,8 @@
+# Test with invalid encoding characters
+Étape: Test invalid chars
+  Action: echo "test with invalid chars: \x00\x01\x02"
+  Vérifier: Le code de retour est 0
+
+Étape: Test unicode issues
+  Action: echo "test with unicode: 🚀🌟✨"
+  Vérifier: Le contenu affiché contient "test" 

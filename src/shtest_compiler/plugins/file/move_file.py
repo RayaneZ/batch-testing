@@ -1,10 +1,8 @@
-class MoveFileCommand:
-    def __init__(self, src, dest):
-        self.src = src
-        self.dest = dest
-    def to_shell(self):
-        return f'run_cmd "mv {self.src} {self.dest}"'
-
-def handle(groups):
-    src, dest = groups
-    return MoveFileCommand(src=src, dest=dest) 
+class MoveFileAction:
+    def __init__(self, groups):
+        self.src = groups[0] if len(groups) > 0 else None
+        self.dest = groups[1] if len(groups) > 1 else None
+    def to_shell(self, **kwargs):
+        return [f"mv '{self.src}' '{self.dest}'"]
+def handle(groups, **kwargs):
+    return MoveFileAction(groups) 

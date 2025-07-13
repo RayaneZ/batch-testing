@@ -1,9 +1,7 @@
-class DeleteDirCommand:
-    def __init__(self, path):
-        self.path = path
-    def to_shell(self):
-        return f'run_cmd "rm -rf {self.path}"'
-
-def handle(groups):
-    path, = groups
-    return DeleteDirCommand(path=path) 
+class DeleteDirAction:
+    def __init__(self, groups):
+        self.path = groups[0] if groups else None
+    def to_shell(self, **kwargs):
+        return [f"rm -rf '{self.path}'"]
+def handle(groups, **kwargs):
+    return DeleteDirAction(groups) 

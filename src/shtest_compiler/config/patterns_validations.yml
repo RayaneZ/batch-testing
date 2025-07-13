@@ -1,6 +1,7 @@
 validations:
   - phrase: "Le contenu est affiché"
     handler: content_displayed
+    scope: last_action
     aliases:
       - "contenu affiché"
       - "Le script est affiché"
@@ -14,6 +15,7 @@ validations:
       - "^le contenu est correct$"
   - phrase: "Le fichier est copié"
     handler: file_copied
+    scope: last_action
     aliases:
       - "le fichier est copié"
       - "fichier copié"
@@ -21,6 +23,7 @@ validations:
       - "^fichier copié$"
   - phrase: "Le dossier est copié"
     handler: dir_copied
+    scope: last_action
     aliases:
       - "le dossier est copié"
       - "dossier copié"
@@ -28,20 +31,43 @@ validations:
       - "^dossier copié$"
   - phrase: "Le fichier est présent"
     handler: file_present
+    opposite:
+      phrase: "Le fichier est absent"
+      handler: file_absent
     aliases:
       - "Le fichier est présent"
       - "le fichier existe"
       - "fichier présent"
+      - "le fichier est cree"
+      - "fichier cree"
       - "^le fichier est présent$"
       - "^le fichier existe$"
       - "^fichier présent$"
+      - "^le fichier est cree$"
+      - "^fichier cree$"
+  - phrase: "Le fichier est absent"
+    handler: file_absent
+    opposite:
+      phrase: "Le fichier est présent"
+      handler: file_present
+    aliases:
+      - "Le fichier est absent"
+      - "le fichier n'existe pas"
+      - "fichier absent"
+      - "^le fichier est absent$"
+      - "^le fichier n'existe pas$"
+      - "^fichier absent$"
   - phrase: "Le dossier est prêt"
     handler: dir_ready
     aliases:
       - "le dossier est prêt"
       - "dossier prêt"
+      - "le dossier est cree"
+      - "dossier cree"
       - "^le dossier est prêt$"
       - "^dossier prêt$"
+      - "^le dossier est cree$"
+      - "^dossier cree$"
   - phrase: "Base prête"
     handler: base_ready
     aliases:
@@ -53,36 +79,47 @@ validations:
       - "^la base est prête pour le test$"
   - phrase: "Date modifiée"
     handler: date_modified
+    scope: last_action
     aliases:
       - "date modifiée"
       - "La date est modifiée"
+      - "date modifiee"
       - "^date modifiée$"
       - "^la date est modifiée$"
-  - phrase: "Retour 0"
-    handler: return_0
+      - "^date modifiee$"
+  - phrase: "Retour {code}"
+    handler: return_code
+    scope: last_action
     aliases:
-      - "retour 0"
-      - "code retour 0"
-      - "le script retourne un code 0"
+      - "retour {code}"
+      - "code retour {code}"
+      - "le script retourne un code {code}"
+      - "Le script retourne un code {code}"
       - "le script a réussi"
       - "le script s'est exécuté sans erreur"
-      - "^retour 0$"
-      - "^code retour 0$"
-      - "^le script retourne un code 0$"
+      - "Le script s'execute avec succès"
+      - "^retour ([0-9]+)$"
+      - "^code retour ([0-9]+)$"
+      - "^le script retourne un code ([0-9]+)$"
+      - "^Le script retourne un code ([0-9]+)$"
       - "^le script a réussi$"
       - "^le script s'est exécuté sans erreur$"
+      - "^Le script s'execute avec succès$"
   - phrase: "Les fichiers sont identiques"
     handler: files_identical
+    scope: last_action
     aliases:
       - "fichiers identiques"
       - "les fichiers sont les mêmes"
       - "fichiers égaux"
+      - "Les fichiers sont identiques"
       - "^fichiers identiques$"
       - "^les fichiers sont les mêmes$"
       - "^fichiers égaux$"
       - "^fichier_identique (.+) (.+)$"
       - "^le fichier (.+) est identique à (.+)$"
       - "^le fichier (.+) est identique a (.+)$"
+      - "^Comparer le fichier (.+) avec (.+)$"
   - phrase: "Identifiants configurés"
     handler: credentials_configured
     aliases:
@@ -99,6 +136,7 @@ validations:
       - "^les logs sont accessibles$"
   - phrase: "Aucun message d'erreur"
     handler: no_error_message
+    scope: last_action
     aliases:
       - "aucun message d'erreur"
       - "stderr=."
@@ -106,6 +144,7 @@ validations:
       - "^stderr=.$"
   - phrase: "La sortie standard contient {text}"
     handler: stdout_contains
+    scope: last_action
     aliases:
       - "stdout contient {text}"
       - "la sortie contient {text}"
@@ -114,8 +153,30 @@ validations:
       - "^la sortie standard contient (.+)$"
   - phrase: "La sortie d'erreur contient {text}"
     handler: stderr_contains
+    scope: last_action
     aliases:
       - "stderr contient {text}"
       - "la sortie d'erreur affiche {text}"
       - "^stderr contient (.+)$"
-      - "^la sortie d'erreur contient (.+)$" 
+      - "^la sortie d'erreur contient (.+)$"
+  - phrase: "Le fichier {file} contient {text}"
+    handler: file_contains
+    scope: last_action
+    aliases:
+      - "fichier {file} contient {text}"
+      - "^fichier (.+) contient (.+)$"
+      - "^le fichier (.+) contient (.+)$"
+  - phrase: "Le fichier {file} existe"
+    handler: file_exists
+    scope: global
+    aliases:
+      - "fichier {file} existe"
+      - "^fichier (.+) existe$"
+      - "^le fichier (.+) existe$"
+  - phrase: "Le fichier {file} est vide"
+    handler: file_empty
+    scope: global
+    aliases:
+      - "fichier {file} est vide"
+      - "^fichier (.+) est vide$"
+      - "^le fichier (.+) est vide$" 

@@ -1,0 +1,12 @@
+# Test with invalid plugin usage
+Étape: Test nonexistent plugin
+  Action: Use nonexistent plugin: with some parameters
+  Vérifier: Le code de retour est 0
+
+Étape: Test plugin with wrong parameters
+  Action: Exécuter la requête SQL: # Missing query
+  Vérifier: Le code de retour est 0
+
+Étape: Test plugin with malformed parameters
+  Action: Créer le fichier: # Missing filename
+  Vérifier: Le fichier existe 

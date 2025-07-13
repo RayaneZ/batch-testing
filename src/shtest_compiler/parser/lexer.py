@@ -47,5 +47,9 @@ def lex(text: str, debug: bool = False) -> Iterator[Token]:
 
 def lex_file(path: str) -> Iterator[Token]:
     """Read *path* and yield :class:`Token` objects."""
-    new_tokens = new_lex_file(path)
-    yield from _convert_tokens(new_tokens)
+    new_tokens = new_lex_file(path, debug=True)
+    for token in _convert_tokens(new_tokens):
+        print(f"[DEBUG] Lexer: Produced token kind={token.kind}, value={token.value}, result={token.result}, original={token.original}")
+        yield token
+
+print("LEXER DEBUG ACTIVE: src/shtest_compiler/parser/lexer.py loaded")

@@ -1,35 +1,265 @@
 """
-Shell code generation visitor.
-Generates shell script code from AST nodes.
+Shell code generator for the shtest compiler.
+
+This module generates shell scripts from parsed AST nodes.
 """
 
-import os
+from typing import List, Optional, Dict, Any
+from ..core.visitor import ASTVisitor
+from ..core.context import CompileContext
+from ..parser.shtest_ast import ShtestFile, Action, TestStep
+from .atomic_compiler import compile_atomic
+from .matcher_registry import MatcherRegistry
+from ..config.debug_config import is_debug_enabled, debug_print
 import re
-from typing import List, Tuple, Any
-from shtest_compiler.core.visitor import BaseVisitor
-from shtest_compiler.core.ast import ASTNode
-from shtest_compiler.core.context import CompileContext
-from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
-from shtest_compiler.compiler.utils import compile_validation
-from shtest_compiler.compiler.sql_drivers import get_sql_command
-from shtest_compiler.compiler.command_translator import translate_command
-from shtest_compiler.command_loader import action_to_ast
-from shtest_compiler.ast_to_shell import ast_to_shell
-from shtest_compiler.parser.shunting_yard import parse_validation_expression, Atomic, BinaryOp
+import yaml
+import os
+import importlib
+from .argument_extractor import extract_action_args
 
 
-class ShellGenerator(BaseVisitor[str]):
+def canonize_action(action: str) -> Optional[tuple]:
     """
-    Visitor for generating shell script code from AST nodes.
+    Canonicalize an action command to find the appropriate handler.
+    Returns (canonical_phrase, handler_name, pattern_entry) or None if not found
     """
+    patterns_path = os.path.join(os.path.dirname(__file__), "../config/patterns_actions.yml")
+    if not os.path.exists(patterns_path):
+        return None
+    
+    with open(patterns_path, encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+        action_patterns = data.get("actions", [])
+    
+    action_lower = action.lower().strip()
+    
+    for pattern_entry in action_patterns:
+        # Check exact phrase match
+        if pattern_entry["phrase"].lower() == action_lower:
+            return (
+                pattern_entry["phrase"],
+                pattern_entry["handler"],
+                pattern_entry
+            )
+        # Check aliases
+        for alias in pattern_entry.get("aliases", []):
+            # Skip if alias is not a string
+            if not isinstance(alias, str):
+                continue
+            if alias.lower() == action_lower:
+                return (
+                    pattern_entry["phrase"],
+                    pattern_entry["handler"],
+                    pattern_entry
+                )
+            # Handle regex patterns
+            if alias.startswith("^") and alias.endswith("$"):
+                try:
+                    if re.match(alias, action_lower, re.IGNORECASE):
+                        return (
+                            pattern_entry["phrase"],
+                            pattern_entry["handler"],
+                            pattern_entry
+                        )
+                except re.error:
+                    continue
+    
+    return None
+
+
+def extract_action_groups(action: str, pattern: str) -> List[str]:
+    """
+    Extract groups from action command using the pattern.
+    
+    Args:
+        action: The action command
+        pattern: The regex pattern to match against
+        
+    Returns:
+        List of extracted groups
+    """
+    # Convert YAML pattern placeholders to regex
+    regex_pattern = pattern
+    regex_pattern = regex_pattern.replace("{path}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{src}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{dest}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{script}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{query}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{output}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{query1}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{query2}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{file1}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{file2}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{var}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{value}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{timestamp}", r"(.+)")
+    regex_pattern = regex_pattern.replace("{mode}", r"(.+)")
+    
+    # Try to match the action against the pattern
+    match = re.match(regex_pattern, action, re.IGNORECASE)
+    if match:
+        return list(match.groups())
+    return []
+
+
+def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[str]:
+    """
+    Compile an action command into shell code using the plugin system.
+    
+    Args:
+        action: The action command to compile
+        extracted_args: Dict of arguments extracted from the action command
+        
+    Returns:
+        List of shell code lines
+    """
+    debug_enabled = is_debug_enabled()
+    
+    if debug_enabled:
+        debug_print(f"[DEBUG] compile_action called with: action='{action}', extracted_args={extracted_args}")
+    
+    # Canonicalize the action command
+    canon = canonize_action(action)
+    if debug_enabled:
+        debug_print(f"[DEBUG] canonize_action result: {canon}")
+    
+    if not canon:
+        # Fallback to raw command execution
+        if debug_enabled:
+            debug_print(f"[DEBUG] No action handler found, using raw command execution")
+        return [
+            f"# Execute: {action}",
+            f'echo "Executing: {action}"',
+            f"stdout=$({action} 2>&1)",
+            "last_ret=$?",
+            "",
+        ]
+    
+    phrase_canonique, handler, pattern_entry = canon
+    if debug_enabled:
+        debug_print(f"[DEBUG] Canonical action: '{phrase_canonique}' (handler: {handler}) for '{action}'")
+    
+    # Find matching action pattern
+    matched_pattern = None
+    for alias in [pattern_entry["phrase"]] + pattern_entry.get("aliases", []):
+        # Skip if alias is not a string
+        if not isinstance(alias, str):
+            continue
+        if alias.lower() == action.lower().strip():
+            matched_pattern = alias
+            break
+        # Handle regex patterns
+        if alias.startswith("^") and alias.endswith("$"):
+            try:
+                if re.match(alias, action.lower().strip(), re.IGNORECASE):
+                    matched_pattern = alias
+                    break
+            except re.error:
+                continue
+    
+    if not matched_pattern:
+        # Fallback to raw command execution
+        if debug_enabled:
+            debug_print(f"[DEBUG] No action pattern matched, using raw command execution")
+        return [
+            f"# Execute: {action}",
+            f'echo "Executing: {action}"',
+            f"stdout=$({action} 2>&1)",
+            "last_ret=$?",
+            "",
+        ]
+    
+    # Extract action groups from the matched pattern
+    groups = extract_action_groups(action, matched_pattern)
+    if debug_enabled:
+        debug_print(f"[DEBUG] extract_action_groups result: {groups}")
+    
+    # Try to import and use the action plugin
+    try:
+        if debug_enabled:
+            debug_print(f"[DEBUG] Trying to import plugin: shtest_compiler.plugins.{handler}")
+        
+        plugin_module = importlib.import_module(f"shtest_compiler.plugins.{handler}")
+        if debug_enabled:
+            debug_print(f"[DEBUG] Plugin imported successfully: {plugin_module}")
+        
+        # Check if plugin has handle method
+        if hasattr(plugin_module, 'handle'):
+            if debug_enabled:
+                debug_print(f"[DEBUG] Plugin has handle method, calling with groups={groups}")
+            
+            action_obj = plugin_module.handle(groups)
+            if debug_enabled:
+                debug_print(f"[DEBUG] Plugin handle returned: {action_obj}")
+            
+            # Check if action object has to_shell method
+            if hasattr(action_obj, 'to_shell'):
+                import inspect
+                sig = inspect.signature(action_obj.to_shell)
+                param_names = list(sig.parameters.keys())
+                if debug_enabled:
+                    debug_print(f"[DEBUG] to_shell signature: {sig}, param_names: {param_names}")
+                
+                # Prepare arguments for to_shell
+                kwargs = {}
+                # Pass extracted_args if plugin expects them
+                if extracted_args:
+                    for k, v in extracted_args.items():
+                        if k in param_names:
+                            kwargs[k] = v
+                
+                # Call to_shell with appropriate parameters
+                matched = action_obj.to_shell(**kwargs)
+                if debug_enabled:
+                    debug_print(f"[DEBUG] Generated shell code: {matched}")
+                if isinstance(matched, list):
+                    return matched
+                elif isinstance(matched, str):
+                    return [matched]
+                else:
+                    return [f"echo 'ERROR: Invalid return type from plugin {handler}'"]
+            else:
+                return [f"echo 'ERROR: Plugin {handler} does not have to_shell method'"]
+        else:
+            return [f"echo 'ERROR: Plugin {handler} does not have handle method'"]
+            
+    except ImportError as e:
+        if debug_enabled:
+            debug_print(f"[DEBUG] ImportError: {e}")
+        # Fallback to raw command execution
+        return [
+            f"# Execute: {action}",
+            f'echo "Executing: {action}"',
+            f"stdout=$({action} 2>&1)",
+            "last_ret=$?",
+            "",
+        ]
+    except Exception as e:
+        if debug_enabled:
+            debug_print(f"[DEBUG] Exception in plugin {handler}: {e}")
+        # Fallback to raw command execution
+        return [
+            f"# Execute: {action}",
+            f'echo "Executing: {action}"',
+            f"stdout=$({action} 2>&1)",
+            "last_ret=$?",
+            "",
+        ]
+
+
+class ShellGenerator(ASTVisitor):
+    """Generates shell code from AST nodes."""
     
     def __init__(self):
-        self.lines = []
-        self.counter = [0]
-        self.current_driver = os.environ.get("SQL_DRIVER", "oracle")
+        """Initialize the shell generator."""
+        self.context = CompileContext()
+        self.matcher_registry = MatcherRegistry()
+        self.last_file_var = None
+        self.last_action_valids = []
+        self.global_valids = []
     
-    def visit(self, node):
-        """Visit a node and return shell code."""
+    def visit(self, node) -> str:
+        """Visit a node and generate shell code."""
         if isinstance(node, ShtestFile):
             return self.visit_shtest_file(node)
         elif isinstance(node, TestStep):
@@ -37,153 +267,192 @@ class ShellGenerator(BaseVisitor[str]):
         elif isinstance(node, Action):
             return self.visit_action(node)
         else:
-            return self.generic_visit(node)
+            return f"# Unknown node type: {type(node).__name__}"
     
-    def visit_shtest_file(self, node: ShtestFile):
-        """Visit a ShtestFile node."""
-        # Initialize shell script
-        self.lines = [
-            "#!/bin/sh",
-            "set -e",
+    def visit_shtest_file(self, node: ShtestFile) -> str:
+        """Generate shell code for a shtest file."""
+        lines = [
+            "#!/bin/bash",
             "",
-            "run_cmd() {",
-            "  local _stdout=$(mktemp)",
-            "  local _stderr=$(mktemp)",
-            "  /bin/sh -c \"$1\" >\"$_stdout\" 2>\"$_stderr\"",
-            "  last_ret=$?",
-            "  last_stdout=$(cat \"$_stdout\")",
-            "  last_stderr=$(cat \"$_stderr\")",
-            "  rm -f \"$_stdout\" \"_stderr\"",
-            "  if [ $last_ret -ne 0 ]; then",
-            "    echo \"STDERR: $last_stderr\"",
-            "  fi",
-            "}",
+            "# Generated shell script from .shtest file",
             "",
+            "# Function to log differences",
             "log_diff() {",
-            "  expected=\"$1\"",
-            "  actual=\"$2\"",
-            "  if [ \"$expected\" != \"$actual\" ]; then",
-            "    echo 'Différence détectée :'",
-            "    echo \"- Attendu : $expected\"",
-            "    echo \"- Obtenu : $actual\"",
-            "  fi",
+            "    local expected=\"$1\"",
+            "    local actual=\"$2\"",
+            "    if [ \"$expected\" != \"$actual\" ]; then",
+            "        echo \"Expected: $expected\"",
+            "        echo \"Actual: $actual\"",
+            "    fi",
             "}",
-            ""
+            "",
+            "# Initialize variables",
+            "last_ret=0",
+            "test_passed=true",
+            "",
         ]
         
-        # Visit all steps
+        # Process test steps
         for step in node.steps:
-            self.visit(step)
+            step_code = self.visit_test_step(step)
+            lines.extend(step_code.split('\n'))
+            lines.append("")
         
-        return "\n\n".join(self.lines)
+        # Add final result check
+        lines.extend([
+            "# Final result",
+            "if [ \"$test_passed\" = true ]; then",
+            "    echo \"Test passed\"",
+            "    exit 0",
+            "else",
+            "    echo \"Test failed\"",
+            "    exit 1",
+            "fi",
+        ])
+        
+        return '\n'.join(lines)
     
-    def visit_test_step(self, node: TestStep):
-        """Visit a TestStep node."""
-        self.lines.append(f"# ---- {node.name} ----")
+    def visit_test_step(self, node: TestStep) -> str:
+        """Generate shell code for a test step."""
+        if is_debug_enabled():
+            debug_print(f"[DEBUG] Shell generator: Visiting test step: {node.name}")
         
-        # Visit all actions in the step
+        lines = [
+            f"# Test step: {node.name}",
+        ]
+        
+        # Process actions in the test step
         for action in node.actions:
-            self.visit(action)
-    
-    def collect_validations_by_scope(self, node):
-        """
-        Collect validation nodes by their scope (last_action vs global).
-        Returns (last_action_nodes, global_nodes)
-        """
-        last_action_nodes = []
-        global_nodes = []
+            if is_debug_enabled():
+                debug_print(f"[DEBUG] Shell generator: Visiting action: command='{action.command}', result_expr='{action.result_expr}'")
+            
+            action_code = self.visit_action(action)
+            lines.extend(action_code)
+            lines.append("")
         
-        def collect_recursive(ast_node):
-            if isinstance(ast_node, Atomic):
-                # Atomic nodes use the plugin system which has scope info
-                try:
-                    from shtest_compiler.parser.shunting_yard import result_atom_to_ast
-                    plugin_ast = result_atom_to_ast(ast_node.value)
-                    if hasattr(plugin_ast, 'scope'):
-                        if plugin_ast.scope == 'last_action':
-                            last_action_nodes.append(plugin_ast)
-                        else:
-                            global_nodes.append(plugin_ast)
-                    else:
-                        # Default to global if no scope specified
-                        global_nodes.append(plugin_ast)
-                except Exception:
-                    # Fallback: treat as global
-                    global_nodes.append(ast_node)
-                    
-            elif isinstance(ast_node, BinaryOp):
-                # Recursively collect from left and right branches
-                collect_recursive(ast_node.left)
-                collect_recursive(ast_node.right)
-            else:
-                # Unknown node type, treat as global
-                global_nodes.append(ast_node)
-        
-        collect_recursive(node)
-        return last_action_nodes, global_nodes
+        return '\n'.join(lines)
     
-    def generate_validation_shell(self, validation_nodes, prefix=""):
-        """
-        Generate shell code for a list of validation nodes.
-        Returns list of shell lines.
-        """
+    def visit_action(self, action: Action) -> List[str]:
+        """Visit an action node and generate shell code."""
+        if is_debug_enabled():
+            debug_print(f"[DEBUG] Shell generator: visit_action called with command='{action.command}', result_expr='{action.result_expr}'")
+        
         lines = []
-        for node in validation_nodes:
-            var = f"cond{self.counter[0]}"
-            self.counter[0] += 1
-            if hasattr(node, 'to_shell'):
-                shell_code = node.to_shell(var)
-                lines.extend(shell_code.split('\n'))
-            else:
-                # Fallback for nodes without to_shell method
-                lines.append(f"# {prefix}Validation: {type(node).__name__}")
-                lines.append(f"{var}=0")
+        extracted_args = None
+        
+        # Generate command execution using plugin system
+        if action.command:
+            # Extract arguments from the action command
+            extracted_args = extract_action_args(action.command)
+            if is_debug_enabled():
+                debug_print(f"[DEBUG] Extracted arguments from action: {extracted_args}")
+            
+            # Compile action using plugin system
+            action_lines = compile_action(action.command, extracted_args)
+            lines.extend(action_lines)
+        
+        # Generate validation if present
+        if action.result_expr:
+            validation_lines = self._generate_validation(action, extracted_args)
+            lines.extend(validation_lines)
+        
         return lines
     
-    def visit_action(self, node: Action):
-        """Visit an Action node."""
-        # Si c'est une affectation de SQL_DRIVER, on met à jour self.current_driver mais on ne génère rien
-        m = re.match(r"^définir la variable sql_driver\s*=\s*(\w+)", node.command or "", re.IGNORECASE)
-        if m:
-            self.current_driver = m.group(1).lower()
-            return  # Ne génère pas de ligne shell pour cette action
-
-        if node.command:
-            # Nouveau pipeline plugin+YAML+AST
-            ast = action_to_ast(node.command)
-            if ast:
-                shell_cmd = ast_to_shell(ast)
-                self.lines.append(f'{shell_cmd}')
-            else:
-                # Fallback : ancienne traduction directe
-                translated_command = translate_command(node.command)
-                self.lines.append(f'run_cmd "{translated_command}"')
+    def _generate_validation(self, node: Action, extracted_args=None) -> List[str]:
+        """Generate validation code for an action."""
+        if is_debug_enabled():
+            debug_print(f"[DEBUG] Shell generator: Processing result_expr: '{node.result_expr}'")
         
-        if node.result_expr:
-            # Parse validation expression and organize by scope
-            try:
-                validation_ast = parse_validation_expression(node.result_expr)
-                last_action_valids, global_valids = self.collect_validations_by_scope(validation_ast)
+        lines = []
+        try:
+            # Parse validation expression
+            validation_ast = self._parse_validation(node.result_expr)
+            if is_debug_enabled():
+                debug_print(f"[DEBUG] Shell generator: validation_ast = {validation_ast}")
+            
+            # Get validation expressions
+            last_action_valids = self.last_action_valids
+            global_valids = self.global_valids
+            if is_debug_enabled():
+                debug_print(f"[DEBUG] Shell generator: last_action_valids = {last_action_valids}, global_valids = {global_valids}")
+            
+            # Combine all validations
+            all_validations = []
+            if validation_ast:
+                all_validations.extend(validation_ast)
+            all_validations.extend(last_action_valids)
+            all_validations.extend(global_valids)
+            
+            # Generate validation code for each expression
+            for i, validation in enumerate(all_validations):
+                if is_debug_enabled():
+                    debug_print(f"[DEBUG] Shell generator: Compiling validation: '{validation}'")
+                    debug_print(f"[DEBUG] Shell generator: last_file_var = {self.last_file_var}")
+                # Pass extracted_args to compile_atomic
+                validation_lines = compile_atomic(validation, f"result_{i}", self.last_file_var, extracted_args=extracted_args)
+                if is_debug_enabled():
+                    debug_print(f"[DEBUG] Shell generator: Generated validation lines: {validation_lines}")
                 
-                # Generate shell for last_action validations (immediately after action)
-                if last_action_valids:
-                    self.lines.append("# Validations liées à la dernière action:")
-                    last_action_lines = self.generate_validation_shell(last_action_valids, "last_action_")
-                    self.lines.extend(last_action_lines)
-                
-                # Generate shell for global validations (can be executed anytime)
-                if global_valids:
-                    self.lines.append("# Validations globales:")
-                    global_lines = self.generate_validation_shell(global_valids, "global_")
-                    self.lines.extend(global_lines)
-                    
-            except Exception as e:
-                # Fallback to original behavior if parsing fails
-                self.lines.append(f"# Erreur parsing validation: {e}")
-            validation_lines = compile_validation(node.result_expr, self.counter)
-            self.lines.extend(validation_lines)
+                lines.extend(validation_lines)
+                # Always display expected/actual
+                lines.extend([
+                    'echo "Expected: $expected"',
+                    'echo "Actual:   $actual"',
+                ])
+                # Add result check, fail fast
+                lines.extend([
+                    f"if [ $result_{i} -eq 0 ]; then",
+                    f"    echo '❌ Validation failed: {validation}'",
+                    f"    exit 1",
+                    "else",
+                    f"    echo '✅ Validation passed: {validation}'",
+                    "fi",
+                    "",
+                ])
+        except Exception as e:
+            if is_debug_enabled():
+                debug_print(f"[DEBUG] Shell generator: Exception in validation parsing: {e}")
+            lines.extend([
+                f"echo \"ERROR: Failed to parse validation: {node.result_expr}\"",
+                "test_passed=false",
+                "",
+            ])
+        return lines
     
-    def generic_visit(self, node: ASTNode) -> str:
-        """Handle unrecognized node types."""
-        return f"# Unhandled node type: {type(node).__name__}"
+    def _parse_validation(self, validation_expr: str) -> List[str]:
+        """Parse validation expression into individual validations."""
+        if not validation_expr:
+            return []
+        
+        # Use word boundaries to avoid splitting on substrings
+        
+        # Split by 'et' and 'ou' with word boundaries
+        parts = re.split(r'\b(?:et|ou)\b', validation_expr, flags=re.IGNORECASE)
+        
+        validations = []
+        for part in parts:
+            validation = part.strip()
+            if validation:
+                # Clean up the validation
+                validation = validation.strip('.;')
+                if validation:
+                    validations.append(validation)
+        
+        return validations
+    
+    def set_last_file_var(self, file_var: str) -> None:
+        """Set the last file variable for context."""
+        self.last_file_var = file_var
+    
+    def add_action_validation(self, validation: str) -> None:
+        """Add a validation for the current action."""
+        self.last_action_valids.append(validation)
+    
+    def add_global_validation(self, validation: str) -> None:
+        """Add a global validation."""
+        self.global_valids.append(validation)
+    
+    def clear_action_validations(self) -> None:
+        """Clear action-specific validations."""
+        self.last_action_valids = []
 

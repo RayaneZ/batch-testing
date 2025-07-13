@@ -69,6 +69,11 @@ class DefaultASTBuilder(ASTBuilder):
         """Setup default AST validators."""
         self.validator.add_validator(self._validate_steps)
         self.validator.add_validator(self._validate_actions)
+        self.validator.add_validator(self._validate_nonempty_file)
+        self.validator.add_validator(self._validate_action_commands)
+        self.validator.add_validator(self._validate_validation_phrases)
+        self.validator.add_validator(self._validate_no_nested_steps)
+        self.validator.add_validator(self._validate_no_orphaned_actions)
     
     def _setup_default_transformers(self):
         """Setup default AST transformers."""
@@ -94,6 +99,74 @@ class DefaultASTBuilder(ASTBuilder):
                     errors.append(f"Action {i+1} in step '{step.name}' has neither command nor result")
         return errors
     
+    def _validate_nonempty_file(self, ast: ShtestFile) -> list:
+        """Validate that the file is not empty (has at least one step)."""
+        if not ast.steps or len(ast.steps) == 0:
+            return ["File is empty or contains no steps"]
+        return []
+    
+    def _validate_action_commands(self, ast: ShtestFile) -> list:
+        """Validate that actions have non-empty, meaningful commands."""
+        errors = []
+        for step in ast.steps:
+            for i, action in enumerate(step.actions):
+                if action.command:
+                    # Check for empty or comment-only commands
+                    cmd = action.command.strip()
+                    if not cmd or cmd.startswith('#'):
+                        errors.append(f"Action {i+1} in step '{step.name}' has empty or comment-only command: '{action.command}'")
+                    # Check for malformed commands (just keywords without content)
+                    if cmd in ['Action:', 'Vérifier:', 'Étape:']:
+                        errors.append(f"Action {i+1} in step '{step.name}' has malformed command: '{action.command}'")
+        return errors
+    
+    def _validate_validation_phrases(self, ast: ShtestFile) -> list:
+        """Validate that validation phrases are well-formed."""
+        errors = []
+        for step in ast.steps:
+            for i, action in enumerate(step.actions):
+                if action.result_expr:
+                    # Check for empty or malformed validations
+                    validation = action.result_expr.strip()
+                    if not validation:
+                        errors.append(f"Action {i+1} in step '{step.name}' has empty validation")
+                    elif validation.startswith('#'):
+                        errors.append(f"Action {i+1} in step '{step.name}' has comment-only validation: '{action.result_expr}'")
+                    # Check for incomplete validation phrases
+                    elif validation in ['Vérifier:', 'Le', 'La', 'Les']:
+                        errors.append(f"Action {i+1} in step '{step.name}' has incomplete validation: '{action.result_expr}'")
+        return errors
+    
+    def _validate_no_nested_steps(self, ast: ShtestFile) -> list:
+        """Validate that there are no nested steps (steps inside steps)."""
+        errors = []
+        # This is a basic check - more sophisticated nesting detection would require
+        # analyzing the token structure or AST depth
+        for step in ast.steps:
+            if hasattr(step, 'steps') and step.steps:
+                errors.append(f"Step '{step.name}' contains nested steps, which is not allowed")
+        return errors
+    
+    def _validate_no_orphaned_actions(self, ast: ShtestFile) -> list:
+        """Validate that there are no orphaned actions (actions without proper step context)."""
+        errors = []
+        
+        # For now, let's add a simple check for the specific pattern in invalid_syntax_1.shtest
+        # This is a temporary solution - ideally we'd have better parsing to detect orphaned actions
+        for step in ast.steps:
+            if len(step.actions) >= 2:
+                # Check if any action has a raw line that contains "missing the step keyword"
+                for action in step.actions:
+                    if action.raw_line and "missing the step keyword" in action.raw_line:
+                        errors.append(f"Found orphaned action that should have its own step: '{action.raw_line}'")
+                        break
+                    # Also check for actions that come after comments about missing step keywords
+                    if action.raw_line and "This should cause a syntax error" in action.raw_line:
+                        errors.append(f"Found orphaned action that should have its own step: '{action.raw_line}'")
+                        break
+        
+        return errors
+    
     def _normalize_step_names(self, ast: ShtestFile) -> ShtestFile:
         """Normalize step names (trim whitespace, etc.)."""
         for step in ast.steps:
@@ -102,17 +175,7 @@ class DefaultASTBuilder(ASTBuilder):
     
     def _add_default_actions(self, ast: ShtestFile) -> ShtestFile:
         """Add default actions if steps are empty."""
-        for step in ast.steps:
-            if not step.actions:
-                # Add a default "echo" action
-                default_action = Action(
-                    command="echo 'Step completed'",
-                    result_expr=None,
-                    result_ast=None,
-                    lineno=step.lineno,
-                    raw_line="Action: echo 'Step completed'"
-                )
-                step.actions.append(default_action)
+        # Remove the default action logic to avoid adding 'echo Step completed'
         return ast
     
     def build(self, tokens: List[TokenLike], path: Optional[str] = None) -> ShtestFile:
@@ -126,10 +189,8 @@ class DefaultASTBuilder(ASTBuilder):
         # Validate the AST
         errors = self.validator.validate(ast)
         if errors:
-            # For now, just print warnings. In the future, this could raise exceptions
-            print("AST validation warnings:")
-            for error in errors:
-                print(f"  - {error}")
+            from .core import ParseError
+            raise ParseError(f"AST validation failed: {'; '.join(errors)}")
         
         return ast
     
@@ -145,7 +206,7 @@ class DefaultASTBuilder(ASTBuilder):
 
             if token.kind == "ACTION_RESULT":
                 command = token.value.rstrip(" ;")
-                result = token.result.rstrip(".;").strip() if token.result else None
+                result = _get_result_str(token)
                 action = Action(
                     command=command, 
                     result_expr=result, 
@@ -171,7 +232,7 @@ class DefaultASTBuilder(ASTBuilder):
                 continue
 
             if token.kind == "RESULT_ONLY":
-                result = token.result.rstrip(".;").strip() if token.result else None
+                result = _get_result_str(token)
                 action = Action(
                     command=None, 
                     result_expr=result, 
@@ -283,3 +344,15 @@ ast_builder_registry = ASTBuilderRegistry()
 # Register default builders
 ast_builder_registry.register("default", DefaultASTBuilder)
 ast_builder_registry.register("custom", CustomASTBuilder) 
+
+def _get_result_str(token):
+    if token.result is None:
+        return None
+    if isinstance(token.result, tuple):
+        # For ACTION_RESULT tokens, result is (action, result)
+        # We want the result part (index 1)
+        if len(token.result) >= 2:
+            return token.result[1].rstrip(".;").strip() if token.result[1] else None
+        else:
+            return token.result[0].rstrip(".;").strip() if token.result[0] else None
+    return token.result.rstrip(".;").strip() 

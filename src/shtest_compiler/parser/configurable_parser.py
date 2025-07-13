@@ -9,6 +9,7 @@ from .shtest_ast import ShtestFile
 from .lexer import ConfigurableLexer
 from .grammar import DefaultGrammar
 from .ast_builder import DefaultASTBuilder
+from ..config.debug_config import is_debug_enabled, debug_print
 
 
 class ConfigurableParser:
@@ -19,19 +20,20 @@ class ConfigurableParser:
                  grammar: Optional[DefaultGrammar] = None,
                  ast_builder: Optional[DefaultASTBuilder] = None,
                  debug: bool = False):
-        self.lexer = lexer or ConfigurableLexer(debug=debug)
+        # Use global debug configuration
+        self.debug = debug or is_debug_enabled()
+        self.lexer = lexer or ConfigurableLexer(debug=self.debug)
         self.grammar = grammar or DefaultGrammar()
         self.ast_builder = ast_builder or DefaultASTBuilder()
-        self.debug = debug
     
     def parse(self, text: str, path: Optional[str] = None) -> ShtestFile:
         """Parse text into an AST."""
         try:
             if self.debug:
-                print(f"[DEBUG] Parsing text with {len(text.splitlines())} lines")
+                debug_print(f"[DEBUG] Parsing text with {len(text.splitlines())} lines")
             tokens = list(self.lexer.lex(text))
             if self.debug:
-                print(f"[DEBUG] Got {len(tokens)} tokens")
+                debug_print(f"[DEBUG] Got {len(tokens)} tokens")
             grammar_result = self.grammar.match(tokens)
             ast = self.ast_builder.build(grammar_result, path=path)
             return ast

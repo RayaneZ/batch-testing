@@ -20,9 +20,9 @@ class CompilerVisitor(ASTVisitor):
         # Canonisation de la validation
         canon = pattern_registry.canonize_validation(node.value)
         if canon:
-            phrase_canonique, handler = canon
+            phrase_canonique, handler, scope = canon
             if self.context.verbose:
-                print(f"[CANON] Validation canonique: '{phrase_canonique}' (handler: {handler}) pour '{node.value}'")
+                print(f"[CANON] Validation canonique: '{phrase_canonique}' (handler: {handler}, scope: {scope}) pour '{node.value}'")
         else:
             if self.context.verbose:
                 print(f"[CANON] Aucune validation canonique trouvée pour '{node.value}'")

@@ -14,6 +14,11 @@ Ce guide vous aide à comprendre rapidement l'architecture modulaire de KnightBa
 │   Script        │    │   Compilateur   │◀──────────┘
 │   Shell         │◀───│   Modulaire     │
 └─────────────────┘    └─────────────────┘
+                              │
+                       ┌─────────────────┐
+                       │   Validation    │
+                       │   AST           │
+                       └─────────────────┘
 ```
 
 ## Composants Principaux
@@ -31,13 +36,18 @@ Ce guide vous aide à comprendre rapidement l'architecture modulaire de KnightBa
 
 ### 3. Parser Modulaire (`parser/`)
 - **configurable_parser.py** : Parser principal
-- **ast_builder.py** : Constructeur d'AST
+- **ast_builder.py** : Constructeur d'AST avec validation
 - **grammar.py** : Grammaire configurable
 
 ### 4. Compilateur Modulaire (`compiler/`)
 - **compiler.py** : Compilateur principal
 - **visitors/shell_visitor.py** : Générateur de code shell
 - **matchers/** : Matchers pour les validations
+
+### 5. Validation AST (`parser/ast_builder.py`)
+- **Validateurs** : Vérification de la structure et du contenu
+- **Transformateurs** : Normalisation et amélioration de l'AST
+- **Gestion d'erreurs** : Messages clairs et localisés
 
 ## Exemple de Workflow Complet
 
@@ -53,7 +63,7 @@ context = CompileContext()
 # 2. Configurer le lexer
 lexer = ConfigurableLexer("config/patterns_hybrid.yml")
 
-# 3. Configurer le parser
+# 3. Configurer le parser avec validation
 parser = ConfigurableParser("config/patterns_hybrid.yml")
 
 # 4. Configurer le compilateur
@@ -66,11 +76,63 @@ with open("test.shtest", "r") as f:
 # Tokenisation
 tokens = lexer.tokenize(content)
 
-# Parsing
-ast = parser.parse_tokens(tokens)
+# Parsing avec validation automatique
+try:
+    ast = parser.parse_tokens(tokens)
+except ParseError as e:
+    print(f"Erreur de validation: {e}")
+    sys.exit(1)
 
 # Compilation
 shell_script = compiler.compile(ast)
+```
+
+## Système de Validation
+
+### Validateurs Intégrés
+
+Le système inclut des validateurs pour détecter les erreurs courantes :
+
+```python
+# Validation des étapes
+def _validate_steps(self, ast: ShtestFile) -> List[str]:
+    """Valide que les étapes ont une structure appropriée."""
+    errors = []
+    for i, step in enumerate(ast.steps):
+        if not step.name or step.name.strip() == "":
+            errors.append(f"Step {i+1} has empty name")
+        if len(step.actions) == 0:
+            errors.append(f"Step '{step.name}' has no actions")
+    return errors
+
+# Validation des actions
+def _validate_actions(self, ast: ShtestFile) -> List[str]:
+    """Valide que les actions ont une structure appropriée."""
+    errors = []
+    for step in ast.steps:
+        for i, action in enumerate(step.actions):
+            if action.command is None and action.result_expr is None:
+                errors.append(f"Action {i+1} in step '{step.name}' has neither command nor result")
+    return errors
+```
+
+### Ajouter un Validateur Personnalisé
+
+```python
+# 1. Créer la fonction de validation
+def my_custom_validator(ast: ShtestFile) -> List[str]:
+    errors = []
+    for step in ast.steps:
+        # Votre logique de validation
+        if some_condition:
+            errors.append("Mon message d'erreur")
+    return errors
+
+# 2. L'ajouter au builder
+class CustomASTBuilder(DefaultASTBuilder):
+    def __init__(self):
+        super().__init__()
+        self.validator.add_validator(my_custom_validator)
 ```
 
 ## Ajouter un Nouveau Matcher
@@ -171,6 +233,37 @@ def test_full_pipeline():
     assert "success" in result
 ```
 
+### Tests E2E
+
+```python
+# tests/e2e/test_my_feature.py
+def test_my_feature_e2e():
+    # Test avec un fichier .shtest réel
+    result = subprocess.run([
+        "python", "-m", "shtest_compiler.run_all",
+        "--input", "tests/e2e/my_feature.shtest"
+    ], capture_output=True, text=True)
+    
+    assert result.returncode == 0
+    assert "Generated" in result.stdout
+```
+
+### Tests Négatifs
+
+```python
+# tests/e2e/ko/test_invalid_my_feature.shtest
+# Test avec syntaxe invalide pour votre fonctionnalité
+
+def test_invalid_my_feature():
+    result = subprocess.run([
+        "python", "-m", "shtest_compiler.run_all",
+        "--input", "tests/e2e/ko/test_invalid_my_feature.shtest"
+    ], capture_output=True, text=True)
+    
+    assert result.returncode == 1
+    assert "error" in result.stderr.lower()
+```
+
 ## Debug et Diagnostic
 
 ### Mode Debug
@@ -198,62 +291,80 @@ print_ast(ast)
 ### Validation des Tokens
 
 ```python
-# Vérifier la tokenisation
-tokens = lexer.tokenize(content)
+# Afficher les tokens générés
 for token in tokens:
-    print(f"{token.type}: {token.value}")
+    print(f"{token.kind}: '{token.value}' (line {token.lineno})")
 ```
 
-## Bonnes Pratiques
+### Outils de Debug Intégrés
 
-### 1. Séparation des Responsabilités
-- **Lexer** : Seulement la tokenisation
-- **Parser** : Seulement la construction d'AST
-- **Compiler** : Seulement la génération de code
-
-### 2. Configuration Externe
-- Utilisez YAML pour les patterns et alias
-- Évitez le code hardcodé dans les patterns
-
-### 3. Extensibilité
-- Créez des plugins pour les nouvelles fonctionnalités
-- Utilisez le système de matchers pour les validations
-
-### 4. Tests
-- Testez chaque composant individuellement
-- Testez l'intégration complète
-- Utilisez des fixtures pour les données de test
-
-## Problèmes Courants
-
-### 1. Import Errors
 ```bash
-# Solution : Vérifier le PYTHONPATH
-export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+# Debug d'un fichier spécifique
+python tests/e2e/ko/debug_parser.py
+
+# Mode debug du compilateur
+python -m shtest_compiler.run_all --input file.shtest --debug
 ```
 
-### 2. Patterns Non Reconnus
-```yaml
-# Vérifier la priorité dans patterns_hybrid.yml
-tokens:
-  my_token:
-    pattern: "MonPattern"
-    priority: 1  # Priorité élevée
-```
+## Gestion d'Erreurs
 
-### 3. Matchers Non Appelés
+### Types d'Erreurs
+
 ```python
-# Vérifier l'enregistrement dans le contexte
-context.add_matcher("my_matcher", my_function)
+from shtest_compiler.parser.core import ParseError
+
+# Erreur de parsing
+raise ParseError("Message d'erreur", lineno=10, column=5)
+
+# Erreur de validation
+raise ParseError("AST validation failed: " + "; ".join(errors))
 ```
 
-## Ressources
+### Codes de Sortie
 
-- [Architecture Modulaire](modular_architecture.md) : Documentation complète
-- [Configuration](configuration.md) : Guide de configuration
-- [Format SHTEST](shtest_format.md) : Syntaxe des fichiers de test
-- [Tests Unitaires](../tests/unit/) : Exemples de tests
+```python
+import sys
 
----
+# Succès
+sys.exit(0)
 
-Pour des questions spécifiques, consultez la [documentation complète](modular_architecture.md) ou les [tests unitaires](../tests/unit/). 
+# Erreur de validation
+sys.exit(1)
+
+# Erreur de configuration
+sys.exit(2)
+
+# Erreur système
+sys.exit(3)
+```
+
+## Exécution des Tests
+
+### Suite Complète
+
+```bash
+# Tous les tests
+python -m pytest tests/
+
+# Tests unitaires uniquement
+python -m pytest tests/unit/
+
+# Tests E2E
+python tests/e2e/run_e2e_tests.py
+
+# Tests négatifs
+python tests/e2e/ko/run_ko_tests.py
+```
+
+### Tests Spécifiques
+
+```bash
+# Test d'un module spécifique
+python -m pytest tests/unit/test_parser.py -v
+
+# Test avec couverture
+python -m pytest tests/unit/ --cov=shtest_compiler
+
+# Test en mode debug
+python -m pytest tests/unit/ -s --log-cli-level=DEBUG
+``` 

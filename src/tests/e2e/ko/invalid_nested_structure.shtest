@@ -1,0 +1,11 @@
+# Test with invalid nested structure
+Étape: Test nested steps
+  Étape: This should not be nested
+    Action: echo "nested action"
+    Vérifier: Le code de retour est 0
+
+Étape: Test nested actions
+  Action: echo "first action"
+  Action: echo "second action"
+    Action: echo "nested action"
+  Vérifier: Le code de retour est 0 
