@@ -41,7 +41,7 @@ jobs:
       - name: Upload extension artifact
         uses: actions/upload-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
+          name: knightbatch-shtest.vsix-build
           path: knightbatch-shtest.vsix
 
   test-extension:
@@ -59,7 +59,7 @@ jobs:
       - name: Download extension
         uses: actions/download-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
+          name: knightbatch-shtest.vsix-build
           path: vscode/
 
       - name: Install VS Code
@@ -178,7 +178,7 @@ jobs:
       - name: Upload .vsix artifact
         uses: actions/upload-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
+          name: knightbatch-shtest.vsix-package
           path: knightbatch-shtest.vsix
 
   publish-extension:
@@ -199,7 +199,7 @@ jobs:
       - name: Download extension artifact
         uses: actions/download-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
+          name: knightbatch-shtest.vsix-package
           path: .
 
       - name: Publish to VS Code Marketplace
