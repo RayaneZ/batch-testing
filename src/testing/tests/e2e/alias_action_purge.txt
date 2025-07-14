@@ -71,7 +71,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=purge_dir, variables={'path': '/tmp/cache'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.purge_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Vider le répertoire /tmp/cache', 'handler': 'purge_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/cache'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Remove all contents from a directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'vider le répertoire {path}', 'config': {'type': 'action', 'phrase': 'Purger le répertoire {path}', 'aliases': ['vider le répertoire {path}', 'nettoyer le répertoire {path}', '^rm -rf (.+)/\\\\*$'], 'handler': 'purge_dir'}}], 'scope': 'global'}, 'path': '/tmp/cache'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.purge_dir.PurgeDirAction object at 0x000001597F684B90>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.purge_dir.PurgeDirAction object at 0x000002297FB82C50>
 [DEBUG] get_action_shell_command: Generated shell command: rm -rf '/tmp/cache'/*
 [DEBUG] compile_validation_expression called with: 'le répertoire est vidé'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -96,4 +96,4 @@ Traceback (most recent call last):
     raise ValidationParseError(f"No matcher found for validation: '{expected}'")
 shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
 
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_action_purge.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_action_purge.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_purge.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_purge.sh

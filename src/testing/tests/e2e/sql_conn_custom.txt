@@ -518,4 +518,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {'text': 'ok'}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.stdout_contains
 [DEBUG] Core handler returned: ValidationCheck(expected='stdout contient ok', actual_cmd='echo "$stdout" | grep -q "ok"', handler='stdout_contains', scope='global', params={'text': 'ok', 'opposite': 'stdout ne contient pas ok'})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\sql_conn_custom.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\sql_conn_custom.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\sql_conn_custom.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\sql_conn_custom.sh

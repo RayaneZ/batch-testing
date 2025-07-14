@@ -66,4 +66,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Grammar: Token 6: kind=TEXT, value='type: return_code'
 [DEBUG] Grammar: Token 7: kind=TEXT, value='expected: 0'
 [DEBUG] Grammar: _merge_action_result returning 8 tokens
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_yaml_syntax.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_yaml_syntax.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_yaml_syntax.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_yaml_syntax.sh

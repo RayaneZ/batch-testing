@@ -112,7 +112,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=copy_file, variables={'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.copy_file
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'copier le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'copy_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le fichier {src} vers {dest}', 'aliases': ['dupliquer le fichier {src} vers {dest}', 'copier le fichier {src} à {dest}', '^cp (.+) (.+)$', 'copier le fichier {src} vers {dest}'], 'handler': 'copy_file'}}], 'scope': 'global'}, 'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_file.CopyFileAction object at 0x000001E362757810>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_file.CopyFileAction object at 0x000001F69BBC2050>
 [DEBUG] get_action_shell_command: Generated shell command: cp '/tmp/a.txt' '/tmp/b.txt'
 [DEBUG] compile_validation_expression called with: 'le fichier est copié'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -210,7 +210,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=move_file, variables={'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.move_file
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'move_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le fichier {src} vers {dest}', 'aliases': ['déplacer le fichier {src} à {dest}', '^mv (.+) (.+)$', 'déplacer le fichier {src} vers {dest}'], 'handler': 'move_file'}}], 'scope': 'global'}, 'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_file.MoveFileAction object at 0x000001E3620E54D0>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_file.MoveFileAction object at 0x000001F69BF1F1D0>
 [DEBUG] get_action_shell_command: Generated shell command: mv '/tmp/a.txt' '/tmp/b.txt'
 [DEBUG] compile_validation_expression called with: 'le fichier est copié'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -253,7 +253,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=copy_dir, variables={'src': '/tmp/dir', 'dest': '/tmp/dir2'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.copy_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'copier le dossier /tmp/dir vers /tmp/dir2', 'handler': 'copy_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le dossier {src} vers {dest}', 'aliases': ['dupliquer le dossier {src} vers {dest}', 'copier le dossier {src} à {dest}', '^cp -r (.+) (.+)$'], 'handler': 'copy_dir'}}], 'scope': 'global'}, 'src': '/tmp/dir', 'dest': '/tmp/dir2'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_dir.CopyDirAction object at 0x000001E36274CB50>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_dir.CopyDirAction object at 0x000001F69BCDFE10>
 [DEBUG] get_action_shell_command: Generated shell command: cp -r '/tmp/dir' '/tmp/dir2'
 [DEBUG] compile_validation_expression called with: 'le dossier est copié'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -304,7 +304,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=move_dir, variables={'src': '/tmp/dir', 'dest': '/tmp/dir2'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.move_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'déplacer le dossier /tmp/dir vers /tmp/dir2', 'handler': 'move_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le dossier {src} vers {dest}', 'aliases': ['déplacer le dossier {src} à {dest}', '^mv (.+) (.+)$'], 'handler': 'move_dir'}}], 'scope': 'global'}, 'src': '/tmp/dir', 'dest': '/tmp/dir2'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_dir.MoveDirAction object at 0x000001E36274E550>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_dir.MoveDirAction object at 0x000001F69BBACE50>
 [DEBUG] get_action_shell_command: Generated shell command: mv '/tmp/dir' '/tmp/dir2'
 [DEBUG] compile_validation_expression called with: 'le dossier est copié'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -315,4 +315,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_copied
 [DEBUG] Core handler returned: ValidationCheck(expected='le dossier None a été copié vers None', actual_cmd="test -d 'None' && test -d 'None' && diff -r 'None' 'None' >/dev/null 2>&1", handler='dir_copied', scope='last_action', params={'dir1': None, 'dir2': None, 'opposite': "le dossier None n'a pas été copié vers None"})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_action_copy.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_action_copy.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_copy.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_copy.sh

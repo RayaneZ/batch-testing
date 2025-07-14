@@ -218,8 +218,20 @@
     "file_operations": {
       "patterns": [
         {
-          "match": "\\b(créer|créé|présent|existe|copié|modifié|prêt|accessible|lisible|correct|affiché)\\b",
+          "match": "\\b(créer|créé|présent|existe|copié|modifié|prêt|accessible|lisible|correct|affiché|vide|absent)\\b",
           "name": "support.function.file.shtest"
+        },
+        {
+          "match": "\\b(est présent|est present|est vide|est absent|est copié|est modifié|est prêt|est accessible|lisible|correct|affiché)\\b",
+          "name": "support.function.file.shtest"
+        },
+        {
+          "match": "\\b(Le fichier|le fichier|fichier)\\s+([^\\s]+)\\s+(est présent|est present|est vide|est absent|existe|contient|a les droits)\\b",
+          "captures": {
+            "1": { "name": "keyword.control.file.shtest" },
+            "2": { "name": "string.unquoted.path.shtest" },
+            "3": { "name": "support.function.file.shtest" }
+          }
         },
         {
           "match": "\\b(droits|permissions|0600|0644|0700|0755)\\b",

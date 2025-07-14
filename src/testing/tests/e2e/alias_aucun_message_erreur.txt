@@ -274,4 +274,4 @@ Traceback (most recent call last):
     raise ValidationParseError(f"No matcher found for validation: '{expected}'")
 shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'stderr='
 
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_aucun_message_erreur.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_aucun_message_erreur.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_aucun_message_erreur.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_aucun_message_erreur.sh

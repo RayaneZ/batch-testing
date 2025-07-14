@@ -122,7 +122,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=cat_file, variables={'path': '= /tmp/file.txt'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.cat_file
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}, 'path': '= /tmp/file.txt'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x0000022D63566190>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x000001C112A32050>
 [DEBUG] get_action_shell_command: Generated shell command: cat '= /tmp/file.txt'
 [DEBUG] compile_validation_expression called with: 'contenu correct'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -228,7 +228,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=cat_file, variables={'path': '= /tmp/file.txt'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.cat_file
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}, 'path': '= /tmp/file.txt'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x0000022D63566690>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x000001C112A32050>
 [DEBUG] get_action_shell_command: Generated shell command: cat '= /tmp/file.txt'
 [DEBUG] compile_validation_expression called with: 'Le contenu est correct'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -239,4 +239,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.content_displayed
 [DEBUG] Core handler returned: ValidationCheck(expected='le contenu de None est affiché', actual_cmd="test -s 'None'", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_contenu_correct.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_contenu_correct.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_contenu_correct.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_contenu_correct.sh

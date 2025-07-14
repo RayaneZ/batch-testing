@@ -504,4 +504,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
 [DEBUG] canonize_action: No match found for action 'echo "test with unicode: 🚀🌟✨"'
 [DEBUG] get_action_shell_command: canonize_action returned None for 'echo "test with unicode: 🚀🌟✨"'
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_encoding.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_encoding.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_encoding.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_encoding.sh

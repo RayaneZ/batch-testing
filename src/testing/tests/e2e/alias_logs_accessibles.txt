@@ -262,4 +262,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.logs_accessible
 [DEBUG] Core handler returned: ValidationCheck(expected='le fichier None est accessible', actual_cmd="test -f 'None'", handler='logs_accessible', scope='last_action', params={'file_path': None, 'opposite': "le fichier None n'est pas accessible"})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_logs_accessibles.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_logs_accessibles.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_logs_accessibles.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_logs_accessibles.sh
