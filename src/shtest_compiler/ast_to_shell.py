@@ -1,10 +1,19 @@
-from shtest_compiler.ast_nodes import (CatFileCommand, CompareFilesCommand,
-                                       CopyDirCommand, CopyFileCommand,
-                                       DeleteDirCommand, DeleteFileCommand,
-                                       ExportVarCommand, MkdirCommand,
-                                       MoveDirCommand, MoveFileCommand,
-                                       PurgeDirCommand, ScriptCommand,
-                                       SQLScriptCommand, TouchCommand)
+from shtest_compiler.ast_nodes import (
+    CatFileCommand,
+    CompareFilesCommand,
+    CopyDirCommand,
+    CopyFileCommand,
+    DeleteDirCommand,
+    DeleteFileCommand,
+    ExportVarCommand,
+    MkdirCommand,
+    MoveDirCommand,
+    MoveFileCommand,
+    PurgeDirCommand,
+    ScriptCommand,
+    SQLScriptCommand,
+    TouchCommand,
+)
 
 
 def ast_to_shell(ast):

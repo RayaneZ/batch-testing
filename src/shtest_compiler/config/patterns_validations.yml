@@ -131,7 +131,7 @@ validations:
       - "^le fichier est absent$"  # accentless
       - "^fichier absent$"         # accentless
   - phrase: "Le dossier est prêt"
-    handler: dir_ready
+    handler: dir_exists
     scope: last_action
     opposite:
       phrase: "Le dossier est absent"
@@ -383,7 +383,7 @@ validations:
       - "le script affiche un code \"{code}\""
       - "^le script affiche un code \"([0-9]+)\"$"  # code: number
   - phrase: "stdout contient un nombre"
-    handler: stdout_contains_number
+    handler: stdout_contains
     scope: last_action
     opposite:
       phrase: "stdout ne contient pas de nombre"

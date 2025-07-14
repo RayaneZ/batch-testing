@@ -2,22 +2,28 @@ import importlib
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
-from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
-                                                     ShellFrameworkAST,
-                                                     ShellFunctionCall,
-                                                     ShellFunctionDef,
-                                                     ShellTestStep,
-                                                     ValidationCheck)
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
-    ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.shell_framework_ast import (
+    InlineShellCode,
+    ShellFrameworkAST,
+    ShellFunctionCall,
+    ShellFunctionDef,
+    ShellTestStep,
+    ValidationCheck,
+)
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
+    ShellFrameworkToShellScriptVisitor,
+)
 from shtest_compiler.ast.visitor import ASTVisitor
-from shtest_compiler.compiler.action_utils import (canonize_action,
-                                                   extract_context_from_action,
-                                                   validate_action_context)
+from shtest_compiler.compiler.action_utils import (
+    canonize_action,
+    extract_context_from_action,
+    validate_action_context,
+)
 from shtest_compiler.compiler.atomic_compiler import compile_atomic
-from shtest_compiler.config.debug_config import debug_print, is_debug_enabled
+from shtest_compiler.utils.logger import debug_log, is_debug_enabled
 from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
 from shtest_compiler.parser.shunting_yard import parse_validation_expression
+from shtest_compiler.command_loader import build_registry
 
 
 class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
@@ -53,48 +59,48 @@ class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
     def get_action_shell_command(self, action_command):
         debug_enabled = is_debug_enabled()
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] get_action_shell_command called with: '{action_command}'"
+            debug_log(
+                f"get_action_shell_command called with: '{action_command}'"
             )
 
         # Use canonize_action to get the handler
         canon = canonize_action(action_command)
         if canon is None:
             if debug_enabled:
-                debug_print(
-                    f"[DEBUG] get_action_shell_command: canonize_action returned None for '{action_command}'"
+                debug_log(
+                    f"get_action_shell_command: canonize_action returned None for '{action_command}'"
                 )
             return action_command  # fallback: raw command
         phrase, handler, pattern_entry = canon
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] get_action_shell_command: canonize_action matched handler '{handler}' for phrase '{phrase}'"
+            debug_log(
+                f"get_action_shell_command: canonize_action matched handler '{handler}' for phrase '{phrase}'"
             )
 
         context = extract_context_from_action(action_command, handler)
         if debug_enabled:
-            debug_print(f"[DEBUG] get_action_shell_command: context={context}")
+            debug_log(f"get_action_shell_command: context={context}")
 
         is_valid, errors = validate_action_context(context)
         if not is_valid:
             if debug_enabled:
-                debug_print(
-                    f"[DEBUG] get_action_shell_command: context validation failed: {errors}"
+                debug_log(
+                    f"get_action_shell_command: context validation failed: {errors}"
                 )
             return action_command  # fallback: raw command
 
         variables = context.get("variables", {})
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] get_action_shell_command: handler={handler}, variables={variables}"
+            debug_log(
+                f"get_action_shell_command: handler={handler}, variables={variables}"
             )
 
         try:
             # Try action handlers first (for actions)
             try:
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.{handler}"
+                    debug_log(
+                        f"get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.{handler}"
                     )
                 core_module = importlib.import_module(
                     f"shtest_compiler.core.action_handlers.{handler}"
@@ -102,53 +108,52 @@ class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
                 if hasattr(core_module, "handle"):
                     params = {"context": context, **variables}
                     if debug_enabled:
-                        debug_print(
-                            f"[DEBUG] get_action_shell_command: Calling action handler with params={params}"
+                        debug_log(
+                            f"get_action_shell_command: Calling action handler with params={params}"
                         )
                     result = core_module.handle(params)
                     if debug_enabled:
-                        debug_print(
-                            f"[DEBUG] get_action_shell_command: Action handler returned={result}"
+                        debug_log(
+                            f"get_action_shell_command: Action handler returned={result}"
                         )
                     if hasattr(result, "to_shell"):
                         shell_cmd = result.to_shell()
                         if debug_enabled:
-                            debug_print(
-                                f"[DEBUG] get_action_shell_command: Generated shell command: {shell_cmd}"
+                            debug_log(
+                                f"get_action_shell_command: Generated shell command: {shell_cmd}"
                             )
                         return shell_cmd
                     elif isinstance(result, str):
                         if debug_enabled:
-                            debug_print(
-                                f"[DEBUG] get_action_shell_command: Handler returned string: {result}"
+                            debug_log(
+                                f"get_action_shell_command: Handler returned string: {result}"
                             )
                         return result
                     else:
                         if debug_enabled:
-                            debug_print(
-                                f"[DEBUG] get_action_shell_command: Invalid return type from action handler"
+                            debug_log(
+                                f"get_action_shell_command: Invalid return type from action handler"
                             )
                         return action_command
             except ImportError as e:
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] get_action_shell_command: Action handler ImportError: {e}"
+                    debug_log(
+                        f"get_action_shell_command: Action handler ImportError: {e}"
                     )
                 # Fallback to validation handlers (for validations)
                 try:
                     if debug_enabled:
-                        debug_print(
-                            f"[DEBUG] get_action_shell_command: Trying validation handler: shtest_compiler.core.handlers.{handler}"
+                        debug_log(
+                            f"get_action_shell_command: Trying validation handler: shtest_compiler.core.handlers.{handler}"
                         )
-                    core_module = importlib.import_module(
-                        f"shtest_compiler.core.handlers.{handler}"
-                    )
-                    if hasattr(core_module, "handle"):
-                        params = {"context": context, **variables}
-                        result = core_module.handle(params)
+                    handler_registry, _, _ = build_registry()
+                    handler_func = handler_registry.get(handler)
+                    params = {"context": context, **variables}
+                    if handler_func:
+                        result = handler_func(params)
                         if debug_enabled:
-                            debug_print(
-                                f"[DEBUG] get_action_shell_command: Validation handler returned={result}"
+                            debug_log(
+                                f"get_action_shell_command: Validation handler returned={result}"
                             )
                         if hasattr(result, "actual_cmd"):
                             return result.actual_cmd
@@ -156,15 +161,20 @@ class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
                             return result
                         else:
                             return action_command
+                    else:
+                        return f"echo 'ERROR: Handler {handler} not found in registry'"
                 except ImportError as e:
                     if debug_enabled:
-                        debug_print(
-                            f"[DEBUG] get_action_shell_command: Validation handler ImportError: {e}"
+                        debug_log(
+                            f"get_action_shell_command: Validation handler ImportError: {e}"
                         )
                     return action_command
         except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
             if debug_enabled:
-                debug_print(f"[DEBUG] get_action_shell_command: Exception: {e}")
+                debug_log(f"get_action_shell_command: Exception: {e}")
             return action_command
 
     def visit_shtestfile(self, node: ShtestFile) -> ShellFrameworkAST:
@@ -300,8 +310,8 @@ class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
         """Compile a validation expression, handling both atomic and compound expressions."""
         debug_enabled = is_debug_enabled()
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] compile_validation_expression called with: '{expression}'"
+            debug_log(
+                f"compile_validation_expression called with: '{expression}'"
             )
         # Check if the expression contains logical operators
         if (
@@ -312,24 +322,24 @@ class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
         ):
             # This is a compound expression, use the shunting yard parser
             if debug_enabled:
-                debug_print(
-                    f"[DEBUG] compile_validation_expression: Detected compound expression, using parse_validation_expression"
+                debug_log(
+                    f"compile_validation_expression: Detected compound expression, using parse_validation_expression"
                 )
             try:
                 ast = parse_validation_expression(expression)
                 if debug_enabled:
-                    debug_print(f"[DEBUG] compile_validation_expression: AST={ast}")
+                    debug_log(f"compile_validation_expression: AST={ast}")
                 visitor = ShellFrameworkToShellScriptVisitor()
                 shell_lines = visitor.visit(ast)
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] compile_validation_expression: Generated {len(shell_lines)} shell lines for compound expression"
+                    debug_log(
+                        f"compile_validation_expression: Generated {len(shell_lines)} shell lines for compound expression"
                     )
                 return shell_lines
             except Exception as e:
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] compile_validation_expression: Error parsing compound expression: {e}"
+                    debug_log(
+                        f"compile_validation_expression: Error parsing compound expression: {e}"
                     )
                 # Fallback to atomic compilation
                 return compile_atomic(
@@ -341,8 +351,8 @@ class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):
         else:
             # This is an atomic expression, use compile_atomic
             if debug_enabled:
-                debug_print(
-                    f"[DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic"
+                debug_log(
+                    f"compile_validation_expression: Detected atomic expression, using compile_atomic"
                 )
             return compile_atomic(
                 expression,

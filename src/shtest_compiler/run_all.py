@@ -4,7 +4,7 @@ import os
 import sys
 
 # Legacy parser import removed - not used in this file
-from shtest_compiler.config.debug_config import debug_print, set_debug
+from shtest_compiler.utils.logger import debug_log, set_debug
 from shtest_compiler.export_to_excel import export_tests_to_excel
 from shtest_compiler.generate_tests import generate_tests
 from shtest_compiler.verify_syntax import check_file
@@ -39,7 +39,10 @@ def run_syntax_check(input_path):
         try:
             check_file(file_path)
         except Exception as e:
-            errors.append(f"{file_path}: {e}")
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
 
     if errors:
         print("Erreurs de syntaxe détectées:")

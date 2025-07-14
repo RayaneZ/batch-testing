@@ -6,7 +6,7 @@ Chaque ligne de scénario peut déclencher une **action**, une **définition de 
 
 ---
 
-## 💡 Exemples simples
+##  Exemples simples
 
 ```text
 Action: exécuter le script setup.sql ; Résultat: retour 0
@@ -16,7 +16,7 @@ Action: définir la variable ENV = prod
 
 ---
 
-## 🛠️ Actions reconnues
+## ️ Actions reconnues
 
 Ces expressions déclenchent des actions de script ou de préparation.
 
@@ -42,7 +42,7 @@ configurer l’environnement
 
 ---
 
-## 🧾 Variables et arguments
+##  Variables et arguments
 
 ```text
 définir la variable ENV = prod
@@ -53,7 +53,7 @@ Les variables sont extraites et injectées dans les scripts générés.
 
 ---
 
-## 📁 Fichiers et dossiers
+##  Fichiers et dossiers
 
 ### Création
 
@@ -89,7 +89,7 @@ déplacer le dossier /data vers /backup
 
 ---
 
-## ✅ Résultats attendus
+##  Résultats attendus
 
 Ces expressions servent à valider l’état après une action.
 
@@ -115,7 +115,7 @@ les identifiants sont configurés
 
 ---
 
-## 🔗 Compatibilités Action ↔ Résultat
+##  Compatibilités Action ↔ Résultat
 
 ### Exemples
 

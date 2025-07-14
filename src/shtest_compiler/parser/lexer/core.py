@@ -45,7 +45,7 @@ class Token:
 
     @property
     def kind(self) -> str:
-        """Backward compatibility: return token type name."""
+        """Return token type name."""
         return self.type.name
 
     def __str__(self) -> str:

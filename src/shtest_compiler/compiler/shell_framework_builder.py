@@ -1,12 +1,14 @@
 from collections import defaultdict
 from typing import Dict, List, Tuple
 
-from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
-                                                     ShellFrameworkAST,
-                                                     ShellFunctionCall,
-                                                     ShellFunctionDef,
-                                                     ShellTestStep,
-                                                     ValidationCheck)
+from shtest_compiler.ast.shell_framework_ast import (
+    InlineShellCode,
+    ShellFrameworkAST,
+    ShellFunctionCall,
+    ShellFunctionDef,
+    ShellTestStep,
+    ValidationCheck,
+)
 from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
 
 from .argument_extractor import extract_action_args

@@ -1,56 +1,206 @@
 import importlib
 import os
 import re
-from typing import Dict, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 import yaml
 
-PATTERNS_PATH = os.path.join(
-    os.path.dirname(__file__), "config", "patterns_actions.yml"
-)
-with open(PATTERNS_PATH, encoding="utf-8") as f:
-    PATTERNS = yaml.safe_load(f)["actions"]
+from .utils.logger import SingletonLogger
+
+CORE_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config")
+PLUGINS_PATH = os.path.join(os.path.dirname(__file__), "plugins")
 
 
+# --- YAML Loader Utilities ---
+def load_yaml(path):
+    with open(path, encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+def discover_plugins():
+    return [
+        name
+        for name in os.listdir(PLUGINS_PATH)
+        if os.path.isdir(os.path.join(PLUGINS_PATH, name))
+    ]
+
+
+def find_plugin_yaml(plugin, kind):
+    # kind: 'actions' or 'validations'
+    config_dir = os.path.join(PLUGINS_PATH, plugin, "config")
+    # Try standard names
+    candidates = [
+        f"patterns_{kind}.yml",
+        f"patterns_{plugin}.yml",
+    ]
+    # Also accept any yml in config dir
+    if os.path.exists(config_dir):
+        for fname in os.listdir(config_dir):
+            if fname.endswith(".yml") and kind in fname:
+                candidates.append(fname)
+    for fname in candidates:
+        path = os.path.join(config_dir, fname)
+        if os.path.exists(path):
+            return path
+    return None
+
+
+def merge_yaml_lists(core_list, plugin_lists):
+    merged = list(core_list)
+    for plugin in plugin_lists:
+        merged.extend(plugin)
+    return merged
+
+
+def load_and_merge_patterns():
+    # Load core
+    core_actions = load_yaml(os.path.join(CORE_CONFIG_PATH, "patterns_actions.yml"))[
+        "actions"
+    ]
+    core_validations = load_yaml(
+        os.path.join(CORE_CONFIG_PATH, "patterns_validations.yml")
+    )["validations"]
+    # Load plugins
+    plugin_actions, plugin_validations = [], []
+    for plugin in discover_plugins():
+        actions_path = find_plugin_yaml(plugin, "actions")
+        validations_path = find_plugin_yaml(plugin, "validations")
+        if actions_path:
+            plugin_actions.append(
+                load_yaml(actions_path).get("actions")
+                or load_yaml(actions_path).get("patterns", [])
+            )
+        if validations_path:
+            plugin_validations.append(
+                load_yaml(validations_path).get("validations")
+                or load_yaml(validations_path).get("patterns", [])
+            )
+    all_actions = merge_yaml_lists(core_actions, plugin_actions)
+    all_validations = merge_yaml_lists(core_validations, plugin_validations)
+    return all_actions, all_validations
+
+
+def find_handler(handler_name, is_action, entry=None):
+    # Try core first
+    try:
+        if is_action:
+            mod = importlib.import_module(
+                f"shtest_compiler.core.action_handlers.{handler_name}"
+            )
+        else:
+            mod = importlib.import_module(
+                f"shtest_compiler.core.handlers.{handler_name}"
+            )
+        return mod.handle
+    except ImportError:
+        # Try plugins
+        for plugin in discover_plugins():
+            try:
+                if is_action:
+                    mod = importlib.import_module(
+                        f"shtest_compiler.plugins.{plugin}.action_handlers.{handler_name}"
+                    )
+                else:
+                    mod = importlib.import_module(
+                        f"shtest_compiler.plugins.{plugin}.handlers.{handler_name}"
+                    )
+                return mod.handle
+            except ImportError:
+                continue
+        # Enhanced error message
+        error_msg = f"Handler '{handler_name}' (is_action={is_action}) not found in core or plugins."
+        if entry is not None:
+            error_msg += (
+                f"\nTo implement this handler, create a Python file named '{handler_name}.py' "
+                f"\nin the appropriate directory: "
+                f"\n'shtest_compiler/core/{'action_handlers' if is_action else 'handlers'}' for core, "
+                f"\nor 'shtest_compiler/plugins/<your_plugin>/{'action_handlers' if is_action else 'handlers'}' for plugins. "
+                f"\nThe handler should define a 'handle(params)' function.\n"
+                f"Pattern entry for reference: {entry}"
+            )
+        raise ImportError(error_msg)
+
+
+def build_registry():
+    all_actions, all_validations = load_and_merge_patterns()
+    handler_registry = {}
+    for entry in all_actions:
+        handler_registry[entry["handler"]] = find_handler(
+            entry["handler"], is_action=True, entry=entry
+        )
+    for entry in all_validations:
+        handler_registry[entry["handler"]] = find_handler(
+            entry["handler"], is_action=False, entry=entry
+        )
+    return handler_registry, all_actions, all_validations
+
+
+def find_handler_requirements_yaml(base_path):
+    config_dir = os.path.join(base_path, "config")
+    candidates = [
+        "handler_requirements.yml",
+        "handler_requirements.yaml",
+    ]
+    for fname in candidates:
+        path = os.path.join(config_dir, fname)
+        if os.path.exists(path):
+            return path
+    return None
+
+
+def load_and_merge_handler_requirements():
+    # Load core requirements
+    core_path = find_handler_requirements_yaml(CORE_CONFIG_PATH)
+    requirements = {}
+    if core_path:
+        core_reqs = load_yaml(core_path)
+        if core_reqs:
+            requirements.update(core_reqs)
+    # Load plugin requirements
+    for plugin in discover_plugins():
+        plugin_path = find_handler_requirements_yaml(os.path.join(PLUGINS_PATH, plugin))
+        if plugin_path:
+            plugin_reqs = load_yaml(plugin_path)
+            if plugin_reqs:
+                requirements.update(plugin_reqs)
+    return requirements
+
+
+def get_handler_requirements():
+    """
+    Returns a merged dictionary of all handler requirements (core + plugins), keyed by handler name.
+    """
+    return load_and_merge_handler_requirements()
+
+
+# --- PatternRegistry (unchanged, but now can be initialized with merged YAMLs) ---
 class PatternRegistry:
-    def __init__(self, actions_yml, validations_yml):
-        self.actions = self._load_patterns(actions_yml, "actions")
-        self.validations = self._load_patterns(validations_yml, "validations")
+    def __init__(self, actions_list, validations_list):
+        self.actions = self._load_patterns(actions_list)
+        self.validations = self._load_patterns(validations_list)
 
-    def _load_patterns(self, yml_path, section):
-        if not os.path.exists(yml_path):
-            raise FileNotFoundError(f"YAML file not found: {yml_path}")
-        with open(yml_path, encoding="utf-8") as f:
-            data = yaml.safe_load(f)
+    def _load_patterns(self, data, section=None):
         canonicals = {}
         alias_map = {}
         regex_aliases = []
-        for entry in data.get(section, []):
-            phrase = entry.get("phrase")
+        logger = SingletonLogger()
+        for entry in data:
+            phrase = entry.get("phrase") or entry.get("pattern")
             handler = entry.get("handler")
             if not phrase:
-                print(f"Warning: Skipping entry without 'phrase': {entry}")
+                logger.warning(f"Skipping entry without 'phrase' or 'pattern': {entry}")
                 continue
-            # Stocker aussi le scope s'il existe
-            scope = entry.get("scope", "global")  # Default to global
+            scope = entry.get("scope", "global")
             canonicals[self._normalize(phrase)] = {
                 "phrase": phrase,
                 "handler": handler,
                 "scope": scope,
             }
             for alias in entry.get("aliases", []):
-                # If alias is a dict, extract the string value
-                if isinstance(alias, dict):
-                    alias_str = alias.get("pattern") or alias.get("phrase")
-                    if not alias_str:
-                        print(
-                            f"Warning: Skipping alias without 'pattern' or 'phrase': {alias}"
-                        )
-                        continue
-                else:
-                    alias_str = alias
+                alias_str = alias.get("pattern") if isinstance(alias, dict) else alias
+                if not alias_str:
+                    continue
                 alias_map[self._normalize(alias_str)] = phrase
-                # Si l'alias contient des caractères regex, on le stocke aussi comme regex
                 if self._is_regex(alias_str):
                     regex_aliases.append((alias_str, phrase))
         return {
@@ -60,7 +210,6 @@ class PatternRegistry:
         }
 
     def _normalize(self, phrase):
-        # If phrase is a dict, extract the string value
         if isinstance(phrase, dict):
             phrase = phrase.get("pattern") or phrase.get("phrase")
         if phrase is None:
@@ -68,22 +217,18 @@ class PatternRegistry:
         return phrase.lower().strip()
 
     def _is_regex(self, alias):
-        # Heuristique simple : présence de caractères regex courants
         return any(c in alias for c in ".*+?^$[](){}|\\")
 
     def canonize_action(self, phrase) -> Optional[Tuple[str, str]]:
         norm = self._normalize(phrase)
         actions = self.actions
-        # 1. Match exact
         if norm in actions["canonicals"]:
             entry = actions["canonicals"][norm]
             return entry["phrase"], entry["handler"]
-        # 2. Alias exact
         if norm in actions["alias_map"]:
             canonical = actions["alias_map"][norm]
             entry = actions["canonicals"][self._normalize(canonical)]
             return entry["phrase"], entry["handler"]
-        # 3. Alias regex
         for regex, canonical in actions["regex_aliases"]:
             try:
                 if re.match(regex, phrase):
@@ -96,16 +241,13 @@ class PatternRegistry:
     def canonize_validation(self, phrase) -> Optional[Tuple[str, str, str]]:
         norm = self._normalize(phrase)
         validations = self.validations
-        # 1. Match exact
         if norm in validations["canonicals"]:
             entry = validations["canonicals"][norm]
             return entry["phrase"], entry["handler"], entry.get("scope", "global")
-        # 2. Alias exact
         if norm in validations["alias_map"]:
             canonical = validations["alias_map"][norm]
             entry = validations["canonicals"][self._normalize(canonical)]
             return entry["phrase"], entry["handler"], entry.get("scope", "global")
-        # 3. Alias regex
         for regex, canonical in validations["regex_aliases"]:
             try:
                 if re.match(regex, phrase):
@@ -120,83 +262,10 @@ class PatternRegistry:
         return None
 
 
-# Exemple d'utilisation :
-# registry = PatternRegistry('config/patterns_actions.yml', 'config/patterns_validations.yml')
-# print(registry.canonize_action('faire un dossier {path}'))
-# print(registry.canonize_validation('le dossier est cree'))
-
-
-def load_plugin(command_type):
-    # Mapping des handlers vers les vrais modules
-    handler_mapping = {
-        # Actions (now in core.action_handlers)
-        "create_dir": "core.action_handlers.create_dir",
-        "delete_dir": "core.action_handlers.delete_dir",
-        "copy_dir": "core.action_handlers.copy_dir",
-        "move_dir": "core.action_handlers.move_dir",
-        "purge_dir": "core.action_handlers.purge_dir",
-        "create_file": "core.action_handlers.create_file",
-        "delete_file": "core.action_handlers.delete_file",
-        "copy_file": "core.action_handlers.copy_file",
-        "move_file": "core.action_handlers.move_file",
-        "cat_file": "core.action_handlers.cat_file",
-        "compare_files": "core.action_handlers.compare_files",  # If implemented
-        "touch_ts": "core.action_handlers.touch_ts",
-        "run_script": "core.action_handlers.run_script",
-        "run_sql_script": "core.action_handlers.run_sql_script",
-        "export_var": "core.action_handlers.export_var",
-        "update_file": "core.action_handlers.create_file",  # Fallback vers create_file
-        # Validations (still in core.handlers)
-        "return_code": "core.handlers.return_code",
-        "content_displayed": "core.handlers.content_displayed",
-        "file_copied": "core.handlers.file_copied",
-        "dir_copied": "core.handlers.dir_copied",
-        "file_present": "core.handlers.file_present",
-        "dir_exists": "core.handlers.dir_exists",
-        "dir_absent": "core.handlers.dir_absent",
-        "base_ready": "core.handlers.base_ready",
-        "date_modified": "core.handlers.date_modified",
-        "files_identical": "core.handlers.files_identical",
-        "credentials_configured": "core.handlers.credentials_configured",
-        "logs_accessible": "core.handlers.logs_accessible",
-        "no_error_message": "core.handlers.no_error_message",
-        "stdout_contains": "core.handlers.stdout_contains",
-        "stderr_contains": "core.handlers.stderr_contains",
-    }
-    module_name = handler_mapping.get(command_type, command_type)
-    return importlib.import_module(f"shtest_compiler.{module_name}")
-
-
-def action_to_ast(action):
-    for entry in PATTERNS:
-        m = re.match(entry["phrase"], action, re.IGNORECASE)
-        if m:
-            plugin = load_plugin(entry["handler"])
-            if entry["handler"] == "run_sql_script":
-                driver = os.environ.get("SQL_DRIVER", "oracle")
-                return plugin.handle({"script": m.groups()[0], "driver": driver})
-            else:
-                # Map groups to params by name if possible
-                params = {
-                    k: v
-                    for k, v in zip(
-                        re.findall(r"\{(\w+)\}", entry["phrase"]), m.groups()
-                    )
-                }
-                return plugin.handle(params)
-        for alias in entry.get("aliases", []):
-            m = re.match(alias, action, re.IGNORECASE)
-            if m:
-                plugin = load_plugin(entry["handler"])
-                if entry["handler"] == "run_sql_script":
-                    driver = os.environ.get("SQL_DRIVER", "oracle")
-                    return plugin.handle({"script": m.groups()[0], "driver": driver})
-                else:
-                    params = {
-                        k: v
-                        for k, v in zip(
-                            re.findall(r"\{(\w+)\}", entry["phrase"]), m.groups()
-                        )
-                    }
-                    return plugin.handle(params)
-    return None
+# --- Unified Handler Dispatch Example ---
+# Usage:
+# handler_registry, all_actions, all_validations = build_registry()
+# registry = PatternRegistry(all_actions, all_validations)
+# phrase, handler_name = registry.canonize_action("créer le fichier test.txt")
+# handler = handler_registry[handler_name]
+# handler(params)

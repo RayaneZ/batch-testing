@@ -10,8 +10,14 @@ This package provides a configurable, extensible lexer architecture that support
 
 from .configurable_lexer import ConfigurableLexer
 from .core import LexerError, Token, TokenType
-from .filters import (CommentFilter, CompositeFilter, DebugFilter, EmptyFilter,
-                      Filter, WhitespaceFilter)
+from .filters import (
+    CommentFilter,
+    CompositeFilter,
+    DebugFilter,
+    EmptyFilter,
+    Filter,
+    WhitespaceFilter,
+)
 from .pattern_loader import PatternLoader
 
 __all__ = [

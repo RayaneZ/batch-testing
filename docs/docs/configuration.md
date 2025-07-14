@@ -100,21 +100,21 @@ aliases:
         - "lancer le script"
         - "démarrer le script"
       normalized: "exécuter"
-    
+
     create_file:
       variants:
         - "créer le fichier"
         - "générer le fichier"
         - "fabriquer le fichier"
       normalized: "créer fichier"
-    
+
     copy_file:
       variants:
         - "copier le fichier"
         - "dupliquer le fichier"
         - "reproduire le fichier"
       normalized: "copier fichier"
-  
+
   validations:
     success:
       variants:
@@ -123,14 +123,14 @@ aliases:
         - "ok"
         - "valide"
       normalized: "retour 0"
-    
+
     file_exists:
       variants:
         - "le fichier est présent"
         - "le fichier existe"
         - "fichier créé"
       normalized: "fichier présent"
-    
+
     sql_ready:
       variants:
         - "la base est prête"
@@ -168,12 +168,12 @@ plugin:
   name: "custom_plugin"
   version: "1.0.0"
   enabled: true
-  
+
   matchers:
     - name: "custom_validation"
       function: "custom_matcher"
       priority: 10
-  
+
   visitors:
     - name: "custom_generator"
       class: "CustomGenerator"

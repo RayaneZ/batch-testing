@@ -5,19 +5,22 @@ This module provides the core compilation logic for converting validation
 expressions into shell code.
 """
 
-import importlib
 import os
 import re
 from typing import Any, List, Optional, Tuple, Union
 
 import yaml
 
-from shtest_compiler.compiler.action_utils import (canonize_validation,
-                                                   extract_context_from_action,
-                                                   validate_action_context)
+from shtest_compiler.compiler.action_utils import (
+    canonize_validation,
+    extract_context_from_action,
+    validate_action_context,
+)
 from shtest_compiler.core.errors import ValidationParseError
+from shtest_compiler.utils.shell_utils import shell_escape
+from shtest_compiler.command_loader import build_registry
 
-from ..config.debug_config import debug_print, is_debug_enabled
+from ..utils.logger import debug_log, is_debug_enabled
 
 
 def compile_atomic(
@@ -29,19 +32,19 @@ def compile_atomic(
 ) -> List[str]:
     debug_enabled = is_debug_enabled()
     if debug_enabled:
-        debug_print(
-            f"[DEBUG] compile_atomic called with: expected='{expected}', varname='{varname}', last_file_var={last_file_var}, extracted_args={extracted_args}, action_context={action_context}"
+        debug_log(
+            f"compile_atomic called with: expected='{expected}', varname='{varname}', last_file_var={last_file_var}, extracted_args={extracted_args}, action_context={action_context}"
         )
     # Add debug output for alias matching
     if debug_enabled:
-        debug_print(
-            f"[DEBUG] compile_atomic: Trying to canonize validation: '{expected}'"
+        debug_log(
+            f"compile_atomic: Trying to canonize validation: '{expected}'"
         )
     # Use modular context extraction instead of manual canonization and argument extraction
     canon = canonize_validation(expected)
     if debug_enabled:
-        debug_print(
-            f"[DEBUG] compile_atomic: canonize_validation('{expected}') result: {canon}"
+        debug_log(
+            f"compile_atomic: canonize_validation('{expected}') result: {canon}"
         )
     if not canon:
         raise ValidationParseError(f"No matcher found for validation: '{expected}'")
@@ -65,7 +68,7 @@ def compile_atomic(
     # Extract context using the modular system
     context = extract_context_from_action(expected, handler)
     if debug_enabled:
-        debug_print(f"[DEBUG] extract_context_from_action result: {context}")
+        debug_log(f"extract_context_from_action result: {context}")
 
     # Merge injected params into context variables
     context_vars = context.get("variables", {}).copy()
@@ -76,7 +79,7 @@ def compile_atomic(
     if not is_valid:
         error_msg = f"Validation context errors for '{expected}': {', '.join(errors)}"
         if debug_enabled:
-            debug_print(f"[DEBUG] {error_msg}")
+            debug_log(f"{error_msg}")
         raise ValidationParseError(error_msg)
 
     # Add extra context for backward compatibility
@@ -87,43 +90,33 @@ def compile_atomic(
         params.update(extracted_args)
 
     if debug_enabled:
-        debug_print(f"[DEBUG] Final params for handler: {params}")
+        debug_log(f"Final params for handler: {params}")
 
-    # Try to import and use the core handler
-    try:
-        if debug_enabled:
-            debug_print(
-                f"[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.{handler}"
-            )
-        core_module = importlib.import_module(
-            f"shtest_compiler.core.handlers.{handler}"
-        )
-        if hasattr(core_module, "handle"):
-            result = core_module.handle(params)
+    handler_registry, _, _ = build_registry()
+    handler_func = handler_registry.get(handler)
+    if handler_func:
+        try:
+            result = handler_func(params)
             if debug_enabled:
-                debug_print(f"[DEBUG] Core handler returned: {result}")
+                debug_log(f"Handler registry returned: {result}")
             if hasattr(result, "expected") and hasattr(result, "actual_cmd"):
-                # It's a ValidationCheck, let the emitter handle it
                 return [result]
             elif isinstance(result, list):
                 return result
             elif isinstance(result, str):
                 return [result]
             else:
-                return [
-                    f"echo 'ERROR: Invalid return type from core handler {handler}'"
-                ]
-        else:
-            return [f"echo 'ERROR: Core handler {handler} does not have handle method'"]
-    except ImportError as e:
-        if debug_enabled:
-            debug_print(f"[DEBUG] Core handler ImportError: {e}")
-        return [f"echo 'ERROR: Could not import handler {handler}: {e}'"]
-    except Exception as e:
-        if debug_enabled:
-            debug_print(f"[DEBUG] Exception in core handler {handler}: {e}")
-        return [f"echo 'ERROR: Exception in core handler {handler}: {e}'"]
-    return [f"echo 'ERROR: No handler found for validation: {expected}'"]
+                return [f"echo 'ERROR: Invalid return type from handler {handler}'"]
+        except Exception as e:
+            import traceback
+            from shtest_compiler.utils.logger import log_pipeline_error
+            stack = traceback.format_exc()
+            log_pipeline_error(f"Exception in handler {handler}: {e}\n{stack}")
+            if debug_enabled:
+                debug_log(f"Exception in handler {handler}: {e}")
+            return [f"echo 'ERROR: Exception in handler {handler}: {e}'"]
+    else:
+        return [f"echo 'ERROR: Handler {handler} not found in registry'"]
 
 
 def canonize_validation(validation: str):
@@ -234,7 +227,7 @@ def extract_validation_groups(validation: str, pattern: str) -> List[str]:
 
 def debug_msg(msg: str) -> None:
     """Print debug message if debug mode is enabled."""
-    debug_print(f"[DEBUG] {msg}")
+    debug_log(f"{msg}")
 
 
 def compile_validation_with_debug(
@@ -253,5 +246,5 @@ def compile_validation_with_debug(
     """
     lines = compile_atomic(validation, varname, last_file_var)
     if is_debug_enabled():
-        debug_print(f"[DEBUG] compile_atomic returning lines: {lines}")
+        debug_log(f"compile_atomic returning lines: {lines}")
     return lines

@@ -4,22 +4,11 @@ Ce guide vous aide à comprendre rapidement l'architecture modulaire de KnightBa
 
 ## Architecture en 5 Minutes
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Fichier       │    │   Lexer         │    │   Parser        │
-│   .shtest       │───▶│   Modulaire     │───▶│   Modulaire     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                                       │
-┌─────────────────┐    ┌─────────────────┐           │
-│   Script        │    │   Compilateur   │◀──────────┘
-│   Shell         │◀───│   Modulaire     │
-└─────────────────┘    └─────────────────┘
-                              │
-                       ┌─────────────────┐
-                       │   Validation    │
-                       │   AST           │
-                       └─────────────────┘
-```
+![Architecture du pipeline](assets/architecture.png)
+
+> Si l'image ne s'affiche pas, voici le diagramme Mermaid :
+
+![Pipeline de compilation](assets/architecture.png)
 
 ## Pipeline de Compilation
 
@@ -200,7 +189,7 @@ from shtest_compiler.core.context import CompileContext
 def test_my_matcher():
     context = CompileContext()
     context.add_matcher("my_matcher", my_matcher_function)
-    
+
     result = context.get_matcher("my_matcher")("ma validation")
     assert result == "my_validation_type"
 ```
@@ -214,12 +203,12 @@ def test_full_pipeline():
     lexer = ConfigurableLexer("config/patterns_hybrid.yml")
     parser = ConfigurableParser("config/patterns_hybrid.yml")
     compiler = ModularCompiler()
-    
+
     content = "Action: test ; Résultat: success"
     tokens = lexer.tokenize(content)
     ast = parser.parse_tokens(tokens)
     result = compiler.compile(ast)
-    
+
     assert "test" in result
     assert "success" in result
 ```
@@ -234,7 +223,7 @@ def test_my_feature_e2e():
         "python", "-m", "shtest_compiler.run_all",
         "--input", "tests/e2e/my_feature.shtest"
     ], capture_output=True, text=True)
-    
+
     assert result.returncode == 0
     assert "Generated" in result.stdout
 ```
@@ -250,7 +239,7 @@ def test_invalid_my_feature():
         "python", "-m", "shtest_compiler.run_all",
         "--input", "tests/e2e/ko/test_invalid_my_feature.shtest"
     ], capture_output=True, text=True)
-    
+
     assert result.returncode == 1
     assert "error" in result.stderr.lower()
 ```
@@ -358,4 +347,4 @@ python -m pytest tests/unit/ --cov=shtest_compiler
 
 # Test en mode debug
 python -m pytest tests/unit/ -s --log-cli-level=DEBUG
-``` 
+```

@@ -5,12 +5,6 @@ This document outlines the systematic removal of all legacy components from the 
 
 ## Current Legacy Components
 
-### 1. Legacy Parser System
-- **File**: `src/shtest_compiler/parser/parser.py`
-- **Purpose**: Backward compatibility wrapper around ConfigurableParser
-- **Usage**: Used by `verify_syntax.py`, `run_tests.py`, `run_all.py`
-- **Dependencies**: `rule_registry_hybrid.py`, `HANDLERS` dictionary
-
 ### 2. Legacy Handler System
 - **File**: `src/shtest_compiler/config/rule_registry_hybrid.py`
 - **Purpose**: Central registry for legacy handlers using `HANDLERS` dictionary
@@ -134,72 +128,3 @@ README.md (update to remove legacy references)
 
 ### Parser Updates
 ```
-src/shtest_compiler/parser/__init__.py
-src/shtest_compiler/verify_syntax.py
-src/shtest_compiler/run_tests.py
-src/shtest_compiler/run_all.py
-src/test_verify.py
-src/simple_test.py
-```
-
-### Compiler Updates
-```
-src/shtest_compiler/compiler/compiler.py (remove Compiler class)
-```
-
-### Test Updates
-```
-src/tests/unit/test_parser.py
-src/tests/unit/test_core.py
-```
-
-### Documentation Updates
-```
-README.md
-docs/docs/CHANGELOG.md
-docs/docs/testing_and_validation.md
-.github/workflows/build.yml
-.github/workflows/test.yml
-.github/workflows/release.yml
-```
-
-## Benefits of Legacy Removal
-
-1. **Simplified Architecture**: Single parser system instead of dual
-2. **Reduced Maintenance**: No need to maintain backward compatibility
-3. **Better Performance**: No overhead from legacy wrapper layers
-4. **Cleaner Codebase**: Easier to understand and modify
-5. **Focused Development**: All effort goes to the modern architecture
-
-## Risks and Mitigation
-
-### Risk: Breaking Existing Functionality
-- **Mitigation**: Thorough testing of all updated components
-- **Mitigation**: Gradual migration with fallback options
-
-### Risk: Lost Test Coverage
-- **Mitigation**: Move essential tests to new test structure
-- **Mitigation**: Create new tests for any missing coverage
-
-### Risk: Documentation Gaps
-- **Mitigation**: Comprehensive documentation updates
-- **Mitigation**: Update all examples and tutorials
-
-## Success Criteria
-
-1. [ ] All legacy components removed
-2. [ ] All tests pass with new architecture
-3. [ ] Documentation updated and accurate
-4. [ ] CI/CD pipelines updated and working
-5. [ ] No references to legacy components remain
-6. [ ] Performance improved or maintained
-7. [ ] All functionality preserved or improved
-
-## Timeline
-
-- **Week 1**: Update dependencies and tests
-- **Week 2**: Remove legacy components
-- **Week 3**: Clean up and optimize
-- **Week 4**: Final cleanup and validation
-
-Total estimated time: 4 weeks 

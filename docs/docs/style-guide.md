@@ -15,16 +15,16 @@ Résultat: Expression de validation attendue
 ### Conventions de nommage
 
 - **Étapes** : Utilisez des noms descriptifs en français
-  - ✅ `Étape: Préparation de l'environnement`
-  - ❌ `Étape: setup`
+  -  `Étape: Préparation de l'environnement`
+  -  `Étape: setup`
 
 - **Actions** : Décrivez clairement l'action à effectuer
-  - ✅ `Action: Créer le dossier /tmp/test`
-  - ❌ `Action: mkdir /tmp/test`
+  -  `Action: Créer le dossier /tmp/test`
+  -  `Action: mkdir /tmp/test`
 
 - **Résultats** : Utilisez les expressions de validation standard
-  - ✅ `Résultat: Le dossier est créé`
-  - ❌ `Résultat: folder exists`
+  -  `Résultat: Le dossier est créé`
+  -  `Résultat: folder exists`
 
 ## Expressions de validation
 
@@ -126,6 +126,27 @@ Chaque plugin doit inclure :
 3. **Arguments** : Les paramètres attendus
 4. **Exemples** : Cas d'usage typiques
 
+### Interface recommandée pour les handlers de plugins
+
+- Les handlers d'action doivent accepter uniquement un argument `params` (dictionnaire).
+- Ils doivent retourner un objet `ActionNode` avec une méthode `to_shell()` pour générer la commande shell.
+- **Ne pas utiliser `os.environ` ou des variables globales dans vos handlers.**
+
+#### Exemple minimal
+
+```python
+from shtest_compiler.ast.shell_framework_ast import ActionNode
+
+class MyAction(ActionNode):
+    def __init__(self, param):
+        self.param = param
+    def to_shell(self):
+        return f"echo '{self.param}' > output.txt"
+
+def handle(params):
+    return MyAction(params["param"])
+```
+
 ## Bonnes pratiques
 
 ### Lisibilité
@@ -185,4 +206,4 @@ Résultat: stdout contient 'SUCCESS'
 
 - [Format SHTEST](shtest_format.md) - Documentation complète du format
 - [Expressions régulières](regex_documentation.md) - Patterns reconnus
-- [Tutoriel des plugins](plugin_tutorial.md) - Création de plugins personnalisés 
+- [Tutoriel des plugins](plugin_tutorial.md) - Création de plugins personnalisés

@@ -5,9 +5,17 @@ Tests for the new Core architecture and Visitor Pattern.
 import pytest
 
 from shtest_compiler.ast.visitor import ASTNode, ASTVisitor
-from shtest_compiler.core.ast import (Comment, ExpressionLogique, Line,
-                                      OperateurLogique, Program,
-                                      ResultatSimple, Step, Terme, Texte)
+from shtest_compiler.core.ast import (
+    Comment,
+    ExpressionLogique,
+    Line,
+    OperateurLogique,
+    Program,
+    ResultatSimple,
+    Step,
+    Terme,
+    Texte,
+)
 from shtest_compiler.core.context import CompileContext
 
 

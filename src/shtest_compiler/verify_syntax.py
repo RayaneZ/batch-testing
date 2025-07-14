@@ -14,8 +14,9 @@ def check_file(file_path: str, debug: bool = False) -> bool:
         return True
 
     except Exception as e:
-        if debug:
-            print(f"[ERROR] Erreur de syntaxe dans {file_path}: {e}")
+        from shtest_compiler.utils.logger import log_pipeline_error
+        import traceback
+        log_pipeline_error(f"[ERROR] Erreur de syntaxe dans {file_path}: {e}\n{traceback.format_exc()}")
         # Re-raise the exception so it propagates up
         raise
 

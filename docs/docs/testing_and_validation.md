@@ -113,7 +113,7 @@ def _validate_no_orphaned_actions(self, ast: ShtestFile) -> List[str]:
 Le système génère des messages d'erreur clairs et localisés :
 
 ```
-AST validation failed: 
+AST validation failed:
 - File is empty or contains no steps
 - Step 'Test Step' has no actions
 - Action 2 in step 'Test Step' has empty or comment-only command
@@ -222,4 +222,4 @@ KnightBatch supporte la comparaison avancée de résultats SQL :
 1. **Mise à jour régulière** : Ajout de tests pour nouvelles fonctionnalités
 2. **Révision des erreurs** : Amélioration des messages d'erreur
 3. **Documentation** : Mise à jour de la documentation des tests
-4. **Performance** : Optimisation des temps d'exécution 
+4. **Performance** : Optimisation des temps d'exécution

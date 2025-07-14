@@ -122,7 +122,7 @@ Le vérificateur utilise le système de validation AST pour détecter :
 ```bash
 # Validation d'un fichier valide
 python src/verify_syntax.py tests/e2e/ok/example.shtest
-# Sortie: [✔] Syntaxe valide.
+# Sortie: [] Syntaxe valide.
 
 # Validation d'un fichier invalide
 python src/verify_syntax.py tests/e2e/ko/invalid_syntax_1.shtest

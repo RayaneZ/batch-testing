@@ -1,0 +1,42 @@
+# handler_requirements.yml
+#
+# This file documents the requirements and expected parameters for each handler in the plugin.
+# Use this to specify what parameters/actions/validations each handler expects or needs.
+#
+# Example format:
+#
+# create_example_file:
+#   description: "Creates an example file in the target directory."
+#   params:
+#     - name: target_dir
+#       type: str
+#       required: false
+#       default: '.'
+#       description: "Directory where the example file will be created."
+#
+# example_file_exists:
+#   description: "Checks if the example file exists in the target directory."
+#   params:
+#     - name: target_dir
+#       type: str
+#       required: false
+#       default: '.'
+#       description: "Directory to check for the example file."
+
+create_example_file:
+  description: "Creates an example file in the target directory."
+  params:
+    - name: target_dir
+      type: str
+      required: false
+      default: '.'
+      description: "Directory where the example file will be created."
+
+example_file_exists:
+  description: "Checks if the example file exists in the target directory."
+  params:
+    - name: target_dir
+      type: str
+      required: false
+      default: '.'
+      description: "Directory to check for the example file." 

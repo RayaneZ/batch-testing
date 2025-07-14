@@ -46,15 +46,21 @@ class TestSimpleParser:
         parser = ConfigurableParser(debug=False)
         content = ""
 
-        # This should handle empty content gracefully
-        result = parser.parse(content, path="empty_test.shtest")
-        assert result is not None
+        # This should raise a ParseError due to no actions
+        import pytest
+        from shtest_compiler.parser.core import ParseError
+
+        with pytest.raises(ParseError, match="no actions"):
+            parser.parse(content, path="empty_test.shtest")
 
     def test_minimal_content(self):
         """Test parser with minimal valid content."""
         parser = ConfigurableParser(debug=False)
         content = "Étape: Test"
 
-        # This should parse successfully
-        result = parser.parse(content, path="minimal_test.shtest")
-        assert result is not None
+        # This should raise a ParseError due to no actions
+        import pytest
+        from shtest_compiler.parser.core import ParseError
+
+        with pytest.raises(ParseError, match="no actions"):
+            parser.parse(content, path="minimal_test.shtest")

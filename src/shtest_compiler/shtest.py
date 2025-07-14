@@ -3,9 +3,9 @@ import sys
 
 from shtest_compiler.compile_expr import compile_validation
 from shtest_compiler.compile_file import compile_file
-from shtest_compiler.config.debug_config import debug_print, set_debug
 from shtest_compiler.export_to_excel import export_patterns_to_excel
 from shtest_compiler.verify_syntax import main as verify_main
+from shtest_compiler.utils.logger import debug_log, set_debug, log_pipeline_error
 
 
 def main():
@@ -80,7 +80,7 @@ def main():
     # If --debug is present anywhere, enable debug globally
     debug_flag = getattr(args, "debug", False) or "--debug" in unknown
     set_debug(debug_flag)
-    debug_print("ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded")
+    debug_log("ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded")
 
     # Re-parse with all args for subcommand
     if unknown:
@@ -95,11 +95,28 @@ def main():
         print("\n".join(lines))
 
     elif args.command == "compile_file":
-        output_path = compile_file(
-            args.file,
-            debug=args.verbose or getattr(args, "debug", False),
-            output_path=args.output,
-        )
+        try:
+            output_path = compile_file(
+                input_path=args.file,
+                output_path=args.output,
+                grammar=getattr(args, "grammar", "default"),
+                ast_builder=getattr(args, "ast_builder", "default"),
+                debug=debug_flag,
+                debug_output_path=getattr(args, "debug_output_path", None),
+            )
+        except Exception as e:
+            import traceback
+            from shtest_compiler.parser.core import ParseError
+            if isinstance(e, ParseError) and "no actions" in str(e).lower():
+                log_pipeline_error(
+                    f"[USER ERROR] The test file appears empty or has a step with no actions.\n"
+                    f"Please add at least one action to each step.\n"
+                    f"Example: Créer le fichier test.txt\n\n"
+                    f"Original error: {e}"
+                )
+            else:
+                log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
         if not args.output:
             print(f"Compiled file: {output_path}")
 
@@ -130,4 +147,18 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    from shtest_compiler.utils.logger import log_pipeline_error
+    def _log_excepthook(exc_type, exc_value, exc_traceback):
+        import traceback
+        if issubclass(exc_type, KeyboardInterrupt):
+            sys.__excepthook__(exc_type, exc_value, exc_traceback)
+            return
+        log_pipeline_error(f"[UNCAUGHT EXCEPTION] {exc_type.__name__}: {exc_value}\n{''.join(traceback.format_tb(exc_traceback))}")
+    sys.excepthook = _log_excepthook
+    try:
+        main()
+    except Exception as e:
+        import traceback
+        log_pipeline_error(f"[FATAL ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+        raise

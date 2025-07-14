@@ -1,7 +1,0 @@
-patterns:
-  set_variable:
-    - handler: set_variable
-      pattern: "définir la variable (\\S+)[ ]*=[ ]*(.+)"
-    - handler: set_variable
-      pattern: "variable d'environnement définie"
-      scope: global 

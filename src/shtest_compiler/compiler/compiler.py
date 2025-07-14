@@ -12,7 +12,7 @@ from typing import Any, Dict, Optional
 from shtest_compiler.ast.visitor import ASTVisitor
 
 from ..ast.shell_framework_ast import pretty_print_ast
-from ..config.debug_config import DebugConfig, debug_print, is_debug_enabled
+from ..utils.logger import debug_log, is_debug_enabled, export_log
 from ..core.context import CompileContext
 from ..parser import ConfigurableParser, ast_builder_registry, grammar_registry
 from ..parser.shtest_ast import ShtestFile
@@ -90,21 +90,22 @@ class ModularCompiler:
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(shell_script)
             if self.debug:
-                debug_print(f"Compiled {file_path} -> {output_path}")
+                debug_log(f"Compiled {file_path} -> {output_path}")
             # Export debug log if enabled
             if self.debug and debug_output_path:
-                DebugConfig.export_log(debug_output_path)
+                export_log(debug_output_path)
             return output_path
         except Exception as e:
             import traceback
-
+            from shtest_compiler.utils.logger import log_pipeline_error
             error_msg = f"[ERROR] {type(e).__name__}: {e}"
             stack = traceback.format_exc()
-            debug_print(error_msg)
-            debug_print(stack)
+            log_pipeline_error(error_msg + "\n" + stack)
+            debug_log(error_msg)
+            debug_log(stack)
             print(error_msg)
             if debug_output_path:
-                DebugConfig.export_log(debug_output_path)
+                export_log(debug_output_path)
             # Optionally, write a fallback shell script
             if output_path:
                 with open(output_path, "w", encoding="utf-8") as f:
@@ -147,7 +148,7 @@ class ModularCompiler:
             f.write(shell_script)
 
         if self.debug:
-            debug_print(f"Compiled text -> {output_path}")
+            debug_log(f"Compiled text -> {output_path}")
 
         return output_path
 

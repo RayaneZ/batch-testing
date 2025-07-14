@@ -1,7 +1,7 @@
 # Manuel Utilisateur KnightBatch
 
 | <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Ce manuel complet guide l'utilisateur à travers toutes les fonctionnalités du framework KnightBatch, de l'installation à l'utilisation avancée. |
-| :--: | --- |
+|  | --- |
 
 ## Table des Matières
 
@@ -338,7 +338,7 @@ from shtest_compiler.core.handlers.base import BaseHandler
 class MonHandler(BaseHandler):
     def can_handle(self, action):
         return "mon_action" in action.lower()
-    
+
     def handle(self, action, context):
         # Logique de traitement
         return f"echo 'Action personnalisée: {action}'"
@@ -489,7 +489,7 @@ import json
 parser = ConfigurableParser(debug=True)
 with open('test.shtest') as f:
     ast = parser.parse(f.read())
-    
+
 # Afficher la structure AST
 print(json.dumps(ast.to_dict(), indent=2))
 ```
@@ -509,4 +509,4 @@ KnightBatch offre un framework puissant et flexible pour l'automatisation de tes
 - [Format SHTEST](shtest_format.md) - Syntaxe détaillée
 - [Architecture Modulaire](modular_architecture.md) - Documentation technique
 - [Guide Développeur](developer_quickstart.md) - Pour les contributeurs
-- [Extension VS Code](vscode_extension.md) - Outils de développement 
+- [Extension VS Code](vscode_extension.md) - Outils de développement

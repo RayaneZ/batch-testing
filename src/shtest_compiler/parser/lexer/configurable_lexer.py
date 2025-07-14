@@ -7,13 +7,13 @@ from typing import Any, Dict, Iterator, Optional
 
 import yaml
 
-from ...config.debug_config import debug_print, is_debug_enabled
+from ...utils.logger import debug_log, is_debug_enabled
 from .core import Token, TokenType
 from .filters import EmptyFilter, Filter, WhitespaceFilter
 from .pattern_loader import PatternLoader
 from .tokenizers import FallbackTokenizer, RegexTokenizer, Tokenizer
 
-debug_print(
+debug_log(
     "LEXER DEBUG ACTIVE: src/shtest_compiler/parser/lexer/configurable_lexer.py loaded"
 )
 
@@ -76,7 +76,7 @@ class ConfigurableLexer:
 
         except Exception as e:
             if self.debug:
-                debug_print(f"[DEBUG] Using fallback tokenizer: {e}")
+                debug_log(f"Using fallback tokenizer: {e}")
             self._add_default_tokenizers()
 
     def _create_tokenizer(self, config: Dict[str, Any]) -> Optional[Tokenizer]:
@@ -108,10 +108,10 @@ class ConfigurableLexer:
             pattern_loader = PatternLoader()
             patterns = pattern_loader.load()
             if self.debug:
-                debug_print(f"[DEBUG] Loaded patterns: {list(patterns.keys())}")
+                debug_log(f"Loaded patterns: {list(patterns.keys())}")
                 for k, v in patterns.items():
-                    debug_print(
-                        f"[DEBUG] Pattern for {k}: {v.pattern if hasattr(v, 'pattern') else v}"
+                    debug_log(
+                        f"Pattern for {k}: {v.pattern if hasattr(v, 'pattern') else v}"
                     )
             # Add tokenizers in order of specificity (most specific first)
             # 1. STEP pattern
@@ -120,8 +120,8 @@ class ConfigurableLexer:
                     RegexTokenizer(patterns["step"], "STEP", debug=self.debug)
                 )
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Added STEP tokenizer with pattern: {patterns['step'].pattern if hasattr(patterns['step'], 'pattern') else patterns['step']}"
+                    debug_log(
+                        f"Added STEP tokenizer with pattern: {patterns['step'].pattern if hasattr(patterns['step'], 'pattern') else patterns['step']}"
                     )
             # 2. ACTION_RESULT pattern
             if "action_result" in patterns:
@@ -131,8 +131,8 @@ class ConfigurableLexer:
                     )
                 )
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Added ACTION_RESULT tokenizer with pattern: {patterns['action_result'].pattern if hasattr(patterns['action_result'], 'pattern') else patterns['action_result']}"
+                    debug_log(
+                        f"Added ACTION_RESULT tokenizer with pattern: {patterns['action_result'].pattern if hasattr(patterns['action_result'], 'pattern') else patterns['action_result']}"
                     )
             # 3. ACTION_ONLY pattern
             if "action_only" in patterns:
@@ -142,8 +142,8 @@ class ConfigurableLexer:
                     )
                 )
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Added ACTION_ONLY tokenizer with pattern: {patterns['action_only'].pattern if hasattr(patterns['action_only'], 'pattern') else patterns['action_only']}"
+                    debug_log(
+                        f"Added ACTION_ONLY tokenizer with pattern: {patterns['action_only'].pattern if hasattr(patterns['action_only'], 'pattern') else patterns['action_only']}"
                     )
             # 4. RESULT_ONLY pattern
             if "result_only" in patterns:
@@ -153,8 +153,8 @@ class ConfigurableLexer:
                     )
                 )
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Added RESULT_ONLY tokenizer with pattern: {patterns['result_only'].pattern if hasattr(patterns['result_only'], 'pattern') else patterns['result_only']}"
+                    debug_log(
+                        f"Added RESULT_ONLY tokenizer with pattern: {patterns['result_only'].pattern if hasattr(patterns['result_only'], 'pattern') else patterns['result_only']}"
                     )
             # 5. COMMENT pattern
             if "comment" in patterns:
@@ -162,15 +162,15 @@ class ConfigurableLexer:
                     RegexTokenizer(patterns["comment"], "COMMENT", debug=self.debug)
                 )
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Added COMMENT tokenizer with pattern: {patterns['comment'].pattern if hasattr(patterns['comment'], 'pattern') else patterns['comment']}"
+                    debug_log(
+                        f"Added COMMENT tokenizer with pattern: {patterns['comment'].pattern if hasattr(patterns['comment'], 'pattern') else patterns['comment']}"
                     )
             # 6. Fallback
             self.add_tokenizer(FallbackTokenizer())
             if self.debug:
-                debug_print(f"[DEBUG] Added FallbackTokenizer")
+                debug_log(f"Added FallbackTokenizer")
         except Exception as e:
-            debug_print(f"[ERROR] Failed to add default tokenizers: {e}")
+            debug_log(f"[ERROR] Failed to add default tokenizers: {e}")
             raise
 
     def _add_default_filters(self) -> None:
@@ -181,7 +181,7 @@ class ConfigurableLexer:
     def lex(self, text: str) -> Iterator[Token]:
         """Lex text into tokens."""
         if self.debug:
-            debug_print(f"[DEBUG] Lexing text with {len(text.splitlines())} lines")
+            debug_log(f"Lexing text with {len(text.splitlines())} lines")
         lines = text.split("\n")
         for lineno, line in enumerate(lines, 1):
             stripped = line.strip()
@@ -195,7 +195,7 @@ class ConfigurableLexer:
                         tokenizer, FallbackTokenizer
                     ):
                         if self.debug:
-                            debug_print(f"[DEBUG] Yielding token: {token}")
+                            debug_log(f"Yielding token: {token}")
                         yield token
                         matched = True
                         break
@@ -205,13 +205,13 @@ class ConfigurableLexer:
                     type=TokenType.TEXT, value=stripped, lineno=lineno, original=line
                 )
                 if self.debug:
-                    debug_print(f"[DEBUG] Yielding fallback TEXT token: {token}")
+                    debug_log(f"Yielding fallback TEXT token: {token}")
                 yield token
 
     def lex_file(self, file_path: str) -> Iterator[Token]:
         """Lex a file into tokens."""
         if self.debug:
-            debug_print(f"[DEBUG] Lexing file: {file_path}")
+            debug_log(f"Lexing file: {file_path}")
 
         try:
             with open(file_path, "r", encoding="utf-8") as f:
@@ -219,26 +219,27 @@ class ConfigurableLexer:
 
             for token in self.lex(text):
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] ConfigurableLexer.lex_file: Yielding token kind={token.kind}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)}"
+                    debug_log(
+                        f"ConfigurableLexer.lex_file: Yielding token kind={token.kind}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)}"
                     )
                 yield token
 
         except Exception as e:
-            if self.debug:
-                debug_print(f"[DEBUG] File lexing error: {e}")
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
             raise
 
     def reload_config(self) -> None:
         """Reload configuration from file."""
         if self.config_path:
             if self.debug:
-                debug_print("[DEBUG] Reloading configuration")
+                debug_log("Reloading configuration")
             try:
                 self._load_config(self.config_path)
             except Exception as e:
                 if self.debug:
-                    debug_print(f"[DEBUG] Failed to reload config: {e}")
+                    debug_log(f"Failed to reload config: {e}")
 
     def add_tokenizer(self, tokenizer: Tokenizer) -> None:
         """Add a tokenizer to the lexer."""

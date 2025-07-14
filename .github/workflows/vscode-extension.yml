@@ -25,20 +25,13 @@ jobs:
       - name: Install dependencies
         run: |
           cd vscode
+          npm install -g @vscode/vsce@latest
           npm ci
 
       - name: Build extension
         run: |
           cd vscode
           npm run compile
-
-      - name: Run extension tests
-        run: |
-          cd vscode
-          npm test
-
-      - name: Install vsce
-        run: npm install -g @vscode/vsce@latest
 
       - name: Package extension
         run: |
@@ -48,7 +41,7 @@ jobs:
       - name: Upload extension artifact
         uses: actions/upload-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
+          name: knightbatch-shtest.vsix-build
           path: knightbatch-shtest.vsix
 
   test-extension:
@@ -66,7 +59,7 @@ jobs:
       - name: Download extension
         uses: actions/download-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
+          name: knightbatch-shtest.vsix-build
           path: vscode/
 
       - name: Install VS Code
@@ -113,52 +106,9 @@ jobs:
         run: |
           cd vscode
           npx tsc --noEmit
-
   validate-extension:
     runs-on: ubuntu-latest
     
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install vsce
-        run: npm install -g @vscode/vsce@latest
-
-      - name: Validate extension
-        run: |
-          cd vscode
-          vsce package --no-dependencies
-          vsce show
-
-      - name: Check extension manifest
-        run: |
-          cd vscode
-          node -e "
-            const pkg = require('./package.json');
-            const required = ['name', 'displayName', 'description', 'version', 'engines', 'contributes'];
-            const missing = required.filter(field => !pkg[field]);
-            if (missing.length > 0) {
-              console.error('Missing required fields:', missing);
-              process.exit(1);
-            }
-            console.log('Extension manifest is valid');
-          " 
-      - name: Extract plugin patterns (if plugins dir exists)
-        run: |
-          if [ -d src/shtest_compiler/plugins ]; then
-            cd vscode
-            npm run extract-patterns
-          else
-            echo "No plugins directory found, skipping pattern extraction."
-          fi 
-
-  package-extension:
-    runs-on: ubuntu-latest
-    needs: build-extension
     steps:
       - uses: actions/checkout@v4
 
@@ -173,22 +123,87 @@ jobs:
         run: |
           cd vscode
           npm ci
+          npm install --save-dev @types/vscode @types/node @types/mocha @types/jest @vscode/test-electron js-yaml @types/js-yaml
+
+      - name: Validate extension
+        run: |
+          cd vscode
+          npm install -g @vscode/vsce@latest
+          vsce package --no-dependencies
+
+      - name: Check extension manifest
+        run: |
+          cd vscode
+          node -e "
+            const pkg = require('./package.json');
+            const required = ['name', 'displayName', 'description', 'version', 'engines', 'contributes'];
+            const missing = required.filter(field => !pkg[field]);
+            if (missing.length > 0) {
+              console.error('Missing required fields:', missing);
+              process.exit(1);
+            }
+            console.log('Extension manifest is valid');
+          "
+
+  package-extension:
+    runs-on: ubuntu-latest
+    needs: [validate-extension]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: vscode/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd vscode
+          npm ci
+          npm install --save-dev @types/vscode @types/node @types/mocha @types/jest @vscode/test-electron js-yaml @types/js-yaml
 
       - name: Build extension
         run: |
           cd vscode
           npm run compile
 
-      - name: Install vsce
-        run: npm install -g @vscode/vsce@latest
-
       - name: Package extension
         run: |
           cd vscode
+          npm install -g @vscode/vsce@latest
           vsce package -o ../knightbatch-shtest.vsix
 
       - name: Upload .vsix artifact
         uses: actions/upload-artifact@v4
         with:
-          name: knightbatch-shtest.vsix
-          path: knightbatch-shtest.vsix 
+          name: knightbatch-shtest.vsix-package
+          path: knightbatch-shtest.vsix
+
+  publish-extension:
+    needs: package-extension
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Download extension artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: knightbatch-shtest.vsix-package
+          path: .
+
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.MARKETPLACE_KEY }}
+        run: |
+          vsce publish --packagePath knightbatch-shtest.vsix --pat $VSCE_PAT

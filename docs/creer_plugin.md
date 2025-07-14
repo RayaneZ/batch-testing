@@ -23,12 +23,27 @@ patterns:
 
 Dans `mon_plugin.py` :
 ```python
-def mon_handler(actions, *args):
-    # Implémente la logique de ton plugin ici
-    pass
+from shtest_compiler.ast.shell_framework_ast import ActionNode
+
+class MonAction(ActionNode):
+    def __init__(self, param1, param2):
+        self.param1 = param1
+        self.param2 = param2
+
+    def to_shell(self):
+        # Génère la commande shell correspondante
+        return f"echo '{self.param1} {self.param2}' > output.txt"
+
+def handle(params):
+    # Le binder garantit que tous les paramètres nécessaires sont présents dans 'params'
+    param1 = params["param1"]
+    param2 = params.get("param2", "default")
+    return MonAction(param1, param2)
 ```
 - Le nom du handler doit correspondre à la clé `handler` dans le YAML.
-- Le handler reçoit le dictionnaire d’actions et les arguments extraits par la regex.
+- Le handler reçoit un dictionnaire `params` avec les arguments extraits par la regex.
+- **Ne pas utiliser `os.environ` ou des variables globales dans vos handlers.**
+- Le handler doit retourner un objet `ActionNode` avec une méthode `to_shell()` pour les actions shell.
 
 ## 4. Enregistrer le handler
 

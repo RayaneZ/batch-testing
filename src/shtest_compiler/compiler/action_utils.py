@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import yaml
 
-from shtest_compiler.config.debug_config import debug_print, is_debug_enabled
+from shtest_compiler.utils.logger import debug_log, is_debug_enabled
 
 # ============================================================================
 # UTILITY FUNCTIONS
@@ -154,26 +154,26 @@ def canonize_action(action: str) -> Optional[tuple]:
         data = load_yaml_config("patterns_actions.yml")
         action_patterns = data.get("actions", [])
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] canonize_action: Loaded {len(action_patterns)} action patterns"
+            debug_log(
+                f"canonize_action: Loaded {len(action_patterns)} action patterns"
             )
     except (FileNotFoundError, yaml.YAMLError) as e:
         if debug_enabled:
-            debug_print(f"[DEBUG] canonize_action: Failed to load patterns: {e}")
+            debug_log(f"canonize_action: Failed to load patterns: {e}")
         return None
 
     action_lower = action.lower().strip()
     if debug_enabled:
-        debug_print(
-            f"[DEBUG] canonize_action: Processing action '{action}' (normalized: '{action_lower}')"
+        debug_log(
+            f"canonize_action: Processing action '{action}' (normalized: '{action_lower}')"
         )
 
     for pattern_entry in action_patterns:
         phrase = pattern_entry["phrase"]
         handler = pattern_entry["handler"]
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] canonize_action: Checking pattern '{phrase}' with handler '{handler}'"
+            debug_log(
+                f"canonize_action: Checking pattern '{phrase}' with handler '{handler}'"
             )
 
         # If the phrase contains {var}, treat as pattern
@@ -181,14 +181,14 @@ def canonize_action(action: str) -> Optional[tuple]:
             # Convert to regex
             regex_pattern = build_regex_from_pattern(phrase)
             if debug_enabled:
-                debug_print(
-                    f"[DEBUG] canonize_action: Testing regex pattern '{regex_pattern}'"
+                debug_log(
+                    f"canonize_action: Testing regex pattern '{regex_pattern}'"
                 )
             match = re.match(regex_pattern, action, re.IGNORECASE)
             if match:
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] canonize_action: Found match with pattern '{phrase}'"
+                    debug_log(
+                        f"canonize_action: Found match with pattern '{phrase}'"
                     )
                 return (
                     pattern_entry["phrase"],
@@ -198,8 +198,8 @@ def canonize_action(action: str) -> Optional[tuple]:
         # Check exact phrase match
         if phrase.lower() == action_lower:
             if debug_enabled:
-                debug_print(
-                    f"[DEBUG] canonize_action: Found exact match with pattern '{phrase}'"
+                debug_log(
+                    f"canonize_action: Found exact match with pattern '{phrase}'"
                 )
             return (pattern_entry["phrase"], pattern_entry["handler"], pattern_entry)
         # Check aliases
@@ -207,19 +207,19 @@ def canonize_action(action: str) -> Optional[tuple]:
             if not isinstance(alias, str):
                 continue
             if debug_enabled:
-                debug_print(f"[DEBUG] canonize_action: Checking alias '{alias}'")
+                debug_log(f"canonize_action: Checking alias '{alias}'")
             # If alias contains {var}, treat as pattern
             if "{" in alias and "}" in alias:
                 regex_pattern = build_regex_from_pattern(alias)
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] canonize_action: Testing alias regex '{regex_pattern}'"
+                    debug_log(
+                        f"canonize_action: Testing alias regex '{regex_pattern}'"
                     )
                 match = re.match(regex_pattern, action, re.IGNORECASE)
                 if match:
                     if debug_enabled:
-                        debug_print(
-                            f"[DEBUG] canonize_action: Found match with alias '{alias}'"
+                        debug_log(
+                            f"canonize_action: Found match with alias '{alias}'"
                         )
                     return (
                         pattern_entry["phrase"],
@@ -229,8 +229,8 @@ def canonize_action(action: str) -> Optional[tuple]:
             # Exact match
             if alias.lower() == action_lower:
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] canonize_action: Found exact match with alias '{alias}'"
+                    debug_log(
+                        f"canonize_action: Found exact match with alias '{alias}'"
                     )
                 return (
                     pattern_entry["phrase"],
@@ -241,13 +241,13 @@ def canonize_action(action: str) -> Optional[tuple]:
             if alias.startswith("^") and alias.endswith("$"):
                 try:
                     if debug_enabled:
-                        debug_print(
-                            f"[DEBUG] canonize_action: Testing regex alias '{alias}'"
+                        debug_log(
+                            f"canonize_action: Testing regex alias '{alias}'"
                         )
                     if re.match(alias, action_lower, re.IGNORECASE):
                         if debug_enabled:
-                            debug_print(
-                                f"[DEBUG] canonize_action: Found match with regex alias '{alias}'"
+                            debug_log(
+                                f"canonize_action: Found match with regex alias '{alias}'"
                             )
                         return (
                             pattern_entry["phrase"],
@@ -258,7 +258,7 @@ def canonize_action(action: str) -> Optional[tuple]:
                     continue
 
     if debug_enabled:
-        debug_print(f"[DEBUG] canonize_action: No match found for action '{action}'")
+        debug_log(f"canonize_action: No match found for action '{action}'")
     return None
 
 

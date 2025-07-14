@@ -2,9 +2,9 @@
 # KnightBatch - Framework de Tests Automatisés
 
 | <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Bienvenue dans la documentation de KnightBatch, le framework moderne pour l'automatisation de tests via des scénarios en langage naturel. Transformez vos procédures manuelles en tests automatisés robustes et maintenables. |
-| :--: | --- |
+|  | --- |
 
-## 🚀 Démarrage Rapide
+##  Démarrage Rapide
 
 ```bash
 # Installation
@@ -30,29 +30,29 @@ bash mon_test.sh
 - **Productivité** : Pipeline complet de compilation, validation et exécution
 - **Intégration** : Support CI/CD et rapports automatisés
 
-## 🏗️ Architecture Modulaire
+## ️ Architecture Modulaire
 
 KnightBatch utilise une architecture moderne entièrement configurée par YAML :
 
-- **🔧 Core Modulaire** : Système de contexte partagé et gestion d'état
-- **📝 Lexer Configurable** : Tokenisation basée sur patterns YAML
-- **🔍 Parser Flexible** : Grammaire extensible avec constructeur AST
+- ** Core Modulaire** : Système de contexte partagé et gestion d'état
+- ** Lexer Configurable** : Tokenisation basée sur patterns YAML
+- ** Parser Flexible** : Grammaire extensible avec constructeur AST
 - **⚙️ Compilateur YAML** : Génération de code via configuration
-- **🔌 Système de Plugins** : Handlers extensibles pour nouvelles actions
-- **✅ Validation Robuste** : Vérification AST et sémantique automatique
+- ** Système de Plugins** : Handlers extensibles pour nouvelles actions
+- ** Validation Robuste** : Vérification AST et sémantique automatique
 
-## 🔄 Pipeline de Compilation
+##  Pipeline de Compilation
 
-1. **📝 Tokenisation** : Le fichier `.shtest` est découpé en tokens via patterns YAML
-2. **🔍 Parsing** : Les tokens sont analysés pour produire un AST structuré
-3. **🏗️ Construction AST** : Validation et normalisation de la structure
-4. **🔗 Binding** : Liaison des validations aux actions et résolution du contexte
+1. ** Tokenisation** : Le fichier `.shtest` est découpé en tokens via patterns YAML
+2. ** Parsing** : Les tokens sont analysés pour produire un AST structuré
+3. **️ Construction AST** : Validation et normalisation de la structure
+4. ** Binding** : Liaison des validations aux actions et résolution du contexte
 5. **⚙️ Génération** : Production de scripts shell exécutables via handlers
 6. **▶️ Exécution** : Exécution directe des scripts générés
 
 **Avantages** : Pipeline entièrement configurable, validation robuste, génération optimisée
 
-## 📖 Guide Complet
+##  Guide Complet
 
 Pour un guide détaillé couvrant toutes les fonctionnalités, consultez le **[Manuel Utilisateur](user_manual.md)**.
 
@@ -86,7 +86,7 @@ L'extension VS Code KnightBatch offre une expérience de développement intégr�
 - **IntelliSense** avec autocomplétion et validation en temps réel
 - **Validation en temps réel** avec détection d'erreurs
 
-[📖 Documentation Extension VS Code](vscode_extension.md)
+[ Documentation Extension VS Code](vscode_extension.md)
 
 ## Système de Plugins
 

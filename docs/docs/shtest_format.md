@@ -1,6 +1,6 @@
 # Construire des fichiers `.shtest`
 
-Ce document décrit la syntaxe utilisée pour écrire les scénarios de test automatisés au format `.shtest`.  
+Ce document décrit la syntaxe utilisée pour écrire les scénarios de test automatisés au format `.shtest`.
 Chaque instruction est une **ligne unique** au format :
 
 ```sh
@@ -51,7 +51,7 @@ Ce chapitre couvre la configuration de la connexion à une base de données, ain
 
 ### Définir la connexion à une base de données
 
-Définissez les variables nécessaires pour accéder à une base de données (driver et chaîne de connexion). 
+Définissez les variables nécessaires pour accéder à une base de données (driver et chaîne de connexion).
 KnightBatch utilise les variables réservées `SQL_DRIVER` et `SQL_CONN` pour générer des instructions compatibles avec votre moteur de base de données.
 Il est possible de réécrire la variable SQL_DRIVER plusieurs fois dans le même test si vous utilisez plusieurs bases de données.
 
@@ -64,7 +64,7 @@ Pour définir la chaine de connexion à la base de données :
 Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: identifiants configurés.
 ```
 
-Les lignes ci-dessus sont traduites en shell de la manière suivante : 
+Les lignes ci-dessus sont traduites en shell de la manière suivante :
 ```sh
 export SQL_DRIVER="mysql"
 export SQL_CONN="rootme/ffDDD584R@base_name"
@@ -90,7 +90,7 @@ Il est possible d'exécuter des scripts SQL de la manière suivante :
 ```text
 Action: Exécuter le script SQL ./init_bdd.sql ; Résultat: La base est prête pour le test.
 ```
-Ce qui produira : 
+Ce qui produira :
 ```sh
 run_cmd "mysql ${SQL_CONN:-user/password@db} < init_bdd.sql"
 
@@ -112,7 +112,7 @@ S'il ne s'agit pas d'une initialisation, il est également possible d'utiliser d
 ```text
 Action: Exécuter le script SQL verification.sql ; Résultat: Le script s’exécute avec succès.
 ```
-Ce qui produira un script similaire : 
+Ce qui produira un script similaire :
 ```sh
 run_cmd "mysql ${SQL_CONN:-user/password@db} < verification.sql"
 

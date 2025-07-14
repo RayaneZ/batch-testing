@@ -69,7 +69,7 @@ class MyVisitor(Visitor):
     def visit_action_node(self, node):
         # Traitement personnalisé pour les nœuds d'action
         pass
-    
+
     def visit_validation_node(self, node):
         # Traitement personnalisé pour les nœuds de validation
         pass
@@ -222,7 +222,7 @@ from shtest_compiler.core.context import CompileContext
 def register_plugin(context: CompileContext):
     # Enregistrer de nouveaux matchers
     context.add_matcher("custom_validation", custom_validation_matcher)
-    
+
     # Enregistrer de nouveaux visiteurs
     context.add_visitor("custom_generator", CustomGenerator())
 ```
@@ -234,6 +234,30 @@ from shtest_compiler.plugins import load_plugins
 
 context = CompileContext()
 load_plugins(context)
+```
+
+## Handler Requirements Documentation
+
+Each handler (action or validation) can have its requirements documented in a `handler_requirements.yml` file in the `config/` directory of the core or any plugin.
+
+- The loader merges all these YAMLs into a single requirements dictionary.
+- This allows for automatic documentation, validation, and introspection of handler parameters.
+
+**Example:**
+```yaml
+example_handler:
+  description: "Does something."
+  params:
+    - name: foo
+      type: str
+      required: true
+      description: "A required parameter."
+```
+
+**Access in code:**
+```python
+from shtest_compiler.command_loader import get_handler_requirements
+reqs = get_handler_requirements()
 ```
 
 ## Configuration Avancée
@@ -275,4 +299,4 @@ python -m pytest tests/unit/test_modular_system.py
 for test in tests/integration/*.sh; do
     bash "$test"
 done
-``` 
+```
