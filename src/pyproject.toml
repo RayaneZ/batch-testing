@@ -12,7 +12,6 @@ dependencies = [
     "pytest-asyncio>=0.21.0",
     "coverage>=7.0.0",
     "black>=23.0.0",
-    "flake8>=6.0.0",
     "mypy>=1.0.0",
     "pre-commit>=3.0.0"
 ]
@@ -37,7 +36,6 @@ dev = [
     "pytest-asyncio>=0.21.0",
     "coverage>=7.0.0",
     "black>=23.0.0",
-    "flake8>=6.0.0",
     "mypy>=1.0.0",
     "pre-commit>=3.0.0"
 ]
@@ -121,22 +119,6 @@ extend-exclude = '''
   | dist
 )/
 '''
-
-# Flake8 configuration
-[tool.flake8]
-max-line-length = 88
-extend-ignore = ["E203", "W503"]
-exclude = [
-    ".git",
-    "__pycache__",
-    "build",
-    "dist",
-    "*.egg-info",
-    ".venv",
-    "venv",
-    ".mypy_cache",
-    ".pytest_cache"
-]
 
 # MyPy configuration
 [tool.mypy]

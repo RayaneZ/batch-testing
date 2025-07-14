@@ -24,5 +24,6 @@ suite('KnightBatch Extension Test Suite', () => {
         assert.ok(commands.includes('knightbatch.showTokens'));
         assert.ok(commands.includes('knightbatch.compileDirectory'));
         assert.ok(commands.includes('knightbatch.exportToExcel'));
+        assert.ok(commands.includes('knightbatch.runTests'));
     });
 }); 
