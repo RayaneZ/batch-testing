@@ -1,5 +1,7 @@
 import pytest
+
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
+
 
 def test_parse_minimal():
     parser = ConfigurableParser(debug=False)
@@ -14,4 +16,4 @@ Resultat: le dossier est cree.
     assert shtest.steps[0].actions[0].command.startswith("Creer le dossier")
     # Check result_expr if it exists
     if shtest.steps[0].actions[0].result_expr:
-        assert "cree" in shtest.steps[0].actions[0].result_expr 
+        assert "cree" in shtest.steps[0].actions[0].result_expr

@@ -3,25 +3,34 @@
 Test for lifting functionality.
 """
 
-from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
-from shtest_compiler.ast.shtest_to_shellframework_visitor import ShtestToShellFrameworkVisitor
 from shtest_compiler.ast.shell_framework_binder import ShellFrameworkLifter
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
+    ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.shtest_to_shellframework_visitor import \
+    ShtestToShellFrameworkVisitor
+from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
+
 
 def test_lifting():
     print("=== Testing Lifting Functionality ===\n")
 
     # Create a test AST
-    test_ast = ShtestFile(steps=[
-        TestStep(name="Test Step", actions=[
-            Action(
-                command="touch /tmp/test.txt",
-                result_expr="Le fichier /tmp/test.txt est présent",
-                result_ast=None,
-                lineno=1
+    test_ast = ShtestFile(
+        steps=[
+            TestStep(
+                name="Test Step",
+                actions=[
+                    Action(
+                        command="touch /tmp/test.txt",
+                        result_expr="Le fichier /tmp/test.txt est présent",
+                        result_ast=None,
+                        lineno=1,
+                    )
+                ],
+                lineno=1,
             )
-        ], lineno=1)
-    ])
+        ]
+    )
 
     print("Test AST created successfully")
     print(f"Steps: {len(test_ast.steps)}")
@@ -59,5 +68,6 @@ def test_lifting():
 
     print("=== Lifting Functionality Tests Complete ===")
 
+
 if __name__ == "__main__":
-    test_lifting() 
+    test_lifting()

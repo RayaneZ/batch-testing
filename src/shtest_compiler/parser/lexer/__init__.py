@@ -9,20 +9,21 @@ This package provides a configurable, extensible lexer architecture that support
 """
 
 from .configurable_lexer import ConfigurableLexer
-from .core import Token, TokenType, LexerError
+from .core import LexerError, Token, TokenType
+from .filters import (CommentFilter, CompositeFilter, DebugFilter, EmptyFilter,
+                      Filter, WhitespaceFilter)
 from .pattern_loader import PatternLoader
-from .filters import Filter, EmptyFilter, WhitespaceFilter, CommentFilter, DebugFilter, CompositeFilter
 
 __all__ = [
-    'ConfigurableLexer',
-    'Token',
-    'TokenType',
-    'LexerError',
-    'PatternLoader',
-    'Filter',
-    'EmptyFilter',
-    'WhitespaceFilter',
-    'CommentFilter',
-    'DebugFilter',
-    'CompositeFilter',
-] 
+    "ConfigurableLexer",
+    "Token",
+    "TokenType",
+    "LexerError",
+    "PatternLoader",
+    "Filter",
+    "EmptyFilter",
+    "WhitespaceFilter",
+    "CommentFilter",
+    "DebugFilter",
+    "CompositeFilter",
+]

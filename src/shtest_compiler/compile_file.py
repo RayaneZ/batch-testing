@@ -7,24 +7,26 @@ using the enhanced modular parser and compiler system.
 
 import os
 import sys
-from typing import Optional
 from pathlib import Path
+from typing import Optional
 
 from .compiler.compiler import ModularCompiler
+from .config.debug_config import debug_print, is_debug_enabled
 from .plugins import load_plugins_from_directory, plugin_registry
-from .config.debug_config import is_debug_enabled, debug_print
 
 
-def compile_file(input_path: str, 
-                output_path: Optional[str] = None,
-                grammar: str = "default",
-                ast_builder: str = "default",
-                debug: bool = False,
-                plugin_dir: Optional[str] = None,
-                debug_output_path: Optional[str] = None) -> str:
+def compile_file(
+    input_path: str,
+    output_path: Optional[str] = None,
+    grammar: str = "default",
+    ast_builder: str = "default",
+    debug: bool = False,
+    plugin_dir: Optional[str] = None,
+    debug_output_path: Optional[str] = None,
+) -> str:
     """
     Compile a .shtest file to a shell script using the modular compiler.
-    
+
     Args:
         input_path: Path to the .shtest file
         output_path: Optional output path for the shell script
@@ -33,13 +35,13 @@ def compile_file(input_path: str,
         debug: Enable debug mode (deprecated, use global debug config)
         plugin_dir: Optional directory to load plugins from
         debug_output_path: Path to debug output file (optional)
-        
+
     Returns:
         Path to the generated shell script
     """
     # Use global debug configuration
     debug_enabled = debug or is_debug_enabled()
-    
+
     # Load plugins if specified
     if plugin_dir and os.path.exists(plugin_dir):
         try:
@@ -49,15 +51,15 @@ def compile_file(input_path: str,
         except Exception as e:
             if debug_enabled:
                 debug_print(f"Warning: Failed to load plugins from {plugin_dir}: {e}")
-    
+
     # Create compiler with specified configuration
     compiler = ModularCompiler(
         grammar_name=grammar,
         ast_builder_name=ast_builder,
         debug=debug_enabled,
-        debug_output_path=debug_output_path
+        debug_output_path=debug_output_path,
     )
-    
+
     # Install any loaded plugins
     for plugin in plugin_registry.values():
         try:
@@ -67,21 +69,24 @@ def compile_file(input_path: str,
         except Exception as e:
             if debug_enabled:
                 debug_print(f"Warning: Failed to install plugin {plugin.name}: {e}")
-    
+
     # Compile the file
-    return compiler.compile_file(input_path, output_path, debug_output_path=debug_output_path)
+    return compiler.compile_file(
+        input_path, output_path, debug_output_path=debug_output_path
+    )
 
 
-def compile_text(text: str,
-                output_path: Optional[str] = None,
-                grammar: str = "default",
-                ast_builder: str = "default",
-                debug: bool = False,
-                debug_output_path: Optional[str] = None
-                ) -> str:
+def compile_text(
+    text: str,
+    output_path: Optional[str] = None,
+    grammar: str = "default",
+    ast_builder: str = "default",
+    debug: bool = False,
+    debug_output_path: Optional[str] = None,
+) -> str:
     """
     Compile .shtest text to a shell script using the modular compiler.
-    
+
     Args:
         text: The .shtest content
         output_path: Optional output path for the shell script
@@ -89,21 +94,21 @@ def compile_text(text: str,
         ast_builder: Name of the AST builder to use
         debug: Enable debug mode (deprecated, use global debug config)
         debug_output_path: Path to debug output file (optional)
-        
+
     Returns:
         Path to the generated shell script
     """
     # Use global debug configuration
     debug_enabled = debug or is_debug_enabled()
-    
+
     # Create compiler with specified configuration
     compiler = ModularCompiler(
         grammar_name=grammar,
         ast_builder_name=ast_builder,
         debug=debug_enabled,
-        debug_output_path=debug_output_path
+        debug_output_path=debug_output_path,
     )
-    
+
     # Compile the text
     return compiler.compile_text(text, output_path, debug_output_path=debug_output_path)
 
@@ -111,15 +116,15 @@ def compile_text(text: str,
 def list_available_components():
     """List all available grammars, AST builders, and plugins."""
     compiler = ModularCompiler()
-    
+
     print("Available Grammars:")
     for grammar in compiler.list_grammars():
         print(f"  - {grammar}")
-    
+
     print("\nAvailable AST Builders:")
     for builder in compiler.list_ast_builders():
         print(f"  - {builder}")
-    
+
     print("\nAvailable Plugins:")
     for plugin in plugin_registry.list():
         print(f"  - {plugin}")
@@ -132,6 +137,8 @@ def get_compiler_info(grammar: str = "default", ast_builder: str = "default") ->
 
 
 # Backward compatibility
-def compile_shtest_file(input_path: str, output_path: Optional[str] = None, debug: bool = False) -> str:
+def compile_shtest_file(
+    input_path: str, output_path: Optional[str] = None, debug: bool = False
+) -> str:
     """Backward compatibility function."""
     return compile_file(input_path, output_path, debug=debug)

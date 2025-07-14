@@ -1,5 +1,7 @@
 from shtest_compiler.compiler.matcher_registry import register_matcher
+
 from ..utils import shell_condition, strip_accents
+
 
 @register_matcher("sql_checks")
 def match(expected, _):
@@ -21,17 +23,32 @@ def match(expected, _):
         "la base est prete pour le test": ("Base prête pour le test", "Base non prête"),
         "la base de test est prete": ("Base de test prête", "Base de test non prête"),
         "base prete": ("Base prête", "Base non prête"),
-        
         # Validations de scripts SQL
-        "le script s'execute avec succes": ("Script exécuté avec succès", "Échec d'exécution du script"),
-        "le script s'execute avec succès": ("Script exécuté avec succès", "Échec d'exécution du script"),
-        "script execute avec succes": ("Script exécuté avec succès", "Échec d'exécution du script"),
-        
+        "le script s'execute avec succes": (
+            "Script exécuté avec succès",
+            "Échec d'exécution du script",
+        ),
+        "le script s'execute avec succès": (
+            "Script exécuté avec succès",
+            "Échec d'exécution du script",
+        ),
+        "script execute avec succes": (
+            "Script exécuté avec succès",
+            "Échec d'exécution du script",
+        ),
         # Validations d'identifiants
-        "les identifiants sont configures": ("Identifiants configurés", "Identifiants non configurés"),
-        "identifiants configures": ("Identifiants configurés", "Identifiants non configurés"),
-        "identifiants configurés": ("Identifiants configurés", "Identifiants non configurés"),
-        
+        "les identifiants sont configures": (
+            "Identifiants configurés",
+            "Identifiants non configurés",
+        ),
+        "identifiants configures": (
+            "Identifiants configurés",
+            "Identifiants non configurés",
+        ),
+        "identifiants configurés": (
+            "Identifiants configurés",
+            "Identifiants non configurés",
+        ),
         # Validations de connexion
         "connexion etablie": ("Connexion établie", "Échec de connexion"),
         "connexion reussie": ("Connexion réussie", "Échec de connexion"),
@@ -64,4 +81,4 @@ def match(expected, _):
     # ------------------------------------------------------------
     # Étape 5 : Aucun motif SQL reconnu
     # ------------------------------------------------------------
-    return None 
+    return None

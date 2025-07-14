@@ -1,9 +1,12 @@
 import pytest
-from shtest_compiler.compiler.visitors import CompilerVisitor
+
 from shtest_compiler.compiler.context import CompileContext
+from shtest_compiler.compiler.visitors import CompilerVisitor
+
 
 class DummyNode:
     pass
+
 
 def test_generic_visit_raises():
     visitor = CompilerVisitor(CompileContext())
@@ -19,4 +22,4 @@ def test_generic_visit_raises():
         pass
     except Exception as e:
         # Any other exception should be acceptable
-        assert str(e) is not None 
+        assert str(e) is not None

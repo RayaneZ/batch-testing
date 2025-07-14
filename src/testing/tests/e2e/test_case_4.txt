@@ -52,7 +52,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=create_dir, variables={'path': '/tmp/data avec les droits 0755'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'créer le dossier /tmp/data avec les droits 0755', 'handler': 'create_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/data avec les droits 0755'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le dossier {path}', 'config': {'type': 'action', 'phrase': 'Créer le dossier {path}', 'aliases': ['créer un dossier {path}', 'faire un dossier {path}', 'nouveau dossier {path}', 'cr[ée]er le dossier (.+)', '^mkdir (.+)$'], 'handler': 'create_dir'}}], 'scope': 'global'}, 'path': '/tmp/data avec les droits 0755'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x0000021CF589F4D0>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x00000253EB33E310>
 [DEBUG] get_action_shell_command: Generated shell command: mkdir -p '/tmp/data avec les droits 0755'
 [DEBUG] compile_validation_expression called with: 'Le dossier est créé'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -117,7 +117,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=create_file, variables={'path': '/tmp/output.txt avec les droits 0644'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_file
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'créer le fichier /tmp/output.txt avec les droits 0644', 'handler': 'create_file', 'category': 'file_operations', 'variables': {'path': '/tmp/output.txt avec les droits 0644'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new file', 'category': 'file_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le fichier {path}', 'config': {'type': 'action', 'phrase': 'Créer le fichier {path}', 'aliases': ['créer un fichier {path}', 'faire un fichier {path}', 'générer le fichier {path}', 'nouveau fichier {path}', 'cr[ée]er le fichier (.+)', '^touch (.+)$'], 'handler': 'create_file'}}], 'scope': 'global'}, 'path': '/tmp/output.txt avec les droits 0644'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_file.CreateFileAction object at 0x0000021CF58CCA90>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_file.CreateFileAction object at 0x00000253EB362B50>
 [DEBUG] get_action_shell_command: Generated shell command: touch '/tmp/output.txt avec les droits 0644'
 [DEBUG] compile_validation_expression called with: 'Le fichier est présent'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -128,19 +128,19 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
 [ERROR] ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
 Traceback (most recent call last):
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 171, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 198, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 26, in visit
     return visitor_method(node)
            ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 166, in visit_shtestfile
-    validation_lines = self.compile_validation_expression(action.result_expr, action_context={'command': action.command})
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 237, in compile_validation_expression
-    return compile_atomic(expression, varname="result", last_file_var=None, action_context=action_context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 63, in compile_atomic
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 240, in visit_shtestfile
+    validation_lines = self.compile_validation_expression(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 347, in compile_validation_expression
+    return compile_atomic(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 80, in compile_atomic
     raise ValidationParseError(error_msg)
 shtest_compiler.core.errors.ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
 

@@ -367,7 +367,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=export_var, variables={'var': 'SQL_CONN', 'value': 'user/password@testdb'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.export_var
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'définir la variable SQL_CONN = user/password@testdb', 'handler': 'export_var', 'category': 'variables', 'variables': {'var': 'SQL_CONN', 'value': 'user/password@testdb'}, 'requirements': {'required_variables': ['var', 'value'], 'optional_variables': [], 'scope': 'global', 'description': 'Export a variable', 'category': 'variables', 'validation_rules': {'var': {'type': 'var', 'required': True, 'pattern': '^[a-zA-Z_][a-zA-Z0-9_]*$'}, 'value': {'type': 'value', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Définir la variable {var} = {value}', 'config': {'type': 'action', 'phrase': 'Définir la variable {var} = {value}', 'aliases': ['définir la variable SQL_CONN = {value}', "définir la variable d'environnement {var} = {value}", 'exporter la variable {var} = {value}', '^export (.+)=(.+)$', 'définir la variable {var} = {value}'], 'handler': 'export_var'}}], 'scope': 'global'}, 'var': 'SQL_CONN', 'value': 'user/password@testdb'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.export_var.ExportVarAction object at 0x00000208C98AFE50>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.export_var.ExportVarAction object at 0x000001E4AF6AA390>
 [DEBUG] get_action_shell_command: Generated shell command: export SQL_CONN='user/password@testdb'
 [DEBUG] compile_validation_expression called with: 'variable SQL_CONN vaut user/password@testdb'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -726,8 +726,8 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=sql_compare, variables={'query1': "SELECT * FROM employees WHERE department = 'IT'", 'query2': "SELECT * FROM employees WHERE department = 'IT'"}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.sql_compare
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': "comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'", 'handler': 'sql_compare', 'category': 'execution', 'variables': {'query1': "SELECT * FROM employees WHERE department = 'IT'", 'query2': "SELECT * FROM employees WHERE department = 'IT'"}, 'requirements': {'required_variables': ['query1', 'query2'], 'optional_variables': [], 'scope': 'global', 'description': 'Compare SQL query results', 'category': 'execution', 'validation_rules': {'query1': {'type': 'query', 'required': True}, 'query2': {'type': 'query', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Comparer les résultats de la requête {query1} avec {query2}', 'config': {'type': 'action', 'phrase': 'Comparer les résultats de la requête {query1} avec {query2}', 'aliases': [{'comparer les résultats de la requête {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer les résultats {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, 'comparer les résultats de la requête {query1} avec {query2}', 'comparer les résultats {query1} avec {query2}', 'comparer {query1} avec {query2}', 'comparer les résultats de la requête {query1} avec {query2}'], 'handler': 'sql_compare'}}], 'scope': 'global'}, 'query1': "SELECT * FROM employees WHERE department = 'IT'", 'query2': "SELECT * FROM employees WHERE department = 'IT'"}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x00000208C9C31FD0>
-[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_3374.sql << 'EOF'
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x000001E4AF6FE710>
+[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_5061.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -737,19 +737,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT * FROM employees WHERE department = 'IT'
 EOF
-sqlplus -s  @temp_query_3374.sql > temp_csv_3374.csv
+sqlplus -s  @temp_query_5061.sql > temp_csv_5061.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_3374.csv', header=None)
-    df.to_excel('temp_compare_1_3374.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_5061.csv', header=None)
+    df.to_excel('temp_compare_1_5061.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_3374.sql temp_csv_3374.csv && cat > temp_query_3374.sql << 'EOF'
+rm -f temp_query_5061.sql temp_csv_5061.csv && cat > temp_query_5061.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -759,19 +759,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT * FROM employees WHERE department = 'IT'
 EOF
-sqlplus -s  @temp_query_3374.sql > temp_csv_3374.csv
+sqlplus -s  @temp_query_5061.sql > temp_csv_5061.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_3374.csv', header=None)
-    df.to_excel('temp_compare_2_3374.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_5061.csv', header=None)
+    df.to_excel('temp_compare_2_5061.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_3374.sql temp_csv_3374.csv && python3 -c "
+rm -f temp_query_5061.sql temp_csv_5061.csv && python3 -c "
 import pandas as pd
 import numpy as np
 import sys
@@ -810,10 +810,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_3374.xlsx', 'temp_compare_2_3374.xlsx')
+success = compare_excel_files('temp_compare_1_5061.xlsx', 'temp_compare_2_5061.xlsx')
 if not success:
     sys.exit(1)
-" && rm -f temp_compare_1_3374.xlsx temp_compare_2_3374.xlsx
+" && rm -f temp_compare_1_5061.xlsx temp_compare_2_5061.xlsx
 [DEBUG] compile_validation_expression called with: 'stdout contient COMPARISON_SUCCESS'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
 [DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT'"}
@@ -997,8 +997,8 @@ if not success:
 [DEBUG] get_action_shell_command: handler=sql_compare, variables={'query1': 'SELECT AVG(salary) FROM employees', 'query2': 'SELECT AVG(salary) FROM employees'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.sql_compare
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees', 'handler': 'sql_compare', 'category': 'execution', 'variables': {'query1': 'SELECT AVG(salary) FROM employees', 'query2': 'SELECT AVG(salary) FROM employees'}, 'requirements': {'required_variables': ['query1', 'query2'], 'optional_variables': [], 'scope': 'global', 'description': 'Compare SQL query results', 'category': 'execution', 'validation_rules': {'query1': {'type': 'query', 'required': True}, 'query2': {'type': 'query', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Comparer les résultats de la requête {query1} avec {query2}', 'config': {'type': 'action', 'phrase': 'Comparer les résultats de la requête {query1} avec {query2}', 'aliases': [{'comparer les résultats de la requête {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer les résultats {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, 'comparer les résultats de la requête {query1} avec {query2}', 'comparer les résultats {query1} avec {query2}', 'comparer {query1} avec {query2}', 'comparer les résultats de la requête {query1} avec {query2}'], 'handler': 'sql_compare'}}], 'scope': 'global'}, 'query1': 'SELECT AVG(salary) FROM employees', 'query2': 'SELECT AVG(salary) FROM employees'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x00000208C98B5FD0>
-[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_9408.sql << 'EOF'
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x000001E4AF716990>
+[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_762.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -1008,19 +1008,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT AVG(salary) FROM employees
 EOF
-sqlplus -s  @temp_query_9408.sql > temp_csv_9408.csv
+sqlplus -s  @temp_query_762.sql > temp_csv_762.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_9408.csv', header=None)
-    df.to_excel('temp_compare_1_9408.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_762.csv', header=None)
+    df.to_excel('temp_compare_1_762.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_9408.sql temp_csv_9408.csv && cat > temp_query_9408.sql << 'EOF'
+rm -f temp_query_762.sql temp_csv_762.csv && cat > temp_query_762.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -1030,19 +1030,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT AVG(salary) FROM employees
 EOF
-sqlplus -s  @temp_query_9408.sql > temp_csv_9408.csv
+sqlplus -s  @temp_query_762.sql > temp_csv_762.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_9408.csv', header=None)
-    df.to_excel('temp_compare_2_9408.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_762.csv', header=None)
+    df.to_excel('temp_compare_2_762.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_9408.sql temp_csv_9408.csv && python3 -c "
+rm -f temp_query_762.sql temp_csv_762.csv && python3 -c "
 import pandas as pd
 import numpy as np
 import sys
@@ -1081,10 +1081,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_9408.xlsx', 'temp_compare_2_9408.xlsx')
+success = compare_excel_files('temp_compare_1_762.xlsx', 'temp_compare_2_762.xlsx')
 if not success:
     sys.exit(1)
-" && rm -f temp_compare_1_9408.xlsx temp_compare_2_9408.xlsx
+" && rm -f temp_compare_1_762.xlsx temp_compare_2_762.xlsx
 [DEBUG] compile_validation_expression called with: 'stdout contient COMPARISON_SUCCESS'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
 [DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees'}
@@ -1219,7 +1219,7 @@ if not success:
 [DEBUG] get_action_shell_command: handler=run_script, variables={'script': 'la requête SELECT COUNT(*) FROM employees'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'exécuter la requête SELECT COUNT(*) FROM employees', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': 'la requête SELECT COUNT(*) FROM employees'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': 'la requête SELECT COUNT(*) FROM employees'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x00000208C9C25390>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001E4AF6A0990>
 [DEBUG] get_action_shell_command: Generated shell command: sh 'la requête SELECT COUNT(*) FROM employees'
 [DEBUG] compile_validation_expression called with: 'stdout contient un nombre'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -1578,8 +1578,8 @@ if not success:
 [DEBUG] get_action_shell_command: handler=sql_compare, variables={'query1': 'SELECT name, department FROM employees ORDER BY name', 'query2': "SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)"}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.sql_compare
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': "comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)", 'handler': 'sql_compare', 'category': 'execution', 'variables': {'query1': 'SELECT name, department FROM employees ORDER BY name', 'query2': "SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)"}, 'requirements': {'required_variables': ['query1', 'query2'], 'optional_variables': [], 'scope': 'global', 'description': 'Compare SQL query results', 'category': 'execution', 'validation_rules': {'query1': {'type': 'query', 'required': True}, 'query2': {'type': 'query', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Comparer les résultats de la requête {query1} avec {query2}', 'config': {'type': 'action', 'phrase': 'Comparer les résultats de la requête {query1} avec {query2}', 'aliases': [{'comparer les résultats de la requête {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer les résultats {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, 'comparer les résultats de la requête {query1} avec {query2}', 'comparer les résultats {query1} avec {query2}', 'comparer {query1} avec {query2}', 'comparer les résultats de la requête {query1} avec {query2}'], 'handler': 'sql_compare'}}], 'scope': 'global'}, 'query1': 'SELECT name, department FROM employees ORDER BY name', 'query2': "SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)"}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x00000208C9CB3350>
-[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_1260.sql << 'EOF'
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x000001E4AF75D310>
+[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_8507.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -1589,19 +1589,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name, department FROM employees ORDER BY name
 EOF
-sqlplus -s  @temp_query_1260.sql > temp_csv_1260.csv
+sqlplus -s  @temp_query_8507.sql > temp_csv_8507.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_1260.csv', header=None)
-    df.to_excel('temp_compare_1_1260.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_8507.csv', header=None)
+    df.to_excel('temp_compare_1_8507.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_1260.sql temp_csv_1260.csv && cat > temp_query_3336.sql << 'EOF'
+rm -f temp_query_8507.sql temp_csv_8507.csv && cat > temp_query_3064.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -1611,19 +1611,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)
 EOF
-sqlplus -s  @temp_query_3336.sql > temp_csv_3336.csv
+sqlplus -s  @temp_query_3064.sql > temp_csv_3064.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_3336.csv', header=None)
-    df.to_excel('temp_compare_2_3336.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_3064.csv', header=None)
+    df.to_excel('temp_compare_2_3064.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_3336.sql temp_csv_3336.csv && python3 -c "
+rm -f temp_query_3064.sql temp_csv_3064.csv && python3 -c "
 import pandas as pd
 import numpy as np
 import sys
@@ -1662,10 +1662,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_1260.xlsx', 'temp_compare_2_3336.xlsx')
+success = compare_excel_files('temp_compare_1_8507.xlsx', 'temp_compare_2_3064.xlsx')
 if not success:
     sys.exit(1)
-" && rm -f temp_compare_1_1260.xlsx temp_compare_2_3336.xlsx
+" && rm -f temp_compare_1_8507.xlsx temp_compare_2_3064.xlsx
 [DEBUG] compile_validation_expression called with: 'stdout contient COMPARISON_SUCCESS'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
 [DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)"}
@@ -1849,8 +1849,8 @@ if not success:
 [DEBUG] get_action_shell_command: handler=sql_compare, variables={'query1': "SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary", 'query2': "SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)"}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.sql_compare
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': "comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)", 'handler': 'sql_compare', 'category': 'execution', 'variables': {'query1': "SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary", 'query2': "SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)"}, 'requirements': {'required_variables': ['query1', 'query2'], 'optional_variables': [], 'scope': 'global', 'description': 'Compare SQL query results', 'category': 'execution', 'validation_rules': {'query1': {'type': 'query', 'required': True}, 'query2': {'type': 'query', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Comparer les résultats de la requête {query1} avec {query2}', 'config': {'type': 'action', 'phrase': 'Comparer les résultats de la requête {query1} avec {query2}', 'aliases': [{'comparer les résultats de la requête {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer les résultats {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, 'comparer les résultats de la requête {query1} avec {query2}', 'comparer les résultats {query1} avec {query2}', 'comparer {query1} avec {query2}', 'comparer les résultats de la requête {query1} avec {query2}'], 'handler': 'sql_compare'}}], 'scope': 'global'}, 'query1': "SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary", 'query2': "SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)"}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x00000208C9CA4450>
-[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_9015.sql << 'EOF'
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x000001E4AF6A03D0>
+[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_9526.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -1860,19 +1860,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary
 EOF
-sqlplus -s  @temp_query_9015.sql > temp_csv_9015.csv
+sqlplus -s  @temp_query_9526.sql > temp_csv_9526.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_9015.csv', header=None)
-    df.to_excel('temp_compare_1_9015.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_9526.csv', header=None)
+    df.to_excel('temp_compare_1_9526.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_9015.sql temp_csv_9015.csv && cat > temp_query_3790.sql << 'EOF'
+rm -f temp_query_9526.sql temp_csv_9526.csv && cat > temp_query_5905.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -1882,19 +1882,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)
 EOF
-sqlplus -s  @temp_query_3790.sql > temp_csv_3790.csv
+sqlplus -s  @temp_query_5905.sql > temp_csv_5905.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_3790.csv', header=None)
-    df.to_excel('temp_compare_2_3790.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_5905.csv', header=None)
+    df.to_excel('temp_compare_2_5905.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_3790.sql temp_csv_3790.csv && python3 -c "
+rm -f temp_query_5905.sql temp_csv_5905.csv && python3 -c "
 import pandas as pd
 import numpy as np
 import sys
@@ -1933,10 +1933,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_9015.xlsx', 'temp_compare_2_3790.xlsx')
+success = compare_excel_files('temp_compare_1_9526.xlsx', 'temp_compare_2_5905.xlsx')
 if not success:
     sys.exit(1)
-" && rm -f temp_compare_1_9015.xlsx temp_compare_2_3790.xlsx
+" && rm -f temp_compare_1_9526.xlsx temp_compare_2_5905.xlsx
 [DEBUG] compile_validation_expression called with: 'stdout contient COMPARISON_SUCCESS'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
 [DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_SUCCESS', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)"}
@@ -2120,8 +2120,8 @@ if not success:
 [DEBUG] get_action_shell_command: handler=sql_compare, variables={'query1': "SELECT name FROM employees WHERE department = 'IT'", 'query2': "SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)"}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.sql_compare
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': "comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)", 'handler': 'sql_compare', 'category': 'execution', 'variables': {'query1': "SELECT name FROM employees WHERE department = 'IT'", 'query2': "SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)"}, 'requirements': {'required_variables': ['query1', 'query2'], 'optional_variables': [], 'scope': 'global', 'description': 'Compare SQL query results', 'category': 'execution', 'validation_rules': {'query1': {'type': 'query', 'required': True}, 'query2': {'type': 'query', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Comparer les résultats de la requête {query1} avec {query2}', 'config': {'type': 'action', 'phrase': 'Comparer les résultats de la requête {query1} avec {query2}', 'aliases': [{'comparer les résultats de la requête {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer les résultats {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, {'comparer {query1} avec {query2}(?': "\\\\(ignorer l'ordre lors de la comparaison\\\\))?"}, 'comparer les résultats de la requête {query1} avec {query2}', 'comparer les résultats {query1} avec {query2}', 'comparer {query1} avec {query2}', 'comparer les résultats de la requête {query1} avec {query2}'], 'handler': 'sql_compare'}}], 'scope': 'global'}, 'query1': "SELECT name FROM employees WHERE department = 'IT'", 'query2': "SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)"}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x00000208C9BEDDD0>
-[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_1337.sql << 'EOF'
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.sql_compare.SQLCompareAction object at 0x000001E4AF690750>
+[DEBUG] get_action_shell_command: Generated shell command: cat > temp_query_2799.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -2131,19 +2131,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name FROM employees WHERE department = 'IT'
 EOF
-sqlplus -s  @temp_query_1337.sql > temp_csv_1337.csv
+sqlplus -s  @temp_query_2799.sql > temp_csv_2799.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_1337.csv', header=None)
-    df.to_excel('temp_compare_1_1337.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_2799.csv', header=None)
+    df.to_excel('temp_compare_1_2799.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_1337.sql temp_csv_1337.csv && cat > temp_query_4095.sql << 'EOF'
+rm -f temp_query_2799.sql temp_csv_2799.csv && cat > temp_query_2414.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -2153,19 +2153,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)
 EOF
-sqlplus -s  @temp_query_4095.sql > temp_csv_4095.csv
+sqlplus -s  @temp_query_2414.sql > temp_csv_2414.csv
 python3 -c "
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_4095.csv', header=None)
-    df.to_excel('temp_compare_2_4095.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_2414.csv', header=None)
+    df.to_excel('temp_compare_2_2414.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f temp_query_4095.sql temp_csv_4095.csv && python3 -c "
+rm -f temp_query_2414.sql temp_csv_2414.csv && python3 -c "
 import pandas as pd
 import numpy as np
 import sys
@@ -2204,10 +2204,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_1337.xlsx', 'temp_compare_2_4095.xlsx')
+success = compare_excel_files('temp_compare_1_2799.xlsx', 'temp_compare_2_2414.xlsx')
 if not success:
     sys.exit(1)
-" && rm -f temp_compare_1_1337.xlsx temp_compare_2_4095.xlsx
+" && rm -f temp_compare_1_2799.xlsx temp_compare_2_2414.xlsx
 [DEBUG] compile_validation_expression called with: 'stdout contient COMPARISON_ERROR'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
 [DEBUG] compile_atomic called with: expected='stdout contient COMPARISON_ERROR', varname='result', last_file_var=None, extracted_args=None, action_context={'command': "comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)"}

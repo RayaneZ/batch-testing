@@ -210,7 +210,8 @@ jobs:
       - name: Install VSCode extension dependencies
         run: |
           cd vscode
-          npm ci
+          rm -f package-lock.json
+          npm install
           npm list
 
       - name: Verify TypeScript installation

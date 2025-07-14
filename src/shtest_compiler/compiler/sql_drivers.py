@@ -1,4 +1,3 @@
-
 # sql_drivers.py
 
 """
@@ -57,11 +56,12 @@ Note :
 #     Commande générée :
 #         redis-cli -h myhost -p 6380 -a mypass < mon_script.redis
 SQL_DRIVERS = {
-    "oracle":   lambda script, conn: f"sqlplus -s {conn} @{script}",
+    "oracle": lambda script, conn: f"sqlplus -s {conn} @{script}",
     "postgres": lambda script, conn: f'psql "{conn}" -f {script}',
-    "mysql":    lambda script, conn: f'mysql "{conn}" < {script}',
-    "redis":    lambda script, conn: f'redis-cli {conn} < {script}',
+    "mysql": lambda script, conn: f'mysql "{conn}" < {script}',
+    "redis": lambda script, conn: f"redis-cli {conn} < {script}",
 }
+
 
 def get_sql_command(script: str, conn: str, driver: str = None) -> str:
     """

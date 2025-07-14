@@ -156,7 +156,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=run_script, variables={'script': 'script.sh'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Exécuter script.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': 'script.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': 'script.sh'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001E0258AF610>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001DD1023AD50>
 [DEBUG] get_action_shell_command: Generated shell command: sh 'script.sh'
 [DEBUG] compile_validation_expression called with: 'base prête'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -292,7 +292,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=run_script, variables={'script': 'script.sh'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Exécuter script.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': 'script.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': 'script.sh'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001E0258AE050>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001DD10220FD0>
 [DEBUG] get_action_shell_command: Generated shell command: sh 'script.sh'
 [DEBUG] compile_validation_expression called with: 'La base de test est prête'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -428,7 +428,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=run_script, variables={'script': 'script.sh'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Exécuter script.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': 'script.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': 'script.sh'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001E0258E71D0>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001DD0FE97E50>
 [DEBUG] get_action_shell_command: Generated shell command: sh 'script.sh'
 [DEBUG] compile_validation_expression called with: 'La base est prête pour le test'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic

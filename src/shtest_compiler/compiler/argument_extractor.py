@@ -1,21 +1,27 @@
-import re
-import yaml
 import os
-from typing import Dict, Any, Optional
+import re
+from typing import Any, Dict, Optional
+
+import yaml
 
 # Load action patterns from YAML
-PATTERNS_PATH = os.path.join(os.path.dirname(__file__), "../config/patterns_actions.yml")
+PATTERNS_PATH = os.path.join(
+    os.path.dirname(__file__), "../config/patterns_actions.yml"
+)
+
 
 def load_action_patterns():
     with open(PATTERNS_PATH, encoding="utf-8") as f:
         data = yaml.safe_load(f)
     return data.get("actions", [])
 
+
 def build_regex_from_phrase(phrase: str) -> str:
     # Replace {var} with named regex groups
     regex = re.sub(r"{(\w+)}", r"(?P<\1>.+)", phrase)
     regex = "^" + regex + "$"
     return regex
+
 
 def extract_action_args(command: str) -> Optional[Dict[str, str]]:
     """
@@ -54,4 +60,4 @@ def extract_action_args(command: str) -> Optional[Dict[str, str]]:
                 else:
                     # Map to generic arg names
                     return {f"arg{i+1}": v for i, v in enumerate(m.groups())}
-    return None 
+    return None

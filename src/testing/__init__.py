@@ -11,4 +11,4 @@ This package contains all testing infrastructure including:
 """
 
 __version__ = "1.0.0"
-__author__ = "shtest_compiler team" 
+__author__ = "shtest_compiler team"

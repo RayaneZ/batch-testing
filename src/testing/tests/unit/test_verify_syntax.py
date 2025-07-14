@@ -2,8 +2,8 @@ import os
 import tempfile
 import unittest
 
-from shtest_compiler.verify_syntax import check_file
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
+from shtest_compiler.verify_syntax import check_file
 
 
 class TestVerifySyntax(unittest.TestCase):
@@ -11,7 +11,9 @@ class TestVerifySyntax(unittest.TestCase):
         self.parser = ConfigurableParser(debug=False)
 
     def _write_temp(self, content: str) -> str:
-        tmp = tempfile.NamedTemporaryFile('w', delete=False, suffix='.shtest', encoding='utf-8')
+        tmp = tempfile.NamedTemporaryFile(
+            "w", delete=False, suffix=".shtest", encoding="utf-8"
+        )
         tmp.write(content)
         tmp.close()
         return tmp.name
@@ -74,5 +76,5 @@ class TestVerifySyntax(unittest.TestCase):
             os.unlink(path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

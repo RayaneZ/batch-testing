@@ -1,13 +1,18 @@
 import os
+
 from shtest_compiler.ast.shell_framework_ast import ActionNode
 
+
 class SQLCompareAction(ActionNode):
-    def __init__(self, query1, query2, driver="oracle", tolerance=0.0, ignore_order=False):
+    def __init__(
+        self, query1, query2, driver="oracle", tolerance=0.0, ignore_order=False
+    ):
         self.query1 = query1
         self.query2 = query2
         self.driver = driver
         self.tolerance = tolerance
         self.ignore_order = ignore_order
+
     def to_shell(self):
         temp_file1 = f"temp_compare_1_{hash(self.query1) % 10000}.xlsx"
         temp_file2 = f"temp_compare_2_{hash(self.query2) % 10000}.xlsx"
@@ -16,6 +21,7 @@ class SQLCompareAction(ActionNode):
         compare_cmd = self._compare_excel_files(temp_file1, temp_file2)
         cleanup_cmd = f"rm -f {temp_file1} {temp_file2}"
         return f"{export_cmd1} && {export_cmd2} && {compare_cmd} && {cleanup_cmd}"
+
     def _export_query(self, query, output_file):
         sql_conn = os.environ.get("SQL_CONN", "")
         if self.driver == "oracle":
@@ -26,10 +32,11 @@ class SQLCompareAction(ActionNode):
             return self._mysql_export(query, sql_conn, output_file)
         else:
             return self._oracle_export(query, sql_conn, output_file)
+
     def _oracle_export(self, query, sql_conn, output_file):
         temp_sql = f"temp_query_{hash(query) % 10000}.sql"
         temp_csv = f"temp_csv_{hash(query) % 10000}.csv"
-        return f'''cat > {temp_sql} << 'EOF'
+        return f"""cat > {temp_sql} << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -51,10 +58,11 @@ except Exception as e:
     print(f'Error converting to Excel: {{e}}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f {temp_sql} {temp_csv}'''
+rm -f {temp_sql} {temp_csv}"""
+
     def _postgres_export(self, query, sql_conn, output_file):
         temp_csv = f"temp_csv_{hash(query) % 10000}.csv"
-        return f'''echo "{query}" | psql "{sql_conn}" -A -t --csv > {temp_csv}
+        return f"""echo "{query}" | psql "{sql_conn}" -A -t --csv > {temp_csv}
 python3 -c "
 import pandas as pd
 import sys
@@ -66,10 +74,11 @@ except Exception as e:
     print(f'Error converting to Excel: {{e}}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f {temp_csv}'''
+rm -f {temp_csv}"""
+
     def _mysql_export(self, query, sql_conn, output_file):
         temp_csv = f"temp_csv_{hash(query) % 10000}.csv"
-        return f'''echo "{query}" | mysql "{sql_conn}" --batch --raw > {temp_csv}
+        return f"""echo "{query}" | mysql "{sql_conn}" --batch --raw > {temp_csv}
 python3 -c "
 import pandas as pd
 import sys
@@ -81,7 +90,8 @@ except Exception as e:
     print(f'Error converting to Excel: {{e}}', file=sys.stderr)
     sys.exit(1)
 "
-rm -f {temp_csv}'''
+rm -f {temp_csv}"""
+
     def _compare_excel_files(self, file1, file2):
         ignore_order_flag = "True" if self.ignore_order else "False"
         return f'''python3 -c "
@@ -128,10 +138,11 @@ if not success:
     sys.exit(1)
 "'''
 
+
 def handle(params):
-    query1 = params['query1']
-    query2 = params['query2']
-    driver = params.get('driver', 'oracle')
-    tolerance = params.get('tolerance', 0.0)
-    ignore_order = params.get('ignore_order', False)
-    return SQLCompareAction(query1, query2, driver, tolerance, ignore_order) 
+    query1 = params["query1"]
+    query2 = params["query2"]
+    driver = params.get("driver", "oracle")
+    tolerance = params.get("tolerance", 0.0)
+    ignore_order = params.get("ignore_order", False)
+    return SQLCompareAction(query1, query2, driver, tolerance, ignore_order)

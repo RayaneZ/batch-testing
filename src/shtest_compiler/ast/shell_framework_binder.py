@@ -1,34 +1,43 @@
-import yaml
 import os
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST, ShellFunctionDef, ShellFunctionCall, InlineShellCode, ShellTestStep, ValidationCheck
-)
-from shtest_compiler.parser.shtest_ast import Action
-from typing import Tuple, Dict, List
 import re
+from typing import Dict, List, Tuple
+
+import yaml
+
+from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
+                                                     ShellFrameworkAST,
+                                                     ShellFunctionCall,
+                                                     ShellFunctionDef,
+                                                     ShellTestStep,
+                                                     ValidationCheck)
+from shtest_compiler.parser.shtest_ast import Action
 
 # Use only the scope attribute on ValidationCheck
 
+
 def is_global(validation):
-    return getattr(validation, 'scope', 'last_action') == 'global'
+    return getattr(validation, "scope", "last_action") == "global"
+
 
 def is_global_validation(node):
     # Atomic validation
-    if hasattr(node, 'scope'):
-        return getattr(node, 'scope', 'last_action') == 'global'
+    if hasattr(node, "scope"):
+        return getattr(node, "scope", "last_action") == "global"
     # Compound node (BinaryOp)
-    if hasattr(node, 'left') and hasattr(node, 'right'):
+    if hasattr(node, "left") and hasattr(node, "right"):
         return is_global_validation(node.left) and is_global_validation(node.right)
     # Not node (if you have one)
-    if hasattr(node, 'child'):
+    if hasattr(node, "child"):
         return is_global_validation(node.child)
     return False
+
 
 class ShellFrameworkLifter:
     """
     Lifts global validations from action results to standalone validations.
     This processes the AST to separate action-dependent validations from global validations.
     """
+
     def __init__(self, ast: ShellFrameworkAST):
         self.ast = ast
 
@@ -44,7 +53,7 @@ class ShellFrameworkLifter:
             i = 0
             while i < len(step.actions):
                 action = step.actions[i]
-                
+
                 # Check if this action contains validation logic that can be lifted
                 if isinstance(action, InlineShellCode):
                     lifted_actions = self._process_inline_shell_code(action)
@@ -52,13 +61,13 @@ class ShellFrameworkLifter:
                 else:
                     # Keep non-validation actions as-is
                     new_actions.append(action)
-                
+
                 i += 1
-            
+
             step.actions = new_actions
-        
+
         return self.ast
-    
+
     def _process_inline_shell_code(self, action: InlineShellCode) -> List:
         """
         Process InlineShellCode to separate action execution from global validations.
@@ -66,7 +75,7 @@ class ShellFrameworkLifter:
         """
         action_lines = []
         validation_lines = []
-        
+
         for line in action.code_lines:
             if isinstance(line, ValidationCheck):
                 # This is a validation - check if it can be lifted
@@ -78,46 +87,51 @@ class ShellFrameworkLifter:
             else:
                 # This is action execution code - keep with action
                 action_lines.append(line)
-        
+
         result = []
-        
+
         # Add the action (with any remaining local validations)
         if action_lines:
             result.append(InlineShellCode(code_lines=action_lines))
-        
+
         # Add lifted validations as standalone actions
         for validation in validation_lines:
             result.append(validation)
-        
+
         return result
-    
+
     def _is_global_validation(self, validation) -> bool:
         """
         Check if a validation can be lifted (is global scope).
         """
-        if hasattr(validation, 'scope'):
-            return getattr(validation, 'scope', 'last_action') == 'global'
-        
+        if hasattr(validation, "scope"):
+            return getattr(validation, "scope", "last_action") == "global"
+
         # For compound validations, check if all parts are global
-        if hasattr(validation, 'left') and hasattr(validation, 'right'):
-            return (self._is_global_validation(validation.left) and 
-                   self._is_global_validation(validation.right))
-        
+        if hasattr(validation, "left") and hasattr(validation, "right"):
+            return self._is_global_validation(
+                validation.left
+            ) and self._is_global_validation(validation.right)
+
         # For NOT validations
-        if hasattr(validation, 'child'):
+        if hasattr(validation, "child"):
             return self._is_global_validation(validation.child)
-        
+
         # Default to local scope if we can't determine
         return False
+
 
 class ShellFrameworkBinder:
     """
     Handles deduplication, parameter binding, and helper references in the AST.
     Should be run after ShellFrameworkLifter.
     """
+
     def __init__(self, ast: ShellFrameworkAST):
         self.ast = ast
-        self.action_map: Dict[str, Tuple[ShellFunctionDef, List[str]]] = {}  # key -> (helper, param_names)
+        self.action_map: Dict[str, Tuple[ShellFunctionDef, List[str]]] = (
+            {}
+        )  # key -> (helper, param_names)
         self.helper_counter = 0
 
     def bind_missing_validation_params(self):
@@ -128,12 +142,18 @@ class ShellFrameworkBinder:
         for step in self.ast.steps:
             for action in step.actions:
                 # Only process InlineShellCode or Action nodes with validations
-                validations = getattr(action, 'validations', []) if hasattr(action, 'validations') else []
+                validations = (
+                    getattr(action, "validations", [])
+                    if hasattr(action, "validations")
+                    else []
+                )
                 for validation in validations:
                     if isinstance(validation, ValidationCheck):
                         for pname, pval in validation.params.items():
                             if pval is None:
-                                val = self._extract_param_from_action_command(action, pname)
+                                val = self._extract_param_from_action_command(
+                                    action, pname
+                                )
                                 if val:
                                     validation.params[pname] = val
 
@@ -142,20 +162,22 @@ class ShellFrameworkBinder:
         Try to extract a parameter value from the action's command string.
         Uses the existing action parameter extraction infrastructure.
         """
-        if not hasattr(action, 'command') or not action.command:
+        if not hasattr(action, "command") or not action.command:
             return None
-        
+
         # Use the existing argument extraction logic
-        from shtest_compiler.compiler.argument_extractor import extract_action_args
-        from shtest_compiler.compiler.shell_generator import extract_action_groups, canonize_action
-        
+        from shtest_compiler.compiler.argument_extractor import \
+            extract_action_args
+        from shtest_compiler.compiler.shell_generator import (
+            canonize_action, extract_action_groups)
+
         command = action.command
-        
+
         # Method 1: Try using extract_action_args (returns dict with named parameters)
         extracted_args = extract_action_args(command)
         if extracted_args and pname in extracted_args:
             return extracted_args[pname]
-        
+
         # Method 2: Try using canonize_action + extract_action_groups
         canon = canonize_action(command)
         if canon:
@@ -175,33 +197,38 @@ class ShellFrameworkBinder:
                             break
                     except re.error:
                         continue
-            
+
             if matched_pattern:
                 groups = extract_action_groups(command, matched_pattern)
                 # Extract parameter names from the pattern
-                param_names = re.findall(r'\{(\w+)\}', matched_pattern)
+                param_names = re.findall(r"\{(\w+)\}", matched_pattern)
                 # Map parameter names to groups
                 for i, param_name in enumerate(param_names):
                     if param_name == pname and i < len(groups):
                         return groups[i]
-        
+
         # Method 3: Try to extract from action's existing fields if it's an Action node
-        if hasattr(action, 'arguments') and action.arguments:
+        if hasattr(action, "arguments") and action.arguments:
             if pname in action.arguments:
                 return action.arguments[pname]
-        
+
         # Method 4: Try to extract from action's variables if available
-        if hasattr(action, 'variables') and action.variables:
+        if hasattr(action, "variables") and action.variables:
             if pname in action.variables:
                 return action.variables[pname]
-        
+
         return None
 
     def enforce_scope(self):
         for step in self.ast.steps:
-            for validation in getattr(step, 'validations', []):
-                if getattr(validation, 'scope', 'last_action') == 'last_action' and not step.actions:
-                    raise ValueError(f"Local validation '{getattr(validation, 'phrase', str(validation))}' must follow an action in step '{getattr(step, 'name', str(step))}'")
+            for validation in getattr(step, "validations", []):
+                if (
+                    getattr(validation, "scope", "last_action") == "last_action"
+                    and not step.actions
+                ):
+                    raise ValueError(
+                        f"Local validation '{getattr(validation, 'phrase', str(validation))}' must follow an action in step '{getattr(step, 'name', str(step))}'"
+                    )
 
     def bind(self) -> ShellFrameworkAST:
         self.bind_missing_validation_params()
@@ -221,8 +248,12 @@ class ShellFrameworkBinder:
                 helper_name = f"helper_{self.helper_counter}"
                 param_names, body_lines = self._extract_params_and_body(key)
                 param_map = {p: f"${i+1}" for i, p in enumerate(param_names)}
-                substituted_body = [self._substitute_params(line, param_map) for line in body_lines]
-                helper = ShellFunctionDef(name=helper_name, params=param_names, body_lines=substituted_body)
+                substituted_body = [
+                    self._substitute_params(line, param_map) for line in body_lines
+                ]
+                helper = ShellFunctionDef(
+                    name=helper_name, params=param_names, body_lines=substituted_body
+                )
                 self.action_map[key] = (helper, param_names)
                 self.ast.helpers.append(helper)
         # 3. Replace repeated inlines with function calls, passing real arguments
@@ -270,7 +301,7 @@ class ShellFrameworkBinder:
         params = []
         seen = set()
         for line in code_lines:
-            for match in re.findall(r'\{(\w+)\}', line):
+            for match in re.findall(r"\{(\w+)\}", line):
                 if match not in seen:
                     params.append(match)
                     seen.add(match)
@@ -290,7 +321,7 @@ class ShellFrameworkBinder:
                     # Convert ValidationCheck to shell code string for argument extraction
                     if isinstance(line, ValidationCheck):
                         line = line.actual_cmd
-                    m = re.search(rf'{pname}=([\w\./-]+)', line)
+                    m = re.search(rf"{pname}=([\w\./-]+)", line)
                     if m:
                         found = m.group(1)
                         break
@@ -298,7 +329,7 @@ class ShellFrameworkBinder:
         elif isinstance(action, ValidationCheck):
             for pname in param_names:
                 found = None
-                m = re.search(rf'{pname}=([\w\./-]+)', action.actual_cmd)
+                m = re.search(rf"{pname}=([\w\./-]+)", action.actual_cmd)
                 if m:
                     found = m.group(1)
                 args.append(found or "")
@@ -316,16 +347,16 @@ class ShellFrameworkBinder:
             if not field:
                 continue
             # Try {pname}=value
-            m = re.search(rf'{pname}=([\w\./-]+)', field)
+            m = re.search(rf"{pname}=([\w\./-]+)", field)
             if m:
                 return m.group(1)
             # Try "{pname}" or '{pname}'
-            m = re.search(rf'[{chr(34)}\']{pname}[{chr(34)}\']', field)
+            m = re.search(rf"[{chr(34)}\']{pname}[{chr(34)}\']", field)
             if m:
                 return pname
         return ""
 
     def _substitute_params(self, line: str, param_map: Dict[str, str]) -> str:
         for pname, shell_var in param_map.items():
-            line = line.replace(f'{{{pname}}}', shell_var)
-        return line 
+            line = line.replace(f"{{{pname}}}", shell_var)
+        return line

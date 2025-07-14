@@ -42,7 +42,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=create_dir, variables={'path': '= /tmp/newdir'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Créer le dossier = /tmp/newdir', 'handler': 'create_dir', 'category': 'directory_operations', 'variables': {'path': '= /tmp/newdir'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le dossier {path}', 'config': {'type': 'action', 'phrase': 'Créer le dossier {path}', 'aliases': ['créer un dossier {path}', 'faire un dossier {path}', 'nouveau dossier {path}', 'cr[ée]er le dossier (.+)', '^mkdir (.+)$'], 'handler': 'create_dir'}}], 'scope': 'global'}, 'path': '= /tmp/newdir'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x000001B2D2D8F850>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x00000207ED5EC090>
 [DEBUG] get_action_shell_command: Generated shell command: mkdir -p '= /tmp/newdir'
 [DEBUG] compile_validation_expression called with: 'dossier créé'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -64,7 +64,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=create_dir, variables={'path': '= /tmp/newdir'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Créer le dossier = /tmp/newdir', 'handler': 'create_dir', 'category': 'directory_operations', 'variables': {'path': '= /tmp/newdir'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le dossier {path}', 'config': {'type': 'action', 'phrase': 'Créer le dossier {path}', 'aliases': ['créer un dossier {path}', 'faire un dossier {path}', 'nouveau dossier {path}', 'cr[ée]er le dossier (.+)', '^mkdir (.+)$'], 'handler': 'create_dir'}}], 'scope': 'global'}, 'path': '= /tmp/newdir'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x000001B2D2C6FF50>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x00000207ED8310D0>
 [DEBUG] get_action_shell_command: Generated shell command: mkdir -p '= /tmp/newdir'
 [DEBUG] compile_validation_expression called with: 'Le dossier est créé'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -86,7 +86,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=create_dir, variables={'path': '= /tmp/newdir'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Créer le dossier = /tmp/newdir', 'handler': 'create_dir', 'category': 'directory_operations', 'variables': {'path': '= /tmp/newdir'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le dossier {path}', 'config': {'type': 'action', 'phrase': 'Créer le dossier {path}', 'aliases': ['créer un dossier {path}', 'faire un dossier {path}', 'nouveau dossier {path}', 'cr[ée]er le dossier (.+)', '^mkdir (.+)$'], 'handler': 'create_dir'}}], 'scope': 'global'}, 'path': '= /tmp/newdir'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x000001B2D2C86B10>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_dir.CreateDirAction object at 0x00000207ED4D0610>
 [DEBUG] get_action_shell_command: Generated shell command: mkdir -p '= /tmp/newdir'
 [DEBUG] compile_validation_expression called with: 'le dossier est prêt'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic

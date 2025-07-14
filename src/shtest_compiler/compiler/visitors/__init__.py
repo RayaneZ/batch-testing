@@ -7,4 +7,4 @@ from .shell_visitor import ShellVisitor
 # Backward compatibility alias
 CompilerVisitor = ShellVisitor
 
-__all__ = ['ShellVisitor', 'CompilerVisitor'] 
+__all__ = ["ShellVisitor", "CompilerVisitor"]
