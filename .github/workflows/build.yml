@@ -186,11 +186,11 @@ jobs:
           cd src
           pyinstaller --onefile `
             --add-data "shtest_compiler/config;./shtest_compiler/config" `
-            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" `
+            --add-data "regex_config.yml;./regex_config.yml" `
             shtest_compiler/shtest.py
           pyinstaller --onefile `
             --add-data "shtest_compiler/config;./shtest_compiler/config" `
-            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" `
+            --add-data "regex_config.yml;./regex_config.yml" `
             shtest_compiler/run_all.py
 
       - name: Upload EXE artifacts

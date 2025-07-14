@@ -1,69 +1,69 @@
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Pattern for comment: ^\s*#.*$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Added FallbackTokenizer
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Parsing text with 8 lines
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Lexing text with 8 lines
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.COMMENT, value=# Test with YAML-like syntax that should fail, result=None, original=# Test with YAML-like syntax that should fail at line 1
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: COMMENT@1:0 '# Test with YAML-like syntax that should fail'
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test YAML syntax, result=('Test YAML syntax',), original=Étape: Test YAML syntax at line 1
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: STEP@1:0 'Test YAML syntax' -> '('Test YAML syntax',)'
-2025-07-14T12:26:00.345564Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=, result=('',), original=  Action:  at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: ACTION_ONLY@1:0 '' -> '('',)'
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: TEXT@1:0 'command: echo "test"'
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: TEXT@1:0 'args: ["hello", "world"]'
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: TEXT@1:0 'Vérifier:'
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: TEXT@1:0 'type: return_code'
-2025-07-14T12:26:00.346563Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Yielding token: TEXT@1:0 'expected: 0'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Got 8 tokens
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: _merge_action_result called with 8 tokens
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 0: kind=COMMENT, value='# Test with YAML-like syntax that should fail'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 1: kind=STEP, value='Test YAML syntax'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value=''
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 3: kind=TEXT, value='command: echo "test"'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 4: kind=TEXT, value='args: ["hello", "world"]'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 5: kind=TEXT, value='Vérifier:'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 6: kind=TEXT, value='type: return_code'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: Token 7: kind=TEXT, value='expected: 0'
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Grammar: _merge_action_result returning 8 tokens
-2025-07-14T12:26:00.347562Z DESKTOP-19SQ3SL shtest_compiler[14956]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_yaml_syntax.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_yaml_syntax.sh
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T17:02:26.725852Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Added FallbackTokenizer
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Parsing text with 8 lines
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Lexing text with 8 lines
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with YAML-like syntax that should fail at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.COMMENT, value=# Test with YAML-like syntax that should fail, result=None, original=# Test with YAML-like syntax that should fail at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: COMMENT@1:0 '# Test with YAML-like syntax that should fail'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test YAML syntax, result=('Test YAML syntax',), original=Étape: Test YAML syntax at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: STEP@1:0 'Test YAML syntax' -> '('Test YAML syntax',)'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=, result=('',), original=  Action:  at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: ACTION_ONLY@1:0 '' -> '('',)'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=command: echo "test" at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: TEXT@1:0 'command: echo "test"'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=args: ["hello", "world"] at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: TEXT@1:0 'args: ["hello", "world"]'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: TEXT@1:0 'Vérifier:'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=type: return_code at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: TEXT@1:0 'type: return_code'
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
+2025-07-14T17:02:26.726854Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=expected: 0 at line 1
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Yielding token: TEXT@1:0 'expected: 0'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Got 8 tokens
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: _merge_action_result called with 8 tokens
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 0: kind=COMMENT, value='# Test with YAML-like syntax that should fail'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 1: kind=STEP, value='Test YAML syntax'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value=''
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 3: kind=TEXT, value='command: echo "test"'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 4: kind=TEXT, value='args: ["hello", "world"]'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 5: kind=TEXT, value='Vérifier:'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 6: kind=TEXT, value='type: return_code'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: Token 7: kind=TEXT, value='expected: 0'
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Grammar: _merge_action_result returning 8 tokens
+2025-07-14T17:02:26.728359Z DESKTOP-19SQ3SL shtest_compiler[2952]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_yaml_syntax.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\ko\invalid_yaml_syntax.sh

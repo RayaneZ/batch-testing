@@ -1,240 +1,240 @@
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T13:27:05.056822Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Pattern for comment: ^\s*#.*$
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Added FallbackTokenizer
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Parsing text with 2 lines
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Lexing text with 2 lines
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct. at line 1
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Afficher le contenu du fichier = /tmp/file.txt, result=('Afficher le contenu du fichier = /tmp/file.txt', 'contenu correct.', None), original=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct. at line 1
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Afficher le contenu du fichier = /tmp/file.txt' -> '('Afficher le contenu du fichier = /tmp/file.txt', 'contenu correct.', None)'
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct. at line 1
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Afficher le contenu du fichier = /tmp/file.txt, result=('Afficher le contenu du fichier = /tmp/file.txt', 'Le contenu est correct.', None), original=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct. at line 1
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Afficher le contenu du fichier = /tmp/file.txt' -> '('Afficher le contenu du fichier = /tmp/file.txt', 'Le contenu est correct.', None)'
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Got 3 tokens
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Grammar: _merge_action_result called with 3 tokens
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Grammar: Token 0: kind=ACTION_RESULT, value='Afficher le contenu du fichier = /tmp/file.txt'
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='Afficher le contenu du fichier = /tmp/file.txt'
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Grammar: Token 2: kind=EMPTY, value=''
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Grammar: _merge_action_result returning 3 tokens
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command called with: 'Afficher le contenu du fichier = /tmp/file.txt'
-2025-07-14T13:27:05.058074Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Loaded 21 action patterns
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Processing action 'Afficher le contenu du fichier = /tmp/file.txt' (normalized: 'afficher le contenu du fichier = /tmp/file.txt')
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.059061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.060082Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.061061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Found match with pattern 'Afficher le contenu du fichier {path}'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: canonize_action matched handler 'cat_file' for phrase 'Afficher le contenu du fichier {path}'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: context={'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: handler=cat_file, variables={'path': '= /tmp/file.txt'}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.cat_file
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}, 'path': '= /tmp/file.txt'}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x000001F8FB5994D0>
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Generated shell command: cat '= /tmp/file.txt'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_validation_expression called with: 'contenu correct'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_atomic called with: expected='contenu correct', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Afficher le contenu du fichier = /tmp/file.txt'}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_atomic: Trying to canonize validation: 'contenu correct'
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_atomic: canonize_validation('contenu correct') result: {'phrase': 'contenu correct', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] extract_context_from_action result: {'action': 'contenu correct', 'handler': 'content_displayed', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if content was displayed', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Final params for handler: {}
-2025-07-14T13:27:05.062061Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Handler registry returned: ValidationCheck(expected='le contenu de None est affiché', actual_cmd="test -s 'None'", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command called with: 'Afficher le contenu du fichier = /tmp/file.txt'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Loaded 21 action patterns
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Processing action 'Afficher le contenu du fichier = /tmp/file.txt' (normalized: 'afficher le contenu du fichier = /tmp/file.txt')
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-2025-07-14T13:27:05.063059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
-2025-07-14T13:27:05.064060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] canonize_action: Found match with pattern 'Afficher le contenu du fichier {path}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: canonize_action matched handler 'cat_file' for phrase 'Afficher le contenu du fichier {path}'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: context={'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: handler=cat_file, variables={'path': '= /tmp/file.txt'}
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.cat_file
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}, 'path': '= /tmp/file.txt'}
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x000001F8FAE97590>
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] get_action_shell_command: Generated shell command: cat '= /tmp/file.txt'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_validation_expression called with: 'Le contenu est correct'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_atomic called with: expected='Le contenu est correct', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Afficher le contenu du fichier = /tmp/file.txt'}
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_atomic: Trying to canonize validation: 'Le contenu est correct'
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] compile_atomic: canonize_validation('Le contenu est correct') result: {'phrase': 'le contenu est correct', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
-2025-07-14T13:27:05.065060Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] extract_context_from_action result: {'action': 'Le contenu est correct', 'handler': 'content_displayed', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if content was displayed', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
-2025-07-14T13:27:05.066059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Final params for handler: {}
-2025-07-14T13:27:05.066059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Handler registry returned: ValidationCheck(expected='le contenu de None est affiché', actual_cmd="test -s 'None'", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
-2025-07-14T13:27:05.066059Z DESKTOP-19SQ3SL shtest_compiler[29220]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_contenu_correct.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_contenu_correct.sh
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Added FallbackTokenizer
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Parsing text with 2 lines
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Lexing text with 2 lines
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct. at line 1
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Afficher le contenu du fichier = /tmp/file.txt, result=('Afficher le contenu du fichier = /tmp/file.txt', 'contenu correct.', None), original=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: contenu correct. at line 1
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Afficher le contenu du fichier = /tmp/file.txt' -> '('Afficher le contenu du fichier = /tmp/file.txt', 'contenu correct.', None)'
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct. at line 1
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Afficher le contenu du fichier = /tmp/file.txt, result=('Afficher le contenu du fichier = /tmp/file.txt', 'Le contenu est correct.', None), original=Action: Afficher le contenu du fichier = /tmp/file.txt ; Résultat: Le contenu est correct. at line 1
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Afficher le contenu du fichier = /tmp/file.txt' -> '('Afficher le contenu du fichier = /tmp/file.txt', 'Le contenu est correct.', None)'
+2025-07-14T17:01:39.506793Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Got 3 tokens
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Grammar: _merge_action_result called with 3 tokens
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Grammar: Token 0: kind=ACTION_RESULT, value='Afficher le contenu du fichier = /tmp/file.txt'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='Afficher le contenu du fichier = /tmp/file.txt'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Grammar: Token 2: kind=EMPTY, value=''
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Grammar: _merge_action_result returning 3 tokens
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command called with: 'Afficher le contenu du fichier = /tmp/file.txt'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Processing action 'Afficher le contenu du fichier = /tmp/file.txt' (normalized: 'afficher le contenu du fichier = /tmp/file.txt')
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T17:01:39.507807Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.508792Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.509296Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
+2025-07-14T17:01:39.510302Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Found match with pattern 'Afficher le contenu du fichier {path}'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: canonize_action matched handler 'cat_file' for phrase 'Afficher le contenu du fichier {path}'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: context={'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: handler=cat_file, variables={'path': '= /tmp/file.txt'}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.cat_file
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}, 'path': '= /tmp/file.txt'}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x00000224F449E3D0>
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Generated shell command: cat '= /tmp/file.txt'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_validation_expression called with: 'contenu correct'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_atomic called with: expected='contenu correct', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Afficher le contenu du fichier = /tmp/file.txt'}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_atomic: Trying to canonize validation: 'contenu correct'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_atomic: canonize_validation('contenu correct') result: {'phrase': 'contenu correct', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] extract_context_from_action result: {'action': 'contenu correct', 'handler': 'content_displayed', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if content was displayed', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Final params for handler: {}
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Handler registry returned: ValidationCheck(expected='le contenu de None est affiché', actual_cmd="test -s 'None'", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command called with: 'Afficher le contenu du fichier = /tmp/file.txt'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Processing action 'Afficher le contenu du fichier = /tmp/file.txt' (normalized: 'afficher le contenu du fichier = /tmp/file.txt')
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.511300Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T17:01:39.512301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
+2025-07-14T17:01:39.513301Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] canonize_action: Found match with pattern 'Afficher le contenu du fichier {path}'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: canonize_action matched handler 'cat_file' for phrase 'Afficher le contenu du fichier {path}'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: context={'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: handler=cat_file, variables={'path': '= /tmp/file.txt'}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.cat_file
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Afficher le contenu du fichier = /tmp/file.txt', 'handler': 'cat_file', 'category': 'content_operations', 'variables': {'path': '= /tmp/file.txt'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Display file contents', 'category': 'content_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Afficher le contenu du fichier {path}', 'config': {'type': 'action', 'phrase': 'Afficher le contenu du fichier {path}', 'aliases': ['afficher le contenu du fichier = {path}', 'cat le fichier = {path}', 'lire le fichier = {path}', 'voir le contenu du fichier = {path}', 'consulter le fichier = {path}', 'ouvrir le fichier = {path}', '^cat (.+)$', '^afficher le contenu du fichier = (.+)$', '^lire le fichier = (.+)$', 'voir le contenu du fichier {path}', 'lire le fichier {path}', 'consulter le fichier {path}', 'ouvrir le fichier {path}'], 'handler': 'cat_file'}}], 'scope': 'global'}, 'path': '= /tmp/file.txt'}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.cat_file.CatFileAction object at 0x00000224F4E8B390>
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] get_action_shell_command: Generated shell command: cat '= /tmp/file.txt'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_validation_expression called with: 'Le contenu est correct'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_atomic called with: expected='Le contenu est correct', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Afficher le contenu du fichier = /tmp/file.txt'}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_atomic: Trying to canonize validation: 'Le contenu est correct'
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] compile_atomic: canonize_validation('Le contenu est correct') result: {'phrase': 'le contenu est correct', 'handler': 'content_displayed', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le contenu est affiché', 'handler': 'content_displayed', 'scope': 'last_action', 'opposite': {'phrase': "Le contenu n'est pas affiché"}, 'aliases': ['contenu affiché', 'contenu affiche', 'Le script est affiché', 'le contenu est lisible', 'le contenu est correct', 'contenu correct', '^contenu affiché$', '^contenu affiche$', '^le contenu est affiché$', '^le script est affiché$', '^le contenu est lisible$', '^le contenu est correct$']}, 'params': {}}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] extract_context_from_action result: {'action': 'Le contenu est correct', 'handler': 'content_displayed', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if content was displayed', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Final params for handler: {}
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Handler registry returned: ValidationCheck(expected='le contenu de None est affiché', actual_cmd="test -s 'None'", handler='content_displayed', scope='last_action', params={'file_path': None, 'opposite': "le contenu de None n'est pas affiché"})
+2025-07-14T17:01:39.514311Z DESKTOP-19SQ3SL shtest_compiler[29068]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_contenu_correct.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_contenu_correct.sh

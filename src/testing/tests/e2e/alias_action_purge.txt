@@ -1,84 +1,84 @@
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Pattern for comment: ^\s*#.*$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Added FallbackTokenizer
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Parsing text with 1 lines
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Lexing text with 1 lines
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Vider le répertoire /tmp/cache ; Résultat: le répertoire est vidé. at line 1
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Vider le répertoire /tmp/cache, result=('Vider le répertoire /tmp/cache', 'le répertoire est vidé.', None), original=Action: Vider le répertoire /tmp/cache ; Résultat: le répertoire est vidé. at line 1
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Vider le répertoire /tmp/cache' -> '('Vider le répertoire /tmp/cache', 'le répertoire est vidé.', None)'
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Got 2 tokens
-2025-07-14T13:26:57.589444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Grammar: _merge_action_result called with 2 tokens
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Grammar: Token 0: kind=ACTION_RESULT, value='Vider le répertoire /tmp/cache'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Grammar: Token 1: kind=EMPTY, value=''
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Grammar: _merge_action_result returning 2 tokens
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command called with: 'Vider le répertoire /tmp/cache'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Loaded 21 action patterns
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Processing action 'Vider le répertoire /tmp/cache' (normalized: 'vider le répertoire /tmp/cache')
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-2025-07-14T13:26:57.590444Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] canonize_action: Found match with alias 'vider le répertoire {path}'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: canonize_action matched handler 'purge_dir' for phrase 'Purger le répertoire {path}'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: context={'action': 'Vider le répertoire /tmp/cache', 'handler': 'purge_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/cache'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Remove all contents from a directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'vider le répertoire {path}', 'config': {'type': 'action', 'phrase': 'Purger le répertoire {path}', 'aliases': ['vider le répertoire {path}', 'nettoyer le répertoire {path}', '^rm -rf (.+)/\\\\*$'], 'handler': 'purge_dir'}}], 'scope': 'global'}
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: handler=purge_dir, variables={'path': '/tmp/cache'}
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.purge_dir
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Vider le répertoire /tmp/cache', 'handler': 'purge_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/cache'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Remove all contents from a directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'vider le répertoire {path}', 'config': {'type': 'action', 'phrase': 'Purger le répertoire {path}', 'aliases': ['vider le répertoire {path}', 'nettoyer le répertoire {path}', '^rm -rf (.+)/\\\\*$'], 'handler': 'purge_dir'}}], 'scope': 'global'}, 'path': '/tmp/cache'}
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.purge_dir.PurgeDirAction object at 0x000001E45EAB8310>
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] get_action_shell_command: Generated shell command: rm -rf '/tmp/cache'/*
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] compile_validation_expression called with: 'le répertoire est vidé'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] compile_atomic called with: expected='le répertoire est vidé', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Vider le répertoire /tmp/cache'}
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] compile_atomic: Trying to canonize validation: 'le répertoire est vidé'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] compile_atomic: canonize_validation('le répertoire est vidé') result: None
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [PIPELINE_ERROR] [ERROR] ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Added FallbackTokenizer
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Parsing text with 1 lines
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Lexing text with 1 lines
+2025-07-14T17:01:31.678616Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Vider le répertoire /tmp/cache ; Résultat: le répertoire est vidé. at line 1
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Vider le répertoire /tmp/cache, result=('Vider le répertoire /tmp/cache', 'le répertoire est vidé.', None), original=Action: Vider le répertoire /tmp/cache ; Résultat: le répertoire est vidé. at line 1
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Vider le répertoire /tmp/cache' -> '('Vider le répertoire /tmp/cache', 'le répertoire est vidé.', None)'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Got 2 tokens
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Grammar: _merge_action_result called with 2 tokens
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Grammar: Token 0: kind=ACTION_RESULT, value='Vider le répertoire /tmp/cache'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Grammar: _merge_action_result returning 2 tokens
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command called with: 'Vider le répertoire /tmp/cache'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Processing action 'Vider le répertoire /tmp/cache' (normalized: 'vider le répertoire /tmp/cache')
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T17:01:31.679627Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] canonize_action: Found match with alias 'vider le répertoire {path}'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: canonize_action matched handler 'purge_dir' for phrase 'Purger le répertoire {path}'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: context={'action': 'Vider le répertoire /tmp/cache', 'handler': 'purge_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/cache'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Remove all contents from a directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'vider le répertoire {path}', 'config': {'type': 'action', 'phrase': 'Purger le répertoire {path}', 'aliases': ['vider le répertoire {path}', 'nettoyer le répertoire {path}', '^rm -rf (.+)/\\\\*$'], 'handler': 'purge_dir'}}], 'scope': 'global'}
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: handler=purge_dir, variables={'path': '/tmp/cache'}
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.purge_dir
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Vider le répertoire /tmp/cache', 'handler': 'purge_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/cache'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Remove all contents from a directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'vider le répertoire {path}', 'config': {'type': 'action', 'phrase': 'Purger le répertoire {path}', 'aliases': ['vider le répertoire {path}', 'nettoyer le répertoire {path}', '^rm -rf (.+)/\\\\*$'], 'handler': 'purge_dir'}}], 'scope': 'global'}, 'path': '/tmp/cache'}
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.purge_dir.PurgeDirAction object at 0x000001832C03EED0>
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] get_action_shell_command: Generated shell command: rm -rf '/tmp/cache'/*
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] compile_validation_expression called with: 'le répertoire est vidé'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] compile_atomic called with: expected='le répertoire est vidé', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Vider le répertoire /tmp/cache'}
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] compile_atomic: Trying to canonize validation: 'le répertoire est vidé'
+2025-07-14T17:01:31.680624Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] compile_atomic: canonize_validation('le répertoire est vidé') result: None
+2025-07-14T17:01:31.681625Z DESKTOP-19SQ3SL shtest_compiler[27840]: [PIPELINE_ERROR] [ERROR] ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
 Traceback (most recent call last):
   File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 136, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
@@ -96,8 +96,8 @@ Traceback (most recent call last):
     raise ValidationParseError(f"No matcher found for validation: '{expected}'")
 shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
 
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] [ERROR] ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Traceback (most recent call last):
+2025-07-14T17:01:31.681625Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] [ERROR] ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
+2025-07-14T17:01:31.681625Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Traceback (most recent call last):
   File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 136, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -114,4 +114,4 @@ shtest_compiler.core.errors.ValidationParseError: No matcher found for validatio
     raise ValidationParseError(f"No matcher found for validation: '{expected}'")
 shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
 
-2025-07-14T13:26:57.591443Z DESKTOP-19SQ3SL shtest_compiler[32276]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_purge.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_purge.sh
+2025-07-14T17:01:31.681625Z DESKTOP-19SQ3SL shtest_compiler[27840]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_purge.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_purge.sh

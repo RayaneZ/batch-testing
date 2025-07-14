@@ -1,320 +1,320 @@
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Pattern for comment: ^\s*#.*$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Added FallbackTokenizer
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Parsing text with 19 lines
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Lexing text with 19 lines
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 1 - Preparation, result=('Step 1 - Preparation',), original=Etape: Step 1 - Preparation at line 1
-2025-07-14T16:34:21.347352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: STEP@1:0 'Step 1 - Preparation' -> '('Step 1 - Preparation',)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le dossier ./qualification/demo_env, result=('Creer le dossier ./qualification/demo_env', 'le dossier est cree.', None), original=Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le dossier ./qualification/demo_env' -> '('Creer le dossier ./qualification/demo_env', 'le dossier est cree.', None)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le fichier ./qualification/demo_env/initial.txt, result=('Creer le fichier ./qualification/demo_env/initial.txt', 'le fichier est cree.', None), original=Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le fichier ./qualification/demo_env/initial.txt' -> '('Creer le fichier ./qualification/demo_env/initial.txt', 'le fichier est cree.', None)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Définir la variable SQL_CONN = rootme/ffDDD584R@base_name, result=('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None), original=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Définir la variable SQL_CONN = rootme/ffDDD584R@base_name' -> '('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 2 - Ancien fichier, result=('Step 2 - Ancien fichier',), original=Etape: Step 2 - Ancien fichier at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: STEP@1:0 'Step 2 - Ancien fichier' -> '('Step 2 - Ancien fichier',)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=toucher le fichier ./qualification/demo_env/old.txt -t 202201010000, result=('toucher le fichier ./qualification/demo_env/old.txt -t 202201010000', 'date modifiee.', None), original=Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'toucher le fichier ./qualification/demo_env/old.txt -t 202201010000' -> '('toucher le fichier ./qualification/demo_env/old.txt -t 202201010000', 'date modifiee.', None)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 3 - Nouveau fichier, result=('Step 3 - Nouveau fichier',), original=Etape: Step 3 - Nouveau fichier at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: STEP@1:0 'Step 3 - Nouveau fichier' -> '('Step 3 - Nouveau fichier',)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le fichier ./qualification/demo_env/newfile.txt, result=('Creer le fichier ./qualification/demo_env/newfile.txt', 'fichier crée.', None), original=Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le fichier ./qualification/demo_env/newfile.txt' -> '('Creer le fichier ./qualification/demo_env/newfile.txt', 'fichier crée.', None)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101, result=('Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101', 'date modifiee.', None), original=Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101' -> '('Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101', 'date modifiee.', None)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 4 - Execution du batch, result=('Step 4 - Execution du batch',), original=Etape: Step 4 - Execution du batch at line 1
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: STEP@1:0 'Step 4 - Execution du batch' -> '('Step 4 - Execution du batch',)'
-2025-07-14T16:34:21.348352Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter ./qualification/purge.sh, result=('Exécuter ./qualification/purge.sh', 'Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d\'erreur contient WARNING).', None), original=Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter ./qualification/purge.sh' -> '('Exécuter ./qualification/purge.sh', 'Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d\'erreur contient WARNING).', None)'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter /opt/batch/migration.sh, result=('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None), original=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter /opt/batch/migration.sh' -> '('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None)'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 5 - Vérifier la table en base, result=('Step 5 - Vérifier la table en base',), original=Step: Step 5 - Vérifier la table en base at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: STEP@1:0 'Step 5 - Vérifier la table en base' -> '('Step 5 - Vérifier la table en base',)'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter le script SQL verification.sql, result=('Exécuter le script SQL verification.sql', "Le script s'execute avec succès.", None), original=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter le script SQL verification.sql' -> '('Exécuter le script SQL verification.sql', "Le script s'execute avec succès.", None)'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Comparer le fichier ./output.txt avec ./output_attendu.txt, result=('Comparer le fichier ./output.txt avec ./output_attendu.txt', 'Les fichiers sont identiques', None), original=Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques at line 1
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Comparer le fichier ./output.txt avec ./output_attendu.txt' -> '('Comparer le fichier ./output.txt avec ./output_attendu.txt', 'Les fichiers sont identiques', None)'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Got 19 tokens
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: _merge_action_result called with 19 tokens
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 0: kind=STEP, value='Step 1 - Preparation'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='Creer le dossier ./qualification/demo_env'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='Creer le fichier ./qualification/demo_env/initial.txt'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='Définir la variable SQL_CONN = rootme/ffDDD584R@base_name'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 4: kind=EMPTY, value=''
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 5: kind=STEP, value='Step 2 - Ancien fichier'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 6: kind=ACTION_RESULT, value='toucher le fichier ./qualification/demo_env/old.txt -t 202201010000'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 7: kind=EMPTY, value=''
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 8: kind=STEP, value='Step 3 - Nouveau fichier'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 9: kind=ACTION_RESULT, value='Creer le fichier ./qualification/demo_env/newfile.txt'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 10: kind=ACTION_RESULT, value='Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 11: kind=EMPTY, value=''
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 12: kind=STEP, value='Step 4 - Execution du batch'
-2025-07-14T16:34:21.349351Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 13: kind=ACTION_RESULT, value='Exécuter ./qualification/purge.sh'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 14: kind=ACTION_RESULT, value='Exécuter /opt/batch/migration.sh'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 15: kind=EMPTY, value=''
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 16: kind=STEP, value='Step 5 - Vérifier la table en base'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 17: kind=ACTION_RESULT, value='Exécuter le script SQL verification.sql'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: Token 18: kind=ACTION_RESULT, value='Comparer le fichier ./output.txt avec ./output_attendu.txt'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Grammar: _merge_action_result returning 19 tokens
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] get_action_shell_command called with: 'Creer le dossier ./qualification/demo_env'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Loaded 21 action patterns
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Processing action 'Creer le dossier ./qualification/demo_env' (normalized: 'creer le dossier ./qualification/demo_env')
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-2025-07-14T16:34:21.350353Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
-2025-07-14T16:34:21.351350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'afficher le contenu du fichier = {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^afficher\ le\ contenu\ du\ fichier\ =\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'cat le fichier = {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^cat\ le\ fichier\ =\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lire le fichier = {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ =\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier = {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ =\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'consulter le fichier = {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ =\ (.+)$'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier = {path}'
-2025-07-14T16:34:21.352350Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ =\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^cat (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^cat (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^afficher le contenu du fichier = (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^afficher le contenu du fichier = (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^lire le fichier = (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^lire le fichier = (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier {path}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lire le fichier {path}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'consulter le fichier {path}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier {path}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Exécuter le script {script}' with handler 'run_script'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter {script}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lancer {script}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'traiter {script}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^traiter\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter traitement.sh'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lancer traitement.sh'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'traiter traitement.sh'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^sh (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^sh (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lancer le script {script}'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ le\ script\ (.+)$'
-2025-07-14T16:34:21.353855Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'faire tourner le script {script}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ tourner\ le\ script\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'démarrer le script {script}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^démarrer\ le\ script\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Exécuter le script SQL {script}' with handler 'run_sql_script'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ SQL\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter le script SQL {script}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ le\ script\ SQL\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter le script sql {script}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ le\ script\ sql\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lancer le script sql {script}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ le\ script\ sql\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^sqlplus (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^sqlplus (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Exécuter la requête SQL {query}' with handler 'sql_query'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ la\ requête\ SQL\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter la requête SQL {query}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ SQL\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter la requête {query}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lancer la requête SQL {query}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ la\ requête\ SQL\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'lancer la requête {query}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ la\ requête\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exécuter la requête {query}'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Exporter les résultats de la requête {query} vers {output}' with handler 'sql_export'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.354861Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exporter les résultats de la requête {query} vers {output}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exporter les résultats {query} vers {output}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exporter {query} vers {output}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exporter les résultats de la requête {query} vers {output}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Comparer les résultats de la requête {query1} avec {query2}' with handler 'sql_compare'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'comparer les résultats de la requête {query1} avec {query2}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'comparer les résultats {query1} avec {query2}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'comparer {query1} avec {query2}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'comparer les résultats de la requête {query1} avec {query2}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Comparer le fichier {file1} avec {file2}' with handler 'compare_files'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Comparer\ le\ fichier\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'comparer le fichier {file1} avec {file2}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ le\ fichier\ (.+)\ avec\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'comparer le fichier {file1} et {file2}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ le\ fichier\ (.+)\ et\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^diff (.+) (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^diff (.+) (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Définir la variable {var} = {value}' with handler 'export_var'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Définir\ la\ variable\ (.+)\ =\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'définir la variable SQL_CONN = {value}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ SQL_CONN\ =\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'définir la variable d'environnement {var} = {value}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ d'environnement\ (.+)\ =\ (.+)$'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'exporter la variable {var} = {value}'
-2025-07-14T16:34:21.355864Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ la\ variable\ (.+)\ =\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^export (.+)=(.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^export (.+)=(.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'définir la variable {var} = {value}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ (.+)\ =\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Mettre à jour la date du fichier {file} {date}' with handler 'touch_ts'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Mettre\ à\ jour\ la\ date\ du\ fichier\ (.+)\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'toucher le fichier {file} -t {date}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^toucher\ le\ fichier\ (.+)\ \-t\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'mettre à jour la date du fichier {file} {date}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^mettre\ à\ jour\ la\ date\ du\ fichier\ (.+)\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias '^touch -t (.+) (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex alias '^touch -t (.+) (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path} avec les droits {mode}' with handler 'create_file'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)\ avec\ les\ droits\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'créer le fichier = {path} avec les droits = {mode}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ le\ fichier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Mettre à jour le fichier {path} avec les droits {mode}' with handler 'update_file'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Mettre\ à\ jour\ le\ fichier\ (.+)\ avec\ les\ droits\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'mettre à jour le fichier = {path} avec les droits = {mode}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^mettre\ à\ jour\ le\ fichier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'maj fichier {path} droits {mode}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^maj\ fichier\ (.+)\ droits\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path} avec les droits {mode}' with handler 'create_dir'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)\ avec\ les\ droits\ (.+)$'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'créer le dossier = {path} avec les droits = {mode}'
-2025-07-14T16:34:21.356859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ le\ dossier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] canonize_action: No match found for action 'Creer le dossier ./qualification/demo_env'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] get_action_shell_command: canonize_action returned None for 'Creer le dossier ./qualification/demo_env'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] compile_validation_expression called with: 'le dossier est cree'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] compile_atomic called with: expected='le dossier est cree', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Creer le dossier ./qualification/demo_env'}
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] compile_atomic: Trying to canonize validation: 'le dossier est cree'
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] compile_atomic: canonize_validation('le dossier est cree') result: {'phrase': 'le dossier est cree', 'handler': 'dir_exists', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est prêt', 'handler': 'dir_exists', 'scope': 'last_action', 'opposite': {'phrase': 'Le dossier est absent'}, 'aliases': ['le dossier est prêt', 'dossier prêt', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est present', 'dossier present', 'le dossier est vide', 'dossier vide', '^le dossier est prêt$', '^dossier prêt$', '^le dossier est cree$', '^dossier cree$', '^le dossier est créé$', '^dossier créé$', '^le dossier est present$', '^dossier present$', '^le dossier est vide$', '^dossier vide$']}, 'params': {}}
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] extract_context_from_action result: {'action': 'le dossier est cree', 'handler': 'dir_exists', 'category': 'directory_operations', 'variables': {}, 'requirements': {'required_variables': ['dir'], 'optional_variables': [], 'scope': 'global', 'description': 'Check if a directory exists', 'category': 'directory_operations', 'validation_rules': {'dir': {'type': 'dir', 'required': True}}}, 'patterns_matched': [], 'scope': 'global'}
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [PIPELINE_ERROR] [ERROR] ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Added FallbackTokenizer
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Parsing text with 19 lines
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Lexing text with 19 lines
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 1 - Preparation, result=('Step 1 - Preparation',), original=Etape: Step 1 - Preparation at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: STEP@1:0 'Step 1 - Preparation' -> '('Step 1 - Preparation',)'
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le dossier ./qualification/demo_env, result=('Creer le dossier ./qualification/demo_env', 'le dossier est cree.', None), original=Action: Creer le dossier ./qualification/demo_env ; Resultat: le dossier est cree. at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le dossier ./qualification/demo_env' -> '('Creer le dossier ./qualification/demo_env', 'le dossier est cree.', None)'
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le fichier ./qualification/demo_env/initial.txt, result=('Creer le fichier ./qualification/demo_env/initial.txt', 'le fichier est cree.', None), original=Action: Creer le fichier ./qualification/demo_env/initial.txt ; Resultat: le fichier est cree. at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le fichier ./qualification/demo_env/initial.txt' -> '('Creer le fichier ./qualification/demo_env/initial.txt', 'le fichier est cree.', None)'
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Définir la variable SQL_CONN = rootme/ffDDD584R@base_name, result=('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None), original=Action: Définir la variable SQL_CONN = rootme/ffDDD584R@base_name ; Résultat: Les identifiants sont configurés. at line 1
+2025-07-14T17:01:16.105865Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Définir la variable SQL_CONN = rootme/ffDDD584R@base_name' -> '('Définir la variable SQL_CONN = rootme/ffDDD584R@base_name', 'Les identifiants sont configurés.', None)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 2 - Ancien fichier, result=('Step 2 - Ancien fichier',), original=Etape: Step 2 - Ancien fichier at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: STEP@1:0 'Step 2 - Ancien fichier' -> '('Step 2 - Ancien fichier',)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=toucher le fichier ./qualification/demo_env/old.txt -t 202201010000, result=('toucher le fichier ./qualification/demo_env/old.txt -t 202201010000', 'date modifiee.', None), original=Action: toucher le fichier ./qualification/demo_env/old.txt -t 202201010000 ; Resultat: date modifiee. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'toucher le fichier ./qualification/demo_env/old.txt -t 202201010000' -> '('toucher le fichier ./qualification/demo_env/old.txt -t 202201010000', 'date modifiee.', None)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 3 - Nouveau fichier, result=('Step 3 - Nouveau fichier',), original=Etape: Step 3 - Nouveau fichier at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: STEP@1:0 'Step 3 - Nouveau fichier' -> '('Step 3 - Nouveau fichier',)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Creer le fichier ./qualification/demo_env/newfile.txt, result=('Creer le fichier ./qualification/demo_env/newfile.txt', 'fichier crée.', None), original=Action: Creer le fichier ./qualification/demo_env/newfile.txt ; Resultat: fichier crée. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Creer le fichier ./qualification/demo_env/newfile.txt' -> '('Creer le fichier ./qualification/demo_env/newfile.txt', 'fichier crée.', None)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101, result=('Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101', 'date modifiee.', None), original=Action: Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101 ; Resultat: date modifiee. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101' -> '('Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101', 'date modifiee.', None)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 4 - Execution du batch, result=('Step 4 - Execution du batch',), original=Etape: Step 4 - Execution du batch at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: STEP@1:0 'Step 4 - Execution du batch' -> '('Step 4 - Execution du batch',)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter ./qualification/purge.sh, result=('Exécuter ./qualification/purge.sh', 'Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d\'erreur contient WARNING).', None), original=Action: Exécuter ./qualification/purge.sh ; Résultat: Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d'erreur contient WARNING). at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter ./qualification/purge.sh' -> '('Exécuter ./qualification/purge.sh', 'Le script retourne un code 0 et (la sortie standard contient "Succès complet" ou la sortie d\'erreur contient WARNING).', None)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter /opt/batch/migration.sh, result=('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None), original=Action: Exécuter /opt/batch/migration.sh ; Résultat: Le script retourne un code 0. at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter /opt/batch/migration.sh' -> '('Exécuter /opt/batch/migration.sh', 'Le script retourne un code 0.', None)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Step 5 - Vérifier la table en base, result=('Step 5 - Vérifier la table en base',), original=Step: Step 5 - Vérifier la table en base at line 1
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: STEP@1:0 'Step 5 - Vérifier la table en base' -> '('Step 5 - Vérifier la table en base',)'
+2025-07-14T17:01:16.106862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. at line 1
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Exécuter le script SQL verification.sql, result=('Exécuter le script SQL verification.sql', "Le script s'execute avec succès.", None), original=Action: Exécuter le script SQL verification.sql ; Résultat: Le script s'execute avec succès. at line 1
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Exécuter le script SQL verification.sql' -> '('Exécuter le script SQL verification.sql', "Le script s'execute avec succès.", None)'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques at line 1
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=Comparer le fichier ./output.txt avec ./output_attendu.txt, result=('Comparer le fichier ./output.txt avec ./output_attendu.txt', 'Les fichiers sont identiques', None), original=Action: Comparer le fichier ./output.txt avec ./output_attendu.txt; Résultat: Les fichiers sont identiques at line 1
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'Comparer le fichier ./output.txt avec ./output_attendu.txt' -> '('Comparer le fichier ./output.txt avec ./output_attendu.txt', 'Les fichiers sont identiques', None)'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Got 19 tokens
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: _merge_action_result called with 19 tokens
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 0: kind=STEP, value='Step 1 - Preparation'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='Creer le dossier ./qualification/demo_env'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='Creer le fichier ./qualification/demo_env/initial.txt'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='Définir la variable SQL_CONN = rootme/ffDDD584R@base_name'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 5: kind=STEP, value='Step 2 - Ancien fichier'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 6: kind=ACTION_RESULT, value='toucher le fichier ./qualification/demo_env/old.txt -t 202201010000'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 7: kind=EMPTY, value=''
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 8: kind=STEP, value='Step 3 - Nouveau fichier'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 9: kind=ACTION_RESULT, value='Creer le fichier ./qualification/demo_env/newfile.txt'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 10: kind=ACTION_RESULT, value='Mettre a jour la date du fichier ./qualification/demo_env/newfile.txt 202401010101'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 11: kind=EMPTY, value=''
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 12: kind=STEP, value='Step 4 - Execution du batch'
+2025-07-14T17:01:16.107862Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 13: kind=ACTION_RESULT, value='Exécuter ./qualification/purge.sh'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 14: kind=ACTION_RESULT, value='Exécuter /opt/batch/migration.sh'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 15: kind=EMPTY, value=''
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 16: kind=STEP, value='Step 5 - Vérifier la table en base'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 17: kind=ACTION_RESULT, value='Exécuter le script SQL verification.sql'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: Token 18: kind=ACTION_RESULT, value='Comparer le fichier ./output.txt avec ./output_attendu.txt'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Grammar: _merge_action_result returning 19 tokens
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] get_action_shell_command called with: 'Creer le dossier ./qualification/demo_env'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Processing action 'Creer le dossier ./qualification/demo_env' (normalized: 'creer le dossier ./qualification/demo_env')
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T17:01:16.108869Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:16.109379Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.110382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'afficher le contenu du fichier = {path}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^afficher\ le\ contenu\ du\ fichier\ =\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'cat le fichier = {path}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^cat\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lire le fichier = {path}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier = {path}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ =\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'consulter le fichier = {path}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier = {path}'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^cat (.+)$'
+2025-07-14T17:01:16.111384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^cat (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^afficher le contenu du fichier = (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^afficher le contenu du fichier = (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^lire le fichier = (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^lire le fichier = (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier {path}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lire le fichier {path}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'consulter le fichier {path}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier {path}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Exécuter le script {script}' with handler 'run_script'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lancer {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'traiter {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^traiter\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter traitement.sh'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lancer traitement.sh'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'traiter traitement.sh'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^sh (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^sh (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lancer le script {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ le\ script\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'faire tourner le script {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ tourner\ le\ script\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'démarrer le script {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^démarrer\ le\ script\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Exécuter le script SQL {script}' with handler 'run_sql_script'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ SQL\ (.+)$'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter le script SQL {script}'
+2025-07-14T17:01:16.112382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ le\ script\ SQL\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter le script sql {script}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ le\ script\ sql\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lancer le script sql {script}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ le\ script\ sql\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^sqlplus (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^sqlplus (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Exécuter la requête SQL {query}' with handler 'sql_query'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ la\ requête\ SQL\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter la requête SQL {query}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ SQL\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter la requête {query}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lancer la requête SQL {query}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ la\ requête\ SQL\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'lancer la requête {query}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ la\ requête\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exécuter la requête {query}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Exporter les résultats de la requête {query} vers {output}' with handler 'sql_export'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exporter les résultats de la requête {query} vers {output}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exporter les résultats {query} vers {output}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exporter {query} vers {output}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exporter les résultats de la requête {query} vers {output}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Comparer les résultats de la requête {query1} avec {query2}' with handler 'sql_compare'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'comparer les résultats de la requête {query1} avec {query2}'
+2025-07-14T17:01:16.113382Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'comparer les résultats {query1} avec {query2}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'comparer {query1} avec {query2}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'comparer les résultats de la requête {query1} avec {query2}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Comparer le fichier {file1} avec {file2}' with handler 'compare_files'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Comparer\ le\ fichier\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'comparer le fichier {file1} avec {file2}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ le\ fichier\ (.+)\ avec\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'comparer le fichier {file1} et {file2}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ le\ fichier\ (.+)\ et\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^diff (.+) (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^diff (.+) (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Définir la variable {var} = {value}' with handler 'export_var'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Définir\ la\ variable\ (.+)\ =\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'définir la variable SQL_CONN = {value}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ SQL_CONN\ =\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'définir la variable d'environnement {var} = {value}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ d'environnement\ (.+)\ =\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'exporter la variable {var} = {value}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ la\ variable\ (.+)\ =\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^export (.+)=(.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^export (.+)=(.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'définir la variable {var} = {value}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ (.+)\ =\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Mettre à jour la date du fichier {file} {date}' with handler 'touch_ts'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Mettre\ à\ jour\ la\ date\ du\ fichier\ (.+)\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'toucher le fichier {file} -t {date}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^toucher\ le\ fichier\ (.+)\ \-t\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'mettre à jour la date du fichier {file} {date}'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^mettre\ à\ jour\ la\ date\ du\ fichier\ (.+)\ (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias '^touch -t (.+) (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex alias '^touch -t (.+) (.+)$'
+2025-07-14T17:01:16.114384Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path} avec les droits {mode}' with handler 'create_file'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)\ avec\ les\ droits\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'créer le fichier = {path} avec les droits = {mode}'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ le\ fichier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Mettre à jour le fichier {path} avec les droits {mode}' with handler 'update_file'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Mettre\ à\ jour\ le\ fichier\ (.+)\ avec\ les\ droits\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'mettre à jour le fichier = {path} avec les droits = {mode}'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^mettre\ à\ jour\ le\ fichier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'maj fichier {path} droits {mode}'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^maj\ fichier\ (.+)\ droits\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path} avec les droits {mode}' with handler 'create_dir'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)\ avec\ les\ droits\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'créer le dossier = {path} avec les droits = {mode}'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ le\ dossier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] canonize_action: No match found for action 'Creer le dossier ./qualification/demo_env'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] get_action_shell_command: canonize_action returned None for 'Creer le dossier ./qualification/demo_env'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] compile_validation_expression called with: 'le dossier est cree'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] compile_atomic called with: expected='le dossier est cree', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'Creer le dossier ./qualification/demo_env'}
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] compile_atomic: Trying to canonize validation: 'le dossier est cree'
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] compile_atomic: canonize_validation('le dossier est cree') result: {'phrase': 'le dossier est cree', 'handler': 'dir_exists', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est prêt', 'handler': 'dir_exists', 'scope': 'last_action', 'opposite': {'phrase': 'Le dossier est absent'}, 'aliases': ['le dossier est prêt', 'dossier prêt', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est cree', 'dossier cree', 'le dossier est créé', 'dossier créé', 'le dossier est present', 'dossier present', 'le dossier est vide', 'dossier vide', '^le dossier est prêt$', '^dossier prêt$', '^le dossier est cree$', '^dossier cree$', '^le dossier est créé$', '^dossier créé$', '^le dossier est present$', '^dossier present$', '^le dossier est vide$', '^dossier vide$']}, 'params': {}}
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] extract_context_from_action result: {'action': 'le dossier est cree', 'handler': 'dir_exists', 'category': 'directory_operations', 'variables': {}, 'requirements': {'required_variables': ['dir'], 'optional_variables': [], 'scope': 'global', 'description': 'Check if a directory exists', 'category': 'directory_operations', 'validation_rules': {'dir': {'type': 'dir', 'required': True}}}, 'patterns_matched': [], 'scope': 'global'}
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [PIPELINE_ERROR] [ERROR] ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
 Traceback (most recent call last):
   File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 136, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
@@ -332,8 +332,8 @@ Traceback (most recent call last):
     raise ValidationParseError(error_msg)
 shtest_compiler.core.errors.ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
 
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] [ERROR] ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Traceback (most recent call last):
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] [ERROR] ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Traceback (most recent call last):
   File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 136, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -350,4 +350,4 @@ shtest_compiler.core.errors.ValidationParseError: Validation context errors for 
     raise ValidationParseError(error_msg)
 shtest_compiler.core.errors.ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable
 
-2025-07-14T16:34:21.357859Z DESKTOP-19SQ3SL shtest_compiler[31904]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\demo_long_test.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\demo_long_test.sh
+2025-07-14T17:01:16.115381Z DESKTOP-19SQ3SL shtest_compiler[6820]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\demo_long_test.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\demo_env\demo_long_test.sh

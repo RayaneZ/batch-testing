@@ -1,186 +1,186 @@
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Pattern for comment: ^\s*#.*$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Added FallbackTokenizer
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Parsing text with 3 lines
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Lexing text with 3 lines
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Résultat combinatoire, result=('Résultat combinatoire',), original=Étape: Résultat combinatoire at line 1
-2025-07-14T13:27:12.786139Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Yielding token: STEP@1:0 'Résultat combinatoire' -> '('Résultat combinatoire',)'
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter /opt/batch/traitement.sh ; Résultat: le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING") at line 1
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=exécuter /opt/batch/traitement.sh, result=('exécuter /opt/batch/traitement.sh', 'le script s\'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")', None), original=Action: exécuter /opt/batch/traitement.sh ; Résultat: le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING") at line 1
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'exécuter /opt/batch/traitement.sh' -> '('exécuter /opt/batch/traitement.sh', 'le script s\'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")', None)'
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Yielding token: EMPTY@1:0 ''
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Got 4 tokens
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Grammar: _merge_action_result called with 4 tokens
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Grammar: Token 0: kind=STEP, value='Résultat combinatoire'
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Grammar: Token 1: kind=EMPTY, value=''
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='exécuter /opt/batch/traitement.sh'
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Grammar: Token 3: kind=EMPTY, value=''
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Grammar: _merge_action_result returning 4 tokens
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command called with: 'exécuter /opt/batch/traitement.sh'
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Loaded 21 action patterns
-2025-07-14T13:27:12.787118Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Processing action 'exécuter /opt/batch/traitement.sh' (normalized: 'exécuter /opt/batch/traitement.sh')
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-2025-07-14T13:27:12.787625Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
-2025-07-14T13:27:12.788627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'afficher le contenu du fichier = {path}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^afficher\ le\ contenu\ du\ fichier\ =\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'cat le fichier = {path}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^cat\ le\ fichier\ =\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'lire le fichier = {path}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ =\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier = {path}'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ =\ (.+)$'
-2025-07-14T13:27:12.789627Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'consulter le fichier = {path}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ =\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier = {path}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ =\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^cat (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^cat (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^afficher le contenu du fichier = (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^afficher le contenu du fichier = (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias '^lire le fichier = (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex alias '^lire le fichier = (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier {path}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'lire le fichier {path}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'consulter le fichier {path}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier {path}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking pattern 'Exécuter le script {script}' with handler 'run_script'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Checking alias 'exécuter {script}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ (.+)$'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] canonize_action: Found match with alias 'exécuter {script}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: canonize_action matched handler 'run_script' for phrase 'Exécuter le script {script}'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: context={'action': 'exécuter /opt/batch/traitement.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': '/opt/batch/traitement.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: handler=run_script, variables={'script': '/opt/batch/traitement.sh'}
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'exécuter /opt/batch/traitement.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': '/opt/batch/traitement.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': '/opt/batch/traitement.sh'}
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x0000023E1521A510>
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] get_action_shell_command: Generated shell command: sh '/opt/batch/traitement.sh'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_validation_expression called with: 'le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")'
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_validation_expression: Detected compound expression, using parse_validation_expression
-2025-07-14T13:27:12.790626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_validation_expression: AST=BinaryOp(op='et', left=Atomic(value="le script s'execute avec succès"), right=BinaryOp(op='ou', left=Atomic(value='le script affiche "OK"'), right=Atomic(value='le script affiche une erreur "WARNING"')))
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] visit_binary_op: op=et, left=le script s'execute avec succès, right=BinaryOp(op='ou', left=Atomic(value='le script affiche "OK"'), right=Atomic(value='le script affiche une erreur "WARNING"'))
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] visit_atomic: value=le script s'execute avec succès
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic called with: expected='le script s'execute avec succès', varname='result', last_file_var=None, extracted_args=None, action_context=None
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic: Trying to canonize validation: 'le script s'execute avec succès'
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic: canonize_validation('le script s'execute avec succès') result: {'phrase': "Le script s'execute avec succès", 'handler': 'return_code', 'scope': 'last_action', 'pattern_entry': {'phrase': "Le script s'execute avec succès", 'handler': 'return_code', 'scope': 'last_action', 'aliases': ["le script s'execute avec succès", "le script s'execute avec succes", 'le script a réussi', 'le script a reussi', 'le script retourne un code 0', "le script s'est exécuté sans erreur", "le script s'est execute sans erreur", "le script s'est exécuté avec succès", "le script s'est execute avec succes", "^le script s'execute avec succès$", "^le script s'execute avec succes$", '^le script a réussi$', '^le script a reussi$', '^le script retourne un code 0$', "^le script s'est exécuté sans erreur$", "^le script s'est execute sans erreur$", "^le script s'est exécuté avec succès$", "^le script s'est execute avec succes$"]}, 'params': {}}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] extract_context_from_action result: {'action': "le script s'execute avec succès", 'handler': 'return_code', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': ['code'], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check script return code', 'category': 'validation', 'validation_rules': {'code': {'type': 'code', 'required': True, 'pattern': '^[0-9]+$'}}}, 'patterns_matched': [], 'scope': 'last_action'}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Final params for handler: {'code': '0'}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Handler registry returned: ValidationCheck(expected='le code de retour est 0', actual_cmd='test $last_ret -eq 0', handler='return_code', scope='global', params={'code': '0', 'opposite': "le code de retour n'est pas 0"})
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] visit_binary_op: op=ou, left=le script affiche "OK", right=le script affiche une erreur "WARNING"
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] visit_atomic: value=le script affiche "OK"
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic called with: expected='le script affiche "OK"', varname='result', last_file_var=None, extracted_args=None, action_context=None
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic: Trying to canonize validation: 'le script affiche "OK"'
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic: canonize_validation('le script affiche "OK"') result: {'phrase': '^le script affiche "(.+)"$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le script affiche "{text}"', 'handler': 'stdout_contains', 'scope': 'last_action', 'aliases': ['le script affiche "{text}"', 'stdout contient "{text}"', '^le script affiche "(.+)"$', '^stdout contient "(.+)"$']}, 'params': {'text': 'ok'}}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] extract_context_from_action result: {'action': 'le script affiche "OK"', 'handler': 'stdout_contains', 'category': 'validation', 'variables': {'text': 'OK'}, 'requirements': {'required_variables': ['text'], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if stdout contains text', 'category': 'validation', 'validation_rules': {'text': {'type': 'text', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Le script affiche "{text}"', 'config': {'type': 'validation', 'phrase': 'Le script affiche "{text}"', 'aliases': ['le script affiche "{text}"', 'stdout contient "{text}"', '^le script affiche "(.+)"$', '^stdout contient "(.+)"$'], 'handler': 'stdout_contains', 'scope': 'last_action'}}], 'scope': 'last_action'}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Final params for handler: {'text': 'ok'}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Handler registry returned: ValidationCheck(expected='stdout contient ok', actual_cmd='echo "$stdout" | grep -q "ok"', handler='stdout_contains', scope='global', params={'text': 'ok', 'opposite': 'stdout ne contient pas ok'})
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] visit_atomic: value=le script affiche une erreur "WARNING"
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic called with: expected='le script affiche une erreur "WARNING"', varname='result', last_file_var=None, extracted_args=None, action_context=None
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic: Trying to canonize validation: 'le script affiche une erreur "WARNING"'
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_atomic: canonize_validation('le script affiche une erreur "WARNING"') result: {'phrase': '^le script affiche une erreur "(.+)"$', 'handler': 'stderr_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le script affiche une erreur "{text}"', 'handler': 'stderr_contains', 'scope': 'last_action', 'aliases': ['le script affiche une erreur "{text}"', 'stderr contient "{text}"', '^le script affiche une erreur "(.+)"$', '^stderr contient "(.+)"$']}, 'params': {'text': 'warning'}}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] extract_context_from_action result: {'action': 'le script affiche une erreur "WARNING"', 'handler': 'stderr_contains', 'category': 'validation', 'variables': {'text': 'WARNING'}, 'requirements': {'required_variables': ['text'], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if stderr contains text', 'category': 'validation', 'validation_rules': {'text': {'type': 'text', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Le script affiche une erreur "{text}"', 'config': {'type': 'validation', 'phrase': 'Le script affiche une erreur "{text}"', 'aliases': ['le script affiche une erreur "{text}"', 'stderr contient "{text}"', '^le script affiche une erreur "(.+)"$', '^stderr contient "(.+)"$'], 'handler': 'stderr_contains', 'scope': 'last_action'}}], 'scope': 'last_action'}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Final params for handler: {'text': 'warning'}
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Handler registry returned: ValidationCheck(expected='stderr contient warning', actual_cmd='echo "$stderr" | grep -q "warning"', handler='stderr_contains', scope='global', params={'text': 'warning', 'opposite': 'stderr ne contient pas warning'})
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] compile_validation_expression: Generated 43 shell lines for compound expression
-2025-07-14T13:27:12.791626Z DESKTOP-19SQ3SL shtest_compiler[32548]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_resultat_combinatoire.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_resultat_combinatoire.sh
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Added FallbackTokenizer
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Parsing text with 3 lines
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Lexing text with 3 lines
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Résultat combinatoire, result=('Résultat combinatoire',), original=Étape: Résultat combinatoire at line 1
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Yielding token: STEP@1:0 'Résultat combinatoire' -> '('Résultat combinatoire',)'
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: exécuter /opt/batch/traitement.sh ; Résultat: le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING") at line 1
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=exécuter /opt/batch/traitement.sh, result=('exécuter /opt/batch/traitement.sh', 'le script s\'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")', None), original=Action: exécuter /opt/batch/traitement.sh ; Résultat: le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING") at line 1
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'exécuter /opt/batch/traitement.sh' -> '('exécuter /opt/batch/traitement.sh', 'le script s\'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")', None)'
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T17:01:47.660918Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Got 4 tokens
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Grammar: _merge_action_result called with 4 tokens
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Grammar: Token 0: kind=STEP, value='Résultat combinatoire'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='exécuter /opt/batch/traitement.sh'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Grammar: Token 3: kind=EMPTY, value=''
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Grammar: _merge_action_result returning 4 tokens
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command called with: 'exécuter /opt/batch/traitement.sh'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Processing action 'exécuter /opt/batch/traitement.sh' (normalized: 'exécuter /opt/batch/traitement.sh')
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T17:01:47.661920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+2025-07-14T17:01:47.662920Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'afficher le contenu du fichier = {path}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^afficher\ le\ contenu\ du\ fichier\ =\ (.+)$'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'cat le fichier = {path}'
+2025-07-14T17:01:47.663917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^cat\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'lire le fichier = {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier = {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ =\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'consulter le fichier = {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier = {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ =\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^cat (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^cat (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^afficher le contenu du fichier = (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^afficher le contenu du fichier = (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias '^lire le fichier = (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex alias '^lire le fichier = (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'voir le contenu du fichier {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'lire le fichier {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'consulter le fichier {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'ouvrir le fichier {path}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking pattern 'Exécuter le script {script}' with handler 'run_script'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Checking alias 'exécuter {script}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ (.+)$'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] canonize_action: Found match with alias 'exécuter {script}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: canonize_action matched handler 'run_script' for phrase 'Exécuter le script {script}'
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: context={'action': 'exécuter /opt/batch/traitement.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': '/opt/batch/traitement.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: handler=run_script, variables={'script': '/opt/batch/traitement.sh'}
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'exécuter /opt/batch/traitement.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': '/opt/batch/traitement.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': '/opt/batch/traitement.sh'}
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x000001A4B306B310>
+2025-07-14T17:01:47.664917Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] get_action_shell_command: Generated shell command: sh '/opt/batch/traitement.sh'
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_validation_expression called with: 'le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")'
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_validation_expression: Detected compound expression, using parse_validation_expression
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_validation_expression: AST=BinaryOp(op='et', left=Atomic(value="le script s'execute avec succès"), right=BinaryOp(op='ou', left=Atomic(value='le script affiche "OK"'), right=Atomic(value='le script affiche une erreur "WARNING"')))
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] visit_binary_op: op=et, left=le script s'execute avec succès, right=BinaryOp(op='ou', left=Atomic(value='le script affiche "OK"'), right=Atomic(value='le script affiche une erreur "WARNING"'))
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] visit_atomic: value=le script s'execute avec succès
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic called with: expected='le script s'execute avec succès', varname='result', last_file_var=None, extracted_args=None, action_context=None
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic: Trying to canonize validation: 'le script s'execute avec succès'
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic: canonize_validation('le script s'execute avec succès') result: {'phrase': "Le script s'execute avec succès", 'handler': 'return_code', 'scope': 'last_action', 'pattern_entry': {'phrase': "Le script s'execute avec succès", 'handler': 'return_code', 'scope': 'last_action', 'aliases': ["le script s'execute avec succès", "le script s'execute avec succes", 'le script a réussi', 'le script a reussi', 'le script retourne un code 0', "le script s'est exécuté sans erreur", "le script s'est execute sans erreur", "le script s'est exécuté avec succès", "le script s'est execute avec succes", "^le script s'execute avec succès$", "^le script s'execute avec succes$", '^le script a réussi$', '^le script a reussi$', '^le script retourne un code 0$', "^le script s'est exécuté sans erreur$", "^le script s'est execute sans erreur$", "^le script s'est exécuté avec succès$", "^le script s'est execute avec succes$"]}, 'params': {}}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] extract_context_from_action result: {'action': "le script s'execute avec succès", 'handler': 'return_code', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': ['code'], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check script return code', 'category': 'validation', 'validation_rules': {'code': {'type': 'code', 'required': True, 'pattern': '^[0-9]+$'}}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Final params for handler: {'code': '0'}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Handler registry returned: ValidationCheck(expected='le code de retour est 0', actual_cmd='test $last_ret -eq 0', handler='return_code', scope='global', params={'code': '0', 'opposite': "le code de retour n'est pas 0"})
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] visit_binary_op: op=ou, left=le script affiche "OK", right=le script affiche une erreur "WARNING"
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] visit_atomic: value=le script affiche "OK"
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic called with: expected='le script affiche "OK"', varname='result', last_file_var=None, extracted_args=None, action_context=None
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic: Trying to canonize validation: 'le script affiche "OK"'
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic: canonize_validation('le script affiche "OK"') result: {'phrase': '^le script affiche "(.+)"$', 'handler': 'stdout_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le script affiche "{text}"', 'handler': 'stdout_contains', 'scope': 'last_action', 'aliases': ['le script affiche "{text}"', 'stdout contient "{text}"', '^le script affiche "(.+)"$', '^stdout contient "(.+)"$']}, 'params': {'text': 'ok'}}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] extract_context_from_action result: {'action': 'le script affiche "OK"', 'handler': 'stdout_contains', 'category': 'validation', 'variables': {'text': 'OK'}, 'requirements': {'required_variables': ['text'], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if stdout contains text', 'category': 'validation', 'validation_rules': {'text': {'type': 'text', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Le script affiche "{text}"', 'config': {'type': 'validation', 'phrase': 'Le script affiche "{text}"', 'aliases': ['le script affiche "{text}"', 'stdout contient "{text}"', '^le script affiche "(.+)"$', '^stdout contient "(.+)"$'], 'handler': 'stdout_contains', 'scope': 'last_action'}}], 'scope': 'last_action'}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Final params for handler: {'text': 'ok'}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Handler registry returned: ValidationCheck(expected='stdout contient ok', actual_cmd='echo "$stdout" | grep -q "ok"', handler='stdout_contains', scope='global', params={'text': 'ok', 'opposite': 'stdout ne contient pas ok'})
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] visit_atomic: value=le script affiche une erreur "WARNING"
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic called with: expected='le script affiche une erreur "WARNING"', varname='result', last_file_var=None, extracted_args=None, action_context=None
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic: Trying to canonize validation: 'le script affiche une erreur "WARNING"'
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_atomic: canonize_validation('le script affiche une erreur "WARNING"') result: {'phrase': '^le script affiche une erreur "(.+)"$', 'handler': 'stderr_contains', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le script affiche une erreur "{text}"', 'handler': 'stderr_contains', 'scope': 'last_action', 'aliases': ['le script affiche une erreur "{text}"', 'stderr contient "{text}"', '^le script affiche une erreur "(.+)"$', '^stderr contient "(.+)"$']}, 'params': {'text': 'warning'}}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] extract_context_from_action result: {'action': 'le script affiche une erreur "WARNING"', 'handler': 'stderr_contains', 'category': 'validation', 'variables': {'text': 'WARNING'}, 'requirements': {'required_variables': ['text'], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if stderr contains text', 'category': 'validation', 'validation_rules': {'text': {'type': 'text', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Le script affiche une erreur "{text}"', 'config': {'type': 'validation', 'phrase': 'Le script affiche une erreur "{text}"', 'aliases': ['le script affiche une erreur "{text}"', 'stderr contient "{text}"', '^le script affiche une erreur "(.+)"$', '^stderr contient "(.+)"$'], 'handler': 'stderr_contains', 'scope': 'last_action'}}], 'scope': 'last_action'}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Final params for handler: {'text': 'warning'}
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Handler registry returned: ValidationCheck(expected='stderr contient warning', actual_cmd='echo "$stderr" | grep -q "warning"', handler='stderr_contains', scope='global', params={'text': 'warning', 'opposite': 'stderr ne contient pas warning'})
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] compile_validation_expression: Generated 43 shell lines for compound expression
+2025-07-14T17:01:47.665938Z DESKTOP-19SQ3SL shtest_compiler[25484]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_resultat_combinatoire.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_resultat_combinatoire.sh
