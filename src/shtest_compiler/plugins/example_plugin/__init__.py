@@ -7,4 +7,4 @@ This plugin demonstrates the new modular plugin structure:
 - handlers/: Python modules implementing validations
 
 To create your own plugin, copy this structure and update the YAML and handler files as needed.
-""" 
+"""

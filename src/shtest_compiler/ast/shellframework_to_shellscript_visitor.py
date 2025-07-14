@@ -1,15 +1,18 @@
 from typing import List
 
-from shtest_compiler.ast.shell_framework_ast import (ActionNode,
-                                                     InlineShellCode,
-                                                     ShellFrameworkAST,
-                                                     ShellFunctionCall,
-                                                     ShellFunctionDef,
-                                                     ShellTestStep,
-                                                     ValidationCheck)
+from shtest_compiler.ast.shell_framework_ast import (
+    ActionNode,
+    InlineShellCode,
+    ShellFrameworkAST,
+    ShellFunctionCall,
+    ShellFunctionDef,
+    ShellTestStep,
+    ValidationCheck,
+)
 from shtest_compiler.ast.shell_script_ast import ShellScript
 from shtest_compiler.ast.visitor import ASTVisitor
 from shtest_compiler.parser.shunting_yard import Atomic, BinaryOp
+from shtest_compiler.utils.logger import debug_log, is_debug_enabled
 
 
 class ShellFrameworkToShellScriptVisitor(ASTVisitor[ShellScript]):
@@ -111,13 +114,10 @@ class ShellFrameworkToShellScriptVisitor(ASTVisitor[ShellScript]):
         return self.visit_binary_op(node)
 
     def visit_binary_op(self, node: BinaryOp) -> List[str]:
-        from shtest_compiler.config.debug_config import (debug_print,
-                                                         is_debug_enabled)
-
         debug_enabled = is_debug_enabled()
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] visit_binary_op: op={node.op}, left={getattr(node.left, 'value', node.left)}, right={getattr(node.right, 'value', node.right)}"
+            debug_log(
+                f"visit_binary_op: op={node.op}, left={getattr(node.left, 'value', node.left)}, right={getattr(node.right, 'value', node.right)}"
             )
         """Handle compound validations (AND/OR) with proper linearization"""
         # Visit left and right operands
@@ -156,12 +156,9 @@ class ShellFrameworkToShellScriptVisitor(ASTVisitor[ShellScript]):
         return compound_lines
 
     def visit_atomic(self, node: Atomic) -> List[str]:
-        from shtest_compiler.config.debug_config import (debug_print,
-                                                         is_debug_enabled)
-
         debug_enabled = is_debug_enabled()
         if debug_enabled:
-            debug_print(f"[DEBUG] visit_atomic: value={node.value}")
+            debug_log(f"visit_atomic: value={node.value}")
         from shtest_compiler.compiler.atomic_compiler import compile_atomic
 
         # Use compile_atomic to generate ValidationCheck

@@ -49,6 +49,7 @@ class TestSimpleParser:
         # This should raise a ParseError due to no actions
         import pytest
         from shtest_compiler.parser.core import ParseError
+
         with pytest.raises(ParseError, match="no actions"):
             parser.parse(content, path="empty_test.shtest")
 
@@ -60,5 +61,6 @@ class TestSimpleParser:
         # This should raise a ParseError due to no actions
         import pytest
         from shtest_compiler.parser.core import ParseError
+
         with pytest.raises(ParseError, match="no actions"):
             parser.parse(content, path="minimal_test.shtest")

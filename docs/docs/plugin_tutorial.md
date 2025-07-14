@@ -109,101 +109,23 @@ validations:
 ### Handler Principal (`handlers/send_notification.py`)
 
 ```python
-"""
-Handlers pour les actions de notification.
-"""
+from shtest_compiler.ast.shell_framework_ast import ActionNode
 
-import os
-import subprocess
-from typing import Dict, Any, Optional
-from shtest_compiler.core.context import CompileContext
+class SendNotificationAction(ActionNode):
+    def __init__(self, message):
+        self.message = message
 
+    def to_shell(self):
+        # Génère la commande shell pour envoyer la notification
+        return f"echo 'Notification: {self.message}' >> /tmp/notifications.log"
 
-def send_notification_handler(context: CompileContext, message: str, **kwargs) -> str:
-    """
-    Handler pour envoyer une notification générique.
-
-    Args:
-        context: Contexte de compilation
-        message: Message à envoyer
-        **kwargs: Arguments supplémentaires
-
-    Returns:
-        Code shell pour envoyer la notification
-    """
-    # Récupérer la configuration depuis le contexte
-    notification_type = context.get_variable("NOTIFICATION_TYPE", "log")
-    notification_url = context.get_variable("NOTIFICATION_URL", "")
-
-    if notification_type == "slack":
-        return _generate_slack_command(message, notification_url)
-    elif notification_type == "email":
-        return _generate_email_command(message, notification_url)
-    else:
-        return _generate_log_command(message)
-
-
-def send_slack_handler(context: CompileContext, message: str, **kwargs) -> str:
-    """
-    Handler spécifique pour les notifications Slack.
-
-    Args:
-        context: Contexte de compilation
-        message: Message à envoyer
-        **kwargs: Arguments supplémentaires
-
-    Returns:
-        Code shell pour envoyer la notification Slack
-    """
-    webhook_url = context.get_variable("SLACK_WEBHOOK_URL", "")
-    channel = context.get_variable("SLACK_CHANNEL", "#general")
-
-    return _generate_slack_command(message, webhook_url, channel)
-
-
-def _generate_slack_command(message: str, webhook_url: str, channel: str = "#general") -> str:
-    """Génère la commande shell pour envoyer une notification Slack."""
-
-    if not webhook_url:
-        return f"""# Notification Slack (webhook non configuré)
-echo "SLACK: {message}" >> /tmp/notifications.log
-echo "Webhook URL non configurée" >&2
-exit 1"""
-
-    # Échapper le message pour JSON
-    escaped_message = message.replace('"', '\\"').replace("'", "\\'")
-
-    return f"""# Envoyer notification Slack
-curl -X POST -H 'Content-type: application/json' \\
-  --data '{{"text":"{escaped_message}","channel":"{channel}"}}' \\
-  "{webhook_url}" \\
-  && echo "Notification Slack envoyée: {message}" \\
-  || (echo "Erreur envoi notification Slack" >&2 && exit 1)"""
-
-
-def _generate_email_command(message: str, smtp_config: str = "") -> str:
-    """Génère la commande shell pour envoyer un email."""
-
-    if not smtp_config:
-        return f"""# Notification Email (SMTP non configuré)
-echo "EMAIL: {message}" >> /tmp/notifications.log
-echo "Configuration SMTP non définie" >&2
-exit 1"""
-
-    return f"""# Envoyer notification Email
-echo "{message}" | mail -s "Notification KnightBatch" $NOTIFICATION_EMAIL \\
-  && echo "Notification Email envoyée: {message}" \\
-  || (echo "Erreur envoi notification Email" >&2 && exit 1)"""
-
-
-def _generate_log_command(message: str) -> str:
-    """Génère la commande shell pour logger une notification."""
-
-    return f"""# Logger notification
-echo "[$(date)] NOTIFICATION: {message}" >> /tmp/notifications.log \\
-  && echo "Notification loggée: {message}" \\
-  || (echo "Erreur logging notification" >&2 && exit 1)"""
+def handle(params):
+    message = params["message"]
+    return SendNotificationAction(message)
 ```
+- Le handler doit accepter uniquement `params` (pas de `context` sauf besoin avancé).
+- Le handler doit retourner un objet `ActionNode` avec une méthode `to_shell()` pour les actions shell.
+- **Ne pas utiliser `os.environ` ou des variables globales dans vos handlers.**
 
 ## Étape 5 : Créer les Matchers de Validation
 

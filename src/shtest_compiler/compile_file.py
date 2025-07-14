@@ -10,9 +10,9 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from .compiler.compiler import ModularCompiler
-from .config.debug_config import debug_print, is_debug_enabled
 from .command_loader import build_registry
+from .compiler.compiler import ModularCompiler
+from .utils.logger import debug_log, is_debug_enabled
 
 
 def compile_file(

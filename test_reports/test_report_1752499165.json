@@ -1,0 +1,277 @@
+{
+  "total_tests": 38,
+  "passed": 1,
+  "failed": 37,
+  "errors": 0,
+  "skipped": 0,
+  "total_duration": 41.87039041519165,
+  "success_rate": 2.631578947368421,
+  "reports": [
+    {
+      "name": "unit_tests",
+      "result": "PASSED",
+      "duration": 19.10138702392578,
+      "output": "============================= test session starts =============================\nplatform win32 -- Python 3.11.9, pytest-8.4.1, pluggy-1.6.0 -- C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\venv\\Scripts\\python.exe\ncachedir: .pytest_cache\nrootdir: C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\testing\nconfigfile: pytest.ini\nplugins: asyncio-1.0.0, cov-6.2.1, mock-3.14.1, xdist-3.8.0\nasyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollecting ... collected 122 items\n\ntesting\\tests\\unit\\test_alias_utils.py::test_resolver_aliases PASSED     [  0%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_simple_validation_wrapping PASSED [  1%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_compound_validation PASSED [  2%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_simple_validation_shell_generation PASSED [  3%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_compound_validation_shell_generation PASSED [  4%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_complex_validation_expression PASSED [  4%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_validation_with_quotes PASSED [  5%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_empty_validation_expression PASSED [  6%]\ntesting\\tests\\unit\\test_binary_operations.py::TestBinaryOperations::test_single_word_validation PASSED [  7%]\ntesting\\tests\\unit\\test_compiler.py::test_compile_validation_stdout_ok PASSED [  8%]\ntesting\\tests\\unit\\test_compiler.py::test_compile_validation_unknown PASSED [  9%]\ntesting\\tests\\unit\\test_core.py::test_lexer_basic_tokens PASSED          [  9%]\ntesting\\tests\\unit\\test_core.py::test_parser_recognizes_step_and_actions PASSED [ 10%]\ntesting\\tests\\unit\\test_core.py::test_parser_requires_result_after_action_only PASSED [ 11%]\ntesting\\tests\\unit\\test_core.py::test_validation_expression PASSED       [ 12%]\ntesting\\tests\\unit\\test_core.py::test_scope_enforcement_raises_on_local_validation_without_action PASSED [ 13%]\ntesting\\tests\\unit\\test_core_visitor.py::test_ast_node_accept PASSED     [ 13%]\ntesting\\tests\\unit\\test_core_visitor.py::test_visitor_dispatch PASSED    [ 14%]\ntesting\\tests\\unit\\test_core_visitor.py::test_generic_visit PASSED       [ 15%]\ntesting\\tests\\unit\\test_core_visitor.py::test_protocol_compatibility PASSED [ 16%]\ntesting\\tests\\unit\\test_core_visitor.py::test_compile_context PASSED     [ 17%]\ntesting\\tests\\unit\\test_core_visitor.py::test_program_ast PASSED         [ 18%]\ntesting\\tests\\unit\\test_core_visitor.py::test_expression_logique PASSED  [ 18%]\ntesting\\tests\\unit\\test_core_visitor.py::test_operateur_logique_validation PASSED [ 19%]\ntesting\\tests\\unit\\test_file_date_handler.py::TestFileDateHandler::test_file_date_global_scope PASSED [ 20%]\ntesting\\tests\\unit\\test_file_date_handler.py::TestFileDateHandler::test_file_date_last_action_scope PASSED [ 21%]\ntesting\\tests\\unit\\test_file_date_handler.py::TestFileDateHandler::test_file_date_mixed_scopes PASSED [ 22%]\ntesting\\tests\\unit\\test_file_date_handler.py::TestFileDateHandler::test_file_date_validation_generation PASSED [ 22%]\ntesting\\tests\\unit\\test_generate_tests.py::TestGenerateTests::test_module_has_functions PASSED [ 23%]\ntesting\\tests\\unit\\test_generate_tests.py::TestGenerateTests::test_module_import PASSED [ 24%]\ntesting\\tests\\unit\\test_lifting_functionality.py::TestLiftingFunctionality::test_lifting_with_mixed_validations PASSED [ 25%]\ntesting\\tests\\unit\\test_lifting_functionality.py::TestLiftingFunctionality::test_lifting_validation_scopes PASSED [ 26%]\ntesting\\tests\\unit\\test_lifting_functionality.py::TestLiftingFunctionality::test_lifting_inline_shell_code PASSED [ 27%]\ntesting\\tests\\unit\\test_lifting_functionality.py::TestLiftingFunctionality::test_lifting_multiple_steps PASSED [ 27%]\ntesting\\tests\\unit\\test_lifting_functionality.py::TestLiftingFunctionality::test_lifting_empty_actions PASSED [ 28%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestToken::test_token_creation PASSED [ 29%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestToken::test_token_with_result PASSED [ 30%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestToken::test_token_validation PASSED [ 31%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestToken::test_token_string_representation PASSED [ 31%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestToken::test_token_backward_compatibility PASSED [ 32%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestLexerError::test_lexer_error_creation PASSED [ 33%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestLexerError::test_lexer_error_with_line PASSED [ 34%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestPatternLoader::test_pattern_loader_creation PASSED [ 35%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestPatternLoader::test_pattern_loader_load PASSED [ 36%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestPatternLoader::test_pattern_loader_get_pattern PASSED [ 36%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestPatternLoader::test_pattern_loader_add_pattern PASSED [ 37%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestPatternLoader::test_pattern_loader_invalid_pattern PASSED [ 38%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestRegexTokenizer::test_regex_tokenizer_creation PASSED [ 39%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestRegexTokenizer::test_regex_tokenizer_tokenize PASSED [ 40%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_creation PASSED [ 40%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_debug_mode PASSED [ 41%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_lex_text PASSED [ 42%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_lex_file PASSED [ 43%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_file_not_found PASSED [ 44%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_add_tokenizer PASSED [ 45%]\ntesting\\tests\\unit\\test_modular_lexer.py::TestConfigurableLexer::test_configurable_lexer_get_tokenizer_info PASSED [ 45%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRule::test_grammar_rule_creation PASSED [ 46%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRule::test_grammar_rule_with_handler PASSED [ 47%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRule::test_grammar_rule_with_priority PASSED [ 48%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRule::test_grammar_rule_match PASSED [ 49%]\ntesting\\tests\\unit\\test_modular_parser.py::TestDefaultGrammar::test_default_grammar_creation PASSED [ 50%]\ntesting\\tests\\unit\\test_modular_parser.py::TestDefaultGrammar::test_default_grammar_has_basic_rules PASSED [ 50%]\ntesting\\tests\\unit\\test_modular_parser.py::TestDefaultGrammar::test_default_grammar_add_rule PASSED [ 51%]\ntesting\\tests\\unit\\test_modular_parser.py::TestCustomGrammar::test_custom_grammar_creation PASSED [ 52%]\ntesting\\tests\\unit\\test_modular_parser.py::TestCustomGrammar::test_custom_grammar_add_rule PASSED [ 53%]\ntesting\\tests\\unit\\test_modular_parser.py::TestCustomGrammar::test_custom_grammar_remove_rule PASSED [ 54%]\ntesting\\tests\\unit\\test_modular_parser.py::TestDefaultASTBuilder::test_default_ast_builder_creation PASSED [ 54%]\ntesting\\tests\\unit\\test_modular_parser.py::TestDefaultASTBuilder::test_default_ast_builder_build PASSED [ 55%]\ntesting\\tests\\unit\\test_modular_parser.py::TestCustomASTBuilder::test_custom_ast_builder_creation PASSED [ 56%]\ntesting\\tests\\unit\\test_modular_parser.py::TestCustomASTBuilder::test_custom_ast_builder_add_handler PASSED [ 57%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_creation PASSED [ 58%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_debug_mode PASSED [ 59%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_parse_text PASSED [ 59%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_parse_file PASSED [ 60%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_file_not_found PASSED [ 61%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_set_grammar PASSED [ 62%]\ntesting\\tests\\unit\\test_modular_parser.py::TestConfigurableParser::test_configurable_parser_set_ast_builder PASSED [ 63%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRegistry::test_grammar_registry_register PASSED [ 63%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRegistry::test_grammar_registry_get PASSED [ 64%]\ntesting\\tests\\unit\\test_modular_parser.py::TestGrammarRegistry::test_grammar_registry_get_nonexistent PASSED [ 65%]\ntesting\\tests\\unit\\test_modular_parser.py::TestASTBuilderRegistry::test_ast_builder_registry_register PASSED [ 66%]\ntesting\\tests\\unit\\test_modular_parser.py::TestASTBuilderRegistry::test_ast_builder_registry_get PASSED [ 67%]\ntesting\\tests\\unit\\test_modular_parser.py::TestASTBuilderRegistry::test_ast_builder_registry_get_nonexistent PASSED [ 68%]\ntesting\\tests\\unit\\test_modular_system.py::TestModularSystemIntegration::test_parser_compiler_integration PASSED [ 68%]\ntesting\\tests\\unit\\test_modular_system.py::TestModularSystemIntegration::test_grammar_registry_integration PASSED [ 69%]\ntesting\\tests\\unit\\test_modular_system.py::TestModularSystemIntegration::test_ast_builder_registry_integration PASSED [ 70%]\ntesting\\tests\\unit\\test_modular_system.py::TestModularCompiler::test_modular_compiler_creation PASSED [ 71%]\ntesting\\tests\\unit\\test_modular_system.py::TestModularCompiler::test_modular_compiler_compile PASSED [ 72%]\ntesting\\tests\\unit\\test_modular_system.py::TestModularCompiler::test_modular_compiler_with_context PASSED [ 72%]\ntesting\\tests\\unit\\test_modular_system.py::TestEndToEndWorkflow::test_full_workflow PASSED [ 73%]\ntesting\\tests\\unit\\test_modular_system.py::TestEndToEndWorkflow::test_workflow_with_file PASSED [ 74%]\ntesting\\tests\\unit\\test_modular_system.py::TestErrorHandling::test_parser_error_handling PASSED [ 75%]\ntesting\\tests\\unit\\test_modular_system.py::TestErrorHandling::test_compiler_error_handling PASSED [ 76%]\ntesting\\tests\\unit\\test_modular_system.py::TestErrorHandling::test_registry_error_handling PASSED [ 77%]\ntesting\\tests\\unit\\test_modular_system.py::TestConfiguration::test_parser_debug_mode PASSED [ 77%]\ntesting\\tests\\unit\\test_modular_system.py::TestConfiguration::test_compiler_verbose_mode PASSED [ 78%]\ntesting\\tests\\unit\\test_parser.py::test_parse_minimal PASSED             [ 79%]\ntesting\\tests\\unit\\test_simple_parser.py::TestSimpleParser::test_parser_import PASSED [ 80%]\ntesting\\tests\\unit\\test_simple_parser.py::TestSimpleParser::test_parser_creation PASSED [ 81%]\ntesting\\tests\\unit\\test_simple_parser.py::TestSimpleParser::test_simple_parse PASSED [ 81%]\ntesting\\tests\\unit\\test_simple_parser.py::TestSimpleParser::test_parser_with_debug PASSED [ 82%]\ntesting\\tests\\unit\\test_simple_parser.py::TestSimpleParser::test_empty_content PASSED [ 83%]\ntesting\\tests\\unit\\test_simple_parser.py::TestSimpleParser::test_minimal_content PASSED [ 84%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_parser_import PASSED [ 85%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_parser_creation PASSED [ 86%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_simple_syntax_verification PASSED [ 86%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_minimal_syntax_verification PASSED [ 87%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_empty_content_verification PASSED [ 88%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_complex_syntax_verification PASSED [ 89%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_multiple_steps_verification PASSED [ 90%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_parser_with_debug_mode PASSED [ 90%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_verify_file_function PASSED [ 91%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_verify_file_with_invalid_syntax PASSED [ 92%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_parser_error_handling PASSED [ 93%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_step_with_only_action PASSED [ 94%]\ntesting\\tests\\unit\\test_syntax_verification.py::TestSyntaxVerification::test_step_with_only_result PASSED [ 95%]\ntesting\\tests\\unit\\test_verify_syntax.py::TestVerifySyntax::test_action_without_step PASSED [ 95%]\ntesting\\tests\\unit\\test_verify_syntax.py::TestVerifySyntax::test_empty_step_error PASSED [ 96%]\ntesting\\tests\\unit\\test_verify_syntax.py::TestVerifySyntax::test_invalid_line_number PASSED [ 97%]\ntesting\\tests\\unit\\test_verify_syntax.py::TestVerifySyntax::test_result_without_step PASSED [ 98%]\ntesting\\tests\\unit\\test_verify_syntax.py::TestVerifySyntax::test_valid_file PASSED [ 99%]\ntesting\\tests\\unit\\test_visitors.py::test_generic_visit_raises PASSED    [100%]\n\n============================== warnings summary ===============================\ntesting\\tests\\unit\\test_core_visitor.py:23\n  C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\testing\\tests\\unit\\test_core_visitor.py:23: PytestCollectionWarning: cannot collect test class 'TestNode' because it has a __init__ constructor (from: tests/unit/test_core_visitor.py)\n    class TestNode(ASTNode):\n\nshtest_compiler\\parser\\shtest_ast.py:14\n  C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\shtest_ast.py:14: PytestCollectionWarning: cannot collect test class 'TestStep' because it has a __init__ constructor (from: tests/unit/test_file_date_handler.py)\n    @dataclass\n\nshtest_compiler\\parser\\shtest_ast.py:14\n  C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\shtest_ast.py:14: PytestCollectionWarning: cannot collect test class 'TestStep' because it has a __init__ constructor (from: tests/unit/test_lifting_functionality.py)\n    @dataclass\n\nshtest_compiler\\parser\\shtest_ast.py:14\n  C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\shtest_ast.py:14: PytestCollectionWarning: cannot collect test class 'TestStep' because it has a __init__ constructor (from: tests/unit/test_modular_parser.py)\n    @dataclass\n\nshtest_compiler\\parser\\shtest_ast.py:14\n  C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\shtest_ast.py:14: PytestCollectionWarning: cannot collect test class 'TestStep' because it has a __init__ constructor (from: tests/unit/test_modular_system.py)\n    @dataclass\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=============================== tests coverage ================================\n_______________ coverage: platform win32, python 3.11.9-final-0 _______________\n\nName                                                                            Stmts   Miss  Cover   Missing\n-------------------------------------------------------------------------------------------------------------\nshtest_compiler\\__init__.py                                                         0      0   100%\nshtest_compiler\\ast\\shell_framework_ast.py                                         48     14    71%   52-66\nshtest_compiler\\ast\\shell_framework_binder.py                                     231    160    31%   21, 26-34, 65, 88, 113-123, 154-155, 160, 171-190, 197-253, 270-307, 310-331, 334-341, 344-346, 349-375, 379-390, 393-395\nshtest_compiler\\ast\\shell_script_ast.py                                             5      0   100%\nshtest_compiler\\ast\\shellframework_to_shellscript_visitor.py                      100     22    78%   34-35, 45-49, 55, 59, 63-64, 71, 93, 119, 161, 179-187, 190, 193\nshtest_compiler\\ast\\shtest_to_shellframework_visitor.py                           179    107    40%   41, 46-53, 56-57, 62, 70, 76, 82, 87, 92-178, 189-190, 193-217, 227-235, 257-266, 313, 324-345, 354\nshtest_compiler\\ast\\visitor.py                                                     13      0   100%\nshtest_compiler\\ast_nodes.py                                                       51     51     0%   1-79\nshtest_compiler\\ast_to_shell.py                                                     5      5     0%   1-22\nshtest_compiler\\command_loader.py                                                 164     90    45%   45, 108-121, 139-148, 153-166, 173, 179-180, 183-206, 213-217, 220, 223-239, 242-262\nshtest_compiler\\common_patterns.py                                                 19     19     0%   5-49\nshtest_compiler\\compile_expr.py                                                    10     10     0%   1-22\nshtest_compiler\\compile_file.py                                                    31     19    39%   43-54, 82-93, 98-110, 115-116, 124\nshtest_compiler\\compiler\\__init__.py                                                1      0   100%\nshtest_compiler\\compiler\\action_utils.py                                          304    126    59%   22, 34-35, 46-47, 54-58, 65-73, 77, 81, 157-163, 167, 175, 184, 189-193, 200-204, 210, 215, 220-224, 231-235, 244, 249, 257-258, 261, 275-281, 289-327, 340-346, 379-380, 396-397, 466-470, 513, 554, 557, 576, 592-640, 650-656\nshtest_compiler\\compiler\\argument_extractor.py                                     38     30    21%   14-16, 21-23, 31-63\nshtest_compiler\\compiler\\ast_compiler.py                                           25     25     0%   6-47\nshtest_compiler\\compiler\\atomic_compiler.py                                       121     55    55%   35, 40, 46, 50, 66, 71, 80-83, 90, 93, 101, 104-119, 127, 141-143, 162, 184, 199-225, 230, 247-250\nshtest_compiler\\compiler\\compile_file.py                                            7      7     0%   1-10\nshtest_compiler\\compiler\\compiler.py                                               94     61    35%   71-113, 134-153, 160-167, 171-172, 176-180, 184-188, 192, 196, 200, 204\nshtest_compiler\\compiler\\context.py                                                 5      0   100%\nshtest_compiler\\compiler\\matcher_registry.py                                       79     54    32%   24-39, 63, 76-131, 135-139, 143, 147, 151-156\nshtest_compiler\\compiler\\matchers\\__init__.py                                       1      0   100%\nshtest_compiler\\compiler\\matchers\\basic_checks_matcher.py                          55     46    16%   13-37, 53-96, 103-125\nshtest_compiler\\compiler\\matchers\\filesystem_matcher.py                            60     48    20%   14-27, 38-46, 52-59, 69-75, 80-87, 92-104, 115-122, 128-138, 144-148\nshtest_compiler\\compiler\\matchers\\output_stream_matcher.py                         13      9    31%   8-24\nshtest_compiler\\compiler\\matchers\\sql_matcher.py                                   16     12    25%   16-84\nshtest_compiler\\compiler\\shell_framework_builder.py                                62     62     0%   1-172\nshtest_compiler\\compiler\\shell_framework_emitter.py                                31     31     0%   1-43\nshtest_compiler\\compiler\\shell_generator.py                                        88     63    28%   50-124, 134-158\nshtest_compiler\\compiler\\shtest_visitor.py                                         16     16     0%   1-47\nshtest_compiler\\compiler\\sql_drivers.py                                             6      4    33%   72-75\nshtest_compiler\\compiler\\utils.py                                                  24     10    58%   18, 21-25, 33, 46, 56-59\nshtest_compiler\\compiler\\visitors.py                                              112    112     0%   1-163\nshtest_compiler\\compiler\\visitors\\__init__.py                                       3      0   100%\nshtest_compiler\\compiler\\visitors\\shell_visitor.py                                 98     70    29%   42, 47-50, 55-64, 68-76, 80-88, 92-98, 102-108, 112-118, 122-128, 132-140, 144-152, 156-164, 170-181, 189-192\nshtest_compiler\\core\\__init__.py                                                    0      0   100%\nshtest_compiler\\core\\action_handlers\\cat_file.py                                    9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\compare_files.py                              11      9    18%   8-16\nshtest_compiler\\core\\action_handlers\\copy_dir.py                                   11      6    45%   6-7, 10, 14-16\nshtest_compiler\\core\\action_handlers\\copy_file.py                                  11      6    45%   6-7, 10, 14-16\nshtest_compiler\\core\\action_handlers\\create_dir.py                                  9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\create_file.py                                 9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\delete_dir.py                                  9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\delete_file.py                                 9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\export_var.py                                 11      6    45%   6-7, 10, 14-16\nshtest_compiler\\core\\action_handlers\\move_dir.py                                   11      6    45%   6-7, 10, 14-16\nshtest_compiler\\core\\action_handlers\\move_file.py                                  11      6    45%   6-7, 10, 14-16\nshtest_compiler\\core\\action_handlers\\purge_dir.py                                   9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\run_script.py                                  9      4    56%   6, 9, 13-14\nshtest_compiler\\core\\action_handlers\\run_sql_script.py                             16      9    44%   9-11, 14-15, 19-22\nshtest_compiler\\core\\action_handlers\\sql_compare.py                                71     60    15%   10-15, 18-24, 27-34, 37-67, 70-89, 92-111, 114-163, 167-173\nshtest_compiler\\core\\action_handlers\\sql_export.py                                 46     35    24%   8-12, 15-34, 37-38, 52, 57, 60, 63, 77-82\nshtest_compiler\\core\\action_handlers\\sql_query.py                                  39     28    28%   9-12, 15-25, 28-29, 36-37, 44-47, 50-53, 57-61\nshtest_compiler\\core\\action_handlers\\touch_ts.py                                   18     13    28%   6-7, 10, 16-31\nshtest_compiler\\core\\action_handlers\\update_file.py                                15     13    13%   8-20\nshtest_compiler\\core\\ast.py                                                        64      1    98%   140\nshtest_compiler\\core\\context.py                                                    34     13    62%   25-28, 32, 36-37, 41, 45, 49, 53, 57, 61\nshtest_compiler\\core\\errors.py                                                      6      0   100%\nshtest_compiler\\core\\handlers\\base_ready.py                                         8      6    25%   5-13\nshtest_compiler\\core\\handlers\\content_displayed.py                                 13     11    15%   5-22\nshtest_compiler\\core\\handlers\\credentials_configured.py                            11      9    18%   5-20\nshtest_compiler\\core\\handlers\\date_modified.py                                     30     15    50%   14-26, 30-31, 35, 39, 44\nshtest_compiler\\core\\handlers\\dir_absent.py                                        13     11    15%   5-18\nshtest_compiler\\core\\handlers\\dir_contains_count.py                                15     13    13%   5-32\nshtest_compiler\\core\\handlers\\dir_copied.py                                        12     10    17%   5-25\nshtest_compiler\\core\\handlers\\dir_exists.py                                        14     11    21%   6-19\nshtest_compiler\\core\\handlers\\dir_rights.py                                        14     12    14%   5-27\nshtest_compiler\\core\\handlers\\file_absent.py                                       13     11    15%   5-18\nshtest_compiler\\core\\handlers\\file_contains.py                                     15     13    13%   5-20\nshtest_compiler\\core\\handlers\\file_contains_exact.py                               14     12    14%   5-23\nshtest_compiler\\core\\handlers\\file_copied.py                                       10      8    20%   5-17\nshtest_compiler\\core\\handlers\\file_date.py                                         24     22     8%   5-34\nshtest_compiler\\core\\handlers\\file_empty.py                                        12      1    92%   10\nshtest_compiler\\core\\handlers\\file_exists.py                                       10      0   100%\nshtest_compiler\\core\\handlers\\file_present.py                                      12      9    25%   6-19\nshtest_compiler\\core\\handlers\\file_rights.py                                       14     12    14%   5-23\nshtest_compiler\\core\\handlers\\files_identical.py                                   12     10    17%   5-25\nshtest_compiler\\core\\handlers\\logs_accessible.py                                   13     11    15%   5-22\nshtest_compiler\\core\\handlers\\no_error_message.py                                   8      6    25%   5-13\nshtest_compiler\\core\\handlers\\return_code.py                                       11      9    18%   5-21\nshtest_compiler\\core\\handlers\\script_code.py                                        2      0   100%\nshtest_compiler\\core\\handlers\\stderr_contains.py                                   10      8    20%   5-19\nshtest_compiler\\core\\handlers\\stdout_contains.py                                   10      1    90%   9\nshtest_compiler\\core\\handlers\\true.py                                               7      0   100%\nshtest_compiler\\core\\handlers\\var_equals.py                                        11      9    18%   5-20\nshtest_compiler\\core\\visitor.py                                                    30     15    50%   18-20, 34-36, 58-60, 78, 84-87, 93\nshtest_compiler\\export_to_excel.py                                                 33     33     0%   1-51\nshtest_compiler\\generate_tests.py                                                  24     19    21%   9-35\nshtest_compiler\\parser\\__init__.py                                                  5      0   100%\nshtest_compiler\\parser\\alias_resolver.py                                           11      0   100%\nshtest_compiler\\parser\\ast_builder.py                                             249     68    73%   25-33, 37-41, 62-66, 86-91, 124, 135, 143, 155, 160, 174, 178, 183, 195, 214-217, 223-226, 279-292, 338, 342, 357-358, 361-362, 367-380, 384, 388, 402, 408, 418, 422-424, 428, 441, 446\nshtest_compiler\\parser\\configurable_parser.py                                      35      0   100%\nshtest_compiler\\parser\\core.py                                                     14      2    86%   22, 24\nshtest_compiler\\parser\\grammar.py                                                 110     23    79%   43, 99, 104-108, 125, 144, 156, 160, 164, 173-174, 178, 182, 186, 190, 204, 210, 220, 224-226, 230\nshtest_compiler\\parser\\lexer.py                                                     0      0   100%\nshtest_compiler\\parser\\lexer\\__init__.py                                            5      0   100%\nshtest_compiler\\parser\\lexer\\configurable_lexer.py                                110     38    65%   48, 59-80, 84-91, 95-102, 172-174, 204-209, 235-240, 250\nshtest_compiler\\parser\\lexer\\core.py                                               51      0   100%\nshtest_compiler\\parser\\lexer\\filters.py                                            41     25    39%   36-40, 48-52, 60-64, 72-75, 88, 92-98\nshtest_compiler\\parser\\lexer\\pattern_loader.py                                     64     17    73%   46, 49, 81-82, 90-94, 116-119, 127-128, 158-161\nshtest_compiler\\parser\\lexer\\tokenizers.py                                         69     22    68%   26-27, 123-125, 129-161\nshtest_compiler\\parser\\rule_registry.py                                            34     34     0%   1-93\nshtest_compiler\\parser\\shtest_ast.py                                               35      7    80%   32-41, 44, 47\nshtest_compiler\\parser\\shtest_parser.py                                            69     69     0%   7-180\nshtest_compiler\\parser\\shunting_yard.py                                           140     31    78%   14-18, 60-70, 84-92, 103, 111, 120, 128, 136, 145, 154, 164, 174, 184, 210, 212-215\nshtest_compiler\\plugins\\example_plugin\\__init__.py                                  0      0   100%\nshtest_compiler\\plugins\\example_plugin\\action_handlers\\create_example_file.py      12      6    50%   21-22, 27, 35-37\nshtest_compiler\\plugins\\example_plugin\\handlers\\example_file_exists.py              6      4    33%   12-15\nshtest_compiler\\run_all.py                                                         66     66     0%   1-94\nshtest_compiler\\run_tests.py                                                      141    141     0%   9-214\nshtest_compiler\\setup.py                                                            2      2     0%   1-3\nshtest_compiler\\shtest.py                                                          67     67     0%   1-144\nshtest_compiler\\templates.py                                                        2      2     0%   1-3\nshtest_compiler\\utils\\logger.py                                                    95     41    57%   17-27, 29-31, 48-51, 58-60, 71-73, 76-78, 82-84, 87-93, 96-97, 103, 112, 115, 121, 124\nshtest_compiler\\utils\\shell_utils.py                                                4      1    75%   4\nshtest_compiler\\verify_handlers.py                                                 39     39     0%   1-67\nshtest_compiler\\verify_syntax.py                                                   27     12    56%   25-43\n-------------------------------------------------------------------------------------------------------------\nTOTAL                                                                            4481   2601    42%\nCoverage HTML written to dir htmlcov\nCoverage XML written to file coverage.xml\n====================== 122 passed, 5 warnings in 18.30s =======================\n",
+      "error": null
+    },
+    {
+      "name": "compile_e2e_tests",
+      "result": "FAILED",
+      "duration": 0.46877121925354004,
+      "output": "[1/3] V\u00e9rification de la syntaxe...\n2025-07-14T13:19:03.393071Z DESKTOP-19SQ3SL shtest_compiler[16936]: [PIPELINE_ERROR] [ERROR] AST validation failed: Step 'Default Step' has no actions\nNoneType: None\n\n2025-07-14T13:19:03.394072Z DESKTOP-19SQ3SL shtest_compiler[16936]: [PIPELINE_ERROR] [ERROR] Parser error: AST validation failed: Step 'Default Step' has no actions\nTraceback (most recent call last):\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 41, in parse\n    ast = self.ast_builder.build(grammar_result, path=path)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\ast_builder.py\", line 256, in build\n    raise ParseError(f\"AST validation failed: {'; '.join(errors)}\")\nshtest_compiler.parser.core.ParseError: AST validation failed: Step 'Default Step' has no actions\n\n2025-07-14T13:19:03.394072Z DESKTOP-19SQ3SL shtest_compiler[16936]: [PIPELINE_ERROR] [ERROR] Erreur de syntaxe dans C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\testing\\tests\\e2e\\ko\\completely_empty.shtest: Parser error: AST validation failed: Step 'Default Step' has no actions\nTraceback (most recent call last):\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 41, in parse\n    ast = self.ast_builder.build(grammar_result, path=path)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\ast_builder.py\", line 256, in build\n    raise ParseError(f\"AST validation failed: {'; '.join(errors)}\")\nshtest_compiler.parser.core.ParseError: AST validation failed: Step 'Default Step' has no actions\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\verify_syntax.py\", line 13, in check_file\n    parser.parse(content, path=file_path)\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 47, in parse\n    raise ParseError(f\"Parser error: {e}\")\nshtest_compiler.parser.core.ParseError: Parser error: AST validation failed: Step 'Default Step' has no actions\n\n2025-07-14T13:19:03.395072Z DESKTOP-19SQ3SL shtest_compiler[16936]: [PIPELINE_ERROR] [ERROR] ParseError: Parser error: AST validation failed: Step 'Default Step' has no actions\nTraceback (most recent call last):\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 41, in parse\n    ast = self.ast_builder.build(grammar_result, path=path)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\ast_builder.py\", line 256, in build\n    raise ParseError(f\"AST validation failed: {'; '.join(errors)}\")\nshtest_compiler.parser.core.ParseError: AST validation failed: Step 'Default Step' has no actions\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\run_all.py\", line 40, in run_syntax_check\n    check_file(file_path)\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\verify_syntax.py\", line 13, in check_file\n    parser.parse(content, path=file_path)\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 47, in parse\n    raise ParseError(f\"Parser error: {e}\")\nshtest_compiler.parser.core.ParseError: Parser error: AST validation failed: Step 'Default Step' has no actions\n\n",
+      "error": "Traceback (most recent call last):\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 41, in parse\n    ast = self.ast_builder.build(grammar_result, path=path)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\ast_builder.py\", line 256, in build\n    raise ParseError(f\"AST validation failed: {'; '.join(errors)}\")\nshtest_compiler.parser.core.ParseError: AST validation failed: Step 'Default Step' has no actions\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\run_all.py\", line 98, in <module>\n    main()\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\run_all.py\", line 84, in main\n    run_syntax_check(input_dir)\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\run_all.py\", line 40, in run_syntax_check\n    check_file(file_path)\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\verify_syntax.py\", line 13, in check_file\n    parser.parse(content, path=file_path)\n  File \"C:\\Users\\Sventer\\OneDrive\\Documents\\batch testing\\src\\shtest_compiler\\parser\\configurable_parser.py\", line 47, in parse\n    raise ParseError(f\"Parser error: {e}\")\nshtest_compiler.parser.core.ParseError: Parser error: AST validation failed: Step 'Default Step' has no actions\n"
+    },
+    {
+      "name": "shellcheck_alias_action_cat.sh",
+      "result": "FAILED",
+      "duration": 0.6357073783874512,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_cat.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_cat.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_action_copy.sh",
+      "result": "FAILED",
+      "duration": 0.6887414455413818,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_copy.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_copy.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_action_execution.sh",
+      "result": "FAILED",
+      "duration": 0.6193146705627441,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_execution.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_execution.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_action_fileop.sh",
+      "result": "FAILED",
+      "duration": 0.6819140911102295,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_fileop.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_fileop.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_action_initialisation.sh",
+      "result": "FAILED",
+      "duration": 0.5865154266357422,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_initialisation.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_initialisation.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_action_purge.sh",
+      "result": "FAILED",
+      "duration": 0.6645052433013916,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_purge.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_purge.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_action_touch.sh",
+      "result": "FAILED",
+      "duration": 0.6455304622650146,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_action_touch.sh: /mnt/src\\testing\\tests\\e2e\\alias_action_touch.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_aucun_message_erreur.sh",
+      "result": "FAILED",
+      "duration": 0.5983459949493408,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_aucun_message_erreur.sh: /mnt/src\\testing\\tests\\e2e\\alias_aucun_message_erreur.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_base_prete.sh",
+      "result": "FAILED",
+      "duration": 0.658078670501709,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_base_prete.sh: /mnt/src\\testing\\tests\\e2e\\alias_base_prete.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_contenu_affiche.sh",
+      "result": "FAILED",
+      "duration": 0.5816555023193359,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_contenu_affiche.sh: /mnt/src\\testing\\tests\\e2e\\alias_contenu_affiche.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_contenu_correct.sh",
+      "result": "FAILED",
+      "duration": 0.6044511795043945,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_contenu_correct.sh: /mnt/src\\testing\\tests\\e2e\\alias_contenu_correct.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_date_modifiee.sh",
+      "result": "FAILED",
+      "duration": 0.5743427276611328,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_date_modifiee.sh: /mnt/src\\testing\\tests\\e2e\\alias_date_modifiee.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_dossier_cree.sh",
+      "result": "FAILED",
+      "duration": 0.60601806640625,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_dossier_cree.sh: /mnt/src\\testing\\tests\\e2e\\alias_dossier_cree.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_fichier_identique.sh",
+      "result": "FAILED",
+      "duration": 0.5905277729034424,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_fichier_identique.sh: /mnt/src\\testing\\tests\\e2e\\alias_fichier_identique.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_identifiants_configures.sh",
+      "result": "FAILED",
+      "duration": 0.5726022720336914,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_identifiants_configures.sh: /mnt/src\\testing\\tests\\e2e\\alias_identifiants_configures.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_logs_accessibles.sh",
+      "result": "FAILED",
+      "duration": 0.5686511993408203,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_logs_accessibles.sh: /mnt/src\\testing\\tests\\e2e\\alias_logs_accessibles.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_resultat_combinatoire.sh",
+      "result": "FAILED",
+      "duration": 0.5642437934875488,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_resultat_combinatoire.sh: /mnt/src\\testing\\tests\\e2e\\alias_resultat_combinatoire.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_alias_step.sh",
+      "result": "FAILED",
+      "duration": 0.5964043140411377,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\alias_step.sh: /mnt/src\\testing\\tests\\e2e\\alias_step.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_example.sh",
+      "result": "FAILED",
+      "duration": 0.5723211765289307,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\example.sh: /mnt/src\\testing\\tests\\e2e\\example.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_orphan_actions_example.sh",
+      "result": "FAILED",
+      "duration": 0.571577787399292,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\orphan_actions_example.sh: /mnt/src\\testing\\tests\\e2e\\orphan_actions_example.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_sql_comparison_example.sh",
+      "result": "FAILED",
+      "duration": 0.5724954605102539,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\sql_comparison_example.sh: /mnt/src\\testing\\tests\\e2e\\sql_comparison_example.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_sql_conn_custom.sh",
+      "result": "FAILED",
+      "duration": 0.5995252132415771,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\sql_conn_custom.sh: /mnt/src\\testing\\tests\\e2e\\sql_conn_custom.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_sql_script_test.sh",
+      "result": "FAILED",
+      "duration": 0.6360001564025879,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\sql_script_test.sh: /mnt/src\\testing\\tests\\e2e\\sql_script_test.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_all_validations.sh",
+      "result": "FAILED",
+      "duration": 0.5883865356445312,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_all_validations.sh: /mnt/src\\testing\\tests\\e2e\\test_all_validations.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_basic_checks.sh",
+      "result": "FAILED",
+      "duration": 0.6039180755615234,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_basic_checks.sh: /mnt/src\\testing\\tests\\e2e\\test_basic_checks.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_1.sh",
+      "result": "FAILED",
+      "duration": 0.6043896675109863,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_1.sh: /mnt/src\\testing\\tests\\e2e\\test_case_1.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_2.sh",
+      "result": "FAILED",
+      "duration": 0.6052112579345703,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_2.sh: /mnt/src\\testing\\tests\\e2e\\test_case_2.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_3.sh",
+      "result": "FAILED",
+      "duration": 0.5900530815124512,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_3.sh: /mnt/src\\testing\\tests\\e2e\\test_case_3.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_4.sh",
+      "result": "FAILED",
+      "duration": 0.5729656219482422,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_4.sh: /mnt/src\\testing\\tests\\e2e\\test_case_4.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_5.sh",
+      "result": "FAILED",
+      "duration": 0.5908331871032715,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_5.sh: /mnt/src\\testing\\tests\\e2e\\test_case_5.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_6.sh",
+      "result": "FAILED",
+      "duration": 0.5732972621917725,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_6.sh: /mnt/src\\testing\\tests\\e2e\\test_case_6.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_case_7.sh",
+      "result": "FAILED",
+      "duration": 0.5994086265563965,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_case_7.sh: /mnt/src\\testing\\tests\\e2e\\test_case_7.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_file_contains.sh",
+      "result": "FAILED",
+      "duration": 0.646186113357544,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_file_contains.sh: /mnt/src\\testing\\tests\\e2e\\test_file_contains.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_stdout_stderr.sh",
+      "result": "FAILED",
+      "duration": 0.5672674179077148,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_stdout_stderr.sh: /mnt/src\\testing\\tests\\e2e\\test_stdout_stderr.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "shellcheck_test_variable_equals.sh",
+      "result": "FAILED",
+      "duration": 0.6424310207366943,
+      "output": "",
+      "error": "/mnt/src\\testing\\tests\\e2e\\test_variable_equals.sh: /mnt/src\\testing\\tests\\e2e\\test_variable_equals.sh: openBinaryFile: does not exist (No such file or directory)\n"
+    },
+    {
+      "name": "integration_tests",
+      "result": "FAILED",
+      "duration": 1.1264142990112305,
+      "output": "alias_action_cat.sh: FAIL\nalias_base_prete.sh: FAIL\nexample.sh: FAIL\nsql_comparison_example.sh: FAIL\nsql_conn_custom.sh: FAIL\nsql_script_test.sh: FAIL\ntest_all_validations.sh: FAIL\ntest_basic_checks.sh: FAIL\ntest_case_1.sh: FAIL\ntest_file_contains.sh: FAIL\ntest_stdout_stderr.sh: FAIL\ntest_variable_equals.sh: FAIL",
+      "error": null
+    }
+  ]
+}

@@ -8,7 +8,7 @@ by the configurable lexer.
 import re
 from typing import Any, Dict, Iterator, List
 
-from ...config.debug_config import debug_print, is_debug_enabled
+from ...utils.logger import debug_log, is_debug_enabled
 from .core import Token, TokenType
 
 
@@ -58,8 +58,8 @@ class RegexTokenizer(Tokenizer):
             # Skip empty lines
             if not stripped:
                 if self.debug or is_debug_enabled():
-                    debug_print(
-                        f"[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line {lineno}"
+                    debug_log(
+                        f"RegexTokenizer.tokenize: Yielding EMPTY token at line {lineno}"
                     )
                 yield Token(
                     type=TokenType.EMPTY, value="", lineno=lineno, original=line
@@ -77,8 +77,8 @@ class RegexTokenizer(Tokenizer):
                     original=line,
                 )
                 if self.debug or is_debug_enabled():
-                    debug_print(
-                        f"[DEBUG] RegexTokenizer.tokenize: Yielding token type={token.type}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)} at line {lineno}"
+                    debug_log(
+                        f"RegexTokenizer.tokenize: Yielding token type={token.type}, value={token.value}, result={getattr(token, 'result', None)}, original={getattr(token, 'original', None)} at line {lineno}"
                     )
                 yield token
             else:
@@ -87,8 +87,8 @@ class RegexTokenizer(Tokenizer):
                     type=TokenType.TEXT, value=stripped, lineno=lineno, original=line
                 )
                 if self.debug or is_debug_enabled():
-                    debug_print(
-                        f"[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value={stripped} at line {lineno}"
+                    debug_log(
+                        f"RegexTokenizer.tokenize: Yielding TEXT token value={stripped} at line {lineno}"
                     )
                 yield token
 

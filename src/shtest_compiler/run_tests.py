@@ -32,8 +32,10 @@ def run_unit_tests(verbose=False):
                 print(result.stderr)
         return result.returncode == 0
     except Exception as e:
-        print(f"Error running unit tests: {e}")
-        return False
+        from shtest_compiler.utils.logger import log_pipeline_error
+        import traceback
+        log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+        raise
 
 
 def compile_e2e_tests(verbose=False):
@@ -62,8 +64,10 @@ def compile_e2e_tests(verbose=False):
                 print(result.stderr)
         return result.returncode == 0
     except Exception as e:
-        print(f"Error compiling E2E tests: {e}")
-        return False
+        from shtest_compiler.utils.logger import log_pipeline_error
+        import traceback
+        log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+        raise
 
 
 def run_integration_tests(verbose=False):
@@ -101,7 +105,9 @@ def run_integration_tests(verbose=False):
             print(f"    {script.name} timed out")
             failed += 1
         except Exception as e:
-            print(f"    {script.name} error: {e}")
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
             failed += 1
 
     print(f"Integration Tests Summary: {passed} passed, {failed} failed")
@@ -129,8 +135,7 @@ def verify_e2e_syntax():
         print(f"  Verifying {shtest_file.name}...")
         try:
             # Use the new ConfigurableParser for verification
-            from shtest_compiler.parser.configurable_parser import \
-                ConfigurableParser
+            from shtest_compiler.parser.configurable_parser import ConfigurableParser
 
             with open(shtest_file, encoding="utf-8") as f:
                 content = f.read()
@@ -149,7 +154,9 @@ def verify_e2e_syntax():
                 failed += 1
 
         except Exception as e:
-            print(f"    {shtest_file.name} syntax error: {e}")
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
             failed += 1
 
     print(f"Syntax Verification Summary: {passed} passed, {failed} failed")

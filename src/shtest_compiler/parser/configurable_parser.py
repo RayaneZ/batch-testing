@@ -5,7 +5,7 @@ Configurable parser that can use different lexers, grammars, and AST builders.
 import os
 from typing import Optional
 
-from ..config.debug_config import debug_print, is_debug_enabled
+from ..utils.logger import debug_log, is_debug_enabled
 from .ast_builder import DefaultASTBuilder
 from .core import ParseError
 from .grammar import DefaultGrammar
@@ -33,14 +33,17 @@ class ConfigurableParser:
         """Parse text into an AST."""
         try:
             if self.debug:
-                debug_print(f"[DEBUG] Parsing text with {len(text.splitlines())} lines")
+                debug_log(f"Parsing text with {len(text.splitlines())} lines")
             tokens = list(self.lexer.lex(text))
             if self.debug:
-                debug_print(f"[DEBUG] Got {len(tokens)} tokens")
+                debug_log(f"Got {len(tokens)} tokens")
             grammar_result = self.grammar.match(tokens)
             ast = self.ast_builder.build(grammar_result, path=path)
             return ast
         except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] Parser error: {e}\n{traceback.format_exc()}")
             raise ParseError(f"Parser error: {e}")
 
     def parse_file(self, file_path: str) -> ShtestFile:
@@ -50,4 +53,7 @@ class ConfigurableParser:
                 text = f.read()
             return self.parse(text, path=file_path)
         except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] Parser error in file {file_path}: {e}\n{traceback.format_exc()}")
             raise ParseError(f"Parser error in file {file_path}: {e}")

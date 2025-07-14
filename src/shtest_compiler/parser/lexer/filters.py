@@ -7,7 +7,7 @@ by the configurable lexer to process tokens.
 
 from typing import Iterator, List
 
-from ...config.debug_config import debug_print, is_debug_enabled
+from ...utils.logger import debug_log, is_debug_enabled
 from .core import Token
 
 
@@ -36,7 +36,7 @@ class EmptyFilter(Filter):
         for token in tokens:
             if token.kind != "EMPTY":
                 if verbose and is_debug_enabled():
-                    debug_print(f"[DEBUG] Token: {token}")
+                    debug_log(f"Token: {token}")
                 yield token
 
 
@@ -48,7 +48,7 @@ class WhitespaceFilter(Filter):
         for token in tokens:
             if token.value.strip():
                 if verbose and is_debug_enabled():
-                    debug_print(f"[DEBUG] Token: {token}")
+                    debug_log(f"Token: {token}")
                 yield token
 
 
@@ -60,7 +60,7 @@ class CommentFilter(Filter):
         for token in tokens:
             if not token.value.startswith("#"):
                 if verbose and is_debug_enabled():
-                    debug_print(f"[DEBUG] Token: {token}")
+                    debug_log(f"Token: {token}")
                 yield token
 
 
@@ -71,7 +71,7 @@ class DebugFilter(Filter):
         """Add debug information to tokens."""
         for token in tokens:
             if verbose and is_debug_enabled():
-                debug_print(f"[DEBUG] Processing token: {token}")
+                debug_log(f"Processing token: {token}")
             yield token
 
 

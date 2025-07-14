@@ -11,8 +11,13 @@ from pathlib import Path
 
 import pytest
 
-from shtest_compiler.parser.lexer import (ConfigurableLexer, LexerError,
-                                          PatternLoader, Token, TokenType)
+from shtest_compiler.parser.lexer import (
+    ConfigurableLexer,
+    LexerError,
+    PatternLoader,
+    Token,
+    TokenType,
+)
 from shtest_compiler.parser.lexer.tokenizers import RegexTokenizer
 
 

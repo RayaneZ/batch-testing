@@ -26,8 +26,10 @@ def generate_tests(input_dir: str, output_dir: str):
             )
             print(f"Generated {out_path}")
         except Exception as e:
-            print(f"[ERROR] Failed to compile {txt_file}: {e}", file=sys.stderr)
-            any_failed = True
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
     if any_failed:
         print("[FAIL] One or more files failed to compile.", file=sys.stderr)
         sys.exit(1)

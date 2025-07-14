@@ -6,11 +6,11 @@ This module provides the main parser for converting .shtest files into AST nodes
 
 from typing import List, Optional
 
-from ..config.debug_config import debug_print, is_debug_enabled
+from ..utils.logger import debug_log, is_debug_enabled
 from .lexer import Token
 from .shtest_ast import Action, ShtestFile, TestStep
 
-debug_print("PARSER DEBUG ACTIVE: src/shtest_compiler/parser/shtest_parser.py loaded")
+debug_log("PARSER DEBUG ACTIVE: src/shtest_compiler/parser/shtest_parser.py loaded")
 
 
 class ShtestParser:
@@ -38,8 +38,8 @@ class ShtestParser:
         for i, token in enumerate(tokens):
             if token.kind == "STEP":
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Parser: Processing STEP token: value='{token.value}' at line {token.lineno}"
+                    debug_log(
+                        f"Parser: Processing STEP token: value='{token.value}' at line {token.lineno}"
                     )
 
                 # Add any pending action to the previous step
@@ -50,8 +50,8 @@ class ShtestParser:
                 # If this is the first step and there are orphans, add a synthetic step
                 if current_step is None and orphan_actions:
                     if self.debug:
-                        debug_print(
-                            f"[DEBUG] Parser: Creating synthetic 'Orphan Actions' step with {len(orphan_actions)} actions"
+                        debug_log(
+                            f"Parser: Creating synthetic 'Orphan Actions' step with {len(orphan_actions)} actions"
                         )
                     synthetic = TestStep(name="Orphan Actions", lineno=1)
                     synthetic.actions = orphan_actions.copy()
@@ -64,8 +64,8 @@ class ShtestParser:
 
             elif token.kind == "ACTION_ONLY":
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Parser: Processing ACTION_ONLY token: value='{token.value}' at line {token.lineno}"
+                    debug_log(
+                        f"Parser: Processing ACTION_ONLY token: value='{token.value}' at line {token.lineno}"
                     )
 
                 if pending_action and current_step:
@@ -80,16 +80,16 @@ class ShtestParser:
 
                 if current_step is None:
                     if self.debug:
-                        debug_print(
-                            f"[DEBUG] Parser: Adding orphan action: {token.value}"
+                        debug_log(
+                            f"Parser: Adding orphan action: {token.value}"
                         )
                     orphan_actions.append(pending_action)
                     pending_action = None
 
             elif token.kind == "RESULT_ONLY":
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Parser: Processing RESULT_ONLY token: value='{token.value}' at line {token.lineno}"
+                    debug_log(
+                        f"Parser: Processing RESULT_ONLY token: value='{token.value}' at line {token.lineno}"
                     )
 
                 if pending_action:
@@ -98,8 +98,8 @@ class ShtestParser:
                         current_step.actions.append(pending_action)
                     elif current_step is None:
                         if self.debug:
-                            debug_print(
-                                f"[DEBUG] Parser: Adding orphan action with result: {pending_action.command} -> {token.value}"
+                            debug_log(
+                                f"Parser: Adding orphan action with result: {pending_action.command} -> {token.value}"
                             )
                         orphan_actions.append(pending_action)
                     pending_action = None
@@ -114,15 +114,15 @@ class ShtestParser:
                         current_step.actions.append(action)
                     elif current_step is None:
                         if self.debug:
-                            debug_print(
-                                f"[DEBUG] Parser: Adding orphan result-only action: {token.value}"
+                            debug_log(
+                                f"Parser: Adding orphan result-only action: {token.value}"
                             )
                         orphan_actions.append(action)
 
             elif token.kind == "ACTION_RESULT":
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Parser: Processing ACTION_RESULT token: value='{token.value}' at line {token.lineno}"
+                    debug_log(
+                        f"Parser: Processing ACTION_RESULT token: value='{token.value}' at line {token.lineno}"
                     )
 
                 if pending_action and current_step:
@@ -151,8 +151,8 @@ class ShtestParser:
                     current_step.actions.append(action)
                 elif current_step is None:
                     if self.debug:
-                        debug_print(
-                            f"[DEBUG] Parser: Adding orphan action-result: {action.command} -> {action.result_expr}"
+                        debug_log(
+                            f"Parser: Adding orphan action-result: {action.command} -> {action.result_expr}"
                         )
                     orphan_actions.append(action)
 
@@ -162,16 +162,16 @@ class ShtestParser:
                 current_step.actions.append(pending_action)
             elif current_step is None:
                 if self.debug:
-                    debug_print(
-                        f"[DEBUG] Parser: Adding final orphan action: {pending_action.command}"
+                    debug_log(
+                        f"Parser: Adding final orphan action: {pending_action.command}"
                     )
                 orphan_actions.append(pending_action)
 
         # If there are still orphans at the end and no steps, add them as a synthetic step
         if orphan_actions and not shtest_file.steps:
             if self.debug:
-                debug_print(
-                    f"[DEBUG] Parser: Creating final synthetic 'Orphan Actions' step with {len(orphan_actions)} actions"
+                debug_log(
+                    f"Parser: Creating final synthetic 'Orphan Actions' step with {len(orphan_actions)} actions"
                 )
             synthetic = TestStep(name="Orphan Actions", lineno=1)
             synthetic.actions = orphan_actions

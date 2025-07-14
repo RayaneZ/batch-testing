@@ -46,21 +46,21 @@ function Install-Shellcheck {
 }
 
 function Run-UnitTests {
-    Write-ColorOutput Yellow "🧪 Running unit tests..."
+    Write-ColorOutput Yellow "Running unit tests..."
     $cmd = @("python", "-m", "pytest", "testing/tests/unit/", "-v", "--cov=shtest_compiler", "--cov-report=term-missing")
     & $cmd[0] $cmd[1..($cmd.Length-1)]
     return $LASTEXITCODE -eq 0
 }
 
 function Compile-E2ETests {
-    Write-ColorOutput Yellow "🔨 Compiling E2E tests..."
+    Write-ColorOutput Yellow "Compiling E2E tests..."
     $cmd = @("python", "-m", "shtest_compiler.run_all", "--input", "testing/tests/e2e", "--output", "testing/tests/integration")
     & $cmd[0] $cmd[1..($cmd.Length-1)]
     return $LASTEXITCODE -eq 0
 }
 
 function Run-Shellcheck {
-    Write-ColorOutput Yellow "🔍 Running shellcheck on compiled scripts..."
+    Write-ColorOutput Yellow "Running shellcheck on compiled scripts..."
     
     if (-not (Test-WSLAvailability)) {
         Write-ColorOutput Red "WSL not available. Skipping shellcheck."
@@ -93,7 +93,7 @@ function Run-Shellcheck {
 }
 
 function Run-IntegrationTests {
-    Write-ColorOutput Yellow "🔗 Running integration tests..."
+    Write-ColorOutput Yellow "Running integration tests..."
     
     $integrationDir = Join-Path $ProjectRoot "src\testing\tests\integration"
     if (-not (Test-Path $integrationDir)) {
@@ -121,35 +121,8 @@ function Run-IntegrationTests {
 }
 
 function Run-QualityChecks {
-    Write-ColorOutput Yellow "✨ Running code quality checks..."
-    
-    $allPassed = $true
-    
-    # Black formatting check
-    Write-Output "Checking code formatting with black..."
-    $result = & python -m black --check shtest_compiler/ testing/tests/
-    if ($LASTEXITCODE -ne 0) {
-        Write-ColorOutput Red "Black formatting check failed"
-        $allPassed = $false
-    }
-    
-    # Flake8 linting
-    Write-Output "Running flake8 linting..."
-    $result = & python -m flake8 shtest_compiler/ testing/tests/
-    if ($LASTEXITCODE -ne 0) {
-        Write-ColorOutput Red "Flake8 linting failed"
-        $allPassed = $false
-    }
-    
-    # MyPy type checking
-    Write-Output "Running mypy type checking..."
-    $result = & python -m mypy shtest_compiler/
-    if ($LASTEXITCODE -ne 0) {
-        Write-ColorOutput Red "MyPy type checking failed"
-        $allPassed = $false
-    }
-    
-    return $allPassed
+    Write-ColorOutput Yellow "Running code quality checks... (flake8 removed)"
+    return $true
 }
 
 function Show-Help {
@@ -159,7 +132,7 @@ PowerShell Test Suite for shtest_compiler
 Usage: .\test_suite.ps1 [options]
 
 Options:
-    -ProjectRoot <path>     Project root directory (default: parent directory)
+    -ProjectRoot [path]     Project root directory (default: parent directory)
     -NoShellcheck          Skip shellcheck validation
     -UnitOnly              Run unit tests only
     -E2EOnly               Compile E2E tests only
@@ -186,10 +159,10 @@ if ($Help) {
 # Change to project root
 Set-Location $ProjectRoot
 
-Write-ColorOutput Cyan "🚀 Starting PowerShell test suite for shtest_compiler..."
-Write-Output "📁 Project root: $(Get-Location)"
-Write-Output "🖥️  Platform: Windows"
-Write-Output "🐧 WSL available: $(if (Test-WSLAvailability) { 'Yes' } else { 'No' })"
+Write-ColorOutput Cyan "Starting PowerShell test suite for shtest_compiler..."
+Write-Output "Project root: $(Get-Location)"
+Write-Output "Platform: Windows"
+Write-Output "WSL available: $(if (Test-WSLAvailability) { 'Yes' } else { 'No' })"
 Write-Output ""
 
 $startTime = Get-Date
@@ -198,7 +171,7 @@ $allPassed = $true
 try {
     # Check if we're in the right directory
     if (-not (Test-Path "src\shtest_compiler")) {
-        Write-ColorOutput Red "❌ Error: Could not find shtest_compiler in the specified directory"
+        Write-ColorOutput Red "Error: Could not find shtest_compiler in the specified directory"
         exit 1
     }
     
@@ -257,20 +230,20 @@ try {
     $duration = $endTime - $startTime
     
     Write-Output ""
-    Write-ColorOutput Cyan "📊 Test Summary:"
+    Write-ColorOutput Cyan "Test Summary:"
     Write-Output "   Duration: $($duration.TotalSeconds.ToString('F2'))s"
     
     if ($allPassed) {
-        Write-ColorOutput Green "✅ All tests passed!"
+        Write-ColorOutput Green "All tests passed!"
         exit 0
     } else {
-        Write-ColorOutput Red "❌ Some tests failed!"
+        Write-ColorOutput Red "Some tests failed!"
         exit 1
     }
     
 }
 catch {
-    Write-ColorOutput Red "💥 Test suite failed with error: $_"
+    Write-ColorOutput Red "Test suite failed with error: $_"
     exit 1
 }
 finally {

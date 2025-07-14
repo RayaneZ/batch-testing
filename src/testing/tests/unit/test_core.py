@@ -1,8 +1,10 @@
 import pytest
 
-from shtest_compiler.ast.shell_framework_ast import (ShellFrameworkAST,
-                                                     ShellTestStep,
-                                                     ValidationCheck)
+from shtest_compiler.ast.shell_framework_ast import (
+    ShellFrameworkAST,
+    ShellTestStep,
+    ValidationCheck,
+)
 from shtest_compiler.ast.shell_framework_binder import ShellFrameworkBinder
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
 from shtest_compiler.parser.lexer.configurable_lexer import ConfigurableLexer
@@ -67,7 +69,7 @@ def test_scope_enforcement_raises_on_local_validation_without_action():
         expected="dummy",
         actual_cmd="true",
         handler="dummy_handler",
-        scope="last_action"
+        scope="last_action",
     )
     local_validation.phrase = "Fake local validation"
     # Create a step with no actions but with a local validation

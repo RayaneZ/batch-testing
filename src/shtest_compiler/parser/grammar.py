@@ -10,6 +10,7 @@ from typing import Any, Callable, Dict, List, Optional
 
 from .core import Grammar, TokenLike
 from .lexer.core import Token, TokenType
+from shtest_compiler.utils.logger import debug_log, is_debug_enabled
 
 
 class GrammarRule:
@@ -97,18 +98,15 @@ class DefaultGrammar(Grammar):
         if not tokens:
             return tokens
 
-        from shtest_compiler.config.debug_config import (debug_print,
-                                                         is_debug_enabled)
-
         debug_enabled = is_debug_enabled()
 
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] Grammar: _merge_action_result called with {len(tokens)} tokens"
+            debug_log(
+                f"Grammar: _merge_action_result called with {len(tokens)} tokens"
             )
             for i, t in enumerate(tokens):
-                debug_print(
-                    f"[DEBUG] Grammar: Token {i}: kind={t.kind}, value='{t.value}'"
+                debug_log(
+                    f"Grammar: Token {i}: kind={t.kind}, value='{t.value}'"
                 )
 
         merged = []
@@ -124,8 +122,8 @@ class DefaultGrammar(Grammar):
                 action_token = t
                 result_token = tokens[i + 1]
                 if debug_enabled:
-                    debug_print(
-                        f"[DEBUG] Grammar: Merging ACTION_ONLY '{action_token.value}' with RESULT_ONLY '{result_token.value}'"
+                    debug_log(
+                        f"Grammar: Merging ACTION_ONLY '{action_token.value}' with RESULT_ONLY '{result_token.value}'"
                     )
 
                 merged_token = type(t)(
@@ -143,8 +141,8 @@ class DefaultGrammar(Grammar):
                 i += 1
 
         if debug_enabled:
-            debug_print(
-                f"[DEBUG] Grammar: _merge_action_result returning {len(merged)} tokens"
+            debug_log(
+                f"Grammar: _merge_action_result returning {len(merged)} tokens"
             )
 
         return merged

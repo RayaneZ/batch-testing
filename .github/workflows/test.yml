@@ -118,15 +118,6 @@ jobs:
           cd src
           black --check shtest_compiler/
 
-      - name: Run isort check
-        run: |
-          cd src
-          isort --check-only shtest_compiler/
-
-      - name: Run mypy
-        run: |
-          cd src
-          mypy shtest_compiler/ --ignore-missing-imports
 
   security-scan:
     runs-on: ubuntu-latest

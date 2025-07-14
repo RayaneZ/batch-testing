@@ -5,10 +5,11 @@ from shtest_compiler.ast.shell_framework_ast import ActionNode
 
 class SQLCompareAction(ActionNode):
     def __init__(
-        self, query1, query2, driver="oracle", tolerance=0.0, ignore_order=False
+        self, query1, query2, sql_conn, driver="oracle", tolerance=0.0, ignore_order=False
     ):
         self.query1 = query1
         self.query2 = query2
+        self.sql_conn = sql_conn
         self.driver = driver
         self.tolerance = tolerance
         self.ignore_order = ignore_order
@@ -23,20 +24,20 @@ class SQLCompareAction(ActionNode):
         return f"{export_cmd1} && {export_cmd2} && {compare_cmd} && {cleanup_cmd}"
 
     def _export_query(self, query, output_file):
-        sql_conn = os.environ.get("SQL_CONN", "")
         if self.driver == "oracle":
-            return self._oracle_export(query, sql_conn, output_file)
+            return self._oracle_export(query, output_file)
         elif self.driver == "postgres":
-            return self._postgres_export(query, sql_conn, output_file)
+            return self._postgres_export(query, output_file)
         elif self.driver == "mysql":
-            return self._mysql_export(query, sql_conn, output_file)
+            return self._mysql_export(query, output_file)
         else:
-            return self._oracle_export(query, sql_conn, output_file)
+            return self._oracle_export(query, output_file)
 
-    def _oracle_export(self, query, sql_conn, output_file):
+    def _oracle_export(self, query, output_file):
         temp_sql = f"temp_query_{hash(query) % 10000}.sql"
         temp_csv = f"temp_csv_{hash(query) % 10000}.csv"
-        return f"""cat > {temp_sql} << 'EOF'
+        try:
+            return f"""cat > {temp_sql} << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -46,7 +47,7 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 {query}
 EOF
-sqlplus -s {sql_conn} @{temp_sql} > {temp_csv}
+sqlplus -s {self.sql_conn} @{temp_sql} > {temp_csv}
 python3 -c "
 import pandas as pd
 import sys
@@ -59,10 +60,16 @@ except Exception as e:
     sys.exit(1)
 "
 rm -f {temp_sql} {temp_csv}"""
+        except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
 
-    def _postgres_export(self, query, sql_conn, output_file):
+    def _postgres_export(self, query, output_file):
         temp_csv = f"temp_csv_{hash(query) % 10000}.csv"
-        return f"""echo "{query}" | psql "{sql_conn}" -A -t --csv > {temp_csv}
+        try:
+            return f"""echo "{query}" | psql "{self.sql_conn}" -A -t --csv > {temp_csv}
 python3 -c "
 import pandas as pd
 import sys
@@ -75,10 +82,16 @@ except Exception as e:
     sys.exit(1)
 "
 rm -f {temp_csv}"""
+        except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
 
-    def _mysql_export(self, query, sql_conn, output_file):
+    def _mysql_export(self, query, output_file):
         temp_csv = f"temp_csv_{hash(query) % 10000}.csv"
-        return f"""echo "{query}" | mysql "{sql_conn}" --batch --raw > {temp_csv}
+        try:
+            return f"""echo "{query}" | mysql "{self.sql_conn}" --batch --raw > {temp_csv}
 python3 -c "
 import pandas as pd
 import sys
@@ -91,10 +104,16 @@ except Exception as e:
     sys.exit(1)
 "
 rm -f {temp_csv}"""
+        except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
 
     def _compare_excel_files(self, file1, file2):
         ignore_order_flag = "True" if self.ignore_order else "False"
-        return f'''python3 -c "
+        try:
+            return f'''python3 -c "
 import pandas as pd
 import numpy as np
 import sys
@@ -137,12 +156,18 @@ success = compare_excel_files('{file1}', '{file2}')
 if not success:
     sys.exit(1)
 "'''
+        except Exception as e:
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
+            raise
 
 
 def handle(params):
     query1 = params["query1"]
     query2 = params["query2"]
-    driver = params.get("driver", "oracle")
+    sql_conn = params["SQL_CONN"]
+    driver = params.get("SQL_DRIVER", params.get("driver", "oracle"))
     tolerance = params.get("tolerance", 0.0)
     ignore_order = params.get("ignore_order", False)
-    return SQLCompareAction(query1, query2, driver, tolerance, ignore_order)
+    return SQLCompareAction(query1, query2, sql_conn, driver, tolerance, ignore_order)

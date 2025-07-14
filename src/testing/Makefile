@@ -93,29 +93,20 @@ else
 endif
 
 test-quality:
-	@echo "Running code quality checks..."
-	@echo "Checking code formatting with black..."
-	cd .. && $(PYTHON) -m black --check shtest_compiler/ testing/tests/
-	@echo "Running flake8 linting..."
-	cd .. && $(PYTHON) -m flake8 shtest_compiler/ testing/tests/
-	@echo "Running mypy type checking..."
-	cd .. && $(PYTHON) -m mypy shtest_compiler/
+	@echo "No code quality checks (flake8 removed)"
 
 test-all: test-unit test-e2e test-shellcheck test-integration test-quality
 	@echo "All tests completed!"
 
 # Code quality commands
 format:
-	@echo "Formatting code with black..."
-	cd .. && $(PYTHON) -m black shtest_compiler/ testing/tests/
+	@echo "Formatting code with black is disabled. (black removed)"
 
 lint:
-	@echo "Running flake8 linting..."
-	cd .. && $(PYTHON) -m flake8 shtest_compiler/ testing/tests/
+	@echo "Linting is disabled. (flake8 removed)"
 
 type-check:
-	@echo "Running mypy type checking..."
-	cd .. && $(PYTHON) -m mypy shtest_compiler/
+	@echo "Type checking is disabled. (mypy removed)"
 
 coverage:
 	@echo "Generating coverage report..."

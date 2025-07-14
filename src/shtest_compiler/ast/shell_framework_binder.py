@@ -4,12 +4,14 @@ from typing import Dict, List, Tuple
 
 import yaml
 
-from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
-                                                     ShellFrameworkAST,
-                                                     ShellFunctionCall,
-                                                     ShellFunctionDef,
-                                                     ShellTestStep,
-                                                     ValidationCheck)
+from shtest_compiler.ast.shell_framework_ast import (
+    InlineShellCode,
+    ShellFrameworkAST,
+    ShellFunctionCall,
+    ShellFunctionDef,
+    ShellTestStep,
+    ValidationCheck,
+)
 from shtest_compiler.parser.shtest_ast import Action
 
 # Use only the scope attribute on ValidationCheck
@@ -127,17 +129,41 @@ class ShellFrameworkBinder:
     Should be run after ShellFrameworkLifter.
     """
 
+    SQL_HANDLERS = {
+        "run_sql_script",
+        "sql_query",
+        "sql_export",
+        "sql_compare",
+        "credentials_configured",
+    }
+
     def __init__(self, ast: ShellFrameworkAST):
         self.ast = ast
         self.action_map: Dict[str, Tuple[ShellFunctionDef, List[str]]] = (
             {}
         )  # key -> (helper, param_names)
         self.helper_counter = 0
+        # Store context variables for lookup (if available)
+        self.context_variables = self._collect_context_variables()
+
+    def _collect_context_variables(self):
+        # Try to collect variables from the AST steps if present
+        variables = {}
+        for step in getattr(self.ast, "steps", []):
+            for action in getattr(step, "actions", []):
+                if hasattr(action, "variables") and isinstance(action.variables, dict):
+                    variables.update(action.variables)
+        return variables
+
+    def get_context_variable(self, name):
+        # Try AST context first, then environment
+        return self.context_variables.get(name) or os.environ.get(name, "")
 
     def bind_missing_validation_params(self):
         """
         For each step, for each ValidationCheck, if any param is None,
         try to extract it from the associated action's command using regex.
+        For SQL-related handlers, ensure SQL_CONN and SQL_DRIVER are set.
         """
         for step in self.ast.steps:
             for action in step.actions:
@@ -149,6 +175,12 @@ class ShellFrameworkBinder:
                 )
                 for validation in validations:
                     if isinstance(validation, ValidationCheck):
+                        # Ensure SQL_CONN and SQL_DRIVER for SQL handlers
+                        if getattr(validation, "handler", None) in self.SQL_HANDLERS:
+                            if "SQL_CONN" not in validation.params or not validation.params["SQL_CONN"]:
+                                validation.params["SQL_CONN"] = self.get_context_variable("SQL_CONN")
+                            if "SQL_DRIVER" not in validation.params or not validation.params["SQL_DRIVER"]:
+                                validation.params["SQL_DRIVER"] = self.get_context_variable("SQL_DRIVER")
                         for pname, pval in validation.params.items():
                             if pval is None:
                                 val = self._extract_param_from_action_command(
@@ -166,10 +198,11 @@ class ShellFrameworkBinder:
             return None
 
         # Use the existing argument extraction logic
-        from shtest_compiler.compiler.argument_extractor import \
-            extract_action_args
+        from shtest_compiler.compiler.argument_extractor import extract_action_args
         from shtest_compiler.compiler.shell_generator import (
-            canonize_action, extract_action_groups)
+            canonize_action,
+            extract_action_groups,
+        )
 
         command = action.command
 

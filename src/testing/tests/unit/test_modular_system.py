@@ -11,10 +11,16 @@ from pathlib import Path
 import pytest
 
 from shtest_compiler.compiler.compiler import ModularCompiler
-from shtest_compiler.parser import (ConfigurableParser, CustomASTBuilder,
-                                    CustomGrammar, DefaultASTBuilder,
-                                    DefaultGrammar, GrammarRule,
-                                    ast_builder_registry, grammar_registry)
+from shtest_compiler.parser import (
+    ConfigurableParser,
+    CustomASTBuilder,
+    CustomGrammar,
+    DefaultASTBuilder,
+    DefaultGrammar,
+    GrammarRule,
+    ast_builder_registry,
+    grammar_registry,
+)
 from shtest_compiler.parser.lexer import Token, TokenType
 from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
 

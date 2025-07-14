@@ -6,6 +6,16 @@
 #   - handler: The name of the Python function (in handlers/) to call
 #   - description: (Optional) A short description of what the validation does
 #
-- pattern: "example file exists"
-  handler: "example_file_exists"
-  description: "Checks if the example file exists in the target directory." 
+validations:
+  - phrase: Le dossier {target_dir} existe
+    handler: example_file_exists
+    aliases:
+      - le dossier {target_dir} est créé
+      - le dossier {target_dir} est présent
+      - le dossier {target_dir} est disponible
+      - le dossier {target_dir} est accessible
+      - le dossier {target_dir} est visible
+      - le dossier {target_dir} est présent
+      - le dossier {target_dir} est disponible
+      - le dossier {target_dir} est accessible
+      - le dossier {target_dir} est visible

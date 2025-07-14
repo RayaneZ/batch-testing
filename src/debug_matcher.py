@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 from shtest_compiler.compiler.matchers.basic_checks_matcher import (
-    load_patterns, strip_accents)
+    load_patterns,
+    strip_accents,
+)
 
 
 def debug_matcher():

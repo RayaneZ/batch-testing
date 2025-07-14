@@ -1,5 +1,6 @@
 from shtest_compiler.ast.shell_framework_ast import ValidationCheck
 
+
 def handle(params):
     file = params.get("file")
     date = params.get("date")

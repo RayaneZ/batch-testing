@@ -6,10 +6,14 @@ Converted from test_binaryop.py to proper pytest format.
 
 import pytest
 
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
-    ShellFrameworkToShellScriptVisitor
-from shtest_compiler.parser.shunting_yard import (Atomic, BinaryOp,
-                                                  parse_validation_expression)
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
+    ShellFrameworkToShellScriptVisitor,
+)
+from shtest_compiler.parser.shunting_yard import (
+    Atomic,
+    BinaryOp,
+    parse_validation_expression,
+)
 
 
 class TestBinaryOperations:
@@ -150,6 +154,7 @@ class TestBinaryOperations:
         """Test handling of empty validation expression."""
         # Test empty expression
         import pytest
+
         with pytest.raises(ValueError, match="Validation expression is empty"):
             parse_validation_expression("")
 

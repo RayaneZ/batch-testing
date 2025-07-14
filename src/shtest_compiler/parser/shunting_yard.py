@@ -58,10 +58,14 @@ class Atomic(ASTNode):
         # It assumes a plugin exists for the given value.
         # If no plugin exists, it raises an error.
         try:
-            plugin_module = importlib.import_module(f"shtest_compiler.plugins.{_normalize_atom(self.value)}")
+            plugin_module = importlib.import_module(
+                f"shtest_compiler.plugins.{_normalize_atom(self.value)}"
+            )
             # On transmet le scope au plugin (si accepté)
             # The plugin should handle its own scope if needed.
-            return plugin_module.handle(m.groups()) # Assuming m.groups() is not used here
+            return plugin_module.handle(
+                m.groups()
+            )  # Assuming m.groups() is not used here
         except ImportError:
             raise ValueError(f"No plugin found for atomic value: {self.value}")
 

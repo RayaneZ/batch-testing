@@ -1,318 +1,314 @@
-ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-[DEBUG] Pattern for comment: ^\s*#.*$
-[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-[DEBUG] Added FallbackTokenizer
-[DEBUG] Parsing text with 4 lines
-[DEBUG] Lexing text with 4 lines
-[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le fichier /tmp/a.txt vers /tmp/b.txt, result=('copier le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None), original=Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
-[DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le fichier /tmp/a.txt vers /tmp/b.txt' -> '('copier le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None)'
-[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=déplacer le fichier /tmp/a.txt vers /tmp/b.txt, result=('déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None), original=Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
-[DEBUG] Yielding token: ACTION_RESULT@1:0 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt' -> '('déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None)'
-[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le dossier /tmp/dir vers /tmp/dir2, result=('copier le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None), original=Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
-[DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le dossier /tmp/dir vers /tmp/dir2' -> '('copier le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None)'
-[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=déplacer le dossier /tmp/dir vers /tmp/dir2, result=('déplacer le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None), original=Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
-[DEBUG] Yielding token: ACTION_RESULT@1:0 'déplacer le dossier /tmp/dir vers /tmp/dir2' -> '('déplacer le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None)'
-[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-[DEBUG] Yielding token: EMPTY@1:0 ''
-[DEBUG] Got 5 tokens
-[DEBUG] Grammar: _merge_action_result called with 5 tokens
-[DEBUG] Grammar: Token 0: kind=ACTION_RESULT, value='copier le fichier /tmp/a.txt vers /tmp/b.txt'
-[DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='déplacer le fichier /tmp/a.txt vers /tmp/b.txt'
-[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='copier le dossier /tmp/dir vers /tmp/dir2'
-[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='déplacer le dossier /tmp/dir vers /tmp/dir2'
-[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
-[DEBUG] Grammar: _merge_action_result returning 5 tokens
-[DEBUG] get_action_shell_command called with: 'copier le fichier /tmp/a.txt vers /tmp/b.txt'
-[DEBUG] canonize_action: Loaded 21 action patterns
-[DEBUG] canonize_action: Processing action 'copier le fichier /tmp/a.txt vers /tmp/b.txt' (normalized: 'copier le fichier /tmp/a.txt vers /tmp/b.txt')
-[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-[DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-[DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
-[DEBUG] canonize_action: Checking alias '^touch (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Found match with pattern 'Copier le fichier {src} vers {dest}'
-[DEBUG] get_action_shell_command: canonize_action matched handler 'copy_file' for phrase 'Copier le fichier {src} vers {dest}'
-[DEBUG] get_action_shell_command: context={'action': 'copier le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'copy_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le fichier {src} vers {dest}', 'aliases': ['dupliquer le fichier {src} vers {dest}', 'copier le fichier {src} à {dest}', '^cp (.+) (.+)$', 'copier le fichier {src} vers {dest}'], 'handler': 'copy_file'}}], 'scope': 'global'}
-[DEBUG] get_action_shell_command: handler=copy_file, variables={'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
-[DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.copy_file
-[DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'copier le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'copy_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le fichier {src} vers {dest}', 'aliases': ['dupliquer le fichier {src} vers {dest}', 'copier le fichier {src} à {dest}', '^cp (.+) (.+)$', 'copier le fichier {src} vers {dest}'], 'handler': 'copy_file'}}], 'scope': 'global'}, 'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_file.CopyFileAction object at 0x00000278D95A81D0>
-[DEBUG] get_action_shell_command: Generated shell command: cp '/tmp/a.txt' '/tmp/b.txt'
-[DEBUG] compile_validation_expression called with: 'le fichier est copié'
-[DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-[DEBUG] compile_atomic called with: expected='le fichier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'copier le fichier /tmp/a.txt vers /tmp/b.txt'}
-[DEBUG] compile_atomic: Trying to canonize validation: 'le fichier est copié'
-[DEBUG] compile_atomic: canonize_validation('le fichier est copié') result: {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le fichier n'est pas copié"}, 'aliases': ['le fichier est copié', 'fichier copié', '^le fichier est copié$', '^fichier copié$']}, 'params': {}}
-[DEBUG] extract_context_from_action result: {'action': 'le fichier est copié', 'handler': 'file_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if file was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
-[DEBUG] Final params for handler: {}
-[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_copied
-[DEBUG] Core handler returned: ValidationCheck(expected='le fichier None a été copié vers None', actual_cmd='[ -f None ] && [ -f None ] && cmp -s None None', handler='file_copied', scope='global', params={'file1': None, 'file2': None, 'opposite': "le fichier None n'a pas été copié vers None"})
-[DEBUG] get_action_shell_command called with: 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt'
-[DEBUG] canonize_action: Loaded 21 action patterns
-[DEBUG] canonize_action: Processing action 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt' (normalized: 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt')
-[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-[DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-[DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
-[DEBUG] canonize_action: Checking alias '^touch (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
-[DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Found match with pattern 'Déplacer le fichier {src} vers {dest}'
-[DEBUG] get_action_shell_command: canonize_action matched handler 'move_file' for phrase 'Déplacer le fichier {src} vers {dest}'
-[DEBUG] get_action_shell_command: context={'action': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'move_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le fichier {src} vers {dest}', 'aliases': ['déplacer le fichier {src} à {dest}', '^mv (.+) (.+)$', 'déplacer le fichier {src} vers {dest}'], 'handler': 'move_file'}}], 'scope': 'global'}
-[DEBUG] get_action_shell_command: handler=move_file, variables={'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
-[DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.move_file
-[DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'move_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le fichier {src} vers {dest}', 'aliases': ['déplacer le fichier {src} à {dest}', '^mv (.+) (.+)$', 'déplacer le fichier {src} vers {dest}'], 'handler': 'move_file'}}], 'scope': 'global'}, 'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_file.MoveFileAction object at 0x00000278D9574750>
-[DEBUG] get_action_shell_command: Generated shell command: mv '/tmp/a.txt' '/tmp/b.txt'
-[DEBUG] compile_validation_expression called with: 'le fichier est copié'
-[DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-[DEBUG] compile_atomic called with: expected='le fichier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt'}
-[DEBUG] compile_atomic: Trying to canonize validation: 'le fichier est copié'
-[DEBUG] compile_atomic: canonize_validation('le fichier est copié') result: {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le fichier n'est pas copié"}, 'aliases': ['le fichier est copié', 'fichier copié', '^le fichier est copié$', '^fichier copié$']}, 'params': {}}
-[DEBUG] extract_context_from_action result: {'action': 'le fichier est copié', 'handler': 'file_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if file was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
-[DEBUG] Final params for handler: {}
-[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_copied
-[DEBUG] Core handler returned: ValidationCheck(expected='le fichier None a été copié vers None', actual_cmd='[ -f None ] && [ -f None ] && cmp -s None None', handler='file_copied', scope='global', params={'file1': None, 'file2': None, 'opposite': "le fichier None n'a pas été copié vers None"})
-[DEBUG] get_action_shell_command called with: 'copier le dossier /tmp/dir vers /tmp/dir2'
-[DEBUG] canonize_action: Loaded 21 action patterns
-[DEBUG] canonize_action: Processing action 'copier le dossier /tmp/dir vers /tmp/dir2' (normalized: 'copier le dossier /tmp/dir vers /tmp/dir2')
-[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-[DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Found match with pattern 'Copier le dossier {src} vers {dest}'
-[DEBUG] get_action_shell_command: canonize_action matched handler 'copy_dir' for phrase 'Copier le dossier {src} vers {dest}'
-[DEBUG] get_action_shell_command: context={'action': 'copier le dossier /tmp/dir vers /tmp/dir2', 'handler': 'copy_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le dossier {src} vers {dest}', 'aliases': ['dupliquer le dossier {src} vers {dest}', 'copier le dossier {src} à {dest}', '^cp -r (.+) (.+)$'], 'handler': 'copy_dir'}}], 'scope': 'global'}
-[DEBUG] get_action_shell_command: handler=copy_dir, variables={'src': '/tmp/dir', 'dest': '/tmp/dir2'}
-[DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.copy_dir
-[DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'copier le dossier /tmp/dir vers /tmp/dir2', 'handler': 'copy_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le dossier {src} vers {dest}', 'aliases': ['dupliquer le dossier {src} vers {dest}', 'copier le dossier {src} à {dest}', '^cp -r (.+) (.+)$'], 'handler': 'copy_dir'}}], 'scope': 'global'}, 'src': '/tmp/dir', 'dest': '/tmp/dir2'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_dir.CopyDirAction object at 0x00000278D9943150>
-[DEBUG] get_action_shell_command: Generated shell command: cp -r '/tmp/dir' '/tmp/dir2'
-[DEBUG] compile_validation_expression called with: 'le dossier est copié'
-[DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-[DEBUG] compile_atomic called with: expected='le dossier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'copier le dossier /tmp/dir vers /tmp/dir2'}
-[DEBUG] compile_atomic: Trying to canonize validation: 'le dossier est copié'
-[DEBUG] compile_atomic: canonize_validation('le dossier est copié') result: {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le dossier n'est pas copié"}, 'aliases': ['le dossier est copié', 'dossier copié', '^le dossier est copié$', '^dossier copié$']}, 'params': {}}
-[DEBUG] extract_context_from_action result: {'action': 'le dossier est copié', 'handler': 'dir_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if directory was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
-[DEBUG] Final params for handler: {}
-[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_copied
-[DEBUG] Core handler returned: ValidationCheck(expected='le dossier None a été copié vers None', actual_cmd="test -d 'None' && test -d 'None' && diff -r 'None' 'None' >/dev/null 2>&1", handler='dir_copied', scope='last_action', params={'dir1': None, 'dir2': None, 'opposite': "le dossier None n'a pas été copié vers None"})
-[DEBUG] get_action_shell_command called with: 'déplacer le dossier /tmp/dir vers /tmp/dir2'
-[DEBUG] canonize_action: Loaded 21 action patterns
-[DEBUG] canonize_action: Processing action 'déplacer le dossier /tmp/dir vers /tmp/dir2' (normalized: 'déplacer le dossier /tmp/dir vers /tmp/dir2')
-[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-[DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Found match with pattern 'Déplacer le dossier {src} vers {dest}'
-[DEBUG] get_action_shell_command: canonize_action matched handler 'move_dir' for phrase 'Déplacer le dossier {src} vers {dest}'
-[DEBUG] get_action_shell_command: context={'action': 'déplacer le dossier /tmp/dir vers /tmp/dir2', 'handler': 'move_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le dossier {src} vers {dest}', 'aliases': ['déplacer le dossier {src} à {dest}', '^mv (.+) (.+)$'], 'handler': 'move_dir'}}], 'scope': 'global'}
-[DEBUG] get_action_shell_command: handler=move_dir, variables={'src': '/tmp/dir', 'dest': '/tmp/dir2'}
-[DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.move_dir
-[DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'déplacer le dossier /tmp/dir vers /tmp/dir2', 'handler': 'move_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le dossier {src} vers {dest}', 'aliases': ['déplacer le dossier {src} à {dest}', '^mv (.+) (.+)$'], 'handler': 'move_dir'}}], 'scope': 'global'}, 'src': '/tmp/dir', 'dest': '/tmp/dir2'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_dir.MoveDirAction object at 0x00000278D9969D50>
-[DEBUG] get_action_shell_command: Generated shell command: mv '/tmp/dir' '/tmp/dir2'
-[DEBUG] compile_validation_expression called with: 'le dossier est copié'
-[DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-[DEBUG] compile_atomic called with: expected='le dossier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'déplacer le dossier /tmp/dir vers /tmp/dir2'}
-[DEBUG] compile_atomic: Trying to canonize validation: 'le dossier est copié'
-[DEBUG] compile_atomic: canonize_validation('le dossier est copié') result: {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le dossier n'est pas copié"}, 'aliases': ['le dossier est copié', 'dossier copié', '^le dossier est copié$', '^dossier copié$']}, 'params': {}}
-[DEBUG] extract_context_from_action result: {'action': 'le dossier est copié', 'handler': 'dir_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if directory was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
-[DEBUG] Final params for handler: {}
-[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_copied
-[DEBUG] Core handler returned: ValidationCheck(expected='le dossier None a été copié vers None', actual_cmd="test -d 'None' && test -d 'None' && diff -r 'None' 'None' >/dev/null 2>&1", handler='dir_copied', scope='last_action', params={'dir1': None, 'dir2': None, 'opposite': "le dossier None n'a pas été copié vers None"})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_copy.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_copy.sh
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Added FallbackTokenizer
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Parsing text with 4 lines
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Lexing text with 4 lines
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le fichier /tmp/a.txt vers /tmp/b.txt, result=('copier le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None), original=Action: copier le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le fichier /tmp/a.txt vers /tmp/b.txt' -> '('copier le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None)'
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=déplacer le fichier /tmp/a.txt vers /tmp/b.txt, result=('déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None), original=Action: déplacer le fichier /tmp/a.txt vers /tmp/b.txt ; Résultat: le fichier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt' -> '('déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'le fichier est copié.', None)'
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=copier le dossier /tmp/dir vers /tmp/dir2, result=('copier le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None), original=Action: copier le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'copier le dossier /tmp/dir vers /tmp/dir2' -> '('copier le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None)'
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
+2025-07-14T13:26:52.672389Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=déplacer le dossier /tmp/dir vers /tmp/dir2, result=('déplacer le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None), original=Action: déplacer le dossier /tmp/dir vers /tmp/dir2 ; Résultat: le dossier est copié. at line 1
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'déplacer le dossier /tmp/dir vers /tmp/dir2' -> '('déplacer le dossier /tmp/dir vers /tmp/dir2', 'le dossier est copié.', None)'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Got 5 tokens
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: _merge_action_result called with 5 tokens
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: Token 0: kind=ACTION_RESULT, value='copier le fichier /tmp/a.txt vers /tmp/b.txt'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: Token 1: kind=ACTION_RESULT, value='déplacer le fichier /tmp/a.txt vers /tmp/b.txt'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='copier le dossier /tmp/dir vers /tmp/dir2'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='déplacer le dossier /tmp/dir vers /tmp/dir2'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Grammar: _merge_action_result returning 5 tokens
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command called with: 'copier le fichier /tmp/a.txt vers /tmp/b.txt'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Processing action 'copier le fichier /tmp/a.txt vers /tmp/b.txt' (normalized: 'copier le fichier /tmp/a.txt vers /tmp/b.txt')
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T13:26:52.673388Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.674387Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Found match with pattern 'Copier le fichier {src} vers {dest}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: canonize_action matched handler 'copy_file' for phrase 'Copier le fichier {src} vers {dest}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: context={'action': 'copier le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'copy_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le fichier {src} vers {dest}', 'aliases': ['dupliquer le fichier {src} vers {dest}', 'copier le fichier {src} à {dest}', '^cp (.+) (.+)$', 'copier le fichier {src} vers {dest}'], 'handler': 'copy_file'}}], 'scope': 'global'}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: handler=copy_file, variables={'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.copy_file
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'copier le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'copy_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le fichier {src} vers {dest}', 'aliases': ['dupliquer le fichier {src} vers {dest}', 'copier le fichier {src} à {dest}', '^cp (.+) (.+)$', 'copier le fichier {src} vers {dest}'], 'handler': 'copy_file'}}], 'scope': 'global'}, 'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_file.CopyFileAction object at 0x000001A5BDCF6C90>
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Generated shell command: cp '/tmp/a.txt' '/tmp/b.txt'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression called with: 'le fichier est copié'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic called with: expected='le fichier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'copier le fichier /tmp/a.txt vers /tmp/b.txt'}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: Trying to canonize validation: 'le fichier est copié'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: canonize_validation('le fichier est copié') result: {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le fichier n'est pas copié"}, 'aliases': ['le fichier est copié', 'fichier copié', '^le fichier est copié$', '^fichier copié$']}, 'params': {}}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] extract_context_from_action result: {'action': 'le fichier est copié', 'handler': 'file_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if file was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Final params for handler: {}
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Handler registry returned: ValidationCheck(expected='le fichier None a été copié vers None', actual_cmd='[ -f None ] && [ -f None ] && cmp -s None None', handler='file_copied', scope='global', params={'file1': None, 'file2': None, 'opposite': "le fichier None n'a pas été copié vers None"})
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command called with: 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Processing action 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt' (normalized: 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt')
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T13:26:52.675386Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:52.676890Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^touch (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
+2025-07-14T13:26:52.677898Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Found match with pattern 'Déplacer le fichier {src} vers {dest}'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: canonize_action matched handler 'move_file' for phrase 'Déplacer le fichier {src} vers {dest}'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: context={'action': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'move_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le fichier {src} vers {dest}', 'aliases': ['déplacer le fichier {src} à {dest}', '^mv (.+) (.+)$', 'déplacer le fichier {src} vers {dest}'], 'handler': 'move_file'}}], 'scope': 'global'}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: handler=move_file, variables={'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.move_file
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt', 'handler': 'move_file', 'category': 'file_operations', 'variables': {'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a file from source to destination', 'category': 'file_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le fichier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le fichier {src} vers {dest}', 'aliases': ['déplacer le fichier {src} à {dest}', '^mv (.+) (.+)$', 'déplacer le fichier {src} vers {dest}'], 'handler': 'move_file'}}], 'scope': 'global'}, 'src': '/tmp/a.txt', 'dest': '/tmp/b.txt'}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_file.MoveFileAction object at 0x000001A5BAFA82D0>
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Generated shell command: mv '/tmp/a.txt' '/tmp/b.txt'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression called with: 'le fichier est copié'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic called with: expected='le fichier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'déplacer le fichier /tmp/a.txt vers /tmp/b.txt'}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: Trying to canonize validation: 'le fichier est copié'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: canonize_validation('le fichier est copié') result: {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le fichier est copié', 'handler': 'file_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le fichier n'est pas copié"}, 'aliases': ['le fichier est copié', 'fichier copié', '^le fichier est copié$', '^fichier copié$']}, 'params': {}}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] extract_context_from_action result: {'action': 'le fichier est copié', 'handler': 'file_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if file was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Final params for handler: {}
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Handler registry returned: ValidationCheck(expected='le fichier None a été copié vers None', actual_cmd='[ -f None ] && [ -f None ] && cmp -s None None', handler='file_copied', scope='global', params={'file1': None, 'file2': None, 'opposite': "le fichier None n'a pas été copié vers None"})
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command called with: 'copier le dossier /tmp/dir vers /tmp/dir2'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Processing action 'copier le dossier /tmp/dir vers /tmp/dir2' (normalized: 'copier le dossier /tmp/dir vers /tmp/dir2')
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.678900Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Found match with pattern 'Copier le dossier {src} vers {dest}'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: canonize_action matched handler 'copy_dir' for phrase 'Copier le dossier {src} vers {dest}'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: context={'action': 'copier le dossier /tmp/dir vers /tmp/dir2', 'handler': 'copy_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le dossier {src} vers {dest}', 'aliases': ['dupliquer le dossier {src} vers {dest}', 'copier le dossier {src} à {dest}', '^cp -r (.+) (.+)$'], 'handler': 'copy_dir'}}], 'scope': 'global'}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: handler=copy_dir, variables={'src': '/tmp/dir', 'dest': '/tmp/dir2'}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.copy_dir
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'copier le dossier /tmp/dir vers /tmp/dir2', 'handler': 'copy_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Copy a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Copier le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Copier le dossier {src} vers {dest}', 'aliases': ['dupliquer le dossier {src} vers {dest}', 'copier le dossier {src} à {dest}', '^cp -r (.+) (.+)$'], 'handler': 'copy_dir'}}], 'scope': 'global'}, 'src': '/tmp/dir', 'dest': '/tmp/dir2'}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.copy_dir.CopyDirAction object at 0x000001A5BE0C9590>
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Generated shell command: cp -r '/tmp/dir' '/tmp/dir2'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression called with: 'le dossier est copié'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic called with: expected='le dossier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'copier le dossier /tmp/dir vers /tmp/dir2'}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: Trying to canonize validation: 'le dossier est copié'
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: canonize_validation('le dossier est copié') result: {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le dossier n'est pas copié"}, 'aliases': ['le dossier est copié', 'dossier copié', '^le dossier est copié$', '^dossier copié$']}, 'params': {}}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] extract_context_from_action result: {'action': 'le dossier est copié', 'handler': 'dir_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if directory was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Final params for handler: {}
+2025-07-14T13:26:52.679899Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Handler registry returned: ValidationCheck(expected='le dossier None a été copié vers None', actual_cmd="test -d 'None' && test -d 'None' && diff -r 'None' 'None' >/dev/null 2>&1", handler='dir_copied', scope='last_action', params={'dir1': None, 'dir2': None, 'opposite': "le dossier None n'a pas été copié vers None"})
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command called with: 'déplacer le dossier /tmp/dir vers /tmp/dir2'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Processing action 'déplacer le dossier /tmp/dir vers /tmp/dir2' (normalized: 'déplacer le dossier /tmp/dir vers /tmp/dir2')
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:52.680896Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] canonize_action: Found match with pattern 'Déplacer le dossier {src} vers {dest}'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: canonize_action matched handler 'move_dir' for phrase 'Déplacer le dossier {src} vers {dest}'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: context={'action': 'déplacer le dossier /tmp/dir vers /tmp/dir2', 'handler': 'move_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le dossier {src} vers {dest}', 'aliases': ['déplacer le dossier {src} à {dest}', '^mv (.+) (.+)$'], 'handler': 'move_dir'}}], 'scope': 'global'}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: handler=move_dir, variables={'src': '/tmp/dir', 'dest': '/tmp/dir2'}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.move_dir
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'déplacer le dossier /tmp/dir vers /tmp/dir2', 'handler': 'move_dir', 'category': 'directory_operations', 'variables': {'src': '/tmp/dir', 'dest': '/tmp/dir2'}, 'requirements': {'required_variables': ['src', 'dest'], 'optional_variables': [], 'scope': 'global', 'description': 'Move a directory from source to destination', 'category': 'directory_operations', 'validation_rules': {'src': {'type': 'path', 'required': True}, 'dest': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Déplacer le dossier {src} vers {dest}', 'config': {'type': 'action', 'phrase': 'Déplacer le dossier {src} vers {dest}', 'aliases': ['déplacer le dossier {src} à {dest}', '^mv (.+) (.+)$'], 'handler': 'move_dir'}}], 'scope': 'global'}, 'src': '/tmp/dir', 'dest': '/tmp/dir2'}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.move_dir.MoveDirAction object at 0x000001A5BE0E7E10>
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] get_action_shell_command: Generated shell command: mv '/tmp/dir' '/tmp/dir2'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression called with: 'le dossier est copié'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic called with: expected='le dossier est copié', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'déplacer le dossier /tmp/dir vers /tmp/dir2'}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: Trying to canonize validation: 'le dossier est copié'
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] compile_atomic: canonize_validation('le dossier est copié') result: {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'pattern_entry': {'phrase': 'Le dossier est copié', 'handler': 'dir_copied', 'scope': 'last_action', 'opposite': {'phrase': "Le dossier n'est pas copié"}, 'aliases': ['le dossier est copié', 'dossier copié', '^le dossier est copié$', '^dossier copié$']}, 'params': {}}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] extract_context_from_action result: {'action': 'le dossier est copié', 'handler': 'dir_copied', 'category': 'validation', 'variables': {}, 'requirements': {'required_variables': [], 'optional_variables': [], 'scope': 'last_action', 'description': 'Check if directory was copied', 'category': 'validation', 'validation_rules': {}}, 'patterns_matched': [], 'scope': 'last_action'}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Final params for handler: {}
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Handler registry returned: ValidationCheck(expected='le dossier None a été copié vers None', actual_cmd="test -d 'None' && test -d 'None' && diff -r 'None' 'None' >/dev/null 2>&1", handler='dir_copied', scope='last_action', params={'dir1': None, 'dir2': None, 'opposite': "le dossier None n'a pas été copié vers None"})
+2025-07-14T13:26:52.681894Z DESKTOP-19SQ3SL shtest_compiler[25104]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_copy.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_copy.sh

@@ -1,5 +1,5 @@
 from shtest_compiler.ast.shell_framework_ast import ValidationCheck
-from shtest_compiler.utils.canonicalization import shell_escape
+from shtest_compiler.utils.shell_utils import shell_escape
 
 
 def handle(params):

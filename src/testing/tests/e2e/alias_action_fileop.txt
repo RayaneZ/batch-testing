@@ -1,117 +1,135 @@
-ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
-[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
-[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
-[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
-[DEBUG] Pattern for comment: ^\s*#.*$
-[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
-[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
-[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
-[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
-[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
-[DEBUG] Added FallbackTokenizer
-[DEBUG] Parsing text with 4 lines
-[DEBUG] Lexing text with 4 lines
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Création et mise à jour de fichier, result=('Création et mise à jour de fichier',), original=Étape: Création et mise à jour de fichier at line 1
-[DEBUG] Yielding token: STEP@1:0 'Création et mise à jour de fichier' -> '('Création et mise à jour de fichier',)'
-[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-[DEBUG] Yielding token: EMPTY@1:0 ''
-[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: créer le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=créer le fichier /tmp/test.txt avec les droits 0600, result=('créer le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None), original=Action: créer le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
-[DEBUG] Yielding token: ACTION_RESULT@1:0 'créer le fichier /tmp/test.txt avec les droits 0600' -> '('créer le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None)'
-[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: mettre à jour le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
-[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=mettre à jour le fichier /tmp/test.txt avec les droits 0600, result=('mettre à jour le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None), original=Action: mettre à jour le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
-[DEBUG] Yielding token: ACTION_RESULT@1:0 'mettre à jour le fichier /tmp/test.txt avec les droits 0600' -> '('mettre à jour le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None)'
-[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
-[DEBUG] Yielding token: EMPTY@1:0 ''
-[DEBUG] Got 5 tokens
-[DEBUG] Grammar: _merge_action_result called with 5 tokens
-[DEBUG] Grammar: Token 0: kind=STEP, value='Création et mise à jour de fichier'
-[DEBUG] Grammar: Token 1: kind=EMPTY, value=''
-[DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='créer le fichier /tmp/test.txt avec les droits 0600'
-[DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='mettre à jour le fichier /tmp/test.txt avec les droits 0600'
-[DEBUG] Grammar: Token 4: kind=EMPTY, value=''
-[DEBUG] Grammar: _merge_action_result returning 5 tokens
-[DEBUG] get_action_shell_command called with: 'créer le fichier /tmp/test.txt avec les droits 0600'
-[DEBUG] canonize_action: Loaded 21 action patterns
-[DEBUG] canonize_action: Processing action 'créer le fichier /tmp/test.txt avec les droits 0600' (normalized: 'créer le fichier /tmp/test.txt avec les droits 0600')
-[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
-[DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
-[DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
-[DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
-[DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
-[DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
-[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
-[DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
-[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
-[DEBUG] canonize_action: Found match with pattern 'Créer le fichier {path}'
-[DEBUG] get_action_shell_command: canonize_action matched handler 'create_file' for phrase 'Créer le fichier {path}'
-[DEBUG] get_action_shell_command: context={'action': 'créer le fichier /tmp/test.txt avec les droits 0600', 'handler': 'create_file', 'category': 'file_operations', 'variables': {'path': '/tmp/test.txt avec les droits 0600'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new file', 'category': 'file_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le fichier {path}', 'config': {'type': 'action', 'phrase': 'Créer le fichier {path}', 'aliases': ['créer un fichier {path}', 'faire un fichier {path}', 'générer le fichier {path}', 'nouveau fichier {path}', 'cr[ée]er le fichier (.+)', '^touch (.+)$'], 'handler': 'create_file'}}], 'scope': 'global'}
-[DEBUG] get_action_shell_command: handler=create_file, variables={'path': '/tmp/test.txt avec les droits 0600'}
-[DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_file
-[DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'créer le fichier /tmp/test.txt avec les droits 0600', 'handler': 'create_file', 'category': 'file_operations', 'variables': {'path': '/tmp/test.txt avec les droits 0600'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new file', 'category': 'file_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le fichier {path}', 'config': {'type': 'action', 'phrase': 'Créer le fichier {path}', 'aliases': ['créer un fichier {path}', 'faire un fichier {path}', 'générer le fichier {path}', 'nouveau fichier {path}', 'cr[ée]er le fichier (.+)', '^touch (.+)$'], 'handler': 'create_file'}}], 'scope': 'global'}, 'path': '/tmp/test.txt avec les droits 0600'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_file.CreateFileAction object at 0x000001D53E3D81D0>
-[DEBUG] get_action_shell_command: Generated shell command: touch '/tmp/test.txt avec les droits 0600'
-[DEBUG] compile_validation_expression called with: 'Le fichier est présent'
-[DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
-[DEBUG] compile_atomic called with: expected='Le fichier est présent', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'créer le fichier /tmp/test.txt avec les droits 0600'}
-[DEBUG] compile_atomic: Trying to canonize validation: 'Le fichier est présent'
-[DEBUG] compile_atomic: canonize_validation('Le fichier est présent') result: {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'opposite': {'phrase': 'Le fichier est absent'}, 'aliases': ['Le fichier est présent', 'le fichier existe', 'fichier présent', 'le fichier est cree', 'fichier cree', 'le fichier est créé', 'fichier créé', 'le fichier est initialisé', 'fichier initialisé', 'le fichier est present', 'fichier present', 'le fichier est cree', 'fichier cree', 'le fichier est cree', 'fichier cree', 'le fichier est initialise', 'fichier initialise', '^le fichier est présent$', '^le fichier existe$', '^fichier présent$', '^le fichier est cree$', '^fichier cree$', '^le fichier est créé$', '^fichier créé$', '^le fichier est initialisé$', '^fichier initialisé$', '^le fichier est present$', '^fichier present$', '^le fichier est cree$', '^fichier cree$', '^le fichier est initialise$', '^fichier initialise$']}, 'params': {}}
-[DEBUG] extract_context_from_action result: {'action': 'Le fichier est présent', 'handler': 'file_present', 'category': 'file_operations', 'variables': {}, 'requirements': {'required_variables': ['file'], 'optional_variables': [], 'scope': 'global', 'description': 'Check if a file exists', 'category': 'file_operations', 'validation_rules': {'file': {'type': 'file', 'required': True}}}, 'patterns_matched': [], 'scope': 'global'}
-[DEBUG] Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
-[ERROR] ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
+2025-07-14T13:26:55.459204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+2025-07-14T13:26:55.459204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Pattern for comment: ^\s*#.*$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Added FallbackTokenizer
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Parsing text with 4 lines
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Lexing text with 4 lines
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Création et mise à jour de fichier, result=('Création et mise à jour de fichier',), original=Étape: Création et mise à jour de fichier at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Yielding token: STEP@1:0 'Création et mise à jour de fichier' -> '('Création et mise à jour de fichier',)'
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: créer le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=créer le fichier /tmp/test.txt avec les droits 0600, result=('créer le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None), original=Action: créer le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'créer le fichier /tmp/test.txt avec les droits 0600' -> '('créer le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None)'
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: mettre à jour le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_RESULT, value=mettre à jour le fichier /tmp/test.txt avec les droits 0600, result=('mettre à jour le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None), original=Action: mettre à jour le fichier /tmp/test.txt avec les droits 0600 ; Résultat: Le fichier est présent at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Yielding token: ACTION_RESULT@1:0 'mettre à jour le fichier /tmp/test.txt avec les droits 0600' -> '('mettre à jour le fichier /tmp/test.txt avec les droits 0600', 'Le fichier est présent', None)'
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Yielding token: EMPTY@1:0 ''
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Got 5 tokens
+2025-07-14T13:26:55.460204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: _merge_action_result called with 5 tokens
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: Token 0: kind=STEP, value='Création et mise à jour de fichier'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: Token 1: kind=EMPTY, value=''
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: Token 2: kind=ACTION_RESULT, value='créer le fichier /tmp/test.txt avec les droits 0600'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: Token 3: kind=ACTION_RESULT, value='mettre à jour le fichier /tmp/test.txt avec les droits 0600'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: Token 4: kind=EMPTY, value=''
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Grammar: _merge_action_result returning 5 tokens
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command called with: 'créer le fichier /tmp/test.txt avec les droits 0600'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Loaded 21 action patterns
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Processing action 'créer le fichier /tmp/test.txt avec les droits 0600' (normalized: 'créer le fichier /tmp/test.txt avec les droits 0600')
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+2025-07-14T13:26:55.461203Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] canonize_action: Found match with pattern 'Créer le fichier {path}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: canonize_action matched handler 'create_file' for phrase 'Créer le fichier {path}'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: context={'action': 'créer le fichier /tmp/test.txt avec les droits 0600', 'handler': 'create_file', 'category': 'file_operations', 'variables': {'path': '/tmp/test.txt avec les droits 0600'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new file', 'category': 'file_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le fichier {path}', 'config': {'type': 'action', 'phrase': 'Créer le fichier {path}', 'aliases': ['créer un fichier {path}', 'faire un fichier {path}', 'générer le fichier {path}', 'nouveau fichier {path}', 'cr[ée]er le fichier (.+)', '^touch (.+)$'], 'handler': 'create_file'}}], 'scope': 'global'}
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: handler=create_file, variables={'path': '/tmp/test.txt avec les droits 0600'}
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.create_file
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'créer le fichier /tmp/test.txt avec les droits 0600', 'handler': 'create_file', 'category': 'file_operations', 'variables': {'path': '/tmp/test.txt avec les droits 0600'}, 'requirements': {'required_variables': ['path'], 'optional_variables': ['mode'], 'scope': 'global', 'description': 'Create a new file', 'category': 'file_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}, 'mode': {'type': 'mode', 'required': False, 'pattern': '^[0-7]{3,4}$'}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Créer le fichier {path}', 'config': {'type': 'action', 'phrase': 'Créer le fichier {path}', 'aliases': ['créer un fichier {path}', 'faire un fichier {path}', 'générer le fichier {path}', 'nouveau fichier {path}', 'cr[ée]er le fichier (.+)', '^touch (.+)$'], 'handler': 'create_file'}}], 'scope': 'global'}, 'path': '/tmp/test.txt avec les droits 0600'}
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.create_file.CreateFileAction object at 0x000002DE410A91D0>
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] get_action_shell_command: Generated shell command: touch '/tmp/test.txt avec les droits 0600'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] compile_validation_expression called with: 'Le fichier est présent'
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] compile_atomic called with: expected='Le fichier est présent', varname='result', last_file_var=None, extracted_args=None, action_context={'command': 'créer le fichier /tmp/test.txt avec les droits 0600'}
+2025-07-14T13:26:55.462204Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] compile_atomic: Trying to canonize validation: 'Le fichier est présent'
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] compile_atomic: canonize_validation('Le fichier est présent') result: {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'pattern_entry': {'phrase': 'Le fichier est présent', 'handler': 'file_present', 'scope': 'global', 'opposite': {'phrase': 'Le fichier est absent'}, 'aliases': ['Le fichier est présent', 'le fichier existe', 'fichier présent', 'le fichier est cree', 'fichier cree', 'le fichier est créé', 'fichier créé', 'le fichier est initialisé', 'fichier initialisé', 'le fichier est present', 'fichier present', 'le fichier est cree', 'fichier cree', 'le fichier est cree', 'fichier cree', 'le fichier est initialise', 'fichier initialise', '^le fichier est présent$', '^le fichier existe$', '^fichier présent$', '^le fichier est cree$', '^fichier cree$', '^le fichier est créé$', '^fichier créé$', '^le fichier est initialisé$', '^fichier initialisé$', '^le fichier est present$', '^fichier present$', '^le fichier est cree$', '^fichier cree$', '^le fichier est initialise$', '^fichier initialise$']}, 'params': {}}
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] extract_context_from_action result: {'action': 'Le fichier est présent', 'handler': 'file_present', 'category': 'file_operations', 'variables': {}, 'requirements': {'required_variables': ['file'], 'optional_variables': [], 'scope': 'global', 'description': 'Check if a file exists', 'category': 'file_operations', 'validation_rules': {'file': {'type': 'file', 'required': True}}}, 'patterns_matched': [], 'scope': 'global'}
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [PIPELINE_ERROR] [ERROR] ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
 Traceback (most recent call last):
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 198, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 136, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 26, in visit
     return visitor_method(node)
            ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 240, in visit_shtestfile
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 250, in visit_shtestfile
     validation_lines = self.compile_validation_expression(
                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 347, in compile_validation_expression
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 357, in compile_validation_expression
     return compile_atomic(
            ^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 80, in compile_atomic
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 83, in compile_atomic
     raise ValidationParseError(error_msg)
 shtest_compiler.core.errors.ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
 
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_fileop.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_fileop.sh
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] [ERROR] ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Traceback (most recent call last):
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 136, in visit
+    shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 26, in visit
+    return visitor_method(node)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 250, in visit_shtestfile
+    validation_lines = self.compile_validation_expression(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 357, in compile_validation_expression
+    return compile_atomic(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 83, in compile_atomic
+    raise ValidationParseError(error_msg)
+shtest_compiler.core.errors.ValidationParseError: Validation context errors for 'Le fichier est présent': Handler file_present requires 'file' variable
+
+2025-07-14T13:26:55.463202Z DESKTOP-19SQ3SL shtest_compiler[31220]: [DEBUG] Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_fileop.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_fileop.sh

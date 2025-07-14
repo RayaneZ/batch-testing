@@ -60,6 +60,9 @@ class ASTValidator:
                 if result:
                     errors.extend(result if isinstance(result, list) else [result])
             except Exception as e:
+                from shtest_compiler.utils.logger import log_pipeline_error
+                import traceback
+                log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
                 errors.append(f"Validation error: {e}")
         return errors
 
@@ -82,6 +85,9 @@ class ASTTransformer:
                 result = transformer(result)
             except Exception as e:
                 # Log error but continue with other transformers
+                from shtest_compiler.utils.logger import log_pipeline_error
+                import traceback
+                log_pipeline_error(f"[ERROR] {type(e).__name__}: {e}\n{traceback.format_exc()}")
                 print(f"Transformer error: {e}")
         return result
 
@@ -244,7 +250,9 @@ class DefaultASTBuilder(ASTBuilder):
         errors = self.validator.validate(ast)
         if errors:
             from .core import ParseError
-
+            from shtest_compiler.utils.logger import log_pipeline_error
+            import traceback
+            log_pipeline_error(f"[ERROR] AST validation failed: {'; '.join(errors)}\n{traceback.format_exc()}")
             raise ParseError(f"AST validation failed: {'; '.join(errors)}")
 
         return ast

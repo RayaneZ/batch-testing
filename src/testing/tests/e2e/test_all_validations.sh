@@ -54,7 +54,7 @@ fi
 # Test step: fichier contient
 echo 'Action: echo "KO" > logs.txt'
 run_action "echo \"KO\" > logs.txt"
-echo 'ERROR: Exception in core handler file_contains: 'canonical_phrase''
+echo 'ERROR: Exception in handler file_contains: 'canonical_phrase''
 
 # Test step: fichier existe
 echo 'Action: touch fichier.txt'
