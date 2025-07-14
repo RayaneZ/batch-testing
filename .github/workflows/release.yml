@@ -1,26 +1,48 @@
 name: Create GitHub Release
-
-on:
+'on':
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version
+        required: true
+      release_body:
+        description: Changelog or release notes
+        required: false
   push:
     tags:
-      - 'v*.*.*'
-
+    - v*.*.*
 jobs:
+  skip-run:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Skip run
+      run: echo "Skipping run"
   create_release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout full history
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          body: |
-            🚀 Nouvelle version : ${{ github.ref_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Download release package artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: knightbatch-release
+        path: ./artifacts
+    - name: Download Windows EXE artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: knightbatch-exe
+        path: ./artifacts
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: "\U0001F680 Nouvelle version : ${{ github.ref_name }}"
+        files: |
+          artifacts/knightbatch-release/knightbatch-release.tar.gz
+          artifacts/knightbatch-exe/shtest.exe
+          artifacts/knightbatch-exe/run_all.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
