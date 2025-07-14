@@ -62,7 +62,7 @@ jobs:
       - name: Test VS Code extension
         run: |
           cd vscode
-          npm test
+          xvfb-run -a npm test
       - name: Install vsce
         run: npm install -g @vscode/vsce@latest
       - name: Package VS Code extension
