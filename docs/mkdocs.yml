@@ -9,6 +9,7 @@ theme:
     highlighting: monokai
 nav:
   - Accueil: index.md
+  - Manuel Utilisateur: user_manual.md
   - Outils CLI: cli.md
   - Configuration: configuration.md
   - Architecture Modulaire: modular_architecture.md

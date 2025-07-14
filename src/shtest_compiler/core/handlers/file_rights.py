@@ -6,10 +6,15 @@ def handle(params):
     last_file_var = params.get('last_file_var', None)
     file_path = file if file else last_file_var
     handler = params.get('handler', 'file_rights')
-    scope = params.get('scope', 'global')
+    # Scope logic: if file_path is missing, this is local (last_action)
+    if not file_path:
+        scope = 'last_action'
+    else:
+        scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le fichier {file_path} a les droits {mode}")
     opposite = params.get('opposite', f"le fichier {file_path} n'a pas les droits {mode}")
-    actual_cmd = f"if [ $(stat -c '%a' '{{file_path}}') = '{{mode}}' ]; then echo '{{expected}}'; else echo '{{opposite}}'; fi"
+    # Atomic check: file has the expected mode
+    actual_cmd = f"[ $(stat -c '%a' {file_path}) = '{mode}' ]"
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

@@ -3,6 +3,7 @@ from typing import Dict, Tuple, List
 from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
 from shtest_compiler.ast.shell_framework_ast import ShellFrameworkAST, ShellTestStep, ShellFunctionDef, ShellFunctionCall, InlineShellCode, ValidationCheck
 from .atomic_compiler import compile_atomic
+from .argument_extractor import extract_action_args
 
 # Helper to create a canonical key for an action/validation
 # For now, use command/result_expr as the key; can be improved for argument normalization
@@ -10,9 +11,16 @@ from .atomic_compiler import compile_atomic
 def canonical_action_key(action: Action) -> Tuple[str, str]:
     return (action.command or "", action.result_expr or "")
 
-# Helper to extract parameters from command/result_expr (simple version)
+# Helper to extract parameters from command/result_expr
 def extract_params(action: Action):
-    # For now, just return empty (can be improved to parse placeholders)
+    if not action.command:
+        return []
+    
+    # Try to extract parameters from the action command
+    extracted = extract_action_args(action.command)
+    if extracted:
+        # Return parameter names in order they appear
+        return list(extracted.keys())
     return []
 
 def build_shell_framework_ast(shtest_ast: ShtestFile) -> ShellFrameworkAST:
@@ -38,16 +46,24 @@ def build_shell_framework_ast(shtest_ast: ShtestFile) -> ShellFrameworkAST:
     # Generate helper function bodies
     for key, name in helper_names.items():
         cmd, res = key
+        # Extract parameters from the action command
+        params = extract_params(Action(command=cmd, result_expr=res, result_ast=None, lineno=0))
+        
         # Use compile_atomic to generate shell code for the validation (if present)
         if res:
-            # Only validations for now
-            lines = compile_atomic(res, varname="result", last_file_var=None, action_context={'command': cmd})
-            params = []  # TODO: extract params from res if needed
-            helpers.append(ShellFunctionDef(name=name, params=params, body_lines=lines))
+            # Translate the action command to shell command
+            shell_cmd = translate_command(cmd)
+            # Generate action execution first
+            action_lines = [f"echo 'Action: {cmd}'", f"run_action \"{shell_cmd}\""]
+            # Then generate validation
+            validation_lines = compile_atomic(res, varname="result", last_file_var=None, action_context={'command': cmd})
+            # Combine action and validation
+            all_lines = action_lines + validation_lines
+            helpers.append(ShellFunctionDef(name=name, params=params, body_lines=all_lines))
         else:
             # For actions, just echo and run the command
-            lines = [f"echo 'Action: {cmd}'", f"run_action \"{cmd}\""]
-            params = []  # TODO: extract params from cmd if needed
+            shell_cmd = translate_command(cmd)
+            lines = [f"echo 'Action: {cmd}'", f"run_action \"{shell_cmd}\""]
             helpers.append(ShellFunctionDef(name=name, params=params, body_lines=lines))
 
     for step in shtest_ast.steps:
@@ -56,14 +72,25 @@ def build_shell_framework_ast(shtest_ast: ShtestFile) -> ShellFrameworkAST:
         for action in step.actions:
             key = canonical_action_key(action)
             if key in helper_names:
-                actions.append(ShellFunctionCall(name=helper_names[key], args=[]))
+                # Extract arguments from the action for the helper call
+                extracted = extract_action_args(action.command) if action.command else {}
+                args = [extracted.get(param, "") for param in extract_params(action)]
+                actions.append(ShellFunctionCall(name=helper_names[key], args=args))
             else:
                 # Inline code for unique actions/validations
                 if action.result_expr:
-                    lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
-                    actions.append(InlineShellCode(code_lines=lines))
+                    # Translate the action command to shell command
+                    shell_cmd = translate_command(action.command) if action.command else action.command
+                    # Generate action execution first
+                    action_lines = [f"echo 'Action: {action.command}'", f"run_action \"{shell_cmd}\""]
+                    # Then generate validation
+                    validation_lines = compile_atomic(action.result_expr, varname="result", last_file_var=None, action_context={'command': action.command})
+                    # Combine action and validation
+                    all_lines = action_lines + validation_lines
+                    actions.append(InlineShellCode(code_lines=all_lines))
                 else:
-                    lines = [f"echo 'Action: {action.command}'", f"run_action \"{action.command}\""]
+                    shell_cmd = translate_command(action.command) if action.command else action.command
+                    lines = [f"echo 'Action: {action.command}'", f"run_action \"{shell_cmd}\""]
                     actions.append(InlineShellCode(code_lines=lines))
         steps.append(ShellTestStep(name=step.name, actions=actions, validations=validations))
 

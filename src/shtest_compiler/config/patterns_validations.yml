@@ -91,6 +91,14 @@ validations:
       - "fichier créé"
       - "le fichier est initialisé"
       - "fichier initialisé"
+      - "le fichier est present"  # accentless
+      - "fichier present"         # accentless
+      - "le fichier est cree"      # accentless
+      - "fichier cree"             # accentless
+      - "le fichier est cree"      # accentless
+      - "fichier cree"             # accentless
+      - "le fichier est initialise" # accentless
+      - "fichier initialise"        # accentless
       - "^le fichier est présent$"
       - "^le fichier existe$"
       - "^fichier présent$"
@@ -100,6 +108,12 @@ validations:
       - "^fichier créé$"
       - "^le fichier est initialisé$"
       - "^fichier initialisé$"
+      - "^le fichier est present$"  # accentless
+      - "^fichier present$"         # accentless
+      - "^le fichier est cree$"      # accentless
+      - "^fichier cree$"             # accentless
+      - "^le fichier est initialise$" # accentless
+      - "^fichier initialise$"        # accentless
   - phrase: "Le fichier est absent"
     handler: file_absent
     scope: global
@@ -109,9 +123,13 @@ validations:
       - "Le fichier est absent"
       - "le fichier n'existe pas"
       - "fichier absent"
+      - "le fichier est absent"  # accentless
+      - "fichier absent"         # accentless
       - "^le fichier est absent$"
       - "^le fichier n'existe pas$"
       - "^fichier absent$"
+      - "^le fichier est absent$"  # accentless
+      - "^fichier absent$"         # accentless
   - phrase: "Le dossier est prêt"
     handler: dir_ready
     scope: last_action
@@ -178,6 +196,9 @@ validations:
       - "^date modifiée$"
       - "^la date est modifiée$"
       - "^date modifiee$"
+      - "La date du fichier {file} est {date}"
+      - "la date du fichier {file} est {date}"
+      - "^la date du fichier (.+) est (.+)$"
   - phrase: "Retour {code}"
     handler: return_code
     scope: last_action
@@ -188,16 +209,10 @@ validations:
       - "code retour {code}"
       - "le script retourne un code {code}"
       - "Le script retourne un code {code}"
-      - "le script a réussi"  # Implies code=0
-      - "le script s'est exécuté sans erreur"  # Implies code=0
-      - "Le script s'execute avec succès"  # Implies code=0
       - "^retour ([0-9]+)$"  # code: number
       - "^code retour ([0-9]+)$"  # code: number
       - "^le script retourne un code ([0-9]+)$"  # code: number
       - "^Le script retourne un code ([0-9]+)$"  # code: number
-      - "^le script a réussi$"  # Implies code=0
-      - "^le script s'est exécuté sans erreur$"  # Implies code=0
-      - "^Le script s'execute avec succès$"  # Implies code=0
   - phrase: "Les fichiers sont identiques"
     handler: files_identical
     scope: last_action
@@ -282,8 +297,18 @@ validations:
       phrase: "Le fichier {file} n'existe pas"
     aliases:
       - "fichier {file} existe"
+      - "Le fichier {file} est présent"
+      - "le fichier {file} est présent"
+      - "fichier {file} est présent"
+      - "Le fichier {file} est present"
+      - "le fichier {file} est present"
+      - "fichier {file} est present"
       - "^fichier ([^ ]+) existe$"  # file: no spaces
       - "^le fichier ([^ ]+) existe$"  # file: no spaces
+      - "^le fichier ([^ ]+) est présent$"  # file: no spaces
+      - "^le fichier ([^ ]+) est present$"  # file: no spaces
+      - "^fichier ([^ ]+) est présent$"  # file: no spaces
+      - "^fichier ([^ ]+) est present$"  # file: no spaces
   - phrase: "Le fichier {file} est vide"
     handler: file_empty
     scope: global
@@ -291,6 +316,8 @@ validations:
       phrase: "Le fichier {file} n'est pas vide"
     aliases:
       - "fichier {file} est vide"
+      - "Le fichier {file} est vide"
+      - "le fichier {file} est vide"
       - "^fichier ([^ ]+) est vide$"  # file: no spaces
       - "^le fichier ([^ ]+) est vide$"  # file: no spaces
   - phrase: "variable {var} vaut {value}"
@@ -331,6 +358,14 @@ validations:
     aliases:
       - "la date du fichier {file} est {date}"
       - "^la date du fichier ([^ ]+) est (.+)$"  # file: no spaces, date: anything
+      - "le fichier est modifié"  # Implies file from last action context
+      - "le fichier est modifie"  # Implies file from last action context
+      - "la date est modifiée"  # Implies file from last action context
+      - "la date est modifiee"  # Implies file from last action context
+      - "^le fichier est modifié$"  # Implies file from last action context
+      - "^le fichier est modifie$"  # Implies file from last action context
+      - "^la date est modifiée$"  # Implies file from last action context
+      - "^la date est modifiee$"  # Implies file from last action context
   - phrase: "Le fichier {file} contient exactement {text}"
     handler: file_contains_exact
     scope: global
@@ -366,7 +401,45 @@ validations:
     aliases:
       - "le dossier {dir} existe"
       - "^le dossier ([^ ]+) existe$"
-
+  - phrase: "Le script s'execute avec succès"
+    handler: return_code
+    scope: last_action
+    aliases:
+      - "le script s'execute avec succès"
+      - "le script s'execute avec succes"
+      - "le script a réussi"
+      - "le script a reussi"
+      - "le script retourne un code 0"
+      - "le script s'est exécuté sans erreur"
+      - "le script s'est execute sans erreur"
+      - "le script s'est exécuté avec succès"
+      - "le script s'est execute avec succes"
+      - "^le script s'execute avec succès$"
+      - "^le script s'execute avec succes$"
+      - "^le script a réussi$"
+      - "^le script a reussi$"
+      - "^le script retourne un code 0$"
+      - "^le script s'est exécuté sans erreur$"
+      - "^le script s'est execute sans erreur$"
+      - "^le script s'est exécuté avec succès$"
+      - "^le script s'est execute avec succes$"
+  - phrase: "Le script affiche \"{text}\""
+    handler: stdout_contains
+    scope: last_action
+    aliases:
+      - "le script affiche \"{text}\""
+      - "stdout contient \"{text}\""
+      - "^le script affiche \"(.+)\"$"
+      - "^stdout contient \"(.+)\"$"
+  - phrase: "Le script affiche une erreur \"{text}\""
+    handler: stderr_contains
+    scope: last_action
+    aliases:
+      - "le script affiche une erreur \"{text}\""
+      - "stderr contient \"{text}\""
+      - "^le script affiche une erreur \"(.+)\"$"
+      - "^stderr contient \"(.+)\"$"
+#
 # Example for compound logic (AND, OR, NOT):
 #
 # - type: compound

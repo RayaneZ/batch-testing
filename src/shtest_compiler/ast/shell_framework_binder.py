@@ -26,31 +26,89 @@ def is_global_validation(node):
 
 class ShellFrameworkLifter:
     """
-    Lifts global validations (atomic or compound) attached as results to standalone synthetic actions in the AST.
+    Lifts global validations from action results to standalone validations.
+    This processes the AST to separate action-dependent validations from global validations.
     """
     def __init__(self, ast: ShellFrameworkAST):
         self.ast = ast
 
     def lift(self) -> ShellFrameworkAST:
+        """
+        Lift global validations from action results to standalone validations.
+        This transforms:
+        - Action with global validation result -> Action + standalone validation
+        - Action with local validation result -> Action with validation (unchanged)
+        """
         for step in self.ast.steps:
             new_actions = []
-            for action in step.actions:
-                validations = getattr(action, 'validations', []) if hasattr(action, 'validations') else []
-                local_valids = []
-                global_valids = []
-                for validation in validations:
-                    if is_global_validation(validation):
-                        global_valids.append(validation)
-                    else:
-                        local_valids.append(validation)
-                if hasattr(action, 'validations'):
-                    action.validations = local_valids
-                new_actions.append(action)
-                for gval in global_valids:
-                    synthetic_action = InlineShellCode(code_lines=[])
-                    new_actions.append(gval)
+            i = 0
+            while i < len(step.actions):
+                action = step.actions[i]
+                
+                # Check if this action contains validation logic that can be lifted
+                if isinstance(action, InlineShellCode):
+                    lifted_actions = self._process_inline_shell_code(action)
+                    new_actions.extend(lifted_actions)
+                else:
+                    # Keep non-validation actions as-is
+                    new_actions.append(action)
+                
+                i += 1
+            
             step.actions = new_actions
+        
         return self.ast
+    
+    def _process_inline_shell_code(self, action: InlineShellCode) -> List:
+        """
+        Process InlineShellCode to separate action execution from global validations.
+        Returns a list of actions (original action + any lifted validations).
+        """
+        action_lines = []
+        validation_lines = []
+        
+        for line in action.code_lines:
+            if isinstance(line, ValidationCheck):
+                # This is a validation - check if it can be lifted
+                if self._is_global_validation(line):
+                    validation_lines.append(line)
+                else:
+                    # Keep local validations with the action
+                    action_lines.append(line)
+            else:
+                # This is action execution code - keep with action
+                action_lines.append(line)
+        
+        result = []
+        
+        # Add the action (with any remaining local validations)
+        if action_lines:
+            result.append(InlineShellCode(code_lines=action_lines))
+        
+        # Add lifted validations as standalone actions
+        for validation in validation_lines:
+            result.append(validation)
+        
+        return result
+    
+    def _is_global_validation(self, validation) -> bool:
+        """
+        Check if a validation can be lifted (is global scope).
+        """
+        if hasattr(validation, 'scope'):
+            return getattr(validation, 'scope', 'last_action') == 'global'
+        
+        # For compound validations, check if all parts are global
+        if hasattr(validation, 'left') and hasattr(validation, 'right'):
+            return (self._is_global_validation(validation.left) and 
+                   self._is_global_validation(validation.right))
+        
+        # For NOT validations
+        if hasattr(validation, 'child'):
+            return self._is_global_validation(validation.child)
+        
+        # Default to local scope if we can't determine
+        return False
 
 class ShellFrameworkBinder:
     """

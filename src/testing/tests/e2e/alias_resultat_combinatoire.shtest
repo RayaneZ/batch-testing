@@ -1,0 +1,3 @@
+Étape: Résultat combinatoire
+
+Action: exécuter /opt/batch/traitement.sh ; Résultat: le script s'execute avec succès et (le script affiche "OK" ou le script affiche une erreur "WARNING")

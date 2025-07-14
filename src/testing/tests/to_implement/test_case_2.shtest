@@ -1,0 +1,5 @@
+Étape: Exécution et vérification des logs
+
+Action: exécuter /opt/batch/traitement.sh produit=123 quantité=10 ; Résultat: retour 0
+Action: vérifier qu'il n'y a pas d'erreurs dans les logs ; Résultat: aucun message d'erreur
+Action: indiquer le chemin des logs /var/log/system.log ; Résultat: les logs sont accessibles

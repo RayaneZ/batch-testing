@@ -1,0 +1,3 @@
+Étape: Vérification des logs
+
+Action: indiquer le chemin des logs /var/log/sys.log ; Résultat: les logs sont accessibles

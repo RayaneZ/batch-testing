@@ -185,13 +185,4 @@ class ModularCompiler:
         }
 
 
-# Backward compatibility: keep the old compiler interface
-class Compiler(ModularCompiler):
-    """Backward compatibility wrapper for the old compiler interface."""
-    
-    def __init__(self, debug: bool = False):
-        super().__init__(debug=debug)
-    
-    def compile(self, file_path: str, output_path: Optional[str] = None) -> str:
-        """Backward compatibility method."""
-        return self.compile_file(file_path, output_path)
+# Legacy Compiler class removed - use ModularCompiler directly

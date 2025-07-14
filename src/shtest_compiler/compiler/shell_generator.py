@@ -15,6 +15,7 @@ from ..parser.shtest_ast import ShtestFile, Action, TestStep
 from .atomic_compiler import compile_atomic
 from .matcher_registry import MatcherRegistry
 from ..config.debug_config import is_debug_enabled, debug_print
+from .action_utils import extract_context_from_action, validate_action_context, canonize_action
 import re
 import yaml
 import os
@@ -24,148 +25,9 @@ from ..parser.shunting_yard import parse_validation_expression, Atomic, BinaryOp
 import traceback
 
 
-def canonize_action(action: str) -> Optional[tuple]:
-    """
-    Canonicalize an action command to find the appropriate handler.
-    Returns (canonical_phrase, handler_name, pattern_entry) or None if not found
-    """
-    patterns_path = os.path.join(os.path.dirname(__file__), "../config/patterns_actions.yml")
-    if not os.path.exists(patterns_path):
-        return None
-    
-    with open(patterns_path, encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-        action_patterns = data.get("actions", [])
-    
-    action_lower = action.lower().strip()
-    
-    for pattern_entry in action_patterns:
-        # Check exact phrase match
-        if pattern_entry["phrase"].lower() == action_lower:
-            return (
-                pattern_entry["phrase"],
-                pattern_entry["handler"],
-                pattern_entry
-            )
-        # Check aliases
-        for alias in pattern_entry.get("aliases", []):
-            # Skip if alias is not a string
-            if not isinstance(alias, str):
-                continue
-            if alias.lower() == action_lower:
-                return (
-                    pattern_entry["phrase"],
-                    pattern_entry["handler"],
-                    pattern_entry
-                )
-            # Handle regex patterns
-            if alias.startswith("^") and alias.endswith("$"):
-                try:
-                    if re.match(alias, action_lower, re.IGNORECASE):
-                        return (
-                            pattern_entry["phrase"],
-                            pattern_entry["handler"],
-                            pattern_entry
-                        )
-                except re.error:
-                    continue
-    
-    return None
-
-
-def canonize_validation(validation: str) -> Optional[tuple]:
-    """
-    Canonicalize a validation expression to find the appropriate matcher.
-    Returns (canonical_phrase, handler_name, scope, pattern_entry, groups) or None if not found.
-    """
-    patterns_path = os.path.join(os.path.dirname(__file__), "../config/patterns_validations.yml")
-    if not os.path.exists(patterns_path):
-        return None
-    
-    with open(patterns_path, encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-        validation_patterns = data.get("validations", [])
-    
-    validation_lower = validation.lower().strip()
-    
-    for pattern_entry in validation_patterns:
-        # Check exact phrase match
-        if pattern_entry["phrase"].lower() == validation_lower:
-            return (
-                pattern_entry["phrase"],
-                pattern_entry["handler"],
-                pattern_entry.get("scope", "global"),
-                pattern_entry,
-                [] # Groups will be extracted later
-            )
-        # Check aliases
-        for alias in pattern_entry.get("aliases", []):
-            # Skip if alias is not a string
-            if not isinstance(alias, str):
-                continue
-            if alias.lower() == validation_lower:
-                return (
-                    pattern_entry["phrase"],
-                    pattern_entry["handler"],
-                    pattern_entry.get("scope", "global"),
-                    pattern_entry,
-                    [] # Groups will be extracted later
-                )
-            # Handle regex patterns
-            if alias.startswith("^") and alias.endswith("$"):
-                try:
-                    if re.match(alias, validation_lower, re.IGNORECASE):
-                        return (
-                            pattern_entry["phrase"],
-                            pattern_entry["handler"],
-                            pattern_entry.get("scope", "global"),
-                            pattern_entry,
-                            [] # Groups will be extracted later
-                        )
-                except re.error:
-                    continue
-    
-    return None
-
-
-def extract_action_groups(action: str, pattern: str) -> List[str]:
-    """
-    Extract groups from action command using the pattern.
-    
-    Args:
-        action: The action command
-        pattern: The regex pattern to match against
-        
-    Returns:
-        List of extracted groups
-    """
-    # Convert YAML pattern placeholders to regex
-    regex_pattern = pattern
-    regex_pattern = regex_pattern.replace("{path}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{src}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{dest}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{script}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{query}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{output}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{query1}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{query2}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{file1}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{file2}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{var}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{value}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{timestamp}", r"(.+)")
-    regex_pattern = regex_pattern.replace("{mode}", r"(.+)")
-    
-    # Try to match the action against the pattern
-    match = re.match(regex_pattern, action, re.IGNORECASE)
-    if match:
-        return list(match.groups())
-    return []
-
-
 def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[str]:
     """
-    Compile an action command into shell code using the plugin system.
+    Compile an action command into shell code using the modular context system.
     
     Args:
         action: The action command to compile
@@ -179,7 +41,7 @@ def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[s
     if debug_enabled:
         debug_print(f"[DEBUG] compile_action called with: action='{action}', extracted_args={extracted_args}")
     
-    # Canonicalize the action command
+    # Use modular context extraction instead of manual canonization
     canon = canonize_action(action)
     if debug_enabled:
         debug_print(f"[DEBUG] canonize_action result: {canon}")
@@ -201,41 +63,23 @@ def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[s
     if debug_enabled:
         debug_print(f"[DEBUG] Canonical action: '{phrase_canonique}' (handler: {handler}) for '{action}'")
     
-    # Find matching action pattern
-    matched_pattern = None
-    for alias in [pattern_entry["phrase"]] + pattern_entry.get("aliases", []):
-        # Skip if alias is not a string
-        if not isinstance(alias, str):
-            continue
-        if alias.lower() == action.lower().strip():
-            matched_pattern = alias
-            break
-        # Handle regex patterns
-        if alias.startswith("^") and alias.endswith("$"):
-            try:
-                if re.match(alias, action.lower().strip(), re.IGNORECASE):
-                    matched_pattern = alias
-                    break
-            except re.error:
-                continue
-    
-    if not matched_pattern:
-        # Fallback to raw command execution
-        if debug_enabled:
-            debug_print(f"[DEBUG] No action pattern matched, using raw command execution")
-        escaped_action = action.replace('"', '\\"')
-        return [
-            f"# Execute: {action}",
-            f'echo "Executing: {escaped_action}"',
-            f"stdout=$({action} 2>&1)",
-            "last_ret=$?",
-            "",
-        ]
-    
-    # Extract action groups from the matched pattern
-    groups = extract_action_groups(action, matched_pattern)
+    # Extract context using the modular system
+    context = extract_context_from_action(action, handler)
     if debug_enabled:
-        debug_print(f"[DEBUG] extract_action_groups result: {groups}")
+        debug_print(f"[DEBUG] extract_context_from_action result: {context}")
+    
+    # Validate the context
+    is_valid, errors = validate_action_context(context)
+    if not is_valid:
+        error_msg = f"Action context errors for '{action}': {', '.join(errors)}"
+        if debug_enabled:
+            debug_print(f"[DEBUG] {error_msg}")
+        return [f"echo 'ERROR: {error_msg}'"]
+    
+    # Extract variables from context
+    variables = context.get('variables', {})
+    if debug_enabled:
+        debug_print(f"[DEBUG] Extracted variables: {variables}")
     
     # Try to import and use the core handler first
     try:
@@ -243,12 +87,16 @@ def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[s
             debug_print(f"[DEBUG] Trying to import core handler: shtest_compiler.core.handlers.{handler}")
         core_module = importlib.import_module(f"shtest_compiler.core.handlers.{handler}")
         if hasattr(core_module, 'handle'):
+            # Pass the full context to the handler
             params = {
-                'groups': groups,
-                'canonical_phrase': phrase_canonique
+                'canonical_phrase': phrase_canonique,
+                'context': context,
+                # Include all extracted variables for backward compatibility
+                **variables
             }
             if extracted_args:
                 params.update(extracted_args)
+            
             result = core_module.handle(params)
             if debug_enabled:
                 debug_print(f"[DEBUG] Core handler returned: {result}")
@@ -269,12 +117,19 @@ def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[s
                 debug_print(f"[DEBUG] Trying to import plugin: shtest_compiler.plugins.{handler}")
             plugin_module = importlib.import_module(f"shtest_compiler.plugins.{handler}")
             if hasattr(plugin_module, 'handle'):
+                # For plugins, we need to maintain backward compatibility
+                # Extract groups from variables for plugin compatibility
+                groups = list(variables.values())
                 action_obj = plugin_module.handle(groups)
                 if hasattr(action_obj, 'to_shell'):
                     import inspect
                     sig = inspect.signature(action_obj.to_shell)
                     param_names = list(sig.parameters.keys())
                     kwargs = {}
+                    # Pass variables as kwargs if they match parameter names
+                    for k, v in variables.items():
+                        if k in param_names:
+                            kwargs[k] = v
                     if extracted_args:
                         for k, v in extracted_args.items():
                             if k in param_names:
@@ -314,11 +169,14 @@ class ShellGenerator(ASTVisitor):
         try:
             # Step 1: Shtest AST -> ShellFrameworkAST
             shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
-            # Step 2: Bind helpers and calls
+            # Step 2: Lift global validations from action results to standalone validations
+            from shtest_compiler.ast.shell_framework_binder import ShellFrameworkLifter
+            shellframework_ast = ShellFrameworkLifter(shellframework_ast).lift()
+            # Step 3: Bind helpers and calls
             shellframework_ast = ShellFrameworkBinder(shellframework_ast).bind()
-            # Step 3: ShellFrameworkAST -> ShellScript
+            # Step 4: ShellFrameworkAST -> ShellScript
             shellscript_ast = ShellFrameworkToShellScriptVisitor().visit(shellframework_ast)
-            # Step 4: Emit shell script
+            # Step 5: Emit shell script
             return "\n".join(shellscript_ast.lines)
         except Exception as e:
             error_msg = f"[ERROR] {type(e).__name__}: {e}"

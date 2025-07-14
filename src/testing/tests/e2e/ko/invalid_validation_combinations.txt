@@ -1,0 +1,308 @@
+ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
+[DEBUG] Loaded patterns: ['step', 'action_result', 'action_only', 'result_only', 'comment']
+[DEBUG] Pattern for step: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Pattern for action_result: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Pattern for action_only: ^Action\s*:\s*(.*)$
+[DEBUG] Pattern for result_only: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Pattern for comment: ^\s*#.*$
+[DEBUG] Added STEP tokenizer with pattern: ^(?:Étape|Etape|Step)\s*:\s*(.*)$
+[DEBUG] Added ACTION_RESULT tokenizer with pattern: ^Action\s*:\s*(.*?)(?:\s*;\s*(?:R[ée]sultat|Resultat)\s*:\s*(.*)|\s*R[ée]sultat\s*:\s*(.*))$
+[DEBUG] Added ACTION_ONLY tokenizer with pattern: ^Action\s*:\s*(.*)$
+[DEBUG] Added RESULT_ONLY tokenizer with pattern: ^R[ée]sultat\s*:\s*(.*)$
+[DEBUG] Added COMMENT tokenizer with pattern: ^\s*#.*$
+[DEBUG] Added FallbackTokenizer
+[DEBUG] Parsing text with 13 lines
+[DEBUG] Lexing text with 13 lines
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid validation combinations at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid validation combinations at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid validation combinations at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=# Test with invalid validation combinations at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.COMMENT, value=# Test with invalid validation combinations, result=None, original=# Test with invalid validation combinations at line 1
+[DEBUG] Yielding token: COMMENT@1:0 '# Test with invalid validation combinations'
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test conflicting validations, result=('Test conflicting validations',), original=Étape: Test conflicting validations at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test conflicting validations' -> '('Test conflicting validations',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test", result=('echo "test"',), original=  Action: echo "test" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test"' -> '('echo "test"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 0 at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Le code de retour est 0'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 1  # Conflicting validation at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 1  # Conflicting validation at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 1  # Conflicting validation at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 1  # Conflicting validation at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est 1  # Conflicting validation at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Le code de retour est 1  # Conflicting validation'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test invalid validation parameters, result=('Test invalid validation parameters',), original=Étape: Test invalid validation parameters at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test invalid validation parameters' -> '('Test invalid validation parameters',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test", result=('echo "test"',), original=  Action: echo "test" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test"' -> '('echo "test"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est abc  # Invalid parameter (should be number) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est abc  # Invalid parameter (should be number) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est abc  # Invalid parameter (should be number) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est abc  # Invalid parameter (should be number) at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le code de retour est abc  # Invalid parameter (should be number) at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Le code de retour est abc  # Invalid parameter (should be number)'
+[DEBUG] RegexTokenizer.tokenize: Yielding EMPTY token at line 1
+[DEBUG] Yielding token: EMPTY@1:0 ''
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.STEP, value=Test missing validation parameters, result=('Test missing validation parameters',), original=Étape: Test missing validation parameters at line 1
+[DEBUG] Yielding token: STEP@1:0 'Test missing validation parameters' -> '('Test missing validation parameters',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Action: echo "test" at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding token type=TokenType.ACTION_ONLY, value=echo "test", result=('echo "test"',), original=  Action: echo "test" at line 1
+[DEBUG] Yielding token: ACTION_ONLY@1:0 'echo "test"' -> '('echo "test"',)'
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient  # Missing parameter at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient  # Missing parameter at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient  # Missing parameter at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient  # Missing parameter at line 1
+[DEBUG] RegexTokenizer.tokenize: Yielding TEXT token value=Vérifier: Le contenu affiché contient  # Missing parameter at line 1
+[DEBUG] Yielding token: TEXT@1:0 'Vérifier: Le contenu affiché contient  # Missing parameter'
+[DEBUG] Got 13 tokens
+[DEBUG] Grammar: _merge_action_result called with 13 tokens
+[DEBUG] Grammar: Token 0: kind=COMMENT, value='# Test with invalid validation combinations'
+[DEBUG] Grammar: Token 1: kind=STEP, value='Test conflicting validations'
+[DEBUG] Grammar: Token 2: kind=ACTION_ONLY, value='echo "test"'
+[DEBUG] Grammar: Token 3: kind=TEXT, value='Vérifier: Le code de retour est 0'
+[DEBUG] Grammar: Token 4: kind=TEXT, value='Vérifier: Le code de retour est 1  # Conflicting validation'
+[DEBUG] Grammar: Token 5: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 6: kind=STEP, value='Test invalid validation parameters'
+[DEBUG] Grammar: Token 7: kind=ACTION_ONLY, value='echo "test"'
+[DEBUG] Grammar: Token 8: kind=TEXT, value='Vérifier: Le code de retour est abc  # Invalid parameter (should be number)'
+[DEBUG] Grammar: Token 9: kind=EMPTY, value=''
+[DEBUG] Grammar: Token 10: kind=STEP, value='Test missing validation parameters'
+[DEBUG] Grammar: Token 11: kind=ACTION_ONLY, value='echo "test"'
+[DEBUG] Grammar: Token 12: kind=TEXT, value='Vérifier: Le contenu affiché contient  # Missing parameter'
+[DEBUG] Grammar: _merge_action_result returning 13 tokens
+[DEBUG] get_action_shell_command called with: 'echo "test"'
+[DEBUG] canonize_action: Loaded 21 action patterns
+[DEBUG] canonize_action: Processing action 'echo "test"' (normalized: 'echo "test"')
+[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path}' with handler 'create_dir'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'créer un dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'faire un dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'cr[ée]er le dossier (.+)'
+[DEBUG] canonize_action: Checking alias '^mkdir (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^mkdir (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Supprimer le dossier {path}' with handler 'delete_dir'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'effacer le dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'enlever le dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'retirer le dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ dossier\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^rm -rf (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Copier le dossier {src} vers {dest}' with handler 'copy_dir'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ dossier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'dupliquer le dossier {src} vers {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ dossier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'copier le dossier {src} à {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ dossier\ (.+)\ à\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^cp -r (.+) (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^cp -r (.+) (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Déplacer le dossier {src} vers {dest}' with handler 'move_dir'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ dossier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'déplacer le dossier {src} à {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ dossier\ (.+)\ à\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Purger le répertoire {path}' with handler 'purge_dir'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Purger\ le\ répertoire\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'vider le répertoire {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^vider\ le\ répertoire\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'nettoyer le répertoire {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^nettoyer\ le\ répertoire\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^rm -rf (.+)/\\*$'
+[DEBUG] canonize_action: Testing regex alias '^rm -rf (.+)/\\*$'
+[DEBUG] canonize_action: Checking pattern 'Créer le fichier {path}' with handler 'create_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'créer un fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ un\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'faire un fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ un\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'générer le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^générer\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'cr[ée]er le fichier (.+)'
+[DEBUG] canonize_action: Checking alias '^touch (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^touch (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Supprimer le fichier {path}' with handler 'delete_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Supprimer\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'effacer le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^effacer\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'enlever le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^enlever\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'retirer le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^retirer\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^rm (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^rm (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Copier le fichier {src} vers {dest}' with handler 'copy_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'dupliquer le fichier {src} vers {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^dupliquer\ le\ fichier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'copier le fichier {src} à {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ à\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^cp (.+) (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^cp (.+) (.+)$'
+[DEBUG] canonize_action: Checking alias 'copier le fichier {src} vers {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^copier\ le\ fichier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Déplacer le fichier {src} vers {dest}' with handler 'move_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} à {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ à\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^mv (.+) (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^mv (.+) (.+)$'
+[DEBUG] canonize_action: Checking alias 'déplacer le fichier {src} vers {dest}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^déplacer\ le\ fichier\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Afficher le contenu du fichier {path}' with handler 'cat_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Afficher\ le\ contenu\ du\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'afficher le contenu du fichier = {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^afficher\ le\ contenu\ du\ fichier\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'cat le fichier = {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^cat\ le\ fichier\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'lire le fichier = {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'voir le contenu du fichier = {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'consulter le fichier = {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'ouvrir le fichier = {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^cat (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^cat (.+)$'
+[DEBUG] canonize_action: Checking alias '^afficher le contenu du fichier = (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^afficher le contenu du fichier = (.+)$'
+[DEBUG] canonize_action: Checking alias '^lire le fichier = (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^lire le fichier = (.+)$'
+[DEBUG] canonize_action: Checking alias 'voir le contenu du fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^voir\ le\ contenu\ du\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'lire le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lire\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'consulter le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^consulter\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'ouvrir le fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^ouvrir\ le\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Exécuter le script {script}' with handler 'run_script'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'lancer {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'traiter {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^traiter\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter traitement.sh'
+[DEBUG] canonize_action: Checking alias 'lancer traitement.sh'
+[DEBUG] canonize_action: Checking alias 'traiter traitement.sh'
+[DEBUG] canonize_action: Checking alias '^sh (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^sh (.+)$'
+[DEBUG] canonize_action: Checking alias 'lancer le script {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ le\ script\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'faire tourner le script {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^faire\ tourner\ le\ script\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'démarrer le script {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^démarrer\ le\ script\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Exécuter le script SQL {script}' with handler 'run_sql_script'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ le\ script\ SQL\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter le script SQL {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ le\ script\ SQL\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter le script sql {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ le\ script\ sql\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'lancer le script sql {script}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ le\ script\ sql\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^sqlplus (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^sqlplus (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Exécuter la requête SQL {query}' with handler 'sql_query'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Exécuter\ la\ requête\ SQL\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter la requête SQL {query}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ SQL\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter la requête {query}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'lancer la requête SQL {query}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ la\ requête\ SQL\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'lancer la requête {query}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^lancer\ la\ requête\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exécuter la requête {query}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exécuter\ la\ requête\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Exporter les résultats de la requête {query} vers {output}' with handler 'sql_export'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exporter les résultats de la requête {query} vers {output}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exporter les résultats {query} vers {output}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exporter {query} vers {output}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exporter les résultats de la requête {query} vers {output}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ les\ résultats\ de\ la\ requête\ (.+)\ vers\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Comparer les résultats de la requête {query1} avec {query2}' with handler 'sql_compare'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'comparer les résultats de la requête {query1} avec {query2}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'comparer les résultats {query1} avec {query2}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'comparer {query1} avec {query2}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'comparer les résultats de la requête {query1} avec {query2}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ les\ résultats\ de\ la\ requête\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Comparer le fichier {file1} avec {file2}' with handler 'compare_files'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Comparer\ le\ fichier\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'comparer le fichier {file1} avec {file2}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ le\ fichier\ (.+)\ avec\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'comparer le fichier {file1} et {file2}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^comparer\ le\ fichier\ (.+)\ et\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^diff (.+) (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^diff (.+) (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Définir la variable {var} = {value}' with handler 'export_var'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Définir\ la\ variable\ (.+)\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'définir la variable SQL_CONN = {value}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ SQL_CONN\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'définir la variable d'environnement {var} = {value}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ d'environnement\ (.+)\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'exporter la variable {var} = {value}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^exporter\ la\ variable\ (.+)\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^export (.+)=(.+)$'
+[DEBUG] canonize_action: Testing regex alias '^export (.+)=(.+)$'
+[DEBUG] canonize_action: Checking alias 'définir la variable {var} = {value}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^définir\ la\ variable\ (.+)\ =\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Mettre à jour la date du fichier {file} {date}' with handler 'touch_ts'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Mettre\ à\ jour\ la\ date\ du\ fichier\ (.+)\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'toucher le fichier {file} -t {date}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^toucher\ le\ fichier\ (.+)\ \-t\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'mettre à jour la date du fichier {file} {date}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^mettre\ à\ jour\ la\ date\ du\ fichier\ (.+)\ (.+)$'
+[DEBUG] canonize_action: Checking alias '^touch -t (.+) (.+)$'
+[DEBUG] canonize_action: Testing regex alias '^touch -t (.+) (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Créer le fichier {path} avec les droits {mode}' with handler 'create_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ fichier\ (.+)\ avec\ les\ droits\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'créer le fichier = {path} avec les droits = {mode}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ le\ fichier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'nouveau fichier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ fichier\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Mettre à jour le fichier {path} avec les droits {mode}' with handler 'update_file'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Mettre\ à\ jour\ le\ fichier\ (.+)\ avec\ les\ droits\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'mettre à jour le fichier = {path} avec les droits = {mode}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^mettre\ à\ jour\ le\ fichier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'maj fichier {path} droits {mode}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^maj\ fichier\ (.+)\ droits\ (.+)$'
+[DEBUG] canonize_action: Checking pattern 'Créer le dossier {path} avec les droits {mode}' with handler 'create_dir'
+[DEBUG] canonize_action: Testing regex pattern '(?i)^Créer\ le\ dossier\ (.+)\ avec\ les\ droits\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'créer le dossier = {path} avec les droits = {mode}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^créer\ le\ dossier\ =\ (.+)\ avec\ les\ droits\ =\ (.+)$'
+[DEBUG] canonize_action: Checking alias 'nouveau dossier {path}'
+[DEBUG] canonize_action: Testing alias regex '(?i)^nouveau\ dossier\ (.+)$'
+[DEBUG] canonize_action: No match found for action 'echo "test"'
+[DEBUG] get_action_shell_command: canonize_action returned None for 'echo "test"'
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_validation_combinations.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\ko\invalid_validation_combinations.sh

@@ -1,0 +1,573 @@
+# handler_requirements.yml
+#
+# Handler Requirements Configuration
+#
+# This file defines the requirements for each handler in a modular and scalable way.
+# Each handler can specify:
+#   - required_variables: Variables that must be present
+#   - optional_variables: Variables that may be present
+#   - scope: 'global' or 'last_action'
+#   - description: Human-readable description
+#   - category: Handler category for organization
+#   - validation_rules: Rules for validating variable values
+#
+# Variable types and their validation patterns:
+#   - path: File or directory path
+#   - file: Filename (no spaces)
+#   - dir: Directory name (no spaces)
+#   - src: Source path
+#   - dest: Destination path
+#   - script: Script path or name
+#   - query: SQL query
+#   - text: Free text content
+#   - code: Numeric code
+#   - mode: Unix permissions (octal)
+#   - date: Date string
+#   - var: Variable name
+#   - value: Variable value
+#   - count: Numeric count
+#   - pattern: File pattern or regex
+#
+handlers:
+  # File Operations
+  create_file:
+    category: file_operations
+    scope: global
+    description: "Create a new file"
+    required_variables: ["path"]
+    optional_variables: ["mode"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+      mode:
+        type: mode
+        required: false
+        pattern: "^[0-7]{3,4}$"
+
+  delete_file:
+    category: file_operations
+    scope: global
+    description: "Delete an existing file"
+    required_variables: ["path"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+
+  copy_file:
+    category: file_operations
+    scope: global
+    description: "Copy a file from source to destination"
+    required_variables: ["src", "dest"]
+    validation_rules:
+      src:
+        type: path
+        required: true
+      dest:
+        type: path
+        required: true
+
+  move_file:
+    category: file_operations
+    scope: global
+    description: "Move a file from source to destination"
+    required_variables: ["src", "dest"]
+    validation_rules:
+      src:
+        type: path
+        required: true
+      dest:
+        type: path
+        required: true
+
+  file_present:
+    category: file_operations
+    scope: global
+    description: "Check if a file exists"
+    required_variables: ["file"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+
+  file_absent:
+    category: file_operations
+    scope: global
+    description: "Check if a file does not exist"
+    required_variables: ["file"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+
+  file_empty:
+    category: file_operations
+    scope: global
+    description: "Check if a file is empty"
+    required_variables: ["file"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+
+  file_contains:
+    category: file_operations
+    scope: global
+    description: "Check if a file contains specific text"
+    required_variables: ["file", "text"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+      text:
+        type: text
+        required: true
+
+  file_contains_exact:
+    category: file_operations
+    scope: global
+    description: "Check if a file contains exact text"
+    required_variables: ["file", "text"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+      text:
+        type: text
+        required: true
+
+  file_rights:
+    category: file_operations
+    scope: global
+    description: "Check file permissions"
+    required_variables: ["file"]
+    optional_variables: ["mode"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+      mode:
+        type: mode
+        required: false
+        pattern: "^[0-7]{3,4}$"
+
+  file_date:
+    category: file_operations
+    scope: global
+    description: "Check file modification date"
+    required_variables: ["file"]
+    optional_variables: ["date"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+      date:
+        type: date
+        required: false
+
+  file_exists:
+    category: file_operations
+    scope: global
+    description: "Check if a file exists"
+    required_variables: ["file"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+
+  # Directory Operations
+  create_dir:
+    category: directory_operations
+    scope: global
+    description: "Create a new directory"
+    required_variables: ["path"]
+    optional_variables: ["mode"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+      mode:
+        type: mode
+        required: false
+        pattern: "^[0-7]{3,4}$"
+
+  delete_dir:
+    category: directory_operations
+    scope: global
+    description: "Delete an existing directory"
+    required_variables: ["path"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+
+  copy_dir:
+    category: directory_operations
+    scope: global
+    description: "Copy a directory from source to destination"
+    required_variables: ["src", "dest"]
+    validation_rules:
+      src:
+        type: path
+        required: true
+      dest:
+        type: path
+        required: true
+
+  move_dir:
+    category: directory_operations
+    scope: global
+    description: "Move a directory from source to destination"
+    required_variables: ["src", "dest"]
+    validation_rules:
+      src:
+        type: path
+        required: true
+      dest:
+        type: path
+        required: true
+
+  purge_dir:
+    category: directory_operations
+    scope: global
+    description: "Remove all contents from a directory"
+    required_variables: ["path"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+
+  dir_exists:
+    category: directory_operations
+    scope: global
+    description: "Check if a directory exists"
+    required_variables: ["dir"]
+    validation_rules:
+      dir:
+        type: dir
+        required: true
+
+  dir_absent:
+    category: directory_operations
+    scope: last_action
+    description: "Check if a directory does not exist"
+    required_variables: ["dir"]
+    validation_rules:
+      dir:
+        type: dir
+        required: true
+
+  dir_rights:
+    category: directory_operations
+    scope: global
+    description: "Check directory permissions"
+    required_variables: ["dir"]
+    optional_variables: ["mode"]
+    validation_rules:
+      dir:
+        type: dir
+        required: true
+      mode:
+        type: mode
+        required: false
+        pattern: "^[0-7]{3,4}$"
+
+  dir_contains_count:
+    category: directory_operations
+    scope: last_action
+    description: "Check number of files matching pattern in directory"
+    required_variables: ["dir", "count", "pattern"]
+    validation_rules:
+      dir:
+        type: dir
+        required: true
+      count:
+        type: count
+        required: true
+        pattern: "^[0-9]+$"
+      pattern:
+        type: pattern
+        required: true
+
+  # Content Operations
+  cat_file:
+    category: content_operations
+    scope: global
+    description: "Display file contents"
+    required_variables: ["path"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+
+  compare_files:
+    category: content_operations
+    scope: global
+    description: "Compare two files"
+    required_variables: ["file1", "file2"]
+    validation_rules:
+      file1:
+        type: file
+        required: true
+      file2:
+        type: file
+        required: true
+
+  files_identical:
+    category: content_operations
+    scope: last_action
+    description: "Check if files are identical"
+    required_variables: []
+    validation_rules: {}
+
+  update_file:
+    category: content_operations
+    scope: global
+    description: "Update file with new content or permissions"
+    required_variables: ["path"]
+    optional_variables: ["mode"]
+    validation_rules:
+      path:
+        type: path
+        required: true
+      mode:
+        type: mode
+        required: false
+        pattern: "^[0-7]{3,4}$"
+
+  # Execution
+  run_script:
+    category: execution
+    scope: global
+    description: "Execute a shell script"
+    required_variables: ["script"]
+    validation_rules:
+      script:
+        type: script
+        required: true
+
+  run_sql_script:
+    category: execution
+    scope: global
+    description: "Execute a SQL script"
+    required_variables: ["script"]
+    validation_rules:
+      script:
+        type: script
+        required: true
+
+  sql_query:
+    category: execution
+    scope: global
+    description: "Execute a SQL query"
+    required_variables: ["query"]
+    validation_rules:
+      query:
+        type: query
+        required: true
+
+  sql_export:
+    category: execution
+    scope: global
+    description: "Export SQL query results"
+    required_variables: ["query", "output"]
+    validation_rules:
+      query:
+        type: query
+        required: true
+      output:
+        type: path
+        required: true
+
+  sql_compare:
+    category: execution
+    scope: global
+    description: "Compare SQL query results"
+    required_variables: ["query1", "query2"]
+    validation_rules:
+      query1:
+        type: query
+        required: true
+      query2:
+        type: query
+        required: true
+
+  # Validation
+  content_displayed:
+    category: validation
+    scope: last_action
+    description: "Check if content was displayed"
+    required_variables: []
+    validation_rules: {}
+
+  return_code:
+    category: validation
+    scope: last_action
+    description: "Check script return code"
+    required_variables: ["code"]
+    validation_rules:
+      code:
+        type: code
+        required: true
+        pattern: "^[0-9]+$"
+
+  stdout_contains:
+    category: validation
+    scope: last_action
+    description: "Check if stdout contains text"
+    required_variables: ["text"]
+    validation_rules:
+      text:
+        type: text
+        required: true
+
+  stderr_contains:
+    category: validation
+    scope: last_action
+    description: "Check if stderr contains text"
+    required_variables: ["text"]
+    validation_rules:
+      text:
+        type: text
+        required: true
+
+  no_error_message:
+    category: validation
+    scope: last_action
+    description: "Check that no error message was produced"
+    required_variables: []
+    validation_rules: {}
+
+  base_ready:
+    category: validation
+    scope: global
+    description: "Check if test base is ready"
+    required_variables: []
+    validation_rules: {}
+
+  credentials_configured:
+    category: validation
+    scope: global
+    description: "Check if credentials are configured"
+    required_variables: []
+    validation_rules: {}
+
+  logs_accessible:
+    category: validation
+    scope: global
+    description: "Check if logs are accessible"
+    required_variables: []
+    validation_rules: {}
+
+  # Variables
+  export_var:
+    category: variables
+    scope: global
+    description: "Export a variable"
+    required_variables: ["var", "value"]
+    validation_rules:
+      var:
+        type: var
+        required: true
+        pattern: "^[a-zA-Z_][a-zA-Z0-9_]*$"
+      value:
+        type: value
+        required: true
+
+  var_equals:
+    category: variables
+    scope: global
+    description: "Check if variable equals value"
+    required_variables: ["var", "value"]
+    validation_rules:
+      var:
+        type: var
+        required: true
+        pattern: "^[a-zA-Z_][a-zA-Z0-9_]*$"
+      value:
+        type: value
+        required: true
+
+  touch_ts:
+    category: variables
+    scope: global
+    description: "Update file timestamp"
+    required_variables: ["file"]
+    optional_variables: ["date"]
+    validation_rules:
+      file:
+        type: file
+        required: true
+      date:
+        type: date
+        required: false
+
+  # Special handlers
+  date_modified:
+    category: validation
+    scope: last_action
+    description: "Check if file date was modified"
+    required_variables: []
+    validation_rules: {}
+
+  dir_ready:
+    category: validation
+    scope: last_action
+    description: "Check if directory is ready"
+    required_variables: []
+    validation_rules: {}
+
+  dir_copied:
+    category: validation
+    scope: last_action
+    description: "Check if directory was copied"
+    required_variables: []
+    validation_rules: {}
+
+  dir_moved:
+    category: validation
+    scope: last_action
+    description: "Check if directory was moved"
+    required_variables: []
+    validation_rules: {}
+
+  file_copied:
+    category: validation
+    scope: last_action
+    description: "Check if file was copied"
+    required_variables: []
+    validation_rules: {}
+
+  file_moved:
+    category: validation
+    scope: last_action
+    description: "Check if file was moved"
+    required_variables: []
+    validation_rules: {}
+
+  script_code:
+    category: validation
+    scope: last_action
+    description: "Check script output code"
+    required_variables: ["code"]
+    validation_rules:
+      code:
+        type: code
+        required: true
+        pattern: "^[0-9]+$"
+
+  stdout_contains_number:
+    category: validation
+    scope: last_action
+    description: "Check if stdout contains a number"
+    required_variables: []
+    validation_rules: {}
+
+  # Boolean handler
+  "true":
+    category: validation
+    scope: global
+    description: "Always true validation"
+    required_variables: []
+    validation_rules: {} 

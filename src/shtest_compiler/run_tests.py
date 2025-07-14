@@ -117,14 +117,14 @@ def verify_e2e_syntax():
     for shtest_file in shtest_files:
         print(f"  Verifying {shtest_file.name}...")
         try:
-            # Use the simple verification approach
-            from shtest_compiler.parser.parser import Parser
+            # Use the new ConfigurableParser for verification
+            from shtest_compiler.parser.configurable_parser import ConfigurableParser
             
             with open(shtest_file, encoding="utf-8") as f:
                 content = f.read()
             
-            parser = Parser()
-            shtest_obj = parser.parse(content, path=str(shtest_file), debug=False)
+            parser = ConfigurableParser(debug=False)
+            shtest_obj = parser.parse(content, path=str(shtest_file))
             
             # Verify that the ShtestFile object has the expected structure
             if hasattr(shtest_obj, 'steps') and isinstance(shtest_obj.steps, list):

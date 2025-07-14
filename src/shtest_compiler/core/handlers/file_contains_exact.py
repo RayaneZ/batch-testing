@@ -6,10 +6,15 @@ def handle(params):
     last_file_var = params.get('last_file_var', None)
     file_path = file if file else last_file_var
     handler = params.get('handler', 'file_contains_exact')
-    scope = params.get('scope', 'global')
+    # Scope logic: if file_path is missing, this is local (last_action)
+    if not file_path:
+        scope = 'last_action'
+    else:
+        scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le fichier {file_path} contient exactement {text}")
     opposite = params.get('opposite', f"le fichier {file_path} ne contient pas exactement {text}")
-    actual_cmd = f"if [ \"$(cat '{{file_path}}')\" = \"{{text}}\" ]; then echo '{{expected}}'; else echo '{{opposite}}'; fi"
+    # Atomic check: compare file content exactly
+    actual_cmd = f"[ \"$(cat {file_path})\" = \"{text}\" ]"
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

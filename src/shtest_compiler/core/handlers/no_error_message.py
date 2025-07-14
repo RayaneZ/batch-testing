@@ -5,7 +5,10 @@ def handle(params):
     scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', "aucun message d'erreur")
     opposite = params.get('opposite', "un message d'erreur est présent")
-    actual_cmd = f"if [ ! -s 'stderr.log' ]; then echo '{{expected}}'; else echo '{{opposite}}'; fi"
+    
+    # Return atomic command only - no if/then/else logic
+    actual_cmd = "test ! -s 'stderr.log'"
+    
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

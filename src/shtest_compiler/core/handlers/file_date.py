@@ -3,20 +3,28 @@ from shtest_compiler.ast.shell_framework_ast import ValidationCheck
 def handle(params):
     file = params.get('file')
     date = params.get('date')
+    handler = 'file_date'
+    
+    # If file is missing, this validation depends on the last action's context
+    if not file:
+        scope = 'last_action'
+    else:
+        scope = params.get('scope', 'global')
+    
     if not file or not date:
         return ValidationCheck(
             expected='file_date',
-            actual_cmd="echo 'ERROR: Missing file or date for file_date validation'",
-            handler='file_date',
-            scope=params.get('scope', 'last_action'),
+            actual_cmd="false",  # Always fail if missing params
+            handler=handler,
+            scope=scope,
             params=params
         )
-    # Return just the command, let the shell construction be handled by the node
-    cmd = f"date -r '{file}' +%Y%m%d%H%M"
+    # Atomic check: compare file modification date
+    actual_cmd = f"[ \"$(date -r {file} +%Y%m%d%H%M)\" = \"{date}\" ]"
     return ValidationCheck(
-        expected='file_date',
-        actual_cmd=cmd,
-        handler='file_date',
-        scope=params.get('scope', 'last_action'),
-        params=params
+        expected=f"le fichier {file} a la date {date}",
+        actual_cmd=actual_cmd,
+        handler=handler,
+        scope=scope,
+        params={'file': file, 'date': date}
     ) 

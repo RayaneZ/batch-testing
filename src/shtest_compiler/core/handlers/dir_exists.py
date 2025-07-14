@@ -6,10 +6,15 @@ def handle(params):
     last_file_var = params.get('last_file_var', None)
     dir_path = dir_ if dir_ else last_file_var
     handler = params.get('handler', 'dir_exists')
-    scope = params.get('scope', 'global')
+    # Scope logic: if dir_path is missing, this is local (last_action)
+    if not dir_path:
+        scope = 'last_action'
+    else:
+        scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le dossier {dir_path} existe")
     opposite = params.get('opposite', f"le dossier {dir_path} n'existe pas")
-    actual_cmd = f"if [ -d {shell_escape(dir_path)} ]; then echo {shell_escape(expected)}; else echo {shell_escape(opposite)}; fi"
+    # Return atomic command only - no if/then/else logic
+    actual_cmd = f"test -d {shell_escape(dir_path)}"
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

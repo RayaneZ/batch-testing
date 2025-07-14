@@ -6,7 +6,7 @@ import configparser
 from shtest_compiler.generate_tests import generate_tests
 from shtest_compiler.export_to_excel import export_tests_to_excel
 from shtest_compiler.verify_syntax import check_file
-from shtest_compiler.parser.parser import Parser
+# Legacy parser import removed - not used in this file
 from shtest_compiler.config.debug_config import set_debug, debug_print
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.ini")

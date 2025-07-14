@@ -17,7 +17,6 @@ src/tests/
 ├── e2e/           # Tests end-to-end avec fichiers .shtest
 │   ├── ko/        # Tests négatifs (fichiers invalides)
 │   └── ok/        # Tests positifs (fichiers valides)
-└── legacy/        # Tests de compatibilité avec l'ancien format
 ```
 
 ### Types de Tests
@@ -35,7 +34,7 @@ src/tests/
 #### Tests E2E (End-to-End)
 - **Objectif** : Valider le comportement complet avec des fichiers réels
 - **Couverture** : Compilation, génération de scripts, export Excel
-- **Exécution** : `python tests/e2e/run_e2e_tests.py`
+- **Exécution** : `python src/shtest_compiler/run_tests.py --all`
 
 ## Tests Négatifs (KO)
 
@@ -91,31 +90,27 @@ Le compilateur utilise un système de validation AST pour détecter les erreurs 
 # Validation des étapes
 def _validate_steps(self, ast: ShtestFile) -> List[str]:
     """Valide que les étapes ont une structure appropriée."""
-    
+    ...
 # Validation des actions
 def _validate_actions(self, ast: ShtestFile) -> List[str]:
-    """Valide que les actions ont une structure appropriée."""
-    
+    ...
 # Validation des fichiers non-vides
 def _validate_nonempty_file(self, ast: ShtestFile) -> List[str]:
-    """Valide que le fichier n'est pas vide."""
-    
+    ...
 # Validation des commandes d'action
 def _validate_action_commands(self, ast: ShtestFile) -> List[str]:
-    """Valide que les actions ont des commandes non-vides et significatives."""
-    
+    ...
 # Validation des phrases de validation
 def _validate_validation_phrases(self, ast: ShtestFile) -> List[str]:
-    """Valide que les phrases de validation sont bien formées."""
-    
+    ...
 # Validation des actions orphelines
 def _validate_no_orphaned_actions(self, ast: ShtestFile) -> List[str]:
-    """Valide qu'il n'y a pas d'actions orphelines."""
+    ...
 ```
 
 ### Messages d'Erreur
 
-Le système génère des messages d'erreur clairs et localisés :
+Le système génère des messages d'erreur clairs et localisés :
 
 ```
 AST validation failed: 
@@ -143,7 +138,7 @@ AST validation failed:
 
 ### Script de Debug
 
-Le script `debug_parser.py` permet d'analyser le comportement du parser :
+Le script `debug_parser.py` permet d'analyser le comportement du parser :
 
 ```bash
 python tests/e2e/ko/debug_parser.py
@@ -153,11 +148,10 @@ python tests/e2e/ko/debug_parser.py
 - **Analyse des tokens** : Affichage des tokens générés
 - **Structure AST** : Visualisation de l'arbre syntaxique
 - **Validation** : Test des validateurs sur des fichiers spécifiques
-- **Comparaison** : Test des parsers legacy et modulaire
 
 ### Mode Debug
 
-Activer le mode debug pour des informations détaillées :
+Activer le mode debug pour des informations détaillées :
 
 ```bash
 python -m shtest_compiler.run_all --input file.shtest --debug
@@ -173,7 +167,7 @@ python -m shtest_compiler.run_all --input file.shtest --debug
 
 ### Comparaison de Résultats
 
-KnightBatch supporte la comparaison avancée de résultats SQL :
+KnightBatch supporte la comparaison avancée de résultats SQL :
 
 ```shtest
 Étape: Comparer les résultats de deux requêtes
@@ -201,7 +195,7 @@ KnightBatch supporte la comparaison avancée de résultats SQL :
   run: |
     python -m shtest_compiler.run_all --input tests/
     python tests/e2e/ko/run_ko_tests.py
-    python tests/e2e/run_e2e_tests.py
+    python src/shtest_compiler/run_tests.py --all
 ```
 
 ### Critères de Qualité
