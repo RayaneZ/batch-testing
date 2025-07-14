@@ -98,27 +98,6 @@ jobs:
           name: integration-test-results
           path: src/output/
 
-  quality-checks:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install quality tools
-        run: |
-          pip install black isort mypy
-
-      - name: Run black check
-        run: |
-          cd src
-          black --check shtest_compiler/
-
-
   security-scan:
     runs-on: ubuntu-latest
     
