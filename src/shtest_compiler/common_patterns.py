@@ -10,12 +10,13 @@ import re  # Pour la gestion des expressions régulières
 from typing import Dict, List
 
 import yaml  # Pour lire des fichiers YAML
+from shtest_compiler.utils.shell_utils import resource_path
 
 # Chemin vers le fichier de configuration principal contenant les motifs regex
-CONFIG_PATH = os.path.join(os.path.dirname(__file__), "regex_config.yml")
+CONFIG_PATH = resource_path("regex_config.yml")
 
 # Chemin vers un fichier YAML supplémentaire avec des règles simples
-SIMPLE_RULES_PATH = os.path.join(os.path.dirname(__file__), "simple_rules.yml")
+SIMPLE_RULES_PATH = resource_path("simple_rules.yml")
 
 # Chargement des motifs regex depuis le fichier YAML
 with open(CONFIG_PATH, encoding="utf-8") as f:

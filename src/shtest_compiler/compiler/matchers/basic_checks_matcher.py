@@ -4,15 +4,14 @@ import re
 import yaml
 
 from shtest_compiler.compiler.matcher_registry import register_matcher
+from shtest_compiler.utils.shell_utils import resource_path
 
 from ..utils import retcode_condition, shell_condition, strip_accents
 
 
 def load_patterns():
     """Load validation patterns from patterns_validations.yml."""
-    patterns_path = os.path.join(
-        os.path.dirname(__file__), "../../config/patterns_validations.yml"
-    )
+    patterns_path = resource_path("config/patterns_validations.yml")
     if not os.path.exists(patterns_path):
         return {}
 

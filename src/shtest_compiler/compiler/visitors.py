@@ -18,12 +18,11 @@ from shtest_compiler.parser.shunting_yard import (
     StdoutContains,
     VarEquals,
 )
+from shtest_compiler.utils.shell_utils import resource_path
 
 # Initialisation du PatternRegistry global (à adapter selon l'architecture du projet)
-ACTIONS_YML = os.path.join(os.path.dirname(__file__), "../config/patterns_actions.yml")
-VALIDATIONS_YML = os.path.join(
-    os.path.dirname(__file__), "../config/patterns_validations.yml"
-)
+ACTIONS_YML = resource_path("config/patterns_actions.yml")
+VALIDATIONS_YML = resource_path("config/patterns_validations.yml")
 pattern_registry = PatternRegistry(ACTIONS_YML, VALIDATIONS_YML)
 
 

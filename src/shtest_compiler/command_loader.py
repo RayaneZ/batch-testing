@@ -6,14 +6,15 @@ from typing import Callable, Dict, List, Optional, Tuple
 import yaml
 
 from .utils.logger import SingletonLogger
+from shtest_compiler.utils.shell_utils import resource_path
 
-CORE_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config")
-PLUGINS_PATH = os.path.join(os.path.dirname(__file__), "plugins")
+CORE_CONFIG_PATH = resource_path("config")
+PLUGINS_PATH = resource_path("plugins")
 
 
 # --- YAML Loader Utilities ---
 def load_yaml(path):
-    with open(path, encoding="utf-8") as f:
+    with open(resource_path(path), encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 

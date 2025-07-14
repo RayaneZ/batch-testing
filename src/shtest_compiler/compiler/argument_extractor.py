@@ -4,10 +4,10 @@ from typing import Any, Dict, Optional
 
 import yaml
 
+from shtest_compiler.utils.shell_utils import resource_path
+
 # Load action patterns from YAML
-PATTERNS_PATH = os.path.join(
-    os.path.dirname(__file__), "../config/patterns_actions.yml"
-)
+PATTERNS_PATH = resource_path("config/patterns_actions.yml")
 
 
 def load_action_patterns():

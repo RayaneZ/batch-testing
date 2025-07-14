@@ -29,8 +29,14 @@ jobs:
       - name: Build EXE with PyInstaller
         run: |
           cd src
-          pyinstaller --onefile --collect-data shtest_compiler shtest_compiler/shtest.py
-          pyinstaller --onefile --collect-data shtest_compiler shtest_compiler/run_all.py
+          pyinstaller --onefile \
+            --add-data "shtest_compiler/config;./shtest_compiler/config" \
+            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" \
+            shtest_compiler/shtest.py
+          pyinstaller --onefile \
+            --add-data "shtest_compiler/config;./shtest_compiler/config" \
+            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" \
+            shtest_compiler/run_all.py
       - name: Upload EXE artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -46,26 +52,43 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+          
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: vscode/package-lock.json
+
+
       - name: Install VS Code extension dependencies
         run: |
           cd vscode
           npm ci
+
+
       - name: Build VS Code extension
         run: |
           cd vscode
           npm run compile
+
+
       - name: Install vsce
         run: npm install -g @vscode/vsce@latest
+
+
       - name: Package VS Code extension
         run: |
           cd vscode
           vsce package -o ../knightbatch-shtest.vsix
+
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.MARKETPLACE_KEY }}
+        run: |
+          vsce publish --packagePath knightbatch-shtest.vsix --pat $VSCE_PAT
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:

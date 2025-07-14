@@ -1,2 +1,2 @@
-echo "[ERROR] ValidationParseError: Validation context errors for 'le fichier est cree': Handler file_present requires 'file' variable"
+echo "[ERROR] ValidationParseError: Validation context errors for 'le dossier est cree': Handler dir_exists requires 'dir' variable"
 exit 1

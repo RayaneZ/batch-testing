@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 import yaml
+from shtest_compiler.utils.shell_utils import resource_path
 
 
 class PatternLoader:
@@ -22,9 +23,7 @@ class PatternLoader:
             config_path: Path to the YAML configuration file. If None, uses default.
         """
         if config_path is None:
-            config_path = os.path.join(
-                os.path.dirname(__file__), "..", "..", "regex_config.yml"
-            )
+            config_path = resource_path("regex_config.yml")
 
         self.config_path = Path(config_path)
         self._patterns: Dict[str, re.Pattern] = {}

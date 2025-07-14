@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import yaml
 
 from shtest_compiler.utils.logger import debug_log, is_debug_enabled
+from shtest_compiler.utils.shell_utils import resource_path
 
 # ============================================================================
 # UTILITY FUNCTIONS
@@ -13,7 +14,7 @@ from shtest_compiler.utils.logger import debug_log, is_debug_enabled
 
 
 def get_config_path(config_file: str) -> str:
-    return os.path.join(os.path.dirname(__file__), "../config", config_file)
+    return resource_path(f"config/{config_file}")
 
 
 def load_yaml_config(config_file: str) -> Dict[str, Any]:

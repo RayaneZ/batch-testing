@@ -1,5 +1,6 @@
 # matcher_registry.py
 from shtest_compiler.utils.logger import log_pipeline_error, log_action
+from shtest_compiler.utils.shell_utils import resource_path
 
 matcher_registry = {}
 
@@ -52,9 +53,7 @@ class MatcherRegistry:
 
         import yaml
 
-        patterns_path = os.path.join(
-            os.path.dirname(__file__), "../config/patterns_validations.yml"
-        )
+        patterns_path = resource_path("config/patterns_validations.yml")
         if os.path.exists(patterns_path):
             with open(patterns_path, encoding="utf-8") as f:
                 data = yaml.safe_load(f)

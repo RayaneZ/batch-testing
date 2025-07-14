@@ -12,6 +12,7 @@ from typing import Any, Callable, Dict, List, Optional
 import yaml
 
 from shtest_compiler.ast.shell_framework_ast import ValidationCheck
+from shtest_compiler.utils.shell_utils import resource_path
 
 from .core import ASTBuilder, TokenLike
 from .shtest_ast import Action, ShtestFile, TestStep
@@ -24,9 +25,7 @@ def load_validation_patterns():
     global _patterns_cache
     if _patterns_cache is not None:
         return _patterns_cache
-    patterns_path = os.path.join(
-        os.path.dirname(__file__), "../config/patterns_validations.yml"
-    )
+    patterns_path = resource_path("config/patterns_validations.yml")
     with open(patterns_path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
     _patterns_cache = data
