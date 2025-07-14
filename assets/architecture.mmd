@@ -1,0 +1,8 @@
+flowchart TD
+    A["Fichier .shtest"] --> B["Lexer Modulaire"]
+    B --> C["Parser Modulaire"]
+    C --> D["AST Builder (Validation)"]
+    D --> E["Binder (Contexte & Scope)"]
+    E --> F["Générateur de Shell"]
+    F --> G["Script Shell Exécutable"]
+    G --> H["Exécution"] 
