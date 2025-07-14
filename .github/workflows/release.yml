@@ -12,37 +12,95 @@ name: Create GitHub Release
     tags:
     - v*.*.*
 jobs:
-  skip-run:
-    runs-on: ubuntu-latest
+  build-windows-exe:
+    runs-on: windows-latest
     steps:
-    - name: Skip run
-      run: echo "Skipping run"
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          cd src
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Build EXE with PyInstaller
+        run: |
+          cd src
+          pyinstaller --onefile shtest.py
+          pyinstaller --onefile run_all.py
+      - name: Upload EXE artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: knightbatch-exe
+          path: |
+            src/dist/shtest.exe
+            src/dist/run_all.exe
+
   create_release:
     runs-on: ubuntu-latest
+    needs: build-windows-exe
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Download release package artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: knightbatch-release
-        path: ./artifacts
-    - name: Download Windows EXE artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: knightbatch-exe
-        path: ./artifacts
-    - name: Create GitHub Release
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
-        body: "\U0001F680 Nouvelle version : ${{ github.ref_name }}"
-        files: |
-          artifacts/knightbatch-release/knightbatch-release.tar.gz
-          artifacts/knightbatch-exe/shtest.exe
-          artifacts/knightbatch-exe/run_all.exe
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: vscode/package-lock.json
+      - name: Install VS Code extension dependencies
+        run: |
+          cd vscode
+          npm ci
+      - name: Build VS Code extension
+        run: |
+          cd vscode
+          npm run compile
+      - name: Install vsce
+        run: npm install -g @vscode/vsce@latest
+      - name: Package VS Code extension
+        run: |
+          cd vscode
+          vsce package -o ../knightbatch-shtest.vsix
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-macros-plugin
+      - name: Build documentation
+        run: |
+          cd docs
+          mkdocs build
+      - name: Download Windows EXE artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: knightbatch-exe
+          path: exe-artifacts/
+      - name: Create release package
+        run: |
+          mkdir -p release
+          cp knightbatch-shtest.vsix release/
+          cp -r docs/site release/docs
+          cp -r src release/src
+          cp -r docs release/docs-source
+          cp README.md release/
+          cp LICENSE release/
+          tar czf knightbatch-release.tar.gz release/
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: "\U0001F680 Nouvelle version : ${{ github.ref_name }}"
+          files: |
+            knightbatch-release.tar.gz
+            exe-artifacts/shtest.exe
+            exe-artifacts/run_all.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
