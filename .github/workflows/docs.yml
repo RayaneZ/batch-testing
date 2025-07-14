@@ -36,7 +36,7 @@ jobs:
       - name: Generate architecture diagram
         run: |
           npm install -g @mermaid-js/mermaid-cli
-          npx mmdc -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png
+          npx mmdc --no-sandbox -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png
 
       - name: Build documentation
         run: |

@@ -131,6 +131,12 @@ jobs:
           name: knightbatch-exe
           path: exe-artifacts/
 
+      - name: Download VSIX artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: knightbatch-shtest.vsix-package
+          path: .
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
