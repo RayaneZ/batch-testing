@@ -179,7 +179,7 @@
     "onCommand:knightbatch.exportToExcel",
     "onCommand:knightbatch.runTests"
   ],
-  "main": "./extension.js",
+  "main": "./out/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
