@@ -33,6 +33,11 @@ jobs:
 #            echo "No plugins directory found, skipping pattern extraction."
 #          fi
 
+      - name: Generate architecture diagram
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          npx mmdc -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png
+
       - name: Build documentation
         run: |
           cd docs

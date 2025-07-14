@@ -43,36 +43,6 @@ python shtest.py tests/example.shtest --output output/script.sh
 python shtest.py tests/example.shtest --debug
 ```
 
-### `compile_expr` (Legacy)
-
-Compile une expression logique de validation :
-
-```bash
-shtest compile_expr 'stdout contient OK' --verbose
-```
-
-- Affiche les instructions shell générées
-- Utilise le parseur et compilateur d'expressions logiques
-
-### `compile_file` (Legacy)
-
-Compile un seul fichier `.shtest` en script `.sh`.
-
-```bash
-shtest compile_file tests/exemple.shtest --output output/exemple.sh --verbose
-```
-
-### `generate` (Legacy)
-
-Compile tous les fichiers `.shtest` dans un dossier :
-
-```bash
-shtest generate src/tests output/
-```
-
-- Génére un fichier `.sh` par scénario `.shtest`
-- Crée le dossier `output/` s'il n'existe pas
-
 ---
 
 ## 🏗 Architecture Modulaire
@@ -213,6 +183,38 @@ def my_matcher_function(validation_text: str) -> str:
         return "my_validation_type"
     return None
 ```
+
+---
+
+## Plugin Handler Requirements
+
+Each plugin (and the core) can provide a `handler_requirements.yml` file in its `config/` directory. This YAML file documents the expected parameters and requirements for each handler.
+
+- Example location: `src/shtest_compiler/plugins/my_plugin/config/handler_requirements.yml`
+- Example format:
+
+```yaml
+create_example_file:
+  description: "Creates an example file in the target directory."
+  params:
+    - name: target_dir
+      type: str
+      required: false
+      default: '.'
+      description: "Directory where the example file will be created."
+```
+
+### How it works
+- The loader automatically discovers and merges all `handler_requirements.yml` files from core and plugins.
+- You can access the merged requirements dictionary in Python:
+
+```python
+from shtest_compiler.command_loader import get_handler_requirements
+requirements = get_handler_requirements()
+# requirements is a dict keyed by handler name
+```
+
+This makes it easy to document, validate, or inspect handler requirements across your system.
 
 ---
 

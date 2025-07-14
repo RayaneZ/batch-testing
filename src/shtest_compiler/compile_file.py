@@ -12,7 +12,7 @@ from typing import Optional
 
 from .compiler.compiler import ModularCompiler
 from .config.debug_config import debug_print, is_debug_enabled
-from .plugins import load_plugins_from_directory, plugin_registry
+from .command_loader import build_registry
 
 
 def compile_file(
@@ -42,16 +42,6 @@ def compile_file(
     # Use global debug configuration
     debug_enabled = debug or is_debug_enabled()
 
-    # Load plugins if specified
-    if plugin_dir and os.path.exists(plugin_dir):
-        try:
-            plugins = load_plugins_from_directory(plugin_dir)
-            if debug_enabled:
-                debug_print(f"Loaded {len(plugins)} plugins from {plugin_dir}")
-        except Exception as e:
-            if debug_enabled:
-                debug_print(f"Warning: Failed to load plugins from {plugin_dir}: {e}")
-
     # Create compiler with specified configuration
     compiler = ModularCompiler(
         grammar_name=grammar,
@@ -59,16 +49,6 @@ def compile_file(
         debug=debug_enabled,
         debug_output_path=debug_output_path,
     )
-
-    # Install any loaded plugins
-    for plugin in plugin_registry.values():
-        try:
-            plugin.install(compiler)
-            if debug_enabled:
-                debug_print(f"Installed plugin: {plugin.name}")
-        except Exception as e:
-            if debug_enabled:
-                debug_print(f"Warning: Failed to install plugin {plugin.name}: {e}")
 
     # Compile the file
     return compiler.compile_file(
@@ -126,7 +106,7 @@ def list_available_components():
         print(f"  - {builder}")
 
     print("\nAvailable Plugins:")
-    for plugin in plugin_registry.list():
+    for plugin in build_registry.list():
         print(f"  - {plugin}")
 
 

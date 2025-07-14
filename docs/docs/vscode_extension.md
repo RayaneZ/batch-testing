@@ -8,11 +8,11 @@ L'extension VS Code KnightBatch offre une expérience de développement intégr�
 
 ### Fonctionnalités Principales
 
-- **🎨 Coloration syntaxique** : Support complet pour tous les éléments `.shtest`
+- ** Coloration syntaxique** : Support complet pour tous les éléments `.shtest`
 - **⚡ Commandes intégrées** : Compilation, vérification, visualisation AST
-- **📝 Snippets intelligents** : Templates pour patterns courants
+- ** Snippets intelligents** : Templates pour patterns courants
 - **⚙️ Configuration flexible** : Paramètres personnalisables
-- **🔍 IntelliSense** : Autocomplétion et validation en temps réel
+- ** IntelliSense** : Autocomplétion et validation en temps réel
 
 ## Installation
 
@@ -377,4 +377,4 @@ npm test
 
 ---
 
-Pour plus d'informations sur l'utilisation pratique, consultez les [exemples d'utilisation](shtest_format.md) et la [documentation CLI](cli.md). 
+Pour plus d'informations sur l'utilisation pratique, consultez les [exemples d'utilisation](shtest_format.md) et la [documentation CLI](cli.md).

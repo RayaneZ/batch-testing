@@ -32,13 +32,7 @@ validate_expect_actual() {
 # Test step: Vérifications de fichiers et dossiers
 echo 'Action: Vérifier que le fichier /tmp/test.log existe'
 run_action "Vérifier que le fichier /tmp/test.log existe"
-# le fichier /tmp/test.log existe
-if test -f '/tmp/test.log'; then
-    echo 'OK: le fichier /tmp/test.log existe'
-else
-    echo 'FAIL: le fichier /tmp/test.log n'\''existe pas'
-    exit 1
-fi
+echo 'ERROR: Could not import handler file_exists: No module named 'shtest_compiler.utils''
 echo 'Action: Vérifier que le fichier /tmp/test.log a les droits 0644'
 run_action "Vérifier que le fichier /tmp/test.log a les droits 0644"
 # le fichier /tmp/test.log a les droits 0644
@@ -56,13 +50,7 @@ run_action "Vérifier que le fichier /tmp/test.log contient exactement ALLGOOD"
 echo 'ERROR: Exception in core handler file_contains: 'canonical_phrase''
 echo 'Action: Vérifier que le dossier /tmp/testdir existe'
 run_action "Vérifier que le dossier /tmp/testdir existe"
-# le dossier /tmp/testdir existe
-if test -d '/tmp/testdir'; then
-    echo 'OK: le dossier /tmp/testdir existe'
-else
-    echo 'FAIL: le dossier /tmp/testdir n'\''existe pas'
-    exit 1
-fi
+echo 'ERROR: Could not import handler dir_exists: No module named 'shtest_compiler.utils''
 echo 'Action: Vérifier que le dossier /tmp/testdir a les droits 0755'
 run_action "Vérifier que le dossier /tmp/testdir a les droits 0755"
 # le dossier /tmp/testdir a les droits 0755

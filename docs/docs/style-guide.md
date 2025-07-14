@@ -15,16 +15,16 @@ Résultat: Expression de validation attendue
 ### Conventions de nommage
 
 - **Étapes** : Utilisez des noms descriptifs en français
-  - ✅ `Étape: Préparation de l'environnement`
-  - ❌ `Étape: setup`
+  -  `Étape: Préparation de l'environnement`
+  -  `Étape: setup`
 
 - **Actions** : Décrivez clairement l'action à effectuer
-  - ✅ `Action: Créer le dossier /tmp/test`
-  - ❌ `Action: mkdir /tmp/test`
+  -  `Action: Créer le dossier /tmp/test`
+  -  `Action: mkdir /tmp/test`
 
 - **Résultats** : Utilisez les expressions de validation standard
-  - ✅ `Résultat: Le dossier est créé`
-  - ❌ `Résultat: folder exists`
+  -  `Résultat: Le dossier est créé`
+  -  `Résultat: folder exists`
 
 ## Expressions de validation
 
@@ -185,4 +185,4 @@ Résultat: stdout contient 'SUCCESS'
 
 - [Format SHTEST](shtest_format.md) - Documentation complète du format
 - [Expressions régulières](regex_documentation.md) - Patterns reconnus
-- [Tutoriel des plugins](plugin_tutorial.md) - Création de plugins personnalisés 
+- [Tutoriel des plugins](plugin_tutorial.md) - Création de plugins personnalisés

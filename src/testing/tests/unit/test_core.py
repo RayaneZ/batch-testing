@@ -62,9 +62,13 @@ def test_validation_expression():
 
 
 def test_scope_enforcement_raises_on_local_validation_without_action():
-    # Create a fake local validation
-    local_validation = ValidationCheck()
-    local_validation.scope = "last_action"
+    # Create a fake local validation with required arguments
+    local_validation = ValidationCheck(
+        expected="dummy",
+        actual_cmd="true",
+        handler="dummy_handler",
+        scope="last_action"
+    )
     local_validation.phrase = "Fake local validation"
     # Create a step with no actions but with a local validation
     step = ShellTestStep(name="Step 1", actions=[], validations=[local_validation])

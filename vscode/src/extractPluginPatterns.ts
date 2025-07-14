@@ -15,13 +15,20 @@ interface PluginPattern {
   scope?: string;
 }
 
+interface PatternEntry {
+  handler: string;
+  pattern: string;
+  scope?: string;
+}
+
 function extractPatternsFromYml(ymlPath: string, plugin: string): PluginPattern[] {
   const content = fs.readFileSync(ymlPath, 'utf-8');
-  const doc = yaml.load(content) as any;
+  const doc = yaml.load(content) as unknown;
   const patterns: PluginPattern[] = [];
-  if (!doc || !doc.patterns) return patterns;
-  for (const category of Object.keys(doc.patterns)) {
-    for (const entry of doc.patterns[category]) {
+  if (!doc || typeof doc !== 'object' || doc === null || !('patterns' in doc)) {return patterns;}
+  const docWithPatterns = doc as { patterns: Record<string, PatternEntry[]> };
+  for (const category of Object.keys(docWithPatterns.patterns)) {
+    for (const entry of docWithPatterns.patterns[category]) {
       patterns.push({
         plugin,
         category,
@@ -39,7 +46,7 @@ function main(): void {
   const allPatterns: PluginPattern[] = [];
   for (const plugin of plugins) {
     const configDir = path.join(PLUGINS_DIR, plugin, 'config');
-    if (!fs.existsSync(configDir)) continue;
+    if (!fs.existsSync(configDir)) {continue;}
     const ymlFiles = fs.readdirSync(configDir).filter((f: string) => f.startsWith('patterns_') && f.endsWith('.yml'));
     for (const ymlFile of ymlFiles) {
       const ymlPath = path.join(configDir, ymlFile);

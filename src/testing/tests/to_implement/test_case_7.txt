@@ -289,7 +289,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] extract_context_from_action result: {'action': 'Le fichier /tmp/test.log existe', 'handler': 'file_exists', 'category': 'file_operations', 'variables': {'file': '/tmp/test.log'}, 'requirements': {'required_variables': ['file'], 'optional_variables': [], 'scope': 'global', 'description': 'Check if a file exists', 'category': 'file_operations', 'validation_rules': {'file': {'type': 'file', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Le fichier {file} existe', 'config': {'type': 'validation', 'phrase': 'Le fichier {file} existe', 'aliases': ['fichier {file} existe', 'Le fichier {file} est présent', 'le fichier {file} est présent', 'fichier {file} est présent', 'Le fichier {file} est present', 'le fichier {file} est present', 'fichier {file} est present', '^fichier ([^ ]+) existe$', '^le fichier ([^ ]+) existe$', '^le fichier ([^ ]+) est présent$', '^le fichier ([^ ]+) est present$', '^fichier ([^ ]+) est présent$', '^fichier ([^ ]+) est present$'], 'handler': 'file_exists', 'scope': 'global'}}], 'scope': 'global'}
 [DEBUG] Final params for handler: {'file': '/tmp/test.log'}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_exists
-[DEBUG] Core handler returned: ValidationCheck(expected='le fichier /tmp/test.log existe', actual_cmd="test -f '/tmp/test.log'", handler='file_exists', scope='global', params={'file_path': '/tmp/test.log', 'opposite': "le fichier /tmp/test.log n'existe pas"})
+[DEBUG] Core handler ImportError: No module named 'shtest_compiler.utils'
 [DEBUG] get_action_shell_command called with: 'Vérifier que le fichier /tmp/test.log a les droits 0644'
 [DEBUG] canonize_action: Loaded 21 action patterns
 [DEBUG] canonize_action: Processing action 'Vérifier que le fichier /tmp/test.log a les droits 0644' (normalized: 'vérifier que le fichier /tmp/test.log a les droits 0644')
@@ -1221,7 +1221,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] extract_context_from_action result: {'action': 'Le dossier /tmp/testdir existe', 'handler': 'dir_exists', 'category': 'directory_operations', 'variables': {'dir': '/tmp/testdir'}, 'requirements': {'required_variables': ['dir'], 'optional_variables': [], 'scope': 'global', 'description': 'Check if a directory exists', 'category': 'directory_operations', 'validation_rules': {'dir': {'type': 'dir', 'required': True}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Le dossier {dir} existe', 'config': {'type': 'validation', 'phrase': 'Le dossier {dir} existe', 'aliases': ['le dossier {dir} existe', '^le dossier ([^ ]+) existe$'], 'handler': 'dir_exists', 'scope': 'global'}}], 'scope': 'global'}
 [DEBUG] Final params for handler: {'dir': '/tmp/testdir'}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.dir_exists
-[DEBUG] Core handler returned: ValidationCheck(expected='le dossier /tmp/testdir existe', actual_cmd="test -d '/tmp/testdir'", handler='dir_exists', scope='global', params={'dir_path': '/tmp/testdir', 'opposite': "le dossier /tmp/testdir n'existe pas"})
+[DEBUG] Core handler ImportError: No module named 'shtest_compiler.utils'
 [DEBUG] get_action_shell_command called with: 'Vérifier que le dossier /tmp/testdir a les droits 0755'
 [DEBUG] canonize_action: Loaded 21 action patterns
 [DEBUG] canonize_action: Processing action 'Vérifier que le dossier /tmp/testdir a les droits 0755' (normalized: 'vérifier que le dossier /tmp/testdir a les droits 0755')

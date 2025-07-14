@@ -7,10 +7,7 @@ from typing import List, Protocol
 
 import yaml
 
-# Ajout : chargement des patterns de validation
-RESULT_PATTERNS_PATH = os.path.join(os.path.dirname(__file__), "../result_patterns.yml")
-with open(RESULT_PATTERNS_PATH, encoding="utf-8") as f:
-    RESULT_PATTERNS = yaml.safe_load(f)
+# Remove loading of result_patterns.yml and all references to RESULT_PATTERNS and result_atom_to_ast
 
 
 def _normalize_atom(atom: str) -> str:
@@ -19,20 +16,6 @@ def _normalize_atom(atom: str) -> str:
         c for c in unicodedata.normalize("NFD", atom) if unicodedata.category(c) != "Mn"
     )
     return atom
-
-
-def result_atom_to_ast(atom: str):
-    norm_atom = _normalize_atom(atom)
-    for entry in RESULT_PATTERNS:
-        m = re.match(entry["pattern"], norm_atom, re.IGNORECASE)
-        if m:
-            plugin = importlib.import_module(f"shtest_compiler.plugins.{entry['type']}")
-            # On transmet le scope au plugin (si accepté)
-            if "scope" in entry:
-                return plugin.handle(m.groups(), scope=entry["scope"])
-            else:
-                return plugin.handle(m.groups())
-    raise ValueError(f"Aucune règle de validation ne correspond à : {atom}")
 
 
 # -------- VISITEUR AST --------
@@ -71,8 +54,16 @@ class Atomic(ASTNode):
 
     def to_shell(self, var):
         # Utilise le pipeline plugin pour la feuille atomique
-        plugin_ast = result_atom_to_ast(self.value)
-        return plugin_ast.to_shell(var)
+        # This part of the code is now independent of result_patterns.yml
+        # It assumes a plugin exists for the given value.
+        # If no plugin exists, it raises an error.
+        try:
+            plugin_module = importlib.import_module(f"shtest_compiler.plugins.{_normalize_atom(self.value)}")
+            # On transmet le scope au plugin (si accepté)
+            # The plugin should handle its own scope if needed.
+            return plugin_module.handle(m.groups()) # Assuming m.groups() is not used here
+        except ImportError:
+            raise ValueError(f"No plugin found for atomic value: {self.value}")
 
 
 @dataclass
@@ -228,6 +219,8 @@ def _to_postfix(tokens: List[str]) -> List[str]:
 
 
 def parse_validation_expression(expression: str) -> ASTNode:
+    if not expression or not expression.strip():
+        raise ValueError("Validation expression is empty.")
     tokens = _tokenize_expression(expression)
     postfix = _to_postfix(tokens)
     stack: List[ASTNode] = []

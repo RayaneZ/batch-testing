@@ -1,0 +1,11 @@
+# patterns_validations.yml
+#
+# Define validation patterns for your plugin here.
+# Each entry should have:
+#   - pattern: The user-facing pattern to match in .shtest files
+#   - handler: The name of the Python function (in handlers/) to call
+#   - description: (Optional) A short description of what the validation does
+#
+- pattern: "example file exists"
+  handler: "example_file_exists"
+  description: "Checks if the example file exists in the target directory." 

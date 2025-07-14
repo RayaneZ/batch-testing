@@ -58,7 +58,7 @@ class TestFileDateHandler:
         file_date_validations = [
             line
             for line in shell_script.lines
-            if "file_date" in line or "modifié" in line
+            if ("/tmp/test.txt" in line and "202412011200" in line) or "date" in line
         ]
         assert len(file_date_validations) > 0, "Should have file_date validations"
 

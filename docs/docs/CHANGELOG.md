@@ -4,7 +4,7 @@ Ce document liste les améliorations et nouvelles fonctionnalités apportées à
 
 ## [2.0.0] - 2025-01-13
 
-### 🛡️ Validation Robuste et Gestion d'Erreurs
+### ️ Validation Robuste et Gestion d'Erreurs
 
 #### Nouveau Système de Validation AST
 - **Validateurs intégrés** pour détecter les erreurs structurelles et sémantiques
@@ -13,14 +13,14 @@ Ce document liste les améliorations et nouvelles fonctionnalités apportées à
 - **Validation en temps réel** pendant le parsing
 
 #### Types d'Erreurs Détectées
-- ✅ Fichiers vides ou contenant seulement des commentaires
-- ✅ Actions orphelines (sans mot-clé `Étape:`)
-- ✅ Actions malformées (commandes vides ou invalides)
-- ✅ Validations incomplètes ou malformées
-- ✅ Structure invalide (imbrication incorrecte)
-- ✅ Variables malformées ou invalides
-- ✅ Opérations SQL invalides
-- ✅ Chemins de fichiers invalides
+-  Fichiers vides ou contenant seulement des commentaires
+-  Actions orphelines (sans mot-clé `Étape:`)
+-  Actions malformées (commandes vides ou invalides)
+-  Validations incomplètes ou malformées
+-  Structure invalide (imbrication incorrecte)
+-  Variables malformées ou invalides
+-  Opérations SQL invalides
+-  Chemins de fichiers invalides
 
 #### Amélioration de la Gestion d'Erreurs
 - **Propagation d'erreurs** : Les erreurs remontent correctement jusqu'au CLI
@@ -28,7 +28,7 @@ Ce document liste les améliorations et nouvelles fonctionnalités apportées à
 - **Codes de sortie appropriés** : 0=succès, 1=erreur validation, 2=erreur config, 3=erreur système
 - **Debugging intégré** : Mode debug avec informations détaillées
 
-### 🧪 Suite de Tests E2E Complète
+###  Suite de Tests E2E Complète
 
 #### Organisation des Tests
 ```
@@ -59,7 +59,7 @@ src/tests/
 - **Tests unitaires** avec pytest
 - **Tests d'intégration** automatisés
 
-### 🔧 Améliorations Techniques
+###  Améliorations Techniques
 
 #### Architecture Modulaire
 - **Parser configurable** avec validation intégrée
@@ -79,7 +79,7 @@ src/tests/
 - **Tolérance** pour les différences mineures
 - **Validation intégrée** avec le système de tests
 
-### 📚 Documentation Complète
+###  Documentation Complète
 
 #### Nouvelle Documentation
 - **Guide de tests et validation** (`testing_and_validation.md`)
@@ -93,7 +93,7 @@ src/tests/
 - **Bonnes pratiques** pour l'écriture de tests
 - **Intégration CI/CD** documentée
 
-### 🚀 Fonctionnalités Nouvelles
+###  Fonctionnalités Nouvelles
 
 #### Validation en Temps Réel
 - **Détection immédiate** des erreurs de syntaxe
@@ -147,4 +147,4 @@ src/tests/
 1. **Codes de sortie** : Utilisez les nouveaux codes de sortie pour la détection d'erreurs
 2. **Tests automatisés** : Intégrez la suite de tests E2E dans vos pipelines
 3. **Validation** : Utilisez la validation en temps réel pour la qualité du code
-4. **Reporting** : Exploitez les messages d'erreur structurés pour les rapports 
+4. **Reporting** : Exploitez les messages d'erreur structurés pour les rapports

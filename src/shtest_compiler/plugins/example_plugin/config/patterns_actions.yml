@@ -1,0 +1,11 @@
+# patterns_actions.yml
+#
+# Define action patterns for your plugin here.
+# Each entry should have:
+#   - pattern: The user-facing pattern to match in .shtest files
+#   - handler: The name of the Python function (in action_handlers/) to call
+#   - description: (Optional) A short description of what the action does
+#
+- pattern: "create example file"
+  handler: "create_example_file"
+  description: "Creates an example file in the target directory." 

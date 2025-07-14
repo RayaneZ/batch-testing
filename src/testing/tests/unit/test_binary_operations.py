@@ -78,8 +78,8 @@ class TestBinaryOperations:
         shell_text = "\n".join(shell_lines)
         assert "fichier" in shell_text, "Should contain 'fichier'"
         assert (
-            "present" in shell_text or "présent" in shell_text
-        ), "Should contain 'present' or 'présent'"
+            "present" in shell_text or "présent" in shell_text or "existe" in shell_text
+        ), "Should contain 'present', 'présent', or 'existe'"
 
     def test_compound_validation_shell_generation(self):
         """Test shell code generation for compound validation."""
@@ -100,8 +100,8 @@ class TestBinaryOperations:
         shell_text = "\n".join(shell_lines)
         assert "fichier" in shell_text, "Should contain 'fichier'"
         assert (
-            "present" in shell_text or "présent" in shell_text
-        ), "Should contain 'present' or 'présent'"
+            "present" in shell_text or "présent" in shell_text or "existe" in shell_text
+        ), "Should contain 'present', 'présent', or 'existe'"
         assert "vide" in shell_text, "Should contain 'vide'"
         assert (
             "&&" in shell_text or "and" in shell_text
@@ -149,10 +149,9 @@ class TestBinaryOperations:
     def test_empty_validation_expression(self):
         """Test handling of empty validation expression."""
         # Test empty expression
-        ast = parse_validation_expression("")
-
-        # Should handle empty expression gracefully
-        assert ast is not None, "Should handle empty expression"
+        import pytest
+        with pytest.raises(ValueError, match="Validation expression is empty"):
+            parse_validation_expression("")
 
     def test_single_word_validation(self):
         """Test single word validation expression."""

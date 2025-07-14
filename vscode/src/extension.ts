@@ -7,13 +7,13 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('KnightBatch extension is now active!');
 
     // Register commands
-    let compileFile = vscode.commands.registerCommand('knightbatch.compileFile', compileCurrentFile);
-    let verifySyntax = vscode.commands.registerCommand('knightbatch.verifySyntax', verifyCurrentFile);
-    let showAST = vscode.commands.registerCommand('knightbatch.showAST', showASTForFile);
-    let showTokens = vscode.commands.registerCommand('knightbatch.showTokens', showTokensForFile);
-    let compileDirectory = vscode.commands.registerCommand('knightbatch.compileDirectory', compileDirectoryCommand);
-    let exportToExcel = vscode.commands.registerCommand('knightbatch.exportToExcel', exportToExcelCommand);
-    let runTests = vscode.commands.registerCommand('knightbatch.runTests', runTestSuite);
+    const compileFile = vscode.commands.registerCommand('knightbatch.compileFile', compileCurrentFile);
+    const verifySyntax = vscode.commands.registerCommand('knightbatch.verifySyntax', verifyCurrentFile);
+    const showAST = vscode.commands.registerCommand('knightbatch.showAST', showASTForFile);
+    const showTokens = vscode.commands.registerCommand('knightbatch.showTokens', showTokensForFile);
+    const compileDirectory = vscode.commands.registerCommand('knightbatch.compileDirectory', compileDirectoryCommand);
+    const exportToExcel = vscode.commands.registerCommand('knightbatch.exportToExcel', exportToExcelCommand);
+    const runTests = vscode.commands.registerCommand('knightbatch.runTests', runTestSuite);
 
     context.subscriptions.push(compileFile, verifySyntax, showAST, showTokens, compileDirectory, exportToExcel, runTests);
 }
