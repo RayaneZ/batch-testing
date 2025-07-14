@@ -88,6 +88,11 @@
         "command": "knightbatch.exportToExcel",
         "title": "KnightBatch: Export to Excel",
         "category": "KnightBatch"
+      },
+      {
+        "command": "knightbatch.runTests",
+        "title": "KnightBatch: Run Test Suite",
+        "category": "KnightBatch"
       }
     ],
     "menus": {
@@ -119,6 +124,11 @@
           "command": "knightbatch.exportToExcel",
           "when": "resourceExtname == .shtest",
           "group": "navigation"
+        },
+        {
+          "command": "knightbatch.runTests",
+          "when": "resourceExtname == .shtest",
+          "group": "navigation"
         }
       ]
     },
@@ -127,12 +137,12 @@
       "properties": {
         "knightbatch.configPath": {
           "type": "string",
-          "default": "config/patterns_actions.yml",
+          "default": "src/shtest_compiler/config/patterns_actions.yml",
           "description": "Path to the patterns configuration file (actions)."
         },
         "knightbatch.aliasesPath": {
           "type": "string",
-          "default": "config/aliases.yml",
+          "default": "src/shtest_compiler/config/aliases.yml",
           "description": "Path to the aliases configuration file"
         },
         "knightbatch.outputDirectory": {
@@ -150,6 +160,11 @@
           "type": "boolean",
           "default": false,
           "description": "Enable debug mode for detailed logging"
+        },
+        "knightbatch.testDirectory": {
+          "type": "string",
+          "default": "src/testing",
+          "description": "Path to the test directory"
         }
       }
     }
@@ -161,7 +176,8 @@
     "onCommand:knightbatch.showAST",
     "onCommand:knightbatch.showTokens",
     "onCommand:knightbatch.compileDirectory",
-    "onCommand:knightbatch.exportToExcel"
+    "onCommand:knightbatch.exportToExcel",
+    "onCommand:knightbatch.runTests"
   ],
   "main": "./extension.js",
   "scripts": {

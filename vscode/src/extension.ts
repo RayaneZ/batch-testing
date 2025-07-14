@@ -13,8 +13,9 @@ export function activate(context: vscode.ExtensionContext) {
     let showTokens = vscode.commands.registerCommand('knightbatch.showTokens', showTokensForFile);
     let compileDirectory = vscode.commands.registerCommand('knightbatch.compileDirectory', compileDirectoryCommand);
     let exportToExcel = vscode.commands.registerCommand('knightbatch.exportToExcel', exportToExcelCommand);
+    let runTests = vscode.commands.registerCommand('knightbatch.runTests', runTestSuite);
 
-    context.subscriptions.push(compileFile, verifySyntax, showAST, showTokens, compileDirectory, exportToExcel);
+    context.subscriptions.push(compileFile, verifySyntax, showAST, showTokens, compileDirectory, exportToExcel, runTests);
 }
 
 export function deactivate() {}
@@ -44,13 +45,13 @@ async function compileCurrentFile() {
             fs.mkdirSync(outputPath, { recursive: true });
         }
 
-        // Build command
-        const args = [filePath, '--output', outputPath];
+        // Use the new module-based approach
+        const args = ['-m', 'shtest_compiler.compile_file', filePath, '--output', outputPath];
         if (debugMode) {
             args.push('--debug');
         }
 
-        const result = await executeKnightBatchCommand('shtest.py', args);
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
         if (result.success) {
             vscode.window.showInformationMessage(`File compiled successfully to ${outputPath}`);
@@ -77,12 +78,16 @@ async function verifyCurrentFile() {
     }
 
     const filePath = editor.document.fileName;
-    const config = vscode.workspace.getConfiguration('knightbatch');
-    const configPath = config.get<string>('configPath', 'config/patterns_actions.yml');
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('No workspace folder found');
+        return;
+    }
 
     try {
-        const args = [filePath, '--config', configPath];
-        const result = await executeKnightBatchCommand('verify_syntax.py', args);
+        // Use the new module-based approach
+        const args = ['-m', 'shtest_compiler.verify_syntax', filePath];
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
         if (result.success) {
             vscode.window.showInformationMessage('Syntax verification passed');
@@ -102,12 +107,16 @@ async function showASTForFile() {
     }
 
     const filePath = editor.document.fileName;
-    const config = vscode.workspace.getConfiguration('knightbatch');
-    const configPath = config.get<string>('configPath', 'config/patterns_actions.yml');
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('No workspace folder found');
+        return;
+    }
 
     try {
-        const args = [filePath, '--ast', '--config', configPath];
-        const result = await executeKnightBatchCommand('shtest.py', args);
+        // Use the new module-based approach with debug output
+        const args = ['-m', 'shtest_compiler.compile_file', filePath, '--ast', '--debug'];
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
         if (result.success) {
             // Create a new document to show the AST
@@ -132,12 +141,16 @@ async function showTokensForFile() {
     }
 
     const filePath = editor.document.fileName;
-    const config = vscode.workspace.getConfiguration('knightbatch');
-    const configPath = config.get<string>('configPath', 'config/patterns_actions.yml');
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('No workspace folder found');
+        return;
+    }
 
     try {
-        const args = [filePath, '--tokens', '--config', configPath];
-        const result = await executeKnightBatchCommand('shtest.py', args);
+        // Use the new module-based approach with debug output
+        const args = ['-m', 'shtest_compiler.compile_file', filePath, '--tokens', '--debug'];
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
         if (result.success) {
             // Create a new document to show the tokens
@@ -180,13 +193,13 @@ async function compileDirectoryCommand() {
             fs.mkdirSync(outputPath, { recursive: true });
         }
 
-        // Build command
-        const args = ['--input-dir', workspaceFolder.uri.fsPath, '--output', outputPath];
+        // Use the new module-based approach
+        const args = ['-m', 'shtest_compiler.generate_tests', '--input-dir', workspaceFolder.uri.fsPath, '--output', outputPath];
         if (debugMode) {
             args.push('--debug');
         }
 
-        const result = await executeKnightBatchCommand('generate_tests.py', args);
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
         if (result.success) {
             vscode.window.showInformationMessage(`Compiled ${files.length} files to ${outputPath}`);
@@ -216,9 +229,9 @@ async function exportToExcelCommand() {
         }
 
         const outputFile = path.join(workspaceFolder.uri.fsPath, 'tests.xlsx');
-        const args = ['--input-dir', workspaceFolder.uri.fsPath, '--output', outputFile];
+        const args = ['-m', 'shtest_compiler.export_to_excel', '--input-dir', workspaceFolder.uri.fsPath, '--output', outputFile];
 
-        const result = await executeKnightBatchCommand('export_to_excel.py', args);
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
         if (result.success) {
             vscode.window.showInformationMessage(`Exported ${files.length} files to ${outputFile}`);
@@ -230,23 +243,46 @@ async function exportToExcelCommand() {
     }
 }
 
-async function executeKnightBatchCommand(script: string, args: string[]): Promise<{ success: boolean; output: string; error: string }> {
-    return new Promise((resolve) => {
-        const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
-        if (!workspaceFolder) {
-            resolve({ success: false, output: '', error: 'No workspace folder found' });
-            return;
-        }
+async function runTestSuite() {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('No workspace folder found');
+        return;
+    }
 
-        const scriptPath = path.join(workspaceFolder.uri.fsPath, 'src', script);
+    try {
+        // Run the test suite using pytest
+        const args = ['-m', 'pytest', 'testing/', '-v', '--tb=short'];
+        const result = await executeKnightBatchCommand('python', args, workspaceFolder.uri.fsPath);
         
-        if (!fs.existsSync(scriptPath)) {
-            resolve({ success: false, output: '', error: `Script not found: ${scriptPath}` });
-            return;
+        if (result.success) {
+            vscode.window.showInformationMessage('Test suite completed successfully');
+            
+            // Show test results in a new document
+            const doc = await vscode.workspace.openTextDocument({
+                content: result.output,
+                language: 'text'
+            });
+            await vscode.window.showTextDocument(doc, { preview: true });
+        } else {
+            vscode.window.showErrorMessage(`Test suite failed: ${result.error}`);
+            
+            // Show error output in a new document
+            const doc = await vscode.workspace.openTextDocument({
+                content: result.error,
+                language: 'text'
+            });
+            await vscode.window.showTextDocument(doc, { preview: true });
         }
+    } catch (error) {
+        vscode.window.showErrorMessage(`Error running test suite: ${error}`);
+    }
+}
 
-        const process = spawn('python', [scriptPath, ...args], {
-            cwd: path.join(workspaceFolder.uri.fsPath, 'src'),
+async function executeKnightBatchCommand(command: string, args: string[], workspacePath: string): Promise<{ success: boolean; output: string; error: string }> {
+    return new Promise((resolve) => {
+        const process = spawn(command, args, {
+            cwd: workspacePath,
             stdio: ['pipe', 'pipe', 'pipe']
         });
 

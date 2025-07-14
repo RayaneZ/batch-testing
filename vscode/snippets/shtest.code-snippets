@@ -95,9 +95,30 @@
   "Check File Exists": {
     "prefix": "fileexists",
     "body": [
-      "Action: Vérifier que le fichier $1 existe ; Résultat: le fichier existe."
+      "Action: Vérifier que le fichier $1 existe ; Résultat: le fichier $1 existe."
     ],
     "description": "Check if a file exists (validation)"
+  },
+  "Check File Present": {
+    "prefix": "filepresent",
+    "body": [
+      "Action: Vérifier que le fichier $1 est présent ; Résultat: Le fichier $1 est présent."
+    ],
+    "description": "Check if a file is present (validation with file path)"
+  },
+  "Check File Empty": {
+    "prefix": "fileempty",
+    "body": [
+      "Action: Vérifier que le fichier $1 est vide ; Résultat: Le fichier $1 est vide."
+    ],
+    "description": "Check if a file is empty (validation with file path)"
+  },
+  "Check File Absent": {
+    "prefix": "fileabsent",
+    "body": [
+      "Action: Vérifier que le fichier $1 est absent ; Résultat: Le fichier $1 est absent."
+    ],
+    "description": "Check if a file is absent (validation with file path)"
   },
   "Check Directory Exists": {
     "prefix": "direxists",

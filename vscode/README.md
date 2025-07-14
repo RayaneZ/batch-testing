@@ -1,183 +1,153 @@
-# KnightBatch VS Code Extension
+# KnightBatch VSCode Extension
 
-Support for KnightBatch `.shtest` files with syntax highlighting, IntelliSense, and compilation features.
+Support for KnightBatch `.shtest` files with syntax highlighting, IntelliSense, compilation features, and test suite integration.
 
 ## Features
 
-### 🎨 Syntax Highlighting
+### Syntax Highlighting
 - Full syntax highlighting for `.shtest` files
-- Support for actions, validations, SQL operations, and file operations
-- Color-coded keywords, variables, and logical operators
+- Support for French and English keywords
+- Highlighting for file paths, validation patterns, and SQL operations
+- Support for new validation patterns with file paths (e.g., "Le fichier /tmp/test.txt est présent")
 
-### ⚡ Commands
-- **KnightBatch: Compile Current File** - Compile the current `.shtest` file to shell script
+### Commands
+
+#### Compilation Commands
+- **KnightBatch: Compile Current File** - Compile the active `.shtest` file to shell script
+- **KnightBatch: Compile Directory** - Compile all `.shtest` files in the workspace
+- **KnightBatch: Export to Excel** - Export test cases to Excel format
+
+#### Analysis Commands
 - **KnightBatch: Verify Syntax** - Verify the syntax of the current file
 - **KnightBatch: Show AST** - Display the Abstract Syntax Tree
-- **KnightBatch: Show Tokens** - Display the tokenized content
-- **KnightBatch: Compile Directory** - Compile all `.shtest` files in the workspace
-- **KnightBatch: Export to Excel** - Export test scenarios to Excel
+- **KnightBatch: Show Tokens** - Display the lexical tokens
 
-## 📝 Snippets
-- Modern snippets for common patterns (see below for examples)
-- Legacy patterns for backward compatibility
-- Quick templates for SQL operations, file operations, and validations
+#### Testing Commands
+- **KnightBatch: Run Test Suite** - Run the complete test suite using pytest
 
-### Snippet Usage
-Type the prefix and press Tab to insert:
-- `step` - Create a new step block
+### Snippets
+
+The extension provides code snippets for common patterns:
+
+- `step` - Create a new step with action and result
 - `action` - Create an action with result
-- `exec` - Execute a script
+- `exec` - Execute a script with success validation
 - `execout` - Execute a script and check output
-- `createfile` - Create a file
-- `createfileperm` - Create a file with permissions
-- `createdir` - Create a directory
-- `sqlconn` - Set up SQL connection
-- `sqlscript` - Execute a SQL script
-- `var` - Define a variable
-- `fileexists` - Check if a file exists
-- `direxists` - Check if a directory exists
-- `filecontent` - Check file content
-- `noerrors` - Check for no errors
-- `complex` - Complex validation with logical operators
-- `updatedate` - Update file date
-- `emptydir` - Empty a directory
-- `checklogs` - Check log files
-- `execargs` - Execute script with arguments
-- `checkperm` - Check file permissions
-- `checkdircontent` - Check directory content
-- `checkdate` - Check file date
-- `display` - Display file content
-- `legacy` - Insert legacy patterns for backward compatibility
+- `createfile` - Create a file and validate its presence
+- `filepresent` - Check if a file is present (with file path)
+- `fileempty` - Check if a file is empty (with file path)
+- `fileabsent` - Check if a file is absent (with file path)
+- `copyfile` - Copy a file and validate the copy
+- `sqlconn` - Set up SQL connection variables
+- `sqlscript` - Execute a SQL script and validate DB readiness
 
-### Example: Create a SQL Connection
-```shtest
-Action: Définir la variable SQL_DRIVER = mysql ; Résultat: identifiants configurés.
-Action: Définir la variable SQL_CONN = user/pass@db ; Résultat: identifiants configurés.
-```
+### Configuration
 
-### Example: Complex Validation
-```shtest
-Action: Exécuter script.sh ; Résultat: retour 0 et (stdout contient "OK" ou stderr contient "WARNING").
-```
+The extension can be configured through VSCode settings:
 
-## 🛠️ Automated Packaging in CI
-
-The extension is now automatically packaged and uploaded as a `.vsix` file in the GitHub workflow for every release. You can always download the latest version from the [GitHub Releases](https://github.com/knightbatch/shtest-compiler/releases).
-
-### ⚙️ Configuration
-- Configurable paths for patterns and aliases
-- Customizable output directory
-- SQL driver selection
-- Debug mode toggle
-
-## Installation
-
-### From VSIX
-1. Download the `.vsix` file
-2. In VS Code, go to Extensions (Ctrl+Shift+X)
-3. Click the "..." menu and select "Install from VSIX..."
-4. Select the downloaded file
-
-### From Source
-```bash
-cd vscode
-npm install
-npm run compile
-npx vsce package
-```
+- `knightbatch.configPath` - Path to patterns configuration file
+- `knightbatch.aliasesPath` - Path to aliases configuration file
+- `knightbatch.outputDirectory` - Default output directory for compiled scripts
+- `knightbatch.sqlDriver` - Default SQL driver to use
+- `knightbatch.debugMode` - Enable debug mode for detailed logging
+- `knightbatch.testDirectory` - Path to the test directory
 
 ## Usage
 
 ### Basic Usage
-1. Open a `.shtest` file
-2. Use snippets to quickly create test scenarios
-3. Use commands from the Command Palette (Ctrl+Shift+P)
+1. Open a `.shtest` file in VSCode
+2. Use the command palette (Ctrl+Shift+P) to access KnightBatch commands
+3. Right-click on `.shtest` files in the explorer for context menu options
 
-### Commands
-- **Compile Current File**: Compiles the active `.shtest` file to a shell script
-- **Verify Syntax**: Checks the syntax of the current file
-- **Show AST**: Displays the Abstract Syntax Tree in a new tab
-- **Show Tokens**: Shows the tokenized content in a new tab
+### Validation Patterns
+The extension supports the latest validation patterns including:
 
-### Snippets
-Type the prefix and press Tab to insert:
-- `step` - Create a new step block
-- `action` - Create an action with result
-- `exec` - Execute a script
-- `createfile` - Create a file
-- `sqlconn` - Set up SQL connection
-- `var` - Define a variable
-
-### Configuration
-Add to your VS Code settings:
-```json
-{
-  "knightbatch.configPath": "config/patterns_actions.yml",
-  "knightbatch.aliasesPath": "config/aliases.yml",
-  "knightbatch.outputDirectory": "output",
-  "knightbatch.sqlDriver": "mysql",
-  "knightbatch.debugMode": false
-}
-```
-
-## Architecture Support
-
-This extension supports the new modular architecture:
-
-- **Core Components**: Visitor pattern, AST nodes, compilation context
-- **Modular Lexer**: Configurable tokenization with patterns and filters
-- **Modular Parser**: Configurable grammar with AST builder
-- **Modular Compiler**: Specialized visitors and code generators
-- **Plugin System**: Extensible matchers and validations
-
-## Examples
-
-### Basic Test Scenario
 ```shtest
-Etape: Setup
-Action: Créer le dossier /tmp/test ; Résultat: le dossier est créé.
-Action: Créer le fichier /tmp/test/data.txt ; Résultat: le fichier est présent.
+# File existence with explicit paths
+Action: touch /tmp/test.txt ; Résultat: Le fichier /tmp/test.txt est présent
 
-Etape: Execution
-Action: Exécuter /opt/scripts/process.sh ; Résultat: retour 0.
-Action: Vérifier que le fichier /tmp/test/result.txt existe ; Résultat: le fichier existe.
+# File content validation
+Action: echo "test" > /tmp/file.txt ; Résultat: Le fichier /tmp/file.txt contient "test"
+
+# File emptiness check
+Action: touch /tmp/empty.txt ; Résultat: Le fichier /tmp/empty.txt est vide
+
+# Complex validations
+Action: run_script.sh ; Résultat: Le fichier /tmp/output.txt est présent et stdout contient "OK"
 ```
 
-### SQL Operations
-```shtest
-Action: Définir la variable SQL_DRIVER = mysql ; Résultat: identifiants configurés.
-Action: Définir la variable SQL_CONN = user/pass@db ; Résultat: identifiants configurés.
-Action: Exécuter le script SQL init.sql ; Résultat: La base est prête.
+### Testing Integration
+- Run the complete test suite directly from VSCode
+- View test results in a new document
+- Debug test failures with detailed output
+
+## Requirements
+
+- Python 3.9+ with the KnightBatch package installed
+- pytest for test suite execution
+- VSCode 1.101.0 or higher
+
+## Installation
+
+1. Install the KnightBatch Python package in your workspace:
+   ```bash
+   cd src
+   pip install -e .
+   ```
+
+2. Install the VSCode extension from the marketplace or build from source
+
+3. Configure the extension settings as needed
+
+## Development
+
+### Building the Extension
+```bash
+cd vscode
+npm install
+npm run compile
 ```
 
-### Complex Validations
-```shtest
-Action: Exécuter script.sh ; Résultat: retour 0 et (stdout contient "OK" ou stderr contient "WARNING").
+### Running Tests
+```bash
+cd vscode
+npm test
 ```
 
-## Troubleshooting
-
-### Common Issues
-1. **Script not found**: Ensure you're in the correct workspace with the KnightBatch source
-2. **Configuration errors**: Check the paths in VS Code settings
-3. **Compilation failures**: Verify the `.shtest` syntax and check debug mode
-
-### Debug Mode
-Enable debug mode in settings to get detailed error messages:
-```json
-{
-  "knightbatch.debugMode": true
-}
+### Extracting Plugin Patterns
+```bash
+cd vscode
+npm run extract-patterns
 ```
+
+## Changelog
+
+### Version 3.0.0
+- Updated to work with new modular architecture
+- Added support for new validation patterns with file paths
+- Integrated test suite execution
+- Improved error handling and debugging
+- Updated configuration paths for new project structure
+- Added new snippets for file validation patterns
+
+### Version 2.0.0
+- Added syntax highlighting for French keywords
+- Improved snippet support
+- Added AST and token visualization
+
+### Version 1.0.0
+- Initial release with basic compilation support
+- Syntax highlighting for `.shtest` files
+- Basic command integration
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run tests: `npm test`
+4. Add tests if applicable
 5. Submit a pull request
 
 ## License
 
-MIT License - see LICENSE.txt for details.
+This extension is licensed under the same license as the KnightBatch project.

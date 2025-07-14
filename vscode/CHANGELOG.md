@@ -1,66 +1,69 @@
 # Changelog
 
-All notable changes to the KnightBatch VS Code Extension will be documented in this file.
+All notable changes to the KnightBatch VSCode Extension will be documented in this file.
 
-## [3.0.0] - 2024-01-15
+## [3.0.0] - 2024-12-19
 
 ### Added
-- **Modular Architecture Support**: Full support for the new KnightBatch modular architecture
-- **New Commands**: 
-  - KnightBatch: Compile Current File
-  - KnightBatch: Verify Syntax
-  - KnightBatch: Show AST
-  - KnightBatch: Show Tokens
-  - KnightBatch: Compile Directory
-  - KnightBatch: Export to Excel
-- **Enhanced Syntax Highlighting**: Support for SQL operations, file operations, and variables
-- **Modern Snippets**: New snippets for common patterns with better organization
-- **Configuration System**: VS Code settings for paths, SQL driver, and debug mode
-- **TypeScript Implementation**: Complete rewrite in TypeScript for better maintainability
-- **Error Handling**: Improved error messages and debugging support
+- **Test Suite Integration**: New command "KnightBatch: Run Test Suite" to execute the complete test suite
+- **New Validation Patterns**: Support for file path validation patterns like "Le fichier /tmp/test.txt est présent"
+- **Enhanced Syntax Highlighting**: Updated highlighting for new validation patterns with file paths
+- **New Snippets**: Added snippets for file validation patterns:
+  - `filepresent` - Check if a file is present (with file path)
+  - `fileempty` - Check if a file is empty (with file path)
+  - `fileabsent` - Check if a file is absent (with file path)
+- **Module-based Commands**: Updated all commands to use the new modular architecture
+- **Improved Error Handling**: Better error messages and debugging support
+- **Configuration Updates**: Updated default paths for new project structure
 
 ### Changed
-- **Package Name**: Changed from `shtest` to `knightbatch-shtest`
-- **Display Name**: Updated to "KnightBatch - Shell Test Language"
-- **Version**: Bumped to 3.0.0 for major architecture changes
-- **Syntax Highlighting**: Enhanced patterns for better recognition of modern syntax
-- **Snippets**: Reorganized and modernized snippet collection
-
-### Removed
-- **Legacy Commands**: Removed old command structure in favor of new modular commands
+- **Command Architecture**: All commands now use Python module imports instead of direct script execution
+- **Configuration Paths**: Updated default configuration paths to match new project structure:
+  - `configPath`: `src/shtest_compiler/config/patterns_actions.yml`
+  - `aliasesPath`: `src/shtest_compiler/config/aliases.yml`
+  - `testDirectory`: `src/testing`
+- **Syntax Highlighting**: Enhanced to support new validation patterns with file paths
+- **Snippets**: Updated existing snippets to use new validation patterns
+- **Documentation**: Completely rewritten README with new features and usage examples
 
 ### Fixed
-- **Import Issues**: Resolved module import problems
-- **Configuration Loading**: Fixed configuration path resolution
-- **Error Reporting**: Improved error message clarity
+- **Import Issues**: Fixed module import paths for new project structure
+- **Command Execution**: Improved command execution with better workspace handling
+- **Error Reporting**: Enhanced error reporting with detailed output display
+- **Test Integration**: Fixed test suite execution to work with new testing structure
 
-## [2.0.3] - 2023-12-01
+### Technical Improvements
+- **TypeScript Updates**: Updated to use latest TypeScript features
+- **Error Handling**: Improved Promise-based error handling
+- **Workspace Integration**: Better workspace folder detection and handling
+- **Debug Support**: Enhanced debug mode with detailed logging
+
+## [2.0.0] - 2024-11-15
 
 ### Added
-- Basic syntax highlighting for .shtest files
-- Simple snippets for common patterns
-- Dark theme support
+- **French Language Support**: Added syntax highlighting for French keywords
+- **AST Visualization**: New command to display Abstract Syntax Tree
+- **Token Visualization**: New command to display lexical tokens
+- **Enhanced Snippets**: Improved snippet support with more patterns
+- **Configuration Options**: Added configurable paths and settings
 
 ### Changed
-- Updated VS Code engine requirements
+- **Syntax Highlighting**: Enhanced to support both French and English keywords
+- **Command Structure**: Improved command organization and error handling
+- **Documentation**: Updated documentation with new features
 
-## [1.0.0] - 2023-11-01
-
-### Added
-- Initial release
-- Basic language support
-- File association for .shtest files
-
-## [3.0.1] - 2024-06-28
+## [1.0.0] - 2024-10-01
 
 ### Added
-- **Automated Packaging in CI**: The extension is now automatically packaged and uploaded in the GitHub workflow.
-- **Documentation Improvements**: Updated README for clarity and new usage examples.
-- **Snippet Enhancements**: Improved and clarified snippets for SQL, file, and directory operations.
+- **Initial Release**: Basic VSCode extension for KnightBatch
+- **Syntax Highlighting**: Support for `.shtest` files
+- **Basic Commands**: Compile file, verify syntax
+- **Snippets**: Basic code snippets for common patterns
+- **Configuration**: Basic extension configuration
 
-### Changed
-- **README**: Expanded documentation for configuration, snippets, and troubleshooting.
-- **Snippets**: Modernized and clarified several snippet templates for better usability.
-
-### Fixed
-- **Packaging**: Ensured the `.vsix` is always up-to-date and available as a release asset.
+### Features
+- Syntax highlighting for `.shtest` files
+- Basic compilation support
+- Command palette integration
+- File explorer context menu
+- Basic snippet support
