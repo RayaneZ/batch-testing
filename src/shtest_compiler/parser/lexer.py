@@ -9,27 +9,32 @@ from typing import Iterator, Optional
 from dataclasses import dataclass
 
 # Import the new modular lexer
-from .lexer import Token as NewToken, TokenType, lex as new_lex, lex_file as new_lex_file
+from .lexer import (
+    Token as NewToken,
+    TokenType,
+    lex as new_lex,
+    lex_file as new_lex_file,
+)
 
 
 # Backward compatibility Token class
 @dataclass
 class Token:
-    kind: str                    # Type de jeton (STEP, ACTION_ONLY, etc.)
-    value: str                   # Contenu principal du jeton
-    lineno: int                  # Numéro de ligne dans le fichier source
+    kind: str  # Type de jeton (STEP, ACTION_ONLY, etc.)
+    value: str  # Contenu principal du jeton
+    lineno: int  # Numéro de ligne dans le fichier source
     result: Optional[str] = None  # Résultat attendu (si applicable)
     original: Optional[str] = None  # Ligne originale complète
-    
+
     @classmethod
-    def from_new_token(cls, new_token: NewToken) -> 'Token':
+    def from_new_token(cls, new_token: NewToken) -> "Token":
         """Convert new token to old token format."""
         return cls(
             kind=new_token.kind,
             value=new_token.value,
             lineno=new_token.lineno,
             result=new_token.result,
-            original=new_token.original
+            original=new_token.original,
         )
 
 
@@ -49,7 +54,10 @@ def lex_file(path: str) -> Iterator[Token]:
     """Read *path* and yield :class:`Token` objects."""
     new_tokens = new_lex_file(path, debug=True)
     for token in _convert_tokens(new_tokens):
-        print(f"[DEBUG] Lexer: Produced token kind={token.kind}, value={token.value}, result={token.result}, original={token.original}")
+        print(
+            f"[DEBUG] Lexer: Produced token kind={token.kind}, value={token.value}, result={token.result}, original={token.original}"
+        )
         yield token
+
 
 print("LEXER DEBUG ACTIVE: src/shtest_compiler/parser/lexer.py loaded")

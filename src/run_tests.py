@@ -16,4 +16,4 @@ sys.path.insert(0, str(testing_dir))
 from test_suite import main
 
 if __name__ == "__main__":
-    main() 
+    main()

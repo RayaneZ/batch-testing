@@ -1,6 +1,7 @@
 from shtest_compiler.compiler.matcher_registry import register_matcher
 import re
 
+
 @register_matcher("stdout_stderr")
 def match(expected, _):
     patterns = [
@@ -12,8 +13,11 @@ def match(expected, _):
     for pattern, var in patterns:
         m = re.search(pattern, expected)
         if m:
-            val = m.group(1).strip().strip('"\'\'')
+            val = m.group(1).strip().strip("\"''")
             if "contient" in pattern:
-                return [f"if echo \"{var}\" | grep -q {val!r}; then actual={val!r}; else actual=\"\"; fi", f"expected={val!r}"]
-            return [f"actual=\"{var}\"", f"expected=\"{val}\""]
+                return [
+                    f'if echo "{var}" | grep -q {val!r}; then actual={val!r}; else actual=""; fi',
+                    f"expected={val!r}",
+                ]
+            return [f'actual="{var}"', f'expected="{val}"']
     return None

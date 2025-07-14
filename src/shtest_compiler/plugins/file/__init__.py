@@ -10,4 +10,4 @@ PLUGIN_HANDLERS = {
     "file_contains": handle_file_contains,
     "file_empty": handle_file_empty,
     "compare_files": handle_compare_files,
-} 
+}

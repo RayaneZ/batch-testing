@@ -1,4 +1,3 @@
-
 from .run_with_args import handle as handle_run_with_args
 
 # Tous les handlers correspondent à ceux du YAML
@@ -10,4 +9,4 @@ PLUGIN_HANDLERS = {
 # def handle(groups, **kwargs):
 #     script, = groups
 #     # ou script = kwargs.get('script')
-#     ... 
+#     ...

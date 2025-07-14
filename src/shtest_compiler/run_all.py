@@ -6,10 +6,12 @@ import configparser
 from shtest_compiler.generate_tests import generate_tests
 from shtest_compiler.export_to_excel import export_tests_to_excel
 from shtest_compiler.verify_syntax import check_file
+
 # Legacy parser import removed - not used in this file
 from shtest_compiler.config.debug_config import set_debug, debug_print
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.ini")
+
 
 def read_config():
     config = configparser.ConfigParser()
@@ -23,7 +25,7 @@ def read_config():
 def run_syntax_check(input_path):
     print("[1/3] Vérification de la syntaxe...")
     errors = []
-    
+
     # Handle single file vs directory
     if os.path.isfile(input_path):
         files_to_check = [input_path]
@@ -31,15 +33,15 @@ def run_syntax_check(input_path):
         files_to_check = []
         for root, dirs, files in os.walk(input_path):
             for file in files:
-                if file.endswith('.shtest'):
+                if file.endswith(".shtest"):
                     files_to_check.append(os.path.join(root, file))
-    
+
     for file_path in files_to_check:
         try:
             check_file(file_path)
         except Exception as e:
             errors.append(f"{file_path}: {e}")
-    
+
     if errors:
         print("Erreurs de syntaxe détectées:")
         for error in errors:
@@ -54,11 +56,17 @@ def main():
     parser.add_argument("--input", help="Répertoire d'entrée (.shtest)")
     parser.add_argument("--output", help="Répertoire de sortie des scripts")
     parser.add_argument("--excel", help="Chemin du fichier Excel à générer")
-    parser.add_argument("--no-shell", action="store_true", help="Ne pas générer les scripts shell")
-    parser.add_argument("--no-excel", action="store_true", help="Ne pas générer le fichier Excel")
-    parser.add_argument("--debug", action="store_true", help="Enable debug mode for detailed logging")
+    parser.add_argument(
+        "--no-shell", action="store_true", help="Ne pas générer les scripts shell"
+    )
+    parser.add_argument(
+        "--no-excel", action="store_true", help="Ne pas générer le fichier Excel"
+    )
+    parser.add_argument(
+        "--debug", action="store_true", help="Enable debug mode for detailed logging"
+    )
     args = parser.parse_args()
-    
+
     # Set global debug configuration
     set_debug(args.debug)
     if args.debug:
@@ -82,6 +90,7 @@ def main():
         export_tests_to_excel(input_dir=input_dir, output_file=excel_file)
 
     print("Terminé avec succès.")
+
 
 if __name__ == "__main__":
     main()

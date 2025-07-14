@@ -4,24 +4,35 @@ Test for file date handler functionality.
 """
 
 from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
-from shtest_compiler.ast.shtest_to_shellframework_visitor import ShtestToShellFrameworkVisitor
+from shtest_compiler.ast.shtest_to_shellframework_visitor import (
+    ShtestToShellFrameworkVisitor,
+)
 from shtest_compiler.ast.shell_framework_binder import ShellFrameworkLifter
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
+    ShellFrameworkToShellScriptVisitor,
+)
+
 
 def test_file_date():
     print("=== Testing File Date Handler ===\n")
 
     # Create a test AST with file date validation
-    test_ast = ShtestFile(steps=[
-        TestStep(name="Test Step", actions=[
-            Action(
-                command="touch /tmp/test.txt",
-                result_expr="La date du fichier /tmp/test.txt est modifiée",  # Last action scope (file specified)
-                result_ast=None,
-                lineno=1
+    test_ast = ShtestFile(
+        steps=[
+            TestStep(
+                name="Test Step",
+                actions=[
+                    Action(
+                        command="touch /tmp/test.txt",
+                        result_expr="La date du fichier /tmp/test.txt est modifiée",  # Last action scope (file specified)
+                        result_ast=None,
+                        lineno=1,
+                    )
+                ],
+                lineno=1,
             )
-        ], lineno=1)
-    ])
+        ]
+    )
 
     print("Test AST created successfully")
     print(f"Steps: {len(test_ast.steps)}")
@@ -58,7 +69,9 @@ def test_file_date():
     print()
 
     # Check for file_date validations
-    file_date_validations = [line for line in shell_script.lines if "file_date" in line or "modifié" in line]
+    file_date_validations = [
+        line for line in shell_script.lines if "file_date" in line or "modifié" in line
+    ]
     print(f"File date validations found: {len(file_date_validations)}")
     for validation in file_date_validations:
         print(f"  - {validation}")
@@ -66,5 +79,6 @@ def test_file_date():
 
     print("=== File Date Handler Tests Complete ===")
 
+
 if __name__ == "__main__":
-    test_file_date() 
+    test_file_date()

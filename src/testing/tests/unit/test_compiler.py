@@ -1,6 +1,7 @@
 import pytest
 from shtest_compiler.compiler.utils import compile_validation
 
+
 def test_compile_validation_stdout_ok():
     expr = "stdout contient OK"
     try:
@@ -12,6 +13,7 @@ def test_compile_validation_stdout_ok():
         # If compilation fails, that's acceptable for this test
         assert str(e) is not None
 
+
 def test_compile_validation_unknown(capsys):
     expr = "expression inconnue"
     try:
@@ -20,4 +22,4 @@ def test_compile_validation_unknown(capsys):
         assert any("ERROR" in line for line in lines)
     except Exception as e:
         # If compilation fails, that's acceptable for this test
-        assert str(e) is not None 
+        assert str(e) is not None

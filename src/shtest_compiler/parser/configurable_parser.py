@@ -14,18 +14,20 @@ from ..config.debug_config import is_debug_enabled, debug_print
 
 class ConfigurableParser:
     """A parser that can be configured with different components."""
-    
-    def __init__(self, 
-                 lexer: Optional[ConfigurableLexer] = None,
-                 grammar: Optional[DefaultGrammar] = None,
-                 ast_builder: Optional[DefaultASTBuilder] = None,
-                 debug: bool = False):
+
+    def __init__(
+        self,
+        lexer: Optional[ConfigurableLexer] = None,
+        grammar: Optional[DefaultGrammar] = None,
+        ast_builder: Optional[DefaultASTBuilder] = None,
+        debug: bool = False,
+    ):
         # Use global debug configuration
         self.debug = debug or is_debug_enabled()
         self.lexer = lexer or ConfigurableLexer(debug=self.debug)
         self.grammar = grammar or DefaultGrammar()
         self.ast_builder = ast_builder or DefaultASTBuilder()
-    
+
     def parse(self, text: str, path: Optional[str] = None) -> ShtestFile:
         """Parse text into an AST."""
         try:
@@ -39,7 +41,7 @@ class ConfigurableParser:
             return ast
         except Exception as e:
             raise ParseError(f"Parser error: {e}")
-    
+
     def parse_file(self, file_path: str) -> ShtestFile:
         """Parse a file into an AST."""
         try:
@@ -47,4 +49,4 @@ class ConfigurableParser:
                 text = f.read()
             return self.parse(text, path=file_path)
         except Exception as e:
-            raise ParseError(f"Parser error in file {file_path}: {e}") 
+            raise ParseError(f"Parser error in file {file_path}: {e}")

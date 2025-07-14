@@ -11,10 +11,14 @@ RESULT_PATTERNS_PATH = os.path.join(os.path.dirname(__file__), "../result_patter
 with open(RESULT_PATTERNS_PATH, encoding="utf-8") as f:
     RESULT_PATTERNS = yaml.safe_load(f)
 
+
 def _normalize_atom(atom: str) -> str:
-    atom = atom.strip().lower().rstrip('.;')
-    atom = ''.join(c for c in unicodedata.normalize('NFD', atom) if unicodedata.category(c) != 'Mn')
+    atom = atom.strip().lower().rstrip(".;")
+    atom = "".join(
+        c for c in unicodedata.normalize("NFD", atom) if unicodedata.category(c) != "Mn"
+    )
     return atom
+
 
 def result_atom_to_ast(atom: str):
     norm_atom = _normalize_atom(atom)
@@ -23,13 +27,15 @@ def result_atom_to_ast(atom: str):
         if m:
             plugin = importlib.import_module(f"shtest_compiler.plugins.{entry['type']}")
             # On transmet le scope au plugin (si accepté)
-            if 'scope' in entry:
-                return plugin.handle(m.groups(), scope=entry['scope'])
+            if "scope" in entry:
+                return plugin.handle(m.groups(), scope=entry["scope"])
             else:
                 return plugin.handle(m.groups())
     raise ValueError(f"Aucune règle de validation ne correspond à : {atom}")
 
+
 # -------- VISITEUR AST --------
+
 
 class ASTVisitor(Protocol):
     def visit_sql_script_execution(self, node: "SQLScriptExecution"): ...
@@ -47,6 +53,7 @@ class ASTVisitor(Protocol):
 
 
 # -------- BASE AST --------
+
 
 @dataclass
 class ASTNode:
@@ -90,6 +97,7 @@ class BinaryOp(ASTNode):
 
 
 # -------- VALIDATION NODES --------
+
 
 @dataclass
 class StdoutContains(ASTNode):
@@ -182,6 +190,7 @@ class SQLScriptExecution(ASTNode):
 
 # -------- PARSE LOGIQUE --------
 
+
 def _tokenize_expression(expr: str) -> List[str]:
     return [t.strip() for t in re.split(r"(\bet\b|\bou\b|\(|\))", expr) if t.strip()]
 
@@ -194,7 +203,11 @@ def _to_postfix(tokens: List[str]) -> List[str]:
     for tok in tokens:
         ltok = tok.lower()
         if ltok in precedence:
-            while stack and stack[-1].lower() in precedence and precedence[stack[-1].lower()] >= precedence[ltok]:
+            while (
+                stack
+                and stack[-1].lower() in precedence
+                and precedence[stack[-1].lower()] >= precedence[ltok]
+            ):
                 output.append(stack.pop())
             stack.append(ltok)
         elif tok == "(":

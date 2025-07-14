@@ -1,9 +1,12 @@
-
 import pytest
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
 from shtest_compiler.parser.lexer.configurable_lexer import ConfigurableLexer
 from shtest_compiler.parser.shunting_yard import parse_validation_expression
-from shtest_compiler.ast.shell_framework_ast import ShellFrameworkAST, ShellTestStep, ValidationCheck
+from shtest_compiler.ast.shell_framework_ast import (
+    ShellFrameworkAST,
+    ShellTestStep,
+    ValidationCheck,
+)
 from shtest_compiler.ast.shell_framework_binder import ShellFrameworkBinder
 
 
@@ -18,9 +21,9 @@ def test_lexer_basic_tokens():
     # Just check that we get tokens and they have the expected structure
     assert len(tokens) > 0
     for token in tokens:
-        assert hasattr(token, 'type')
-        assert hasattr(token, 'value')
-        assert hasattr(token, 'lineno')
+        assert hasattr(token, "type")
+        assert hasattr(token, "value")
+        assert hasattr(token, "lineno")
 
 
 def test_parser_recognizes_step_and_actions():
@@ -62,10 +65,10 @@ def test_validation_expression():
 def test_scope_enforcement_raises_on_local_validation_without_action():
     # Create a fake local validation
     local_validation = ValidationCheck()
-    local_validation.scope = 'last_action'
-    local_validation.phrase = 'Fake local validation'
+    local_validation.scope = "last_action"
+    local_validation.phrase = "Fake local validation"
     # Create a step with no actions but with a local validation
-    step = ShellTestStep(name='Step 1', actions=[], validations=[local_validation])
+    step = ShellTestStep(name="Step 1", actions=[], validations=[local_validation])
     ast = ShellFrameworkAST(helpers=[], steps=[step], global_code=[])
     binder = ShellFrameworkBinder(ast)
     with pytest.raises(ValueError, match="must follow an action"):

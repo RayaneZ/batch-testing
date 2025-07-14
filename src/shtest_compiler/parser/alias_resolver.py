@@ -1,6 +1,6 @@
-
 from shtest_compiler.parser.shunting_yard import VarEquals
 import re
+
 
 def resolve_alias(resolved: str):
     resolved = resolved.strip()
