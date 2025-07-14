@@ -1,6 +1,7 @@
+import os
+
 from shtest_compiler.ast.shell_framework_ast import ActionNode
 from shtest_compiler.compiler.sql_drivers import get_sql_command
-import os
 
 
 class RunSQLScriptAction(ActionNode):

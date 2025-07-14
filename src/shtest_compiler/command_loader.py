@@ -1,8 +1,9 @@
-import re
-import yaml
 import importlib
 import os
-from typing import Dict, Tuple, Optional
+import re
+from typing import Dict, Optional, Tuple
+
+import yaml
 
 PATTERNS_PATH = os.path.join(
     os.path.dirname(__file__), "config", "patterns_actions.yml"

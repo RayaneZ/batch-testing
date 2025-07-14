@@ -1,4 +1,5 @@
 import pytest
+
 from shtest_compiler.compiler.utils import compile_validation
 
 

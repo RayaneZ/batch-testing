@@ -4,23 +4,18 @@ Tests for the modular parser architecture.
 This module tests all components of the new modular parser system.
 """
 
-import pytest
-import tempfile
 import os
+import tempfile
 from pathlib import Path
 
-from shtest_compiler.parser import (
-    ConfigurableParser,
-    grammar_registry,
-    ast_builder_registry,
-    GrammarRule,
-    DefaultGrammar,
-    CustomGrammar,
-    DefaultASTBuilder,
-    CustomASTBuilder,
-)
-from shtest_compiler.parser.shtest_ast import ShtestFile, Action, TestStep
+import pytest
+
+from shtest_compiler.parser import (ConfigurableParser, CustomASTBuilder,
+                                    CustomGrammar, DefaultASTBuilder,
+                                    DefaultGrammar, GrammarRule,
+                                    ast_builder_registry, grammar_registry)
 from shtest_compiler.parser.lexer import Token, TokenType
+from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
 
 
 class TestGrammarRule:

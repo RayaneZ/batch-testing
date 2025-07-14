@@ -1,6 +1,7 @@
 import pytest
-from shtest_compiler.compiler.visitors import CompilerVisitor
+
 from shtest_compiler.compiler.context import CompileContext
+from shtest_compiler.compiler.visitors import CompilerVisitor
 
 
 class DummyNode:

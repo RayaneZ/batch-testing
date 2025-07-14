@@ -6,17 +6,18 @@ grammars, and AST builders through the modular system.
 """
 
 import os
-from typing import Optional, Dict, Any
 from pathlib import Path
+from typing import Any, Dict, Optional
 
-from ..parser import ConfigurableParser, grammar_registry, ast_builder_registry
-from ..parser.shtest_ast import ShtestFile
 from shtest_compiler.ast.visitor import ASTVisitor
-from ..core.context import CompileContext
-from .shell_generator import ShellGenerator
-from .matcher_registry import MatcherRegistry
-from ..config.debug_config import is_debug_enabled, debug_print, DebugConfig
+
 from ..ast.shell_framework_ast import pretty_print_ast
+from ..config.debug_config import DebugConfig, debug_print, is_debug_enabled
+from ..core.context import CompileContext
+from ..parser import ConfigurableParser, ast_builder_registry, grammar_registry
+from ..parser.shtest_ast import ShtestFile
+from .matcher_registry import MatcherRegistry
+from .shell_generator import ShellGenerator
 
 
 class ModularCompiler:

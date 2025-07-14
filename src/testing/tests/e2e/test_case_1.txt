@@ -270,19 +270,19 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Validation context errors for 'Le fichier est initialisé': Handler file_present requires 'file' variable
 [ERROR] ValidationParseError: Validation context errors for 'Le fichier est initialisé': Handler file_present requires 'file' variable
 Traceback (most recent call last):
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 171, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 198, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 26, in visit
     return visitor_method(node)
            ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 166, in visit_shtestfile
-    validation_lines = self.compile_validation_expression(action.result_expr, action_context={'command': action.command})
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 237, in compile_validation_expression
-    return compile_atomic(expression, varname="result", last_file_var=None, action_context=action_context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 63, in compile_atomic
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 240, in visit_shtestfile
+    validation_lines = self.compile_validation_expression(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 347, in compile_validation_expression
+    return compile_atomic(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 80, in compile_atomic
     raise ValidationParseError(error_msg)
 shtest_compiler.core.errors.ValidationParseError: Validation context errors for 'Le fichier est initialisé': Handler file_present requires 'file' variable
 

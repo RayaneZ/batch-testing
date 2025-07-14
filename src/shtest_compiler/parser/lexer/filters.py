@@ -6,8 +6,9 @@ by the configurable lexer to process tokens.
 """
 
 from typing import Iterator, List
+
+from ...config.debug_config import debug_print, is_debug_enabled
 from .core import Token
-from ...config.debug_config import is_debug_enabled, debug_print
 
 
 class Filter:

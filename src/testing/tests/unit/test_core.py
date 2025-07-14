@@ -1,13 +1,12 @@
 import pytest
+
+from shtest_compiler.ast.shell_framework_ast import (ShellFrameworkAST,
+                                                     ShellTestStep,
+                                                     ValidationCheck)
+from shtest_compiler.ast.shell_framework_binder import ShellFrameworkBinder
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
 from shtest_compiler.parser.lexer.configurable_lexer import ConfigurableLexer
 from shtest_compiler.parser.shunting_yard import parse_validation_expression
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST,
-    ShellTestStep,
-    ValidationCheck,
-)
-from shtest_compiler.ast.shell_framework_binder import ShellFrameworkBinder
 
 
 def test_lexer_basic_tokens():

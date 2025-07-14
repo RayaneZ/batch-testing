@@ -5,14 +5,11 @@ Converted from test_binaryop.py to proper pytest format.
 """
 
 import pytest
-from shtest_compiler.parser.shunting_yard import (
-    parse_validation_expression,
-    BinaryOp,
-    Atomic,
-)
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
-    ShellFrameworkToShellScriptVisitor,
-)
+
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
+    ShellFrameworkToShellScriptVisitor
+from shtest_compiler.parser.shunting_yard import (Atomic, BinaryOp,
+                                                  parse_validation_expression)
 
 
 class TestBinaryOperations:

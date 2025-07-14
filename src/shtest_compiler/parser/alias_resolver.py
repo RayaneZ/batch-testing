@@ -1,5 +1,6 @@
-from shtest_compiler.parser.shunting_yard import VarEquals
 import re
+
+from shtest_compiler.parser.shunting_yard import VarEquals
 
 
 def resolve_alias(resolved: str):

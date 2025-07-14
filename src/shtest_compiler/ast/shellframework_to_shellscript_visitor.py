@@ -1,16 +1,15 @@
-from shtest_compiler.ast.visitor import ASTVisitor
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST,
-    ShellFunctionDef,
-    ShellFunctionCall,
-    InlineShellCode,
-    ShellTestStep,
-    ValidationCheck,
-    ActionNode,
-)
-from shtest_compiler.ast.shell_script_ast import ShellScript
-from shtest_compiler.parser.shunting_yard import BinaryOp, Atomic
 from typing import List
+
+from shtest_compiler.ast.shell_framework_ast import (ActionNode,
+                                                     InlineShellCode,
+                                                     ShellFrameworkAST,
+                                                     ShellFunctionCall,
+                                                     ShellFunctionDef,
+                                                     ShellTestStep,
+                                                     ValidationCheck)
+from shtest_compiler.ast.shell_script_ast import ShellScript
+from shtest_compiler.ast.visitor import ASTVisitor
+from shtest_compiler.parser.shunting_yard import Atomic, BinaryOp
 
 
 class ShellFrameworkToShellScriptVisitor(ASTVisitor[ShellScript]):
@@ -112,7 +111,8 @@ class ShellFrameworkToShellScriptVisitor(ASTVisitor[ShellScript]):
         return self.visit_binary_op(node)
 
     def visit_binary_op(self, node: BinaryOp) -> List[str]:
-        from shtest_compiler.config.debug_config import is_debug_enabled, debug_print
+        from shtest_compiler.config.debug_config import (debug_print,
+                                                         is_debug_enabled)
 
         debug_enabled = is_debug_enabled()
         if debug_enabled:
@@ -156,7 +156,8 @@ class ShellFrameworkToShellScriptVisitor(ASTVisitor[ShellScript]):
         return compound_lines
 
     def visit_atomic(self, node: Atomic) -> List[str]:
-        from shtest_compiler.config.debug_config import is_debug_enabled, debug_print
+        from shtest_compiler.config.debug_config import (debug_print,
+                                                         is_debug_enabled)
 
         debug_enabled = is_debug_enabled()
         if debug_enabled:

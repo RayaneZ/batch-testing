@@ -4,8 +4,8 @@ Simple test runner for shtest_compiler.
 This script provides easy access to the test suite from the src directory.
 """
 
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Add the testing directory to the path

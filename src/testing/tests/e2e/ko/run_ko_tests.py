@@ -6,8 +6,8 @@ This script runs all negative tests in the ko directory and verifies that they f
 """
 
 import os
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 

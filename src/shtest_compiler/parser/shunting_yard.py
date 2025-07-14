@@ -1,10 +1,11 @@
-import re
-import yaml
 import importlib
 import os
+import re
+import unicodedata
 from dataclasses import dataclass
 from typing import List, Protocol
-import unicodedata
+
+import yaml
 
 # Ajout : chargement des patterns de validation
 RESULT_PATTERNS_PATH = os.path.join(os.path.dirname(__file__), "../result_patterns.yml")

@@ -7,8 +7,9 @@ from __future__ import annotations
 # Importation de modules standards
 import os  # Pour manipuler les chemins de fichiers
 import re  # Pour la gestion des expressions régulières
+from typing import Dict, List
+
 import yaml  # Pour lire des fichiers YAML
-from typing import List, Dict
 
 # Chemin vers le fichier de configuration principal contenant les motifs regex
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "regex_config.yml")

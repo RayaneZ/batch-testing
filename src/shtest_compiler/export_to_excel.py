@@ -1,8 +1,10 @@
-import sys
 import os
-from shtest_compiler.command_loader import PatternRegistry
+import sys
+
 import openpyxl
 from openpyxl.utils import get_column_letter
+
+from shtest_compiler.command_loader import PatternRegistry
 
 
 def export_patterns_to_excel(actions_yml, validations_yml, output_xlsx):

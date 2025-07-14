@@ -14,9 +14,8 @@ def handle(params):
         command = action_context.get("command", "")
         if command:
             try:
-                from shtest_compiler.compiler.argument_extractor import (
-                    extract_action_args,
-                )
+                from shtest_compiler.compiler.argument_extractor import \
+                    extract_action_args
 
                 extracted = extract_action_args(command)
                 if extracted:

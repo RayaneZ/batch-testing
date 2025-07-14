@@ -3,24 +3,18 @@ Shell code generation visitor.
 Generates shell script code from AST nodes.
 """
 
-from typing import List, Tuple, Any
+from typing import Any, List, Tuple
+
 from shtest_compiler.ast.visitor import ASTVisitor
-from shtest_compiler.core.context import CompileContext
 from shtest_compiler.core.ast import ASTNode
-from shtest_compiler.parser.shunting_yard import (
-    SQLScriptExecution,
-    FileEquals,
-    FileSizeCheck,
-    FileLineCount,
-    VarEquals,
-    FileEmpty,
-    FileExists,
-    Atomic,
-    BinaryOp,
-    StdoutContains,
-    StderrContains,
-    FileContains,
-)
+from shtest_compiler.core.context import CompileContext
+from shtest_compiler.parser.shunting_yard import (Atomic, BinaryOp,
+                                                  FileContains, FileEmpty,
+                                                  FileEquals, FileExists,
+                                                  FileLineCount, FileSizeCheck,
+                                                  SQLScriptExecution,
+                                                  StderrContains,
+                                                  StdoutContains, VarEquals)
 
 
 class ShellVisitor(ASTVisitor[Tuple[List[str], str]]):

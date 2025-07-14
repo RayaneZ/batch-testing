@@ -2,7 +2,7 @@
 Core types and interfaces for the modular parser.
 """
 
-from typing import Any, Protocol, List, Optional, runtime_checkable
+from typing import Any, List, Optional, Protocol, runtime_checkable
 
 
 class ParseError(Exception):

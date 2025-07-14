@@ -47,8 +47,9 @@ class MatcherRegistry:
 
     def _load_validation_patterns(self):
         """Load validation patterns from YAML configuration."""
-        import yaml
         import os
+
+        import yaml
 
         patterns_path = os.path.join(
             os.path.dirname(__file__), "../config/patterns_validations.yml"

@@ -4,7 +4,7 @@ Provides both Protocol-based and ABC-based approaches.
 """
 
 from abc import ABC, abstractmethod
-from typing import Protocol, Any, TypeVar, Generic, runtime_checkable
+from typing import Any, Generic, Protocol, TypeVar, runtime_checkable
 
 # Type variable for visitor return type
 T = TypeVar("T")

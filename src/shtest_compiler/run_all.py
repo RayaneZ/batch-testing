@@ -1,14 +1,13 @@
 import argparse
-import sys
-import os
 import configparser
-
-from shtest_compiler.generate_tests import generate_tests
-from shtest_compiler.export_to_excel import export_tests_to_excel
-from shtest_compiler.verify_syntax import check_file
+import os
+import sys
 
 # Legacy parser import removed - not used in this file
-from shtest_compiler.config.debug_config import set_debug, debug_print
+from shtest_compiler.config.debug_config import debug_print, set_debug
+from shtest_compiler.export_to_excel import export_tests_to_excel
+from shtest_compiler.generate_tests import generate_tests
+from shtest_compiler.verify_syntax import check_file
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "config.ini")
 

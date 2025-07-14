@@ -4,17 +4,17 @@ Comprehensive test suite for shtest_compiler with shellcheck integration.
 Supports both Windows/WSL and Linux environments.
 """
 
-import os
-import sys
-import subprocess
-import platform
 import argparse
-import pathlib
-from typing import List, Optional, Dict, Any
 import json
+import os
+import pathlib
+import platform
+import subprocess
+import sys
 import time
 from dataclasses import dataclass
 from enum import Enum
+from typing import Any, Dict, List, Optional
 
 
 class TestResult(Enum):

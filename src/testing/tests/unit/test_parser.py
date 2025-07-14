@@ -1,4 +1,5 @@
 import pytest
+
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
 
 

@@ -7,12 +7,12 @@ using the enhanced modular parser and compiler system.
 
 import os
 import sys
-from typing import Optional
 from pathlib import Path
+from typing import Optional
 
 from .compiler.compiler import ModularCompiler
+from .config.debug_config import debug_print, is_debug_enabled
 from .plugins import load_plugins_from_directory, plugin_registry
-from .config.debug_config import is_debug_enabled, debug_print
 
 
 def compile_file(

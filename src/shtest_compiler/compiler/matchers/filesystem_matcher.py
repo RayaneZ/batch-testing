@@ -1,5 +1,6 @@
-from shtest_compiler.compiler.matcher_registry import register_matcher
 import re
+
+from shtest_compiler.compiler.matcher_registry import register_matcher
 
 # ============================================================
 # Orchestrateur de correspondance

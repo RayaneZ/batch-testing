@@ -1,27 +1,23 @@
-from shtest_compiler.ast.visitor import ASTVisitor
-from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST,
-    ShellTestStep,
-    ShellFunctionDef,
-    ShellFunctionCall,
-    InlineShellCode,
-    ValidationCheck,
-)
-from shtest_compiler.compiler.atomic_compiler import compile_atomic
-from shtest_compiler.compiler.action_utils import (
-    extract_context_from_action,
-    validate_action_context,
-    canonize_action,
-)
-from shtest_compiler.parser.shunting_yard import parse_validation_expression
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
-    ShellFrameworkToShellScriptVisitor,
-)
 import importlib
 from collections import defaultdict
-from typing import Dict, Tuple, List
-from shtest_compiler.config.debug_config import is_debug_enabled, debug_print
+from typing import Dict, List, Tuple
+
+from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
+                                                     ShellFrameworkAST,
+                                                     ShellFunctionCall,
+                                                     ShellFunctionDef,
+                                                     ShellTestStep,
+                                                     ValidationCheck)
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
+    ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.visitor import ASTVisitor
+from shtest_compiler.compiler.action_utils import (canonize_action,
+                                                   extract_context_from_action,
+                                                   validate_action_context)
+from shtest_compiler.compiler.atomic_compiler import compile_atomic
+from shtest_compiler.config.debug_config import debug_print, is_debug_enabled
+from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
+from shtest_compiler.parser.shunting_yard import parse_validation_expression
 
 
 class ShtestToShellFrameworkVisitor(ASTVisitor[ShellFrameworkAST]):

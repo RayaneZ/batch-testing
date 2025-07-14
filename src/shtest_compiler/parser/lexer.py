@@ -5,16 +5,14 @@ This module provides the old lexer interface while using the new modular lexer
 under the hood for better maintainability and extensibility.
 """
 
-from typing import Iterator, Optional
 from dataclasses import dataclass
+from typing import Iterator, Optional
 
 # Import the new modular lexer
-from .lexer import (
-    Token as NewToken,
-    TokenType,
-    lex as new_lex,
-    lex_file as new_lex_file,
-)
+from .lexer import Token as NewToken
+from .lexer import TokenType
+from .lexer import lex as new_lex
+from .lexer import lex_file as new_lex_file
 
 
 # Backward compatibility Token class

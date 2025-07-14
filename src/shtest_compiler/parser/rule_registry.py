@@ -1,5 +1,6 @@
 import re
-from typing import Callable, Dict, Any, Optional
+from typing import Any, Callable, Dict, Optional
+
 from shtest_compiler.common_patterns import SIMPLE_RULES
 
 

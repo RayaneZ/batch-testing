@@ -1,6 +1,8 @@
-from shtest_compiler.utils.canonicalization import get_canonical_phrase_and_opposite
 import os
 import time
+
+from shtest_compiler.utils.canonicalization import \
+    get_canonical_phrase_and_opposite
 
 
 class DateModifiedValidation:

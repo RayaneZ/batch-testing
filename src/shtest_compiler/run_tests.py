@@ -6,10 +6,10 @@ This script demonstrates the new test organization and provides easy ways to run
 different types of tests.
 """
 
-import os
-import sys
-import subprocess
 import argparse
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 
@@ -129,7 +129,8 @@ def verify_e2e_syntax():
         print(f"  Verifying {shtest_file.name}...")
         try:
             # Use the new ConfigurableParser for verification
-            from shtest_compiler.parser.configurable_parser import ConfigurableParser
+            from shtest_compiler.parser.configurable_parser import \
+                ConfigurableParser
 
             with open(shtest_file, encoding="utf-8") as f:
                 content = f.read()

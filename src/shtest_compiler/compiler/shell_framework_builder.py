@@ -1,16 +1,16 @@
 from collections import defaultdict
-from typing import Dict, Tuple, List
-from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST,
-    ShellTestStep,
-    ShellFunctionDef,
-    ShellFunctionCall,
-    InlineShellCode,
-    ValidationCheck,
-)
-from .atomic_compiler import compile_atomic
+from typing import Dict, List, Tuple
+
+from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
+                                                     ShellFrameworkAST,
+                                                     ShellFunctionCall,
+                                                     ShellFunctionDef,
+                                                     ShellTestStep,
+                                                     ValidationCheck)
+from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
+
 from .argument_extractor import extract_action_args
+from .atomic_compiler import compile_atomic
 
 # Helper to create a canonical key for an action/validation
 # For now, use command/result_expr as the key; can be improved for argument normalization

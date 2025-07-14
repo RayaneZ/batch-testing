@@ -71,7 +71,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=purge_dir, variables={'path': '/tmp/cache'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.purge_dir
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'Vider le répertoire /tmp/cache', 'handler': 'purge_dir', 'category': 'directory_operations', 'variables': {'path': '/tmp/cache'}, 'requirements': {'required_variables': ['path'], 'optional_variables': [], 'scope': 'global', 'description': 'Remove all contents from a directory', 'category': 'directory_operations', 'validation_rules': {'path': {'type': 'path', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'vider le répertoire {path}', 'config': {'type': 'action', 'phrase': 'Purger le répertoire {path}', 'aliases': ['vider le répertoire {path}', 'nettoyer le répertoire {path}', '^rm -rf (.+)/\\\\*$'], 'handler': 'purge_dir'}}], 'scope': 'global'}, 'path': '/tmp/cache'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.purge_dir.PurgeDirAction object at 0x000002297FB82C50>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.purge_dir.PurgeDirAction object at 0x000001C056B6B950>
 [DEBUG] get_action_shell_command: Generated shell command: rm -rf '/tmp/cache'/*
 [DEBUG] compile_validation_expression called with: 'le répertoire est vidé'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -80,19 +80,19 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] compile_atomic: canonize_validation('le répertoire est vidé') result: None
 [ERROR] ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
 Traceback (most recent call last):
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 171, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\shell_generator.py", line 198, in visit
     shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 23, in visit
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\visitor.py", line 26, in visit
     return visitor_method(node)
            ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 166, in visit_shtestfile
-    validation_lines = self.compile_validation_expression(action.result_expr, action_context={'command': action.command})
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 237, in compile_validation_expression
-    return compile_atomic(expression, varname="result", last_file_var=None, action_context=action_context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 30, in compile_atomic
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 240, in visit_shtestfile
+    validation_lines = self.compile_validation_expression(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\ast\shtest_to_shellframework_visitor.py", line 347, in compile_validation_expression
+    return compile_atomic(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Sventer\OneDrive\Documents\batch testing\src\shtest_compiler\compiler\atomic_compiler.py", line 47, in compile_atomic
     raise ValidationParseError(f"No matcher found for validation: '{expected}'")
 shtest_compiler.core.errors.ValidationParseError: No matcher found for validation: 'le répertoire est vidé'
 

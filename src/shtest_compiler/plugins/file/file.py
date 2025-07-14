@@ -1,6 +1,6 @@
-from .mkdir import handle as handle_mkdir
 from .compare_files import handle as handle_compare_files
 from .exists import handle as handle_exists
+from .mkdir import handle as handle_mkdir
 
 # Tous les handlers correspondent à ceux du YAML
 PLUGIN_HANDLERS = {

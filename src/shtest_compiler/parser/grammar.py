@@ -6,8 +6,9 @@ with custom rules, transformations, and validation.
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Optional, Callable
-from .core import TokenLike, Grammar
+from typing import Any, Callable, Dict, List, Optional
+
+from .core import Grammar, TokenLike
 from .lexer.core import Token, TokenType
 
 
@@ -96,7 +97,8 @@ class DefaultGrammar(Grammar):
         if not tokens:
             return tokens
 
-        from shtest_compiler.config.debug_config import is_debug_enabled, debug_print
+        from shtest_compiler.config.debug_config import (debug_print,
+                                                         is_debug_enabled)
 
         debug_enabled = is_debug_enabled()
 

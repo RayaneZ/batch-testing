@@ -3,13 +3,15 @@ Configurable lexer that can use different tokenizers and filters.
 """
 
 import os
+from typing import Any, Dict, Iterator, Optional
+
 import yaml
-from typing import Iterator, Optional, Dict, Any
+
+from ...config.debug_config import debug_print, is_debug_enabled
 from .core import Token, TokenType
-from .tokenizers import Tokenizer, RegexTokenizer, FallbackTokenizer
-from .filters import Filter, EmptyFilter, WhitespaceFilter
+from .filters import EmptyFilter, Filter, WhitespaceFilter
 from .pattern_loader import PatternLoader
-from ...config.debug_config import is_debug_enabled, debug_print
+from .tokenizers import FallbackTokenizer, RegexTokenizer, Tokenizer
 
 debug_print(
     "LEXER DEBUG ACTIVE: src/shtest_compiler/parser/lexer/configurable_lexer.py loaded"

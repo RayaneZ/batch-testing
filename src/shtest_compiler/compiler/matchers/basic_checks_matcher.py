@@ -1,8 +1,11 @@
-import yaml
 import os
 import re
+
+import yaml
+
 from shtest_compiler.compiler.matcher_registry import register_matcher
-from ..utils import shell_condition, retcode_condition, strip_accents
+
+from ..utils import retcode_condition, shell_condition, strip_accents
 
 
 def load_patterns():

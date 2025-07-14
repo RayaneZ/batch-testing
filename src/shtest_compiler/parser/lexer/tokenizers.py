@@ -6,9 +6,10 @@ by the configurable lexer.
 """
 
 import re
-from typing import Iterator, List, Dict, Any
+from typing import Any, Dict, Iterator, List
+
+from ...config.debug_config import debug_print, is_debug_enabled
 from .core import Token, TokenType
-from ...config.debug_config import is_debug_enabled, debug_print
 
 
 class Tokenizer:

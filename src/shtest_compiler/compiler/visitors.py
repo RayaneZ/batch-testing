@@ -1,22 +1,15 @@
+import os
+
+from shtest_compiler.command_loader import PatternRegistry
 from shtest_compiler.compiler.atomic_compiler import compile_atomic
 from shtest_compiler.compiler.context import CompileContext
-from shtest_compiler.parser.shunting_yard import (
-    SQLScriptExecution,
-    FileEquals,
-    FileSizeCheck,
-    FileLineCount,
-    VarEquals,
-    FileEmpty,
-    FileExists,
-    ASTVisitor,
-    Atomic,
-    BinaryOp,
-    StdoutContains,
-    StderrContains,
-    FileContains,
-)
-from shtest_compiler.command_loader import PatternRegistry
-import os
+from shtest_compiler.parser.shunting_yard import (ASTVisitor, Atomic, BinaryOp,
+                                                  FileContains, FileEmpty,
+                                                  FileEquals, FileExists,
+                                                  FileLineCount, FileSizeCheck,
+                                                  SQLScriptExecution,
+                                                  StderrContains,
+                                                  StdoutContains, VarEquals)
 
 # Initialisation du PatternRegistry global (à adapter selon l'architecture du projet)
 ACTIONS_YML = os.path.join(os.path.dirname(__file__), "../config/patterns_actions.yml")

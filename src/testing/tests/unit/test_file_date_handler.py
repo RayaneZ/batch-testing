@@ -6,14 +6,13 @@ Updated to match new parser behavior that requires actions for steps.
 """
 
 import pytest
-from shtest_compiler.parser.shtest_ast import ShtestFile, TestStep, Action
-from shtest_compiler.ast.shtest_to_shellframework_visitor import (
-    ShtestToShellFrameworkVisitor,
-)
+
 from shtest_compiler.ast.shell_framework_binder import ShellFrameworkLifter
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
-    ShellFrameworkToShellScriptVisitor,
-)
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
+    ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.shtest_to_shellframework_visitor import \
+    ShtestToShellFrameworkVisitor
+from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
 
 
 class TestFileDateHandler:

@@ -6,7 +6,7 @@ This module defines the fundamental data structures and types used by the lexer.
 
 from dataclasses import dataclass, field
 from enum import Enum, auto
-from typing import Optional, Dict, Any
+from typing import Any, Dict, Optional
 
 
 class TokenType(Enum):

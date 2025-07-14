@@ -1,11 +1,10 @@
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST,
-    ShellFunctionDef,
-    ShellFunctionCall,
-    InlineShellCode,
-    ShellTestStep,
-)
 from typing import List
+
+from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
+                                                     ShellFrameworkAST,
+                                                     ShellFunctionCall,
+                                                     ShellFunctionDef,
+                                                     ShellTestStep)
 
 
 def emit_shell_script(shell_ast: ShellFrameworkAST) -> str:

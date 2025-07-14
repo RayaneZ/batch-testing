@@ -2,7 +2,8 @@
 Plugin for file empty validation.
 """
 
-from shtest_compiler.utils.canonicalization import get_canonical_phrase_and_opposite
+from shtest_compiler.utils.canonicalization import \
+    get_canonical_phrase_and_opposite
 
 
 class FileEmptyValidation:

@@ -2,8 +2,8 @@ import os
 import tempfile
 import unittest
 
-from shtest_compiler.verify_syntax import check_file
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
+from shtest_compiler.verify_syntax import check_file
 
 
 class TestVerifySyntax(unittest.TestCase):

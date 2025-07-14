@@ -5,18 +5,19 @@ This module provides the core compilation logic for converting validation
 expressions into shell code.
 """
 
-import re
 import importlib
 import os
-from typing import List, Optional, Tuple, Any, Union
-from ..config.debug_config import is_debug_enabled, debug_print
-from shtest_compiler.core.errors import ValidationParseError
-from shtest_compiler.compiler.action_utils import (
-    extract_context_from_action,
-    validate_action_context,
-    canonize_validation,
-)
+import re
+from typing import Any, List, Optional, Tuple, Union
+
 import yaml
+
+from shtest_compiler.compiler.action_utils import (canonize_validation,
+                                                   extract_context_from_action,
+                                                   validate_action_context)
+from shtest_compiler.core.errors import ValidationParseError
+
+from ..config.debug_config import debug_print, is_debug_enabled
 
 
 def compile_atomic(

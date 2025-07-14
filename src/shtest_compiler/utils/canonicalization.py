@@ -1,5 +1,6 @@
-import yaml
 import os
+
+import yaml
 
 
 def get_canonical_phrase_and_opposite(handler, plugin_name=None):

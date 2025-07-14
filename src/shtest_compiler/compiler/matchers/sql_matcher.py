@@ -1,4 +1,5 @@
 from shtest_compiler.compiler.matcher_registry import register_matcher
+
 from ..utils import shell_condition, strip_accents
 
 

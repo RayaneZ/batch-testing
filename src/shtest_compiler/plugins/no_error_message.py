@@ -1,4 +1,5 @@
-from shtest_compiler.utils.canonicalization import get_canonical_phrase_and_opposite
+from shtest_compiler.utils.canonicalization import \
+    get_canonical_phrase_and_opposite
 
 
 class NoErrorMessageValidation:

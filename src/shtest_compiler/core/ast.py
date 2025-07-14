@@ -4,6 +4,7 @@ AST (Abstract Syntax Tree) nodes based on the formal grammar.
 
 from dataclasses import dataclass, field
 from typing import List, Optional
+
 from .visitor import ASTNode
 
 # ===== Base AST Nodes =====

@@ -5,9 +5,10 @@ This module provides the main parser for converting .shtest files into AST nodes
 """
 
 from typing import List, Optional
-from .shtest_ast import ShtestFile, TestStep, Action
+
+from ..config.debug_config import debug_print, is_debug_enabled
 from .lexer import Token
-from ..config.debug_config import is_debug_enabled, debug_print
+from .shtest_ast import Action, ShtestFile, TestStep
 
 debug_print("PARSER DEBUG ACTIVE: src/shtest_compiler/parser/shtest_parser.py loaded")
 

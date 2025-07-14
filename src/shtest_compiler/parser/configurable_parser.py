@@ -4,12 +4,13 @@ Configurable parser that can use different lexers, grammars, and AST builders.
 
 import os
 from typing import Optional
-from .core import ParseError
-from .shtest_ast import ShtestFile
-from .lexer import ConfigurableLexer
-from .grammar import DefaultGrammar
+
+from ..config.debug_config import debug_print, is_debug_enabled
 from .ast_builder import DefaultASTBuilder
-from ..config.debug_config import is_debug_enabled, debug_print
+from .core import ParseError
+from .grammar import DefaultGrammar
+from .lexer import ConfigurableLexer
+from .shtest_ast import ShtestFile
 
 
 class ConfigurableParser:

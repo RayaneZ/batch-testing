@@ -1,10 +1,11 @@
 import argparse
+import sys
+
 from shtest_compiler.compile_expr import compile_validation
 from shtest_compiler.compile_file import compile_file
-from shtest_compiler.verify_syntax import main as verify_main
+from shtest_compiler.config.debug_config import debug_print, set_debug
 from shtest_compiler.export_to_excel import export_patterns_to_excel
-from shtest_compiler.config.debug_config import set_debug, debug_print
-import sys
+from shtest_compiler.verify_syntax import main as verify_main
 
 
 def main():

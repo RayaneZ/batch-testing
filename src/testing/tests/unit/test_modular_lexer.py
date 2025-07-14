@@ -4,19 +4,15 @@ Tests for the modular lexer architecture.
 This module tests all components of the new modular lexer system.
 """
 
-import pytest
-import tempfile
 import os
-from pathlib import Path
 import re
+import tempfile
+from pathlib import Path
 
-from shtest_compiler.parser.lexer import (
-    Token,
-    TokenType,
-    LexerError,
-    ConfigurableLexer,
-    PatternLoader,
-)
+import pytest
+
+from shtest_compiler.parser.lexer import (ConfigurableLexer, LexerError,
+                                          PatternLoader, Token, TokenType)
 from shtest_compiler.parser.lexer.tokenizers import RegexTokenizer
 
 

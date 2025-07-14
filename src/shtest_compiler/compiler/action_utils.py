@@ -1,9 +1,11 @@
 import os
-import yaml
 import re
-from typing import Optional, List, Dict, Any, Tuple
 from pathlib import Path
-from shtest_compiler.config.debug_config import is_debug_enabled, debug_print
+from typing import Any, Dict, List, Optional, Tuple
+
+import yaml
+
+from shtest_compiler.config.debug_config import debug_print, is_debug_enabled
 
 # ============================================================================
 # UTILITY FUNCTIONS

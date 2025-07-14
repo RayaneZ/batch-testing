@@ -1,6 +1,8 @@
 __all__ = ["alias_resolver"]
 
-from .core import ParseError, TokenLike, ASTBuilder, Grammar
+from .ast_builder import (CustomASTBuilder, DefaultASTBuilder,
+                          ast_builder_registry)
 from .configurable_parser import ConfigurableParser
-from .ast_builder import DefaultASTBuilder, CustomASTBuilder, ast_builder_registry
-from .grammar import DefaultGrammar, CustomGrammar, GrammarRule, grammar_registry
+from .core import ASTBuilder, Grammar, ParseError, TokenLike
+from .grammar import (CustomGrammar, DefaultGrammar, GrammarRule,
+                      grammar_registry)

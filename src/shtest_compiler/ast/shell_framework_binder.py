@@ -1,16 +1,16 @@
-import yaml
 import os
-from shtest_compiler.ast.shell_framework_ast import (
-    ShellFrameworkAST,
-    ShellFunctionDef,
-    ShellFunctionCall,
-    InlineShellCode,
-    ShellTestStep,
-    ValidationCheck,
-)
-from shtest_compiler.parser.shtest_ast import Action
-from typing import Tuple, Dict, List
 import re
+from typing import Dict, List, Tuple
+
+import yaml
+
+from shtest_compiler.ast.shell_framework_ast import (InlineShellCode,
+                                                     ShellFrameworkAST,
+                                                     ShellFunctionCall,
+                                                     ShellFunctionDef,
+                                                     ShellTestStep,
+                                                     ValidationCheck)
+from shtest_compiler.parser.shtest_ast import Action
 
 # Use only the scope attribute on ValidationCheck
 
@@ -166,11 +166,10 @@ class ShellFrameworkBinder:
             return None
 
         # Use the existing argument extraction logic
-        from shtest_compiler.compiler.argument_extractor import extract_action_args
+        from shtest_compiler.compiler.argument_extractor import \
+            extract_action_args
         from shtest_compiler.compiler.shell_generator import (
-            extract_action_groups,
-            canonize_action,
-        )
+            canonize_action, extract_action_groups)
 
         command = action.command
 

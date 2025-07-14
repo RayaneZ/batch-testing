@@ -4,33 +4,32 @@ Shell code generator for the shtest compiler.
 This module generates shell scripts from parsed AST nodes.
 """
 
-from typing import List, Optional, Dict, Any
-from shtest_compiler.ast.visitor import ASTVisitor
-from shtest_compiler.ast.shtest_to_shellframework_visitor import (
-    ShtestToShellFrameworkVisitor,
-)
+import importlib
+import os
+import re
+import traceback
+from typing import Any, Dict, List, Optional
+
+import yaml
+
 from shtest_compiler.ast.shell_framework_binder import ShellFrameworkBinder
-from shtest_compiler.ast.shellframework_to_shellscript_visitor import (
-    ShellFrameworkToShellScriptVisitor,
-)
 from shtest_compiler.ast.shell_script_ast import ShellScript
+from shtest_compiler.ast.shellframework_to_shellscript_visitor import \
+    ShellFrameworkToShellScriptVisitor
+from shtest_compiler.ast.shtest_to_shellframework_visitor import \
+    ShtestToShellFrameworkVisitor
+from shtest_compiler.ast.visitor import ASTVisitor
 from shtest_compiler.core.context import CompileContext
-from ..parser.shtest_ast import ShtestFile, Action, TestStep
+
+from ..config.debug_config import debug_print, is_debug_enabled
+from ..parser.shtest_ast import Action, ShtestFile, TestStep
+from ..parser.shunting_yard import (Atomic, BinaryOp,
+                                    parse_validation_expression)
+from .action_utils import (canonize_action, extract_context_from_action,
+                           validate_action_context)
+from .argument_extractor import extract_action_args
 from .atomic_compiler import compile_atomic
 from .matcher_registry import MatcherRegistry
-from ..config.debug_config import is_debug_enabled, debug_print
-from .action_utils import (
-    extract_context_from_action,
-    validate_action_context,
-    canonize_action,
-)
-import re
-import yaml
-import os
-import importlib
-from .argument_extractor import extract_action_args
-from ..parser.shunting_yard import parse_validation_expression, Atomic, BinaryOp
-import traceback
 
 
 def compile_action(action: str, extracted_args: Optional[dict] = None) -> List[str]:
@@ -198,7 +197,8 @@ class ShellGenerator(ASTVisitor):
             # Step 1: Shtest AST -> ShellFrameworkAST
             shellframework_ast = ShtestToShellFrameworkVisitor().visit(node)
             # Step 2: Lift global validations from action results to standalone validations
-            from shtest_compiler.ast.shell_framework_binder import ShellFrameworkLifter
+            from shtest_compiler.ast.shell_framework_binder import \
+                ShellFrameworkLifter
 
             shellframework_ast = ShellFrameworkLifter(shellframework_ast).lift()
             # Step 3: Bind helpers and calls

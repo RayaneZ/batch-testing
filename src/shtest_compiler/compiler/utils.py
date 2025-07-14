@@ -2,10 +2,11 @@
 Utility functions for the compiler module.
 """
 
-from shtest_compiler.parser.shunting_yard import parse_validation_expression
-from shtest_compiler.core.context import CompileContext
-from shtest_compiler.compiler.visitors import CompilerVisitor
 from typing import List, Union
+
+from shtest_compiler.compiler.visitors import CompilerVisitor
+from shtest_compiler.core.context import CompileContext
+from shtest_compiler.parser.shunting_yard import parse_validation_expression
 
 
 def compile_validation(

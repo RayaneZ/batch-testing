@@ -2,7 +2,7 @@
 Compilation context for sharing state across visitors.
 """
 
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 
 class CompileContext:

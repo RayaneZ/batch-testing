@@ -1,7 +1,8 @@
-import re
-import yaml
 import os
-from typing import Dict, Any, Optional
+import re
+from typing import Any, Dict, Optional
+
+import yaml
 
 # Load action patterns from YAML
 PATTERNS_PATH = os.path.join(

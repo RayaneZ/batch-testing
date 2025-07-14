@@ -1,6 +1,7 @@
-import sys
 import os
+import sys
 from glob import glob
+
 from .compile_file import compile_file
 
 

@@ -1,6 +1,7 @@
-from parser.shtest_ast import ShtestFile, TestStep, Action
-from compiler.visitors import CompilerVisitor
+from parser.shtest_ast import Action, ShtestFile, TestStep
+
 from compiler.compiler import CompileContext
+from compiler.visitors import CompilerVisitor
 
 
 def compile_shtest_file(ast: ShtestFile, verbose: bool = False) -> list[str]:

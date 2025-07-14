@@ -4,24 +4,19 @@ Tests for the modular system architecture.
 This module tests the integration between all modular components.
 """
 
-import pytest
-import tempfile
 import os
+import tempfile
 from pathlib import Path
 
-from shtest_compiler.parser import (
-    ConfigurableParser,
-    grammar_registry,
-    ast_builder_registry,
-    GrammarRule,
-    DefaultGrammar,
-    CustomGrammar,
-    DefaultASTBuilder,
-    CustomASTBuilder,
-)
+import pytest
+
 from shtest_compiler.compiler.compiler import ModularCompiler
-from shtest_compiler.parser.shtest_ast import ShtestFile, Action, TestStep
+from shtest_compiler.parser import (ConfigurableParser, CustomASTBuilder,
+                                    CustomGrammar, DefaultASTBuilder,
+                                    DefaultGrammar, GrammarRule,
+                                    ast_builder_registry, grammar_registry)
 from shtest_compiler.parser.lexer import Token, TokenType
+from shtest_compiler.parser.shtest_ast import Action, ShtestFile, TestStep
 
 
 class TestModularSystemIntegration:

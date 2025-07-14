@@ -3,10 +3,12 @@ Module de compilation récursive d'un AST (noeuds BinaryOp et Atomic)
 vers une suite d'instructions shell conditionnelles.
 """
 
-from .atomic_compiler import compile_atomic
-from shtest_compiler.parser.shunting_yard import ASTNode, Atomic, BinaryOp
-from .compiler import CompileContext
 from typing import List, Tuple
+
+from shtest_compiler.parser.shunting_yard import ASTNode, Atomic, BinaryOp
+
+from .atomic_compiler import compile_atomic
+from .compiler import CompileContext
 
 
 def compile_ast(node: ASTNode, context: CompileContext) -> Tuple[List[str], str]:

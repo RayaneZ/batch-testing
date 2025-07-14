@@ -5,9 +5,11 @@ Converted from test_verify.py to proper pytest format.
 Updated to match new parser behavior that requires actions for steps.
 """
 
-import pytest
 import sys
 from pathlib import Path
+
+import pytest
+
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
 from shtest_compiler.parser.core import ParseError
 
