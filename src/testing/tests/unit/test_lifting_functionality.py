@@ -53,8 +53,8 @@ class TestLiftingFunctionality:
 
         # Verify the generated script contains expected patterns
         script_text = "\n".join(shell_script.lines)
-        assert "file_present" in script_text or "présent" in script_text, "Should contain file_present validation"
-        assert "file_empty" in script_text or "vide" in script_text, "Should contain file_empty validation"
+        assert "existe" in script_text, "Should contain file existence validation"
+        assert "vide" in script_text, "Should contain file_empty validation"
     
     def test_lifting_validation_scopes(self):
         """Test that lifting properly handles validation scopes."""
@@ -93,8 +93,8 @@ class TestLiftingFunctionality:
 
         # Verify the generated script contains expected patterns
         script_text = "\n".join(shell_script.lines)
-        assert "file_present" in script_text or "présent" in script_text, "Should contain file_present validation"
-        assert "file_empty" in script_text or "vide" in script_text, "Should contain file_empty validation"
+        assert "existe" in script_text, "Should contain file existence validation"
+        assert "vide" in script_text, "Should contain file_empty validation"
     
     def test_lifting_inline_shell_code(self):
         """Test that lifting properly handles InlineShellCode."""
@@ -162,7 +162,7 @@ class TestLiftingFunctionality:
 
         # Verify the generated script contains expected patterns
         script_text = "\n".join(shell_script.lines)
-        assert "file_present" in script_text or "présent" in script_text, "Should contain file_present validation"
+        assert "existe" in script_text, "Should contain file existence validation"
         assert "file1.txt" in script_text, "Should contain file1.txt"
         assert "file2.txt" in script_text, "Should contain file2.txt"
     
