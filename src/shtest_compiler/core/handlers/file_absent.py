@@ -5,10 +5,15 @@ def handle(params):
     last_file_var = params.get('last_file_var', None)
     file_path = file if file else last_file_var
     handler = params.get('handler', 'file_absent')
-    scope = params.get('scope', 'global')
+    # Scope logic: if file_path is missing, this is local (last_action)
+    if not file_path:
+        scope = 'last_action'
+    else:
+        scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le fichier {file_path} est absent")
     opposite = params.get('opposite', f"le fichier {file_path} est présent")
-    actual_cmd = f"if [ ! -f '{{file_path}}' ]; then echo '{{expected}}'; else echo '{{opposite}}'; fi"
+    # Atomic check: file does not exist
+    actual_cmd = f"[ ! -f {file_path} ]"
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

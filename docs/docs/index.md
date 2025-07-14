@@ -1,52 +1,85 @@
 
-# Scénarios de Test
+# KnightBatch - Framework de Tests Automatisés
 
-| <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Bienvenue dans la documentation des scénarios de test automatisés. Ce site documente l'ensemble des règles, formats et procédures utilisés pour décrire, exécuter et valider des scénarios techniques via des instructions en langage naturel. |
+| <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Bienvenue dans la documentation de KnightBatch, le framework moderne pour l'automatisation de tests via des scénarios en langage naturel. Transformez vos procédures manuelles en tests automatisés robustes et maintenables. |
 | :--: | --- |
+
+## 🚀 Démarrage Rapide
+
+```bash
+# Installation
+git clone <repository-url>
+cd batch-testing
+pip install -r src/requirements.txt
+
+# Premier test
+echo 'Étape: Test simple
+Action: Créer le fichier ./test.txt
+Résultat: le fichier existe' > mon_test.shtest
+
+# Compilation et exécution
+python src/shtest_compiler/compile_file.py mon_test.shtest
+bash mon_test.sh
+```
 
 ## Objectifs
 
-- Faciliter l'écriture de scénarios lisibles par les humains et interprétables par des outils automatisés.
-- Définir une grammaire structurée à base de **regex** pour reconnaître les actions, fichiers, variables et validations attendues.
-- Fournir une référence claire pour tous les contributeurs (dev, QA, ops).
-- Architecture modulaire extensible avec système de plugins pour personnaliser le comportement.
-- **Validation robuste** avec détection d'erreurs et messages clairs pour les fichiers invalides.
+- **Simplicité** : Écrire des tests en langage naturel, compréhensible par tous
+- **Robustesse** : Validation automatique avec détection d'erreurs précise
+- **Modularité** : Architecture extensible avec système de plugins YAML
+- **Productivité** : Pipeline complet de compilation, validation et exécution
+- **Intégration** : Support CI/CD et rapports automatisés
 
-## Architecture Modulaire
+## 🏗️ Architecture Modulaire
 
-KnightBatch utilise une architecture modulaire moderne avec :
+KnightBatch utilise une architecture moderne entièrement configurée par YAML :
 
-- **Core** : Pattern Visitor, nœuds AST de base, contexte de compilation partagé
-- **Lexer Modulaire** : Tokenisation configurable avec patterns et filtres
-- **Parser Modulaire** : Grammaire configurable avec constructeur AST
-- **Compilateur Modulaire** : Visiteurs spécialisés et générateurs de code
-- **Système de Plugins** : Matchers extensibles pour nouvelles validations
-- **Validation AST** : Vérification structurelle et sémantique des fichiers de test
+- **🔧 Core Modulaire** : Système de contexte partagé et gestion d'état
+- **📝 Lexer Configurable** : Tokenisation basée sur patterns YAML
+- **🔍 Parser Flexible** : Grammaire extensible avec constructeur AST
+- **⚙️ Compilateur YAML** : Génération de code via configuration
+- **🔌 Système de Plugins** : Handlers extensibles pour nouvelles actions
+- **✅ Validation Robuste** : Vérification AST et sémantique automatique
 
-## Nouvelles Fonctionnalités
+## 🔄 Pipeline de Compilation
 
-### 🛡️ Validation Robuste et Gestion d'Erreurs
-- **Détection d'erreurs avancée** : Validation syntaxique et sémantique des fichiers `.shtest`
-- **Messages d'erreur clairs** : Diagnostic précis des problèmes avec localisation
-- **Sortie d'erreur structurée** : Codes de retour appropriés pour l'intégration CI/CD
-- **Validation AST** : Vérification de la structure des étapes, actions et validations
+1. **📝 Tokenisation** : Le fichier `.shtest` est découpé en tokens via patterns YAML
+2. **🔍 Parsing** : Les tokens sont analysés pour produire un AST structuré
+3. **🏗️ Construction AST** : Validation et normalisation de la structure
+4. **🔗 Binding** : Liaison des validations aux actions et résolution du contexte
+5. **⚙️ Génération** : Production de scripts shell exécutables via handlers
+6. **▶️ Exécution** : Exécution directe des scripts générés
 
-### 🧪 Suite de Tests E2E Complète
-- **Tests positifs** : Validation du comportement attendu avec fichiers valides
-- **Tests négatifs** : Vérification de la gestion d'erreurs avec fichiers invalides
-- **Tests d'intégration** : Validation des interactions entre composants
-- **Tests unitaires** : Couverture des modules individuels
-- **Tests SQL avancés** : Comparaison de résultats avec export Excel et gestion d'ordre
+**Avantages** : Pipeline entièrement configurable, validation robuste, génération optimisée
 
-### 🔧 Outils de Développement Améliorés
-- **Debugging intégré** : Outils de diagnostic pour analyser le parsing
-- **Validation en temps réel** : Détection immédiate des erreurs de syntaxe
-- **Tests automatisés** : Exécution automatique des suites de test
+## 📖 Guide Complet
+
+Pour un guide détaillé couvrant toutes les fonctionnalités, consultez le **[Manuel Utilisateur](user_manual.md)**.
+
+### Exemple Rapide
+
+```shtest
+Étape: Préparation
+Action: Créer le dossier ./demo
+Résultat: le dossier est créé
+
+Étape: Vérification
+Action: Lister le dossier ./demo
+Résultat: stdout contient demo
+```
+
+```bash
+# Compilation
+python src/shtest_compiler/compile_file.py example.shtest
+
+# Exécution
+bash example.sh
+```
 
 ## Outils de Développement
 
 ### Extension VS Code
-L'extension VS Code KnightBatch offre une expérience de développement intégrée :
+L'extension VS Code KnightBatch offre une expérience de développement intégrée :
 - **Coloration syntaxique** complète pour les fichiers `.shtest`
 - **Commandes intégrées** pour compilation, vérification et analyse
 - **Snippets intelligents** pour accélérer l'écriture
@@ -54,6 +87,11 @@ L'extension VS Code KnightBatch offre une expérience de développement intégr�
 - **Validation en temps réel** avec détection d'erreurs
 
 [📖 Documentation Extension VS Code](vscode_extension.md)
+
+## Système de Plugins
+
+- Ajoutez facilement de nouveaux types de validations ou d'actions via le système de plugins Python.
+- Voir [Créer un plugin](../creer_plugin.md) pour un guide étape par étape.
 
 ## Structure de la documentation
 

@@ -5,7 +5,10 @@ def handle(params):
     scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', "la base est prête")
     opposite = params.get('opposite', "la base n'est pas prête")
-    actual_cmd = f"if [ -f 'db_ready.flag' ]; then echo '{{expected}}'; else echo '{{opposite}}'; fi"
+    
+    # Return atomic command only - no if/then/else logic
+    actual_cmd = "test -f 'db_ready.flag'"
+    
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

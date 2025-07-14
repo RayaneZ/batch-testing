@@ -7,7 +7,10 @@ def handle(params):
     scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le fichier {file_path} existe")
     opposite = params.get('opposite', f"le fichier {file_path} n'existe pas")
-    actual_cmd = f"if [ -f {shell_escape(file_path)} ]; then echo {shell_escape(expected)}; else echo {shell_escape(opposite)}; fi"
+    
+    # Return atomic command only - no if/then/else logic
+    actual_cmd = f"test -f {shell_escape(file_path)}"
+    
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

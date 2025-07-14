@@ -5,10 +5,15 @@ def handle(params):
     last_file_var = params.get('last_file_var', None)
     dir_path = dir_ if dir_ else last_file_var
     handler = params.get('handler', 'dir_absent')
-    scope = params.get('scope', 'global')
+    # Scope logic: if dir_path is missing, this is local (last_action)
+    if not dir_path:
+        scope = 'last_action'
+    else:
+        scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le dossier {dir_path} est absent")
     opposite = params.get('opposite', f"le dossier {dir_path} est présent")
-    actual_cmd = f"if [ ! -d '{{dir_path}}' ]; then echo '{{expected}}'; else echo '{{opposite}}'; fi"
+    # Atomic check: directory does not exist
+    actual_cmd = f"[ ! -d {dir_path} ]"
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

@@ -1,5 +1,5 @@
 import argparse
-from shtest_compiler.parser.parser import Parser
+from shtest_compiler.parser.configurable_parser import ConfigurableParser
 
 
 def check_file(file_path: str, debug: bool = False) -> bool:
@@ -8,8 +8,8 @@ def check_file(file_path: str, debug: bool = False) -> bool:
         with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
-        parser = Parser()
-        parser.parse(content, path=file_path, debug=debug)
+        parser = ConfigurableParser(debug=debug)
+        parser.parse(content, path=file_path)
         return True
 
     except Exception as e:
@@ -20,9 +20,13 @@ def check_file(file_path: str, debug: bool = False) -> bool:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Vérifie uniquement la syntaxe d'un fichier .shtest")
+    parser = argparse.ArgumentParser(
+        description="Vérifie uniquement la syntaxe d'un fichier .shtest"
+    )
     parser.add_argument("file", help="Fichier .shtest à vérifier")
-    parser.add_argument("--verbose", action="store_true", help="Afficher les détails du parsing")
+    parser.add_argument(
+        "--verbose", action="store_true", help="Afficher les détails du parsing"
+    )
 
     args = parser.parse_args()
 

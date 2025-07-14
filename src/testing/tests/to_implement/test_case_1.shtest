@@ -1,0 +1,5 @@
+Étape: Initialisation
+
+Action: toucher le fichier /tmp/init.flag 202501010000 ; Résultat: Le fichier est initialisé
+Action: exécuter le script SQL JDD_Commun.sql ; Résultat: La base de test est prête
+Action: afficher le contenu du fichier /tmp/JDD_Commun.sql ; Résultat: Le contenu est affiché

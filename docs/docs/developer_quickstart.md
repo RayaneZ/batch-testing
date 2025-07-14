@@ -21,6 +21,19 @@ Ce guide vous aide à comprendre rapidement l'architecture modulaire de KnightBa
                        └─────────────────┘
 ```
 
+## Pipeline de Compilation
+
+1. **Tokenisation** : Le fichier `.shtest` est découpé en tokens par le lexer configurable.
+2. **Parsing** : Les tokens sont analysés par le parser modulaire pour produire un AST (arbre syntaxique).
+3. **Construction de l'AST** : L'AST builder valide et normalise la structure.
+4. **Binding** :
+   - Le binder relie chaque validation à la bonne action (notamment pour `scope: last_action`).
+   - Résout les variables et le contexte.
+   - Prépare l'AST pour la génération de code.
+   - **Pourquoi c'est important ?** Sans binding, certaines validations seraient orphelines ou mal appliquées, ce qui fausserait les résultats des tests.
+5. **Génération de code** : Le générateur de shell parcourt l'AST lié et produit un script shell exécutable.
+6. **Exécution** : Le script shell généré peut être exécuté directement.
+
 ## Composants Principaux
 
 ### 1. Core (`core/`)
@@ -55,7 +68,7 @@ Ce guide vous aide à comprendre rapidement l'architecture modulaire de KnightBa
 from shtest_compiler.core.context import CompileContext
 from shtest_compiler.parser.lexer.configurable_lexer import ConfigurableLexer
 from shtest_compiler.parser.configurable_parser import ConfigurableParser
-from shtest_compiler.compiler.compiler import Compiler
+from shtest_compiler.compiler.compiler import ModularCompiler
 
 # 1. Créer le contexte
 context = CompileContext()
@@ -67,7 +80,7 @@ lexer = ConfigurableLexer("config/patterns_hybrid.yml")
 parser = ConfigurableParser("config/patterns_hybrid.yml")
 
 # 4. Configurer le compilateur
-compiler = Compiler(context)
+compiler = ModularCompiler()
 
 # 5. Traiter un fichier
 with open("test.shtest", "r") as f:
@@ -173,29 +186,7 @@ class CustomASTBuilder(ASTBuilder):
 
 ## Créer un Plugin
 
-```python
-# plugins/my_plugin.py
-from shtest_compiler.core.context import CompileContext
-
-def register_plugin(context: CompileContext):
-    # Ajouter des matchers
-    context.add_matcher("my_matcher", my_matcher_function)
-    
-    # Ajouter des visiteurs
-    context.add_visitor("my_visitor", MyVisitor())
-    
-    # Ajouter des variables
-    context.set_variable("MY_VAR", "my_value")
-
-def my_matcher_function(validation_text: str) -> str:
-    if "ma validation" in validation_text:
-        return "my_validation_type"
-    return None
-
-class MyVisitor:
-    def visit_my_validation(self, node):
-        return f"echo 'Ma validation: {node.validation}'"
-```
+Voir [Créer un plugin](../creer_plugin.md) pour un guide étape par étape.
 
 ## Tests
 
@@ -222,7 +213,7 @@ def test_full_pipeline():
     context = CompileContext()
     lexer = ConfigurableLexer("config/patterns_hybrid.yml")
     parser = ConfigurableParser("config/patterns_hybrid.yml")
-    compiler = Compiler(context)
+    compiler = ModularCompiler()
     
     content = "Action: test ; Résultat: success"
     tokens = lexer.tokenize(content)
@@ -350,7 +341,7 @@ python -m pytest tests/
 python -m pytest tests/unit/
 
 # Tests E2E
-python tests/e2e/run_e2e_tests.py
+python src/shtest_compiler/run_tests.py --all
 
 # Tests négatifs
 python tests/e2e/ko/run_ko_tests.py

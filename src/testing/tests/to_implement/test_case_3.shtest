@@ -1,0 +1,5 @@
+Étape: Initialisation de la base
+
+Action: exécuter le script SQL JDD_Commun.sql ; Résultat: La base est prête pour le test
+Action: exécuter le script SQL JDD_Extra.sql ; Résultat: La base est prête pour le test
+Action: afficher le contenu du fichier /tmp/JDD_Extra.sql ; Résultat: Le script est affiché

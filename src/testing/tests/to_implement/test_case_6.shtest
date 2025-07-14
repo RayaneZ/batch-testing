@@ -1,0 +1,13 @@
+Étape: Préparation
+
+Action: copier le fichier /tmp/src.txt vers /tmp/dest.txt ; Résultat: Le fichier est copié
+Action: copier le dossier /tmp/data vers /tmp/backup ; Résultat: Le dossier est copié
+
+Étape: Exécution
+
+Action: exécuter /opt/batch/traitement.sh ; Résultat: retour 0 et (stdout contient Succès complet ou stderr contient WARNING)
+
+Étape: Vérification
+
+Action: vérifier que le fichier /tmp/dest.txt existe ; Résultat: Le fichier est présent et (Le fichier /tmp/dest.txt existe ou stderr contient Erreur de copie)
+Action: vérifier qu'aucune erreur n'apparaît ; Résultat: Le script affiche un code "030"

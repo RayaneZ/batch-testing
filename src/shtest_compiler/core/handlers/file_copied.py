@@ -7,11 +7,8 @@ def handle(params):
     scope = params.get('scope', 'global')
     expected = params.get('canonical_phrase', f"le fichier {file1} a été copié vers {file2}")
     opposite = params.get('opposite', f"le fichier {file1} n'a pas été copié vers {file2}")
-    actual_cmd = (
-        "if [ -f '{file1}' ] && [ -f '{file2}' ]; "
-        "then cmp -s '{file1}' '{file2}' && echo '{expected}' || echo '{opposite}'; "
-        "else echo '{opposite}'; fi"
-    )
+    # Atomic check: both files exist and are identical
+    actual_cmd = f"[ -f {file1} ] && [ -f {file2} ] && cmp -s {file1} {file2}"
     return ValidationCheck(
         expected=expected,
         actual_cmd=actual_cmd,

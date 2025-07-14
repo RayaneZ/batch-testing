@@ -32,12 +32,11 @@ def mon_handler(actions, *args):
 
 ## 4. Enregistrer le handler
 
-Dans le fichier `rule_registry_hybrid.py`, ajoute ton handler dans le dictionnaire `HANDLERS` :
+Le handler est automatiquement enregistré via le système de plugins. Assurez-vous que votre plugin a une structure `PLUGIN_HANDLERS` :
+
 ```python
-HANDLERS = {
-    ...
+PLUGIN_HANDLERS = {
     "mon_handler": mon_handler,
-    ...
 }
 ```
 
