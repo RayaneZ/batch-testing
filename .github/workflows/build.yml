@@ -184,13 +184,13 @@ jobs:
       - name: Build EXE with PyInstaller
         run: |
           cd src
-          pyinstaller --onefile \
-            --add-data "shtest_compiler/config;./shtest_compiler/config" \
-            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" \
+          pyinstaller --onefile `
+            --add-data "shtest_compiler/config;./shtest_compiler/config" `
+            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" `
             shtest_compiler/shtest.py
-          pyinstaller --onefile \
-            --add-data "shtest_compiler/config;./shtest_compiler/config" \
-            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" \
+          pyinstaller --onefile `
+            --add-data "shtest_compiler/config;./shtest_compiler/config" `
+            --add-data "shtest_compiler/plugins/example_plugin/config;./shtest_compiler/plugins/example_plugin/config" `
             shtest_compiler/run_all.py
 
       - name: Upload EXE artifacts
