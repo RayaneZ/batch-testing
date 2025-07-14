@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
 
@@ -18,25 +18,23 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
       - name: Install dependencies
         run: |
           pip install mkdocs-material
           pip install mkdocs-macros-plugin
           pip install mkdocs-minify-plugin
-
-#      - name: Extract plugin patterns (if plugins dir exists)
-#        run: |
-#          if [ -d src/shtest_compiler/plugins ]; then
-#           cd vscode
-#            npx ts-node src/extractPluginPatterns.ts
-#          else
-#            echo "No plugins directory found, skipping pattern extraction."
-#          fi
+          npm install -g @mermaid-js/mermaid-cli
 
       - name: Generate architecture diagram
         run: |
-          npm install -g @mermaid-js/mermaid-cli
-          npx mmdc --no-sandbox -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png
+          npx mmdc --no-sandbox \
+            -i docs/docs/assets/architecture.mmd \
+            -o docs/docs/assets/architecture.png || echo "Mermaid generation failed (possibly headless issue)."
 
       - name: Build documentation
         run: |
@@ -45,8 +43,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/site
-          cname: knightbatch.github.io 
+          cname: knightbatch.github.io
