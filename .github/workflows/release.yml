@@ -31,11 +31,11 @@ jobs:
           cd src
           pyinstaller --onefile `
             --add-data "shtest_compiler/config;./shtest_compiler/config" `
-            --add-data "shtest_compiler/regex_config.yml;./shtest_compiler/regex_config.yml" `
+            --add-data "shtest_compiler/regex_config.yml;." `
             shtest_compiler/shtest.py
           pyinstaller --onefile `
             --add-data "shtest_compiler/config;./shtest_compiler/config" `
-            --add-data "shtest_compiler/regex_config.yml;./shtest_compiler/regex_config.yml" `
+            --add-data "shtest_compiler/regex_config.yml;." `
             shtest_compiler/run_all.py
       - name: Upload EXE artifacts
         uses: actions/upload-artifact@v4

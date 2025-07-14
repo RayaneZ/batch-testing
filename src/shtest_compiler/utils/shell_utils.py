@@ -5,7 +5,7 @@ def resource_path(relative_path):
     """Get absolute path to resource, works for dev and for PyInstaller."""
     if hasattr(sys, '_MEIPASS'):
         list_meipass()
-        return os.path.join(sys._MEIPASS, relative_path)
+        return os.path.join(sys._MEIPASS, 'shtest_compiler', relative_path)
     # Join from the src root, not from the utils directory
     return os.path.join(os.path.dirname(os.path.dirname(__file__)), relative_path)
 
