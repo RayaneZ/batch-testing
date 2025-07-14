@@ -57,7 +57,7 @@ helper_1
 
 # Test step: Test de comparaison de requêtes identiques
 echo 'Action: comparer les résultats de la requête SELECT * FROM employees WHERE department = 'IT' avec SELECT * FROM employees WHERE department = 'IT''
-run_action "cat > temp_query_876.sql << 'EOF'
+run_action "cat > temp_query_3374.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -67,19 +67,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT * FROM employees WHERE department = 'IT'
 EOF
-sqlplus -s  @temp_query_876.sql > temp_csv_876.csv
+sqlplus -s  @temp_query_3374.sql > temp_csv_3374.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_876.csv', header=None)
-    df.to_excel('temp_compare_1_876.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_3374.csv', header=None)
+    df.to_excel('temp_compare_1_3374.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_876.sql temp_csv_876.csv && cat > temp_query_876.sql << 'EOF'
+rm -f temp_query_3374.sql temp_csv_3374.csv && cat > temp_query_3374.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -89,19 +89,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT * FROM employees WHERE department = 'IT'
 EOF
-sqlplus -s  @temp_query_876.sql > temp_csv_876.csv
+sqlplus -s  @temp_query_3374.sql > temp_csv_3374.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_876.csv', header=None)
-    df.to_excel('temp_compare_2_876.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_3374.csv', header=None)
+    df.to_excel('temp_compare_2_3374.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_876.sql temp_csv_876.csv && python3 -c \"
+rm -f temp_query_3374.sql temp_csv_3374.csv && python3 -c \"
 import pandas as pd
 import numpy as np
 import sys
@@ -140,15 +140,15 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_876.xlsx', 'temp_compare_2_876.xlsx')
+success = compare_excel_files('temp_compare_1_3374.xlsx', 'temp_compare_2_3374.xlsx')
 if not success:
     sys.exit(1)
-\" && rm -f temp_compare_1_876.xlsx temp_compare_2_876.xlsx"
+\" && rm -f temp_compare_1_3374.xlsx temp_compare_2_3374.xlsx"
 helper_2 
 
 # Test step: Test de comparaison avec tolérance numérique
 echo 'Action: comparer les résultats de la requête SELECT AVG(salary) FROM employees avec SELECT AVG(salary) FROM employees'
-run_action "cat > temp_query_8256.sql << 'EOF'
+run_action "cat > temp_query_9408.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -158,19 +158,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT AVG(salary) FROM employees
 EOF
-sqlplus -s  @temp_query_8256.sql > temp_csv_8256.csv
+sqlplus -s  @temp_query_9408.sql > temp_csv_9408.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_8256.csv', header=None)
-    df.to_excel('temp_compare_1_8256.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_9408.csv', header=None)
+    df.to_excel('temp_compare_1_9408.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_8256.sql temp_csv_8256.csv && cat > temp_query_8256.sql << 'EOF'
+rm -f temp_query_9408.sql temp_csv_9408.csv && cat > temp_query_9408.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -180,19 +180,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT AVG(salary) FROM employees
 EOF
-sqlplus -s  @temp_query_8256.sql > temp_csv_8256.csv
+sqlplus -s  @temp_query_9408.sql > temp_csv_9408.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_8256.csv', header=None)
-    df.to_excel('temp_compare_2_8256.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_9408.csv', header=None)
+    df.to_excel('temp_compare_2_9408.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_8256.sql temp_csv_8256.csv && python3 -c \"
+rm -f temp_query_9408.sql temp_csv_9408.csv && python3 -c \"
 import pandas as pd
 import numpy as np
 import sys
@@ -231,10 +231,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_8256.xlsx', 'temp_compare_2_8256.xlsx')
+success = compare_excel_files('temp_compare_1_9408.xlsx', 'temp_compare_2_9408.xlsx')
 if not success:
     sys.exit(1)
-\" && rm -f temp_compare_1_8256.xlsx temp_compare_2_8256.xlsx"
+\" && rm -f temp_compare_1_9408.xlsx temp_compare_2_9408.xlsx"
 helper_2 
 
 # Test step: Test d'exécution de requête simple
@@ -255,7 +255,7 @@ helper_1
 
 # Test step: Test de comparaison avec ordre ignoré
 echo 'Action: comparer les résultats de la requête SELECT name, department FROM employees ORDER BY name avec SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)'
-run_action "cat > temp_query_7602.sql << 'EOF'
+run_action "cat > temp_query_1260.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -265,19 +265,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name, department FROM employees ORDER BY name
 EOF
-sqlplus -s  @temp_query_7602.sql > temp_csv_7602.csv
+sqlplus -s  @temp_query_1260.sql > temp_csv_1260.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_7602.csv', header=None)
-    df.to_excel('temp_compare_1_7602.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_1260.csv', header=None)
+    df.to_excel('temp_compare_1_1260.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_7602.sql temp_csv_7602.csv && cat > temp_query_6287.sql << 'EOF'
+rm -f temp_query_1260.sql temp_csv_1260.csv && cat > temp_query_3336.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -287,19 +287,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name, department FROM employees ORDER BY department (ignorer l'ordre lors de la comparaison)
 EOF
-sqlplus -s  @temp_query_6287.sql > temp_csv_6287.csv
+sqlplus -s  @temp_query_3336.sql > temp_csv_3336.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_6287.csv', header=None)
-    df.to_excel('temp_compare_2_6287.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_3336.csv', header=None)
+    df.to_excel('temp_compare_2_3336.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_6287.sql temp_csv_6287.csv && python3 -c \"
+rm -f temp_query_3336.sql temp_csv_3336.csv && python3 -c \"
 import pandas as pd
 import numpy as np
 import sys
@@ -338,15 +338,15 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_7602.xlsx', 'temp_compare_2_6287.xlsx')
+success = compare_excel_files('temp_compare_1_1260.xlsx', 'temp_compare_2_3336.xlsx')
 if not success:
     sys.exit(1)
-\" && rm -f temp_compare_1_7602.xlsx temp_compare_2_6287.xlsx"
+\" && rm -f temp_compare_1_1260.xlsx temp_compare_2_3336.xlsx"
 helper_2 
 
 # Test step: Test de comparaison sans ordre - données identiques
 echo 'Action: comparer les résultats de la requête SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary avec SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)'
-run_action "cat > temp_query_7545.sql << 'EOF'
+run_action "cat > temp_query_9015.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -356,19 +356,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY salary
 EOF
-sqlplus -s  @temp_query_7545.sql > temp_csv_7545.csv
+sqlplus -s  @temp_query_9015.sql > temp_csv_9015.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_7545.csv', header=None)
-    df.to_excel('temp_compare_1_7545.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_9015.csv', header=None)
+    df.to_excel('temp_compare_1_9015.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_7545.sql temp_csv_7545.csv && cat > temp_query_5522.sql << 'EOF'
+rm -f temp_query_9015.sql temp_csv_9015.csv && cat > temp_query_3790.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -378,19 +378,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT id, name, salary FROM employees WHERE department = 'HR' ORDER BY name (ignorer l'ordre lors de la comparaison)
 EOF
-sqlplus -s  @temp_query_5522.sql > temp_csv_5522.csv
+sqlplus -s  @temp_query_3790.sql > temp_csv_3790.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_5522.csv', header=None)
-    df.to_excel('temp_compare_2_5522.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_3790.csv', header=None)
+    df.to_excel('temp_compare_2_3790.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_5522.sql temp_csv_5522.csv && python3 -c \"
+rm -f temp_query_3790.sql temp_csv_3790.csv && python3 -c \"
 import pandas as pd
 import numpy as np
 import sys
@@ -429,15 +429,15 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_7545.xlsx', 'temp_compare_2_5522.xlsx')
+success = compare_excel_files('temp_compare_1_9015.xlsx', 'temp_compare_2_3790.xlsx')
 if not success:
     sys.exit(1)
-\" && rm -f temp_compare_1_7545.xlsx temp_compare_2_5522.xlsx"
+\" && rm -f temp_compare_1_9015.xlsx temp_compare_2_3790.xlsx"
 helper_2 
 
 # Test step: Test de comparaison sans ordre - données différentes
 echo 'Action: comparer les résultats de la requête SELECT name FROM employees WHERE department = 'IT' avec SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)'
-run_action "cat > temp_query_5367.sql << 'EOF'
+run_action "cat > temp_query_1337.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -447,19 +447,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name FROM employees WHERE department = 'IT'
 EOF
-sqlplus -s  @temp_query_5367.sql > temp_csv_5367.csv
+sqlplus -s  @temp_query_1337.sql > temp_csv_1337.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_5367.csv', header=None)
-    df.to_excel('temp_compare_1_5367.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_1337.csv', header=None)
+    df.to_excel('temp_compare_1_1337.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_5367.sql temp_csv_5367.csv && cat > temp_query_8153.sql << 'EOF'
+rm -f temp_query_1337.sql temp_csv_1337.csv && cat > temp_query_4095.sql << 'EOF'
 SET PAGESIZE 0
 SET FEEDBACK OFF
 SET VERIFY OFF
@@ -469,19 +469,19 @@ SET TRIMSPOOL ON
 SET TRIMOUT ON
 SELECT name FROM employees WHERE department = 'HR' (ignorer l'ordre lors de la comparaison)
 EOF
-sqlplus -s  @temp_query_8153.sql > temp_csv_8153.csv
+sqlplus -s  @temp_query_4095.sql > temp_csv_4095.csv
 python3 -c \"
 import pandas as pd
 import sys
 try:
-    df = pd.read_csv('temp_csv_8153.csv', header=None)
-    df.to_excel('temp_compare_2_8153.xlsx', index=False, header=False)
+    df = pd.read_csv('temp_csv_4095.csv', header=None)
+    df.to_excel('temp_compare_2_4095.xlsx', index=False, header=False)
     print('Excel file created successfully')
 except Exception as e:
     print(f'Error converting to Excel: {e}', file=sys.stderr)
     sys.exit(1)
 \"
-rm -f temp_query_8153.sql temp_csv_8153.csv && python3 -c \"
+rm -f temp_query_4095.sql temp_csv_4095.csv && python3 -c \"
 import pandas as pd
 import numpy as np
 import sys
@@ -520,10 +520,10 @@ def compare_excel_files(file1, file2, tolerance=0.0, ignore_order=False):
     except Exception as e:
         print(f'COMPARISON_ERROR: {e}')
         return False
-success = compare_excel_files('temp_compare_1_5367.xlsx', 'temp_compare_2_8153.xlsx')
+success = compare_excel_files('temp_compare_1_1337.xlsx', 'temp_compare_2_4095.xlsx')
 if not success:
     sys.exit(1)
-\" && rm -f temp_compare_1_5367.xlsx temp_compare_2_8153.xlsx"
+\" && rm -f temp_compare_1_1337.xlsx temp_compare_2_4095.xlsx"
 # stdout contient comparison_error
 if echo "$stdout" | grep -q "comparison_error"; then
     echo 'OK: stdout contient comparison_error'

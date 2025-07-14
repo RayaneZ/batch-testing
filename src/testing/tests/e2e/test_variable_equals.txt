@@ -244,4 +244,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {'var': 'mon_var', 'value': '42'}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.var_equals
 [DEBUG] Core handler returned: ValidationCheck(expected='variable mon_var vaut 42', actual_cmd='test "$mon_var" = "42"', handler='var_equals', scope='global', params={'var': 'mon_var', 'value': '42', 'opposite': 'variable mon_var ne vaut pas 42'})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\test_variable_equals.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\test_variable_equals.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\test_variable_equals.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\test_variable_equals.sh

@@ -270,4 +270,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {'file': 'logs.txt', 'text': 'erreur'}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.file_contains
 [DEBUG] Exception in core handler file_contains: 'canonical_phrase'
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\test_file_contains.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\test_file_contains.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\test_file_contains.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\test_file_contains.sh

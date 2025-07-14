@@ -233,7 +233,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=touch_ts, variables={'file': '/tmp/test.txt', 'date': '202501010101'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.touch_ts
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'toucher le fichier /tmp/test.txt -t 202501010101', 'handler': 'touch_ts', 'category': 'variables', 'variables': {'file': '/tmp/test.txt', 'date': '202501010101'}, 'requirements': {'required_variables': ['file'], 'optional_variables': ['date'], 'scope': 'global', 'description': 'Update file timestamp', 'category': 'variables', 'validation_rules': {'file': {'type': 'file', 'required': True}, 'date': {'type': 'date', 'required': False}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'toucher le fichier {file} -t {date}', 'config': {'type': 'action', 'phrase': 'Mettre à jour la date du fichier {file} {date}', 'aliases': ['toucher le fichier {file} -t {date}', 'mettre à jour la date du fichier {file} {date}', '^touch -t (.+) (.+)$'], 'handler': 'touch_ts'}}], 'scope': 'global'}, 'file': '/tmp/test.txt', 'date': '202501010101'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.touch_ts.TouchTimestampAction object at 0x0000016E061BDD90>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.touch_ts.TouchTimestampAction object at 0x00000248D9272050>
 [DEBUG] get_action_shell_command: Generated shell command: touch -t '202501010101' '/tmp/test.txt'
 [DEBUG] compile_validation_expression called with: 'date modifiée'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -448,7 +448,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=touch_ts, variables={'file': '/tmp/test.txt', 'date': '202501010101'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.touch_ts
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'mettre à jour la date du fichier /tmp/test.txt 202501010101', 'handler': 'touch_ts', 'category': 'variables', 'variables': {'file': '/tmp/test.txt', 'date': '202501010101'}, 'requirements': {'required_variables': ['file'], 'optional_variables': ['date'], 'scope': 'global', 'description': 'Update file timestamp', 'category': 'variables', 'validation_rules': {'file': {'type': 'file', 'required': True}, 'date': {'type': 'date', 'required': False}}}, 'patterns_matched': [{'type': 'phrase', 'pattern': 'Mettre à jour la date du fichier {file} {date}', 'config': {'type': 'action', 'phrase': 'Mettre à jour la date du fichier {file} {date}', 'aliases': ['toucher le fichier {file} -t {date}', 'mettre à jour la date du fichier {file} {date}', '^touch -t (.+) (.+)$'], 'handler': 'touch_ts'}}], 'scope': 'global'}, 'file': '/tmp/test.txt', 'date': '202501010101'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.touch_ts.TouchTimestampAction object at 0x0000016E061B7890>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.touch_ts.TouchTimestampAction object at 0x00000248D9255B90>
 [DEBUG] get_action_shell_command: Generated shell command: touch -t '202501010101' '/tmp/test.txt'
 [DEBUG] compile_validation_expression called with: 'date modifiée'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -459,4 +459,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.date_modified
 [DEBUG] Core handler returned: ValidationCheck(expected='date_modified', actual_cmd="echo 'ERROR: Missing file or date for date_modified validation'", handler='date_modified', scope='last_action', params={})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_action_touch.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_action_touch.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_touch.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_action_touch.sh

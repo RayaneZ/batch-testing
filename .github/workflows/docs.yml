@@ -1,0 +1,47 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'docs/**', 'src/**' ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-macros-plugin
+          pip install mkdocs-minify-plugin
+
+#      - name: Extract plugin patterns (if plugins dir exists)
+#        run: |
+#          if [ -d src/shtest_compiler/plugins ]; then
+#           cd vscode
+#            npx ts-node src/extractPluginPatterns.ts
+#          else
+#            echo "No plugins directory found, skipping pattern extraction."
+#          fi
+
+      - name: Build documentation
+        run: |
+          cd docs
+          mkdocs build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/site
+          cname: knightbatch.github.io 

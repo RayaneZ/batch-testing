@@ -162,7 +162,7 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] get_action_shell_command: handler=run_script, variables={'script': 'dummy.sh'}
 [DEBUG] get_action_shell_command: Trying action handler: shtest_compiler.core.action_handlers.run_script
 [DEBUG] get_action_shell_command: Calling action handler with params={'context': {'action': 'exécuter dummy.sh', 'handler': 'run_script', 'category': 'execution', 'variables': {'script': 'dummy.sh'}, 'requirements': {'required_variables': ['script'], 'optional_variables': [], 'scope': 'global', 'description': 'Execute a shell script', 'category': 'execution', 'validation_rules': {'script': {'type': 'script', 'required': True}}}, 'patterns_matched': [{'type': 'alias', 'pattern': 'exécuter {script}', 'config': {'type': 'action', 'phrase': 'Exécuter le script {script}', 'aliases': ['exécuter {script}', 'lancer {script}', 'traiter {script}', 'exécuter traitement.sh', 'lancer traitement.sh', 'traiter traitement.sh', '^sh (.+)$', 'lancer le script {script}', 'faire tourner le script {script}', 'démarrer le script {script}'], 'handler': 'run_script'}}], 'scope': 'global'}, 'script': 'dummy.sh'}
-[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x00000271A2D9DD90>
+[DEBUG] get_action_shell_command: Action handler returned=<shtest_compiler.core.action_handlers.run_script.RunScriptAction object at 0x0000021CCA8CF850>
 [DEBUG] get_action_shell_command: Generated shell command: sh 'dummy.sh'
 [DEBUG] compile_validation_expression called with: 'retour 0'
 [DEBUG] compile_validation_expression: Detected atomic expression, using compile_atomic
@@ -173,4 +173,4 @@ ENTRYPOINT DEBUG ACTIVE: src/shtest_compiler/shtest.py loaded
 [DEBUG] Final params for handler: {'code': '0'}
 [DEBUG] Trying to import core handler: shtest_compiler.core.handlers.return_code
 [DEBUG] Core handler returned: ValidationCheck(expected='le code de retour est 0', actual_cmd='test $last_ret -eq 0', handler='return_code', scope='global', params={'code': '0', 'opposite': "le code de retour n'est pas 0"})
-Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_step.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\tests\e2e\alias_step.sh
+Compiled C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_step.shtest -> C:\Users\Sventer\OneDrive\Documents\batch testing\src\testing\tests\e2e\alias_step.sh
