@@ -1,0 +1,39 @@
+name: Build VS Code Extension
+description: Compile and package the VS Code extension
+inputs: {}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: vscode/package-lock.json
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd vscode
+        npm install -g @vscode/vsce@latest
+        npm ci
+
+    - name: Build extension
+      shell: bash
+      run: |
+        cd vscode
+        npm run compile
+
+    - name: Package extension
+      shell: bash
+      run: |
+        cd vscode
+        vsce package -o ../knightbatch-shtest.vsix
+
+    - name: Upload extension artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: knightbatch-shtest.vsix-build
+        path: knightbatch-shtest.vsix

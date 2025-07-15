@@ -1,0 +1,37 @@
+name: Unit Tests
+description: |
+  Run unit tests with pytest and upload coverage to Codecov.
+inputs: {}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.python-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd src
+        pip install -e .
+        pip install pytest pytest-cov pytest-xdist pytest-mock
+
+    - name: Run Python tests
+      shell: bash
+      run: |
+        cd src
+        python -m pytest testing/tests/unit/ \
+          -v --cov=shtest_compiler \
+          --cov-report=xml \
+          --cov-report=html \
+          --rootdir=.
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: src/coverage.xml
+        flags: unittests
+        name: codecov-umbrella

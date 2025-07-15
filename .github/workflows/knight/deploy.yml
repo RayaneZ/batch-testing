@@ -1,0 +1,41 @@
+name: Deploy binaries
+on:
+  workflow_call:
+    inputs:
+      exe-path:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    using: "composite"
+    steps:
+        - uses: actions/checkout@v4
+
+        - name: Download Windows EXE artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: knightbatch-exe
+            path: exe-artifacts/
+
+
+        - name: Create release package
+          run: |
+            mkdir -p release
+            cp "exe-artifacts/$(basename '${{ inputs.exe-path }}')" release/
+            cp README.md release/
+            cp LICENSE release/
+            tar czf knightbatch-release.tar.gz release/
+
+
+        - name: Create GitHub Release
+          uses: softprops/action-gh-release@v2
+          with:
+            tag_name: ${{ github.ref_name }}
+            name: Release ${{ github.ref_name }}
+            body: "Nouvelle version : ${{ github.ref_name }}"
+            files: |
+                knightbatch-release.tar.gz
+            env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

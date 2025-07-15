@@ -3,7 +3,7 @@
   "displayName": "KnightBatch - Shell Test Language",
   "description": "Support for KnightBatch .shtest files with syntax highlighting, IntelliSense, and compilation features",
   "version": "3.0.0",
-  "publisher": "knightbatch",
+  "publisher": "CorporateITTools",
   "engines": {
     "vscode": "^1.102.0"
   },

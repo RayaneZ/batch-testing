@@ -1,46 +1,14 @@
-name: Deploy Documentation
-'on':
+name: Docs Main
+
+on:
   push:
-    branches:
-    - main
+    branches: [ main ]
     tags:
-    - v*.*.*
-    paths:
-    - docs/**
-    - src/**
-  workflow_dispatch: null
+      - v*.*.*
+  pull_request:
+    branches: [ main ]
+
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-    - name: Install dependencies
-      run: 'pip install mkdocs-material
-
-        pip install mkdocs-macros-plugin
-
-        pip install mkdocs-minify-plugin
-
-        npm install -g @mermaid-js/mermaid-cli'
-    - name: Generate architecture diagram
-      run: "npx mmdc --no-sandbox \\\n  -i docs/docs/assets/architecture.mmd \\\n\
-        \  -o docs/docs/assets/architecture.png || echo \"Mermaid generation failed\
-        \ (possibly headless issue).\""
-    - name: Build documentation
-      run: 'cd docs
-
-        mkdocs build'
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/site
-        cname: knightbatch.github.io
+  build-docs:
+    uses: ./docs/deploy.yml
+    if: startsWith(github.ref, 'refs/tags/v')

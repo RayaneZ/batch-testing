@@ -1,0 +1,37 @@
+name: Test VS Code Extension
+description: Download and test the VS Code extension
+inputs: {}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Download extension
+      uses: actions/download-artifact@v4
+      with:
+        name: knightbatch-shtest.vsix-build
+        path: vscode/
+
+    - name: Install VS Code
+      shell: bash
+      run: |
+        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+        sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+        sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+        sudo apt-get update
+        sudo apt-get install -y code
+
+    - name: Install extension
+      shell: bash
+      run: |
+        code --install-extension vscode/knightbatch-shtest.vsix
+
+    - name: Test extension functionality
+      shell: bash
+      run: |
+        code --list-extensions | grep knightbatch-shtest

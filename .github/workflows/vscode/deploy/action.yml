@@ -1,0 +1,29 @@
+name: Publish VS Code Extension
+description: Publish the VS Code extension to the Marketplace
+inputs: {}
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install vsce
+      shell: bash
+      run: npm install -g @vscode/vsce
+
+    - name: Download extension artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: knightbatch-shtest.vsix-package
+        path: .
+
+    - name: Publish to VS Code Marketplace
+      shell: bash
+      env:
+        VSCE_PAT: ${{ secrets.MARKETPLACE_KEY }}
+      run: |
+        vsce publish --packagePath knightbatch-shtest.vsix --pat $VSCE_PAT
