@@ -21,19 +21,15 @@ jobs:
     env:
       python-version: ${{ matrix.python-version }}
     steps:
-      - uses: ./knight/unit-tests.yml
+      - uses: ./.github/workflows/knight/unit-tests.yml
 
 
 
 
   security-scan:
-    uses: ./knight/security-scan.yml
+    uses: ./.github/workflows/knight/security-scan.yml
   
 
-
-
-  # Knigth Batch 
-  # Tag : vs-v*.*.*
 
   build:
     runs-on: windows-latest
@@ -45,7 +41,7 @@ jobs:
 
       - name: Build executable
         id: build-step
-        uses: ./knight/build-exe.yml
+        uses: ./.github/workflows/knight/build-exe.yml
 
 
 
@@ -59,7 +55,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy EXE
-        uses: ./knight/deploy.yml
+        uses: ./.github/workflows/knight/deploy.yml
         with:
           exe-path: ${{ needs.build.outputs.exe-path }}
 
