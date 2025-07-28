@@ -227,7 +227,7 @@ class SendNotificationAction(ActionNode):
         return f"""# Send Slack notification
 if [ -n "$SLACK_WEBHOOK_URL" ]; then
     curl -X POST -H 'Content-type: application/json' \\
-        --data '{{"text":"{self.message}"}}' \\
+        --data '{"text":"{self.message}"}' \\
         "$SLACK_WEBHOOK_URL" \\
         && echo "Slack notification sent" \\
         || (echo "Failed to send Slack notification" >&2 && exit 1)
@@ -283,7 +283,7 @@ class SendSlackNotificationAction(ActionNode):
         return f"""# Send Slack notification
 if [ -n "$SLACK_WEBHOOK_URL" ]; then
     curl -X POST -H 'Content-type: application/json' \\
-        --data '{{"text":"{self.message}","channel":"{self.channel}"}}' \\
+        --data '{"text":"{self.message}","channel":"{self.channel}"}' \\
         "$SLACK_WEBHOOK_URL" \\
         && echo "Slack notification sent to {self.channel}" \\
         || (echo "Failed to send Slack notification" >&2 && exit 1)
