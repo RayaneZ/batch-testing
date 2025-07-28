@@ -23,7 +23,7 @@ runs:
     - name: Create release package
       run: |
         mkdir -p release
-        cp "exe-artifacts/$(basename '${{ inputs.exe-path }}')" release/
+        cp exe-artifacts/$(basename "${{ inputs.exe-path }}") release/
         cp README.md release/
         cp LICENSE release/
         tar czf knightbatch-release.tar.gz release/
