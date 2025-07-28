@@ -1,0 +1,29 @@
+graph TD
+    A[YAML Pattern] --> B[Pattern Matching]
+    B --> C[Parameter Extraction]
+    C --> D[handle(params) Function]
+    D --> E[ActionNode/ValidationCheck]
+    E --> F[to_shell() Method]
+    F --> G[Shell Code]
+    
+    H["phrase: 'Mon action {param1}'"] --> I[Regex Matching]
+    I --> J[param1 = 'value']
+    J --> K[params = {'param1': 'value'}]
+    K --> D
+    
+    L[ActionNode] --> M[to_shell() returns string]
+    N[ValidationCheck] --> O[actual_cmd property]
+    
+    M --> G
+    O --> G
+    
+    style A fill:#e8f5e8
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style D fill:#f3e5f5
+    style E fill:#ffebee
+    style F fill:#e1f5fe
+    style G fill:#fce4ec
+    style H fill:#f1f8e9
+    style L fill:#e0f2f1
+    style N fill:#fff8e1 

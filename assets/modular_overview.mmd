@@ -1,0 +1,44 @@
+graph TD
+    A[User Input] --> B[CLI Interface]
+    B --> C[Core System]
+    
+    C --> D[Lexer Module]
+    C --> E[Parser Module]
+    C --> F[Compiler Module]
+    
+    G[Plugin System] --> H[Plugin Discovery]
+    H --> I[Handler Registration]
+    I --> C
+    
+    J[YAML Configuration] --> K[Pattern Loading]
+    K --> D
+    K --> E
+    
+    L[Action Handlers] --> M[Shell Code Generation]
+    N[Validation Handlers] --> O[Test Validation]
+    
+    M --> P[Executable Script]
+    O --> Q[Test Results]
+    
+    R[VS Code Extension] --> B
+    S[API Interface] --> B
+    
+    style A fill:#e8f5e8
+    style B fill:#fff3e0
+    style C fill:#e3f2fd
+    style D fill:#f3e5f5
+    style E fill:#ffebee
+    style F fill:#e1f5fe
+    style G fill:#fce4ec
+    style H fill:#f1f8e9
+    style I fill:#e0f2f1
+    style J fill:#fff8e1
+    style K fill:#f3e5f5
+    style L fill:#e8f5e8
+    style M fill:#fff3e0
+    style N fill:#e3f2fd
+    style O fill:#f3e5f5
+    style P fill:#ffebee
+    style Q fill:#e1f5fe
+    style R fill:#fce4ec
+    style S fill:#f1f8e9 
