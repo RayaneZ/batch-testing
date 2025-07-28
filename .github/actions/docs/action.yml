@@ -28,34 +28,37 @@ runs:
       shell: bash
 
     - name: Generate Mermaid diagrams
+      env:
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+        PUPPETEER_EXECUTABLE_PATH: '/usr/bin/chromium-browser'
+        PUPPETEER_CHROMIUM_ARGS: '--no-sandbox'
       run: |
         echo "Generating Mermaid diagrams..."
 
-        OPTIONS="--no-sandbox"
-
         # Generate architecture diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png || echo "Architecture diagram generation failed."
+        mmdc -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png || echo "Architecture diagram generation failed."
 
         # Generate plugin architecture diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/plugin_architecture.mmd -o docs/docs/assets/plugin_architecture.png || echo "Plugin architecture diagram generation failed."
+        mmdc -i docs/docs/assets/plugin_architecture.mmd -o docs/docs/assets/plugin_architecture.png || echo "Plugin architecture diagram generation failed."
 
         # Generate plugin structure diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/plugin_structure.mmd -o docs/docs/assets/plugin_structure.png || echo "Plugin structure diagram generation failed."
+        mmdc -i docs/docs/assets/plugin_structure.mmd -o docs/docs/assets/plugin_structure.png || echo "Plugin structure diagram generation failed."
 
         # Generate compilation pipeline diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/compilation_pipeline.mmd -o docs/docs/assets/compilation_pipeline.png || echo "Compilation pipeline diagram generation failed."
+        mmdc -i docs/docs/assets/compilation_pipeline.mmd -o docs/docs/assets/compilation_pipeline.png || echo "Compilation pipeline diagram generation failed."
 
         # Generate handler pattern diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/handler_pattern.mmd -o docs/docs/assets/handler_pattern.png || echo "Handler pattern diagram generation failed."
+        mmdc -i docs/docs/assets/handler_pattern.mmd -o docs/docs/assets/handler_pattern.png || echo "Handler pattern diagram generation failed."
 
         # Generate testing workflow diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/testing_workflow.mmd -o docs/docs/assets/testing_workflow.png || echo "Testing workflow diagram generation failed."
+        mmdc -i docs/docs/assets/testing_workflow.mmd -o docs/docs/assets/testing_workflow.png || echo "Testing workflow diagram generation failed."
 
         # Generate modular overview diagram
-        npx mmdc $OPTIONS -i docs/docs/assets/modular_overview.mmd -o docs/docs/assets/modular_overview.png || echo "Modular overview diagram generation failed."
+        mmdc -i docs/docs/assets/modular_overview.mmd -o docs/docs/assets/modular_overview.png || echo "Modular overview diagram generation failed."
 
         echo "Mermaid diagram generation completed."
       shell: bash
+
 
     - name: Build documentation
       run: |
