@@ -30,14 +30,24 @@ runs:
         cd src
         pyinstaller `
           --onefile `
-          --add-data "shtest_compiler/config;./shtest_compiler/config" `
-          --add-data "shtest_compiler/regex_config.yml;." `
           shtest_compiler/shtest.py
         echo "exe-path=src/dist/shtest.exe" >> $env:GITHUB_OUTPUT
       shell: pwsh
 
-    - name: Upload EXE artifacts
+    - name: Copy config, plugins, and YAML files next to exe
+      run: |
+        cd src
+        Copy-Item -Path "shtest_compiler/config" -Destination "dist/" -Recurse -Force
+        Copy-Item -Path "shtest_compiler/plugins" -Destination "dist/" -Recurse -Force
+        Copy-Item -Path "shtest_compiler/regex_config.yml" -Destination "dist/" -Force
+      shell: pwsh
+
+    - name: Upload EXE and data artifacts
       uses: actions/upload-artifact@v4
       with:
         name: knightbatch-exe
-        path: src/dist/shtest.exe
+        path: |
+          src/dist/shtest.exe
+          src/dist/config/
+          src/dist/plugins/
+          src/dist/regex_config.yml

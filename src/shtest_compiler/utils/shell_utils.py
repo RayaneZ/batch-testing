@@ -2,11 +2,12 @@ import sys
 import os
 
 def resource_path(relative_path):
-    """Get absolute path to resource, works for dev and for PyInstaller."""
-    if hasattr(sys, '_MEIPASS'):
-        return os.path.join(sys._MEIPASS, relative_path)
-    # Join from the src root, not from the utils directory
-    return os.path.join(os.path.dirname(os.path.dirname(__file__)), relative_path)
+    """Get absolute path to resource, works for dev and for PyInstaller (external data)."""
+    if getattr(sys, 'frozen', False):  # Running as compiled exe
+        base_path = os.path.dirname(sys.executable)
+    else:
+        base_path = os.path.dirname(os.path.dirname(__file__))
+    return os.path.join(base_path, relative_path)
 
 def list_meipass():
     """Display the contents of the PyInstaller temporary directory (_MEIPASS)"""
