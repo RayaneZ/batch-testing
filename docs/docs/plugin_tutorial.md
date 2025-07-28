@@ -12,7 +12,7 @@ Les plugins KnightBatch permettent d'étendre les fonctionnalités du compilateu
 - **Nouveaux types d'actions** personnalisées
 - **Validations spécialisées** pour vos besoins
 - **Générateurs de code** spécifiques
-- **Intégrations externes** (APIs, bases de données, etc.)
+- **Intégrations externes** (APIs, bases de données, etc.).
 
 ## Architecture d'un Plugin
 
