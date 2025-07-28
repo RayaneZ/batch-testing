@@ -5,6 +5,7 @@ def resource_path(relative_path):
     """Get absolute path to resource, works for dev and for PyInstaller (external data)."""
     if getattr(sys, 'frozen', False):  # Running as compiled exe
         base_path = os.path.dirname(sys.executable)
+        print(f"Running as compiled exe, base_path: {base_path}")
     else:
         base_path = os.path.dirname(os.path.dirname(__file__))
     return os.path.join(base_path, relative_path)

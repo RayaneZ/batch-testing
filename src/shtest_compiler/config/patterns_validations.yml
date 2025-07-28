@@ -229,6 +229,8 @@ validations:
       - "^fichier_identique ([^ ]+) ([^ ]+)$"  # file1, file2: no spaces
       - "^le fichier ([^ ]+) est identique à ([^ ]+)$"  # file1, file2: no spaces
       - "^le fichier ([^ ]+) est identique a ([^ ]+)$"  # file1, file2: no spaces
+      - "^le fichier ([^ ]+) est identique à ([^ ]+)\\.$"  # file1, file2: no spaces, with period
+      - "^le fichier ([^ ]+) est identique a ([^ ]+)\\.$"  # file1, file2: no spaces, with period
       - "^Comparer le fichier ([^ ]+) avec ([^ ]+)$"  # file1, file2: no spaces
   - phrase: "Identifiants configurés"
     handler: credentials_configured
