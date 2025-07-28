@@ -18,12 +18,18 @@ jobs:
     env:
       python-version: ${{ matrix.python-version }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Run Unit Tests
         uses: ./.github/actions/unit-test
 
   security-scan:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Run Security Scan
         uses: ./.github/actions/security-scan
 
@@ -32,6 +38,9 @@ jobs:
     outputs:
       exe-path: ${{ steps.build-step.outputs.exe-path }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Build Executable
         id: build-step
         uses: ./.github/actions/build-exe
@@ -41,6 +50,9 @@ jobs:
     needs: build
     if: startsWith(github.ref, 'refs/tags/kb-v')
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Deploy EXE
         uses: ./.github/actions/deploy-exe
         with:
