@@ -70,7 +70,7 @@ python src/shtest_compiler/compile_file.py --help
 Créez un fichier `test.shtest` :
 
 ```shtest
-Étape: Test simple
+Etape: Test simple
 Action: Créer le fichier ./test.txt
 Résultat: Le fichier existe
 ```
