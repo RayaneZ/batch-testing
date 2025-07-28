@@ -1,0 +1,43 @@
+name: 'Build Windows Executable'
+description: 'Build a Windows executable using PyInstaller'
+
+inputs: {}
+outputs:
+  exe-path:
+    description: 'Path to the generated executable'
+    value: ${{ steps.build.outputs.exe-path }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        cd src
+        pip install -r requirements.txt
+        pip install pyinstaller
+      shell: pwsh
+
+    - name: Build EXE
+      id: build
+      run: |
+        cd src
+        pyinstaller `
+          --onefile `
+          --add-data "shtest_compiler/config;./shtest_compiler/config" `
+          --add-data "shtest_compiler/regex_config.yml;." `
+          shtest_compiler/shtest.py
+        echo "exe-path=src/dist/shtest.exe" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+
+    - name: Upload EXE artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: knightbatch-exe
+        path: src/dist/shtest.exe

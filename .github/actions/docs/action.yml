@@ -1,0 +1,46 @@
+name: 'Build Documentation'
+description: 'Build and deploy MkDocs documentation to GitHub Pages'
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        pip install mkdocs-material mkdocs-macros-plugin mkdocs-minify-plugin
+        npm install -g @mermaid-js/mermaid-cli
+      shell: bash
+
+    - name: Generate architecture diagram
+      run: |
+        npx mmdc --no-sandbox -i docs/docs/assets/architecture.mmd -o docs/docs/assets/architecture.png || echo "Mermaid generation failed (possibly headless issue)."
+      shell: bash
+
+    - name: Build documentation
+      run: |
+        cd docs
+        mkdocs build
+      shell: bash
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ inputs.github_token }}
+        publish_dir: ./docs/site
+        cname: knightbatch.github.io
+
+inputs:
+  github_token:
+    description: 'GitHub token to authenticate with GitHub Pages'
+    required: true

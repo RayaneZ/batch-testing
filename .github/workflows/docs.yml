@@ -10,5 +10,10 @@ on:
 
 jobs:
   build-docs:
-    uses: ./.github/workflows/docs/deploy.yml
+    runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Build and Deploy Docs
+        uses: ./.github/actions/docs  # Chemin vers le dossier contenant action.yml
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

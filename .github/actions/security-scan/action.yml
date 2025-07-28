@@ -1,6 +1,6 @@
-name: Security Scan
-description: |
-  Run Bandit and Safety to perform static security analysis and dependency vulnerability checks.
+name: 'Security Scan'
+description: 'Run Bandit and Safety for static analysis and dependency vulnerability checks'
+
 inputs: {}
 runs:
   using: "composite"
@@ -13,21 +13,21 @@ runs:
         python-version: '3.11'
 
     - name: Install security tools
-      shell: bash
       run: |
         pip install bandit safety
+      shell: bash
 
     - name: Run Bandit
-      shell: bash
       run: |
         cd src
         bandit -r shtest_compiler/ -f json -o bandit-report.json || true
+      shell: bash
 
     - name: Run Safety
-      shell: bash
       run: |
         cd src
         safety check --json --output safety-report.json || true
+      shell: bash
 
     - name: Upload reports
       uses: actions/upload-artifact@v4

@@ -1,6 +1,6 @@
-name: Unit Tests
-description: |
-  Run unit tests with pytest and upload coverage to Codecov.
+name: 'Unit Tests'
+description: 'Run unit tests with pytest and upload coverage to Codecov'
+
 inputs: {}
 runs:
   using: "composite"
@@ -10,17 +10,16 @@ runs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ env.python-version }}
+        python-version: '3.11'  # Remplacez par une valeur fixe si vous ne voulez pas utiliser une variable d'environnement
 
     - name: Install dependencies
-      shell: bash
       run: |
         cd src
         pip install -e .
         pip install pytest pytest-cov pytest-xdist pytest-mock
+      shell: bash
 
     - name: Run Python tests
-      shell: bash
       run: |
         cd src
         python -m pytest testing/tests/unit/ \
@@ -28,6 +27,7 @@ runs:
           --cov-report=xml \
           --cov-report=html \
           --rootdir=.
+      shell: bash
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
