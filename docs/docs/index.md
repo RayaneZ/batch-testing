@@ -1,7 +1,7 @@
 
 # KnightBatch - Framework de Tests Automatisés
 
-| <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Bienvenue dans la documentation de KnightBatch, le framework moderne pour l'automatisation de tests via des scénarios en langage naturel. Transformez vos procédures manuelles en tests automatisés robustes et maintenables. |
+| <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Bienvenue dans la documentation de KnightBatch, le framework moderne pour l'automatisation de tests via des scénarios en langage naturel. Transformez vos procédures manuelles en tests automatisés robustes et maintenables |
 |  | --- |
 
 ##  Démarrage Rapide
