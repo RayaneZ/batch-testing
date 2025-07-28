@@ -4,7 +4,7 @@ Ce tutoriel vous guide à travers la création d'un plugin complet pour KnightBa
 
 ## Vue d'Ensemble
 
-![Architecture des plugins](assets/plugin_architecture.png)
+![Architecture des plugins](../assets/plugin_architecture.png)
 
 > Architecture du système de plugins montrant comment les plugins s'intègrent dans le pipeline principal.
 
@@ -55,7 +55,7 @@ Nous allons créer un plugin qui permet d'envoyer des notifications :
 
 ### Structure des Dossiers
 
-![Structure d'un plugin](assets/plugin_structure.png)
+![Structure d'un plugin](../assets/plugin_structure.png)
 
 > Structure typique d'un plugin montrant l'organisation des fichiers et dossiers.
 
@@ -193,7 +193,7 @@ slack_notification_sent:
 
 ### Pattern des Handlers
 
-![Pattern des handlers](assets/handler_pattern.png)
+![Pattern des handlers](../assets/handler_pattern.png)
 
 > Flux de données montrant comment les paramètres passent des patterns YAML aux handlers.
 
@@ -412,7 +412,7 @@ export NOTIFICATION_TYPE="slack"
 
 ### Workflow de Tests
 
-![Workflow de tests](assets/testing_workflow.png)
+![Workflow de tests](../assets/testing_workflow.png)
 
 > Workflow complet de tests montrant le processus de validation, compilation et exécution.
 

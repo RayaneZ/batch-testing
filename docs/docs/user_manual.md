@@ -1,6 +1,6 @@
 # Manuel Utilisateur KnightBatch
 
-| <img src="assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Ce manuel complet guide l'utilisateur à travers toutes les fonctionnalités du framework KnightBatch, de l'installation à l'utilisation avancée. |
+| <img src="../assets/logo.png" alt="KnightBatch" width="120" style="border-radius: 15px;"/> | Ce manuel complet guide l'utilisateur à travers toutes les fonctionnalités du framework KnightBatch, de l'installation à l'utilisation avancée. |
 |  | --- |
 
 ## Table des Matières

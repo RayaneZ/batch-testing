@@ -1,6 +1,9 @@
 name: Publish VS Code Extension
 description: Publish the VS Code extension to the Marketplace
-inputs: {}
+inputs:
+  marketplace_token:
+    description: 'Token for VS Code Marketplace (VSCE_PAT)'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -24,6 +27,6 @@ runs:
     - name: Publish to VS Code Marketplace
       shell: bash
       env:
-        VSCE_PAT: ${{ secrets.MARKETPLACE_KEY }}
+        VSCE_PAT: ${{ inputs.marketplace_token }}
       run: |
         vsce publish --packagePath knightbatch-shtest.vsix --pat $VSCE_PAT

@@ -5,6 +5,9 @@ inputs:
   exe-path:
     description: 'Path to the built Windows executable'
     required: true
+  github_token:
+    description: 'GitHub token to authenticate with GitHub Release'
+    required: true
 
 runs:
   using: "composite"
@@ -35,4 +38,4 @@ runs:
         files: |
           knightbatch-release.tar.gz
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}

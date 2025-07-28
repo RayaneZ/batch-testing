@@ -4,17 +4,17 @@ KnightBatch utilise une architecture modulaire moderne entièrement configurée 
 
 ## Vue d'Ensemble
 
-![Architecture du pipeline](assets/architecture.png)
+![Architecture du pipeline](../assets/architecture.png)
 
 ## Vue d'Ensemble Modulaire
 
-![Architecture modulaire](assets/modular_overview.png)
+![Architecture modulaire](../assets/modular_overview.png)
 
 > Vue d'ensemble de l'architecture modulaire avec tous les composants principaux.
 
 ## Pipeline de Compilation Détaillé
 
-![Pipeline de compilation](assets/compilation_pipeline.png)
+![Pipeline de compilation](../assets/compilation_pipeline.png)
 
 > Pipeline détaillé montrant le flux de données de la compilation.
 
@@ -69,7 +69,7 @@ Le script shell généré peut être exécuté directement.
 
 ### Architecture des Plugins
 
-![Architecture des plugins](assets/plugin_architecture.png)
+![Architecture des plugins](../assets/plugin_architecture.png)
 
 > Architecture du système de plugins montrant comment les plugins s'intègrent dans le pipeline principal.
 
@@ -82,7 +82,7 @@ Les plugins sont organisés dans `plugins/` et peuvent étendre :
 
 ### Structure d'un Plugin
 
-![Structure d'un plugin](assets/plugin_structure.png)
+![Structure d'un plugin](../assets/plugin_structure.png)
 
 > Structure typique d'un plugin montrant l'organisation des fichiers et dossiers.
 
@@ -196,7 +196,7 @@ file_exists:
 
 ### Pattern des Handlers
 
-![Pattern des handlers](assets/handler_pattern.png)
+![Pattern des handlers](../assets/handler_pattern.png)
 
 > Flux de données montrant comment les paramètres passent des patterns YAML aux handlers.
 

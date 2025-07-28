@@ -4,11 +4,11 @@ Ce guide vous aide à comprendre rapidement l'architecture modulaire de KnightBa
 
 ## Architecture en 5 Minutes
 
-![Architecture du pipeline](assets/architecture.png)
+![Architecture du pipeline](../assets/architecture.png)
 
 ## Pipeline de Compilation Détaillé
 
-![Pipeline de compilation](assets/compilation_pipeline.png)
+![Pipeline de compilation](../assets/compilation_pipeline.png)
 
 > Pipeline détaillé montrant le flux de données de la compilation.
 
@@ -113,7 +113,7 @@ src/shtest_compiler/plugins/mon_plugin/
 
 ### Pattern des Handlers
 
-![Pattern des handlers](assets/handler_pattern.png)
+![Pattern des handlers](../assets/handler_pattern.png)
 
 > Flux de données montrant comment les paramètres passent des patterns YAML aux handlers.
 
@@ -206,7 +206,7 @@ ma_validation:
 
 ### Workflow de Tests
 
-![Workflow de tests](assets/testing_workflow.png)
+![Workflow de tests](../assets/testing_workflow.png)
 
 > Workflow complet de tests montrant le processus de validation, compilation et exécution.
 

@@ -38,3 +38,5 @@ jobs:
 
       - name: Publish VS Code Extension
         uses: ./.github/actions/vscode/deploy
+        with:
+          marketplace_token: ${{ secrets.MARKETPLACE_KEY }}
