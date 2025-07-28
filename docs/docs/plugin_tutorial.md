@@ -4,6 +4,10 @@ Ce tutoriel vous guide à travers la création d'un plugin complet pour KnightBa
 
 ## Vue d'Ensemble
 
+![Architecture des plugins](assets/plugin_architecture.png)
+
+> Architecture du système de plugins montrant comment les plugins s'intègrent dans le pipeline principal.
+
 Les plugins KnightBatch permettent d'étendre les fonctionnalités du compilateur avec :
 - **Nouveaux types d'actions** personnalisées
 - **Validations spécialisées** pour vos besoins
@@ -17,14 +21,14 @@ Les plugins KnightBatch permettent d'étendre les fonctionnalités du compilateu
 │   Plugin        │
 │   Principal     │
 ├─────────────────┤
-│   Patterns      │
-│   YAML          │
+│   Config/       │
+│   YAML Files    │
 ├─────────────────┤
+│   Action        │
 │   Handlers      │
-│   (Actions)     │
 ├─────────────────┤
-│   Matchers      │
-│   (Validations) │
+│   Validation    │
+│   Handlers      │
 └─────────────────┘
 ```
 
@@ -51,18 +55,23 @@ Nous allons créer un plugin qui permet d'envoyer des notifications :
 
 ### Structure des Dossiers
 
+![Structure d'un plugin](assets/plugin_structure.png)
+
+> Structure typique d'un plugin montrant l'organisation des fichiers et dossiers.
+
 ```
 src/shtest_compiler/plugins/notification/
 ├── __init__.py
 ├── config/
-│   └── patterns_notification.yml
-├── handlers/
+│   ├── patterns_actions.yml
+│   ├── patterns_validations.yml
+│   └── handler_requirements.yml
+├── action_handlers/
 │   ├── __init__.py
-│   ├── send_notification.py
-│   └── verify_notification.py
-└── matchers/
+│   └── send_notification.py
+└── handlers/
     ├── __init__.py
-    └── notification_matcher.py
+    └── notification_sent.py
 ```
 
 ### Créer le Dossier Principal
@@ -70,153 +79,293 @@ src/shtest_compiler/plugins/notification/
 ```bash
 mkdir -p src/shtest_compiler/plugins/notification
 mkdir -p src/shtest_compiler/plugins/notification/config
+mkdir -p src/shtest_compiler/plugins/notification/action_handlers
 mkdir -p src/shtest_compiler/plugins/notification/handlers
-mkdir -p src/shtest_compiler/plugins/notification/matchers
 ```
 
 ## Étape 3 : Définir les Patterns YAML
 
-### Fichier `patterns_notification.yml`
+### Fichier `config/patterns_actions.yml`
 
 ```yaml
-# Patterns pour les actions de notification
+# patterns_actions.yml
+#
+# Define action patterns for your plugin here.
+# Each entry should have:
+#   - phrase: The user-facing pattern to match in .shtest files
+#   - handler: The name of the Python function (in action_handlers/) to call
+#   - aliases: List of alternative phrases or regexes for user input matching
+
 actions:
-  send_notification:
-    pattern: "Envoyer une notification:\\s*(.+)"
-    handler: "notification.handlers.send_notification.send_notification_handler"
-    description: "Envoie une notification via le système configuré"
+  - phrase: "Envoyer une notification {message}"
+    handler: send_notification
+    aliases:
+      - "envoyer une notification {message}"
+      - "notifier {message}"
+      - "^envoyer une notification (.+)$"
+      - "^notifier (.+)$"
 
-  send_slack_notification:
-    pattern: "Envoyer une notification Slack:\\s*(.+)"
-    handler: "notification.handlers.send_notification.send_slack_handler"
-    description: "Envoie une notification Slack spécifique"
+  - phrase: "Envoyer une notification Slack {message}"
+    handler: send_slack_notification
+    aliases:
+      - "envoyer une notification slack {message}"
+      - "slack {message}"
+      - "^envoyer une notification slack (.+)$"
+      - "^slack (.+)$"
+```
 
-# Patterns pour les validations
+### Fichier `config/patterns_validations.yml`
+
+```yaml
+# patterns_validations.yml
+#
+# Define validation patterns for your plugin here.
+# Each entry should have:
+#   - phrase: The user-facing pattern to match in .shtest files
+#   - handler: The name of the Python function (in handlers/) to call
+#   - scope: 'last_action' (local, must follow an action) or 'global' (can be checked independently)
+#   - aliases: List of alternative phrases or regexes for user input matching
+
 validations:
-  notification_sent:
-    pattern: "La notification a été envoyée"
-    handler: "notification.matchers.notification_matcher.verify_notification_sent"
-    description: "Vérifie qu'une notification a été envoyée avec succès"
+  - phrase: "La notification a été envoyée"
+    handler: notification_sent
+    scope: last_action
+    aliases:
+      - "la notification a été envoyée"
+      - "notification envoyée"
+      - "^la notification a été envoyée$"
+      - "^notification envoyée$"
 
-  slack_notification_sent:
-    pattern: "La notification Slack a été envoyée"
-    handler: "notification.matchers.notification_matcher.verify_slack_sent"
-    description: "Vérifie qu'une notification Slack a été envoyée"
+  - phrase: "La notification Slack a été envoyée"
+    handler: slack_notification_sent
+    scope: last_action
+    aliases:
+      - "la notification slack a été envoyée"
+      - "slack envoyé"
+      - "^la notification slack a été envoyée$"
+      - "^slack envoyé$"
+```
+
+### Fichier `config/handler_requirements.yml`
+
+```yaml
+# handler_requirements.yml
+#
+# This file documents the requirements and expected parameters for each handler in the plugin.
+# Use this to specify what parameters/actions/validations each handler expects or needs.
+
+send_notification:
+  description: "Sends a notification via the configured system"
+  params:
+    - name: message
+      type: str
+      required: true
+      description: "The message to send in the notification"
+
+send_slack_notification:
+  description: "Sends a Slack notification"
+  params:
+    - name: message
+      type: str
+      required: true
+      description: "The message to send to Slack"
+
+notification_sent:
+  description: "Checks if a notification was sent successfully"
+  params:
+    - name: target_dir
+      type: str
+      required: false
+      default: '.'
+      description: "Directory to check for notification logs"
+
+slack_notification_sent:
+  description: "Checks if a Slack notification was sent successfully"
+  params:
+    - name: target_dir
+      type: str
+      required: false
+      default: '.'
+      description: "Directory to check for Slack notification logs"
 ```
 
 ## Étape 4 : Créer les Handlers d'Action
 
-### Handler Principal (`handlers/send_notification.py`)
+### Pattern des Handlers
+
+![Pattern des handlers](assets/handler_pattern.png)
+
+> Flux de données montrant comment les paramètres passent des patterns YAML aux handlers.
+
+### Handler Principal (`action_handlers/send_notification.py`)
+
+```python
+import os
+from shtest_compiler.ast.shell_framework_ast import ActionNode
+
+class SendNotificationAction(ActionNode):
+    """
+    ActionNode for sending notifications via the configured system.
+    This is a template for plugin developers: extend this pattern for your own actions!
+    """
+    def __init__(self, message, notification_type="log"):
+        self.message = message
+        self.notification_type = notification_type
+
+    def to_shell(self):
+        # Generates a shell command to send the notification.
+        # The actual implementation depends on the notification type.
+        if self.notification_type == "slack":
+            return self._generate_slack_command()
+        elif self.notification_type == "email":
+            return self._generate_email_command()
+        else:
+            return self._generate_log_command()
+
+    def _generate_slack_command(self):
+        """Generate shell command for Slack notification."""
+        return f"""# Send Slack notification
+if [ -n "$SLACK_WEBHOOK_URL" ]; then
+    curl -X POST -H 'Content-type: application/json' \\
+        --data '{{"text":"{self.message}"}}' \\
+        "$SLACK_WEBHOOK_URL" \\
+        && echo "Slack notification sent" \\
+        || (echo "Failed to send Slack notification" >&2 && exit 1)
+else
+    echo "SLACK_WEBHOOK_URL not configured" >&2
+    exit 1
+fi"""
+
+    def _generate_email_command(self):
+        """Generate shell command for email notification."""
+        return f"""# Send email notification
+if [ -n "$NOTIFICATION_EMAIL" ]; then
+    echo "{self.message}" | mail -s "KnightBatch Notification" "$NOTIFICATION_EMAIL" \\
+        && echo "Email notification sent" \\
+        || (echo "Failed to send email notification" >&2 && exit 1)
+else
+    echo "NOTIFICATION_EMAIL not configured" >&2
+    exit 1
+fi"""
+
+    def _generate_log_command(self):
+        """Generate shell command for log notification."""
+        return f"""# Log notification
+echo "[$(date)] NOTIFICATION: {self.message}" >> /tmp/notifications.log \\
+    && echo "Notification logged" \\
+    || (echo "Failed to log notification" >&2 && exit 1)"""
+
+
+def handle(params):
+    """
+    Handler entry point for the action. Expects a 'params' dict with 'message'.
+    Returns an ActionNode for shell script generation.
+    """
+    message = params.get("message", "Default notification message")
+    notification_type = params.get("type", "log")
+    return SendNotificationAction(message, notification_type)
+```
+
+### Handler Slack (`action_handlers/send_slack_notification.py`)
 
 ```python
 from shtest_compiler.ast.shell_framework_ast import ActionNode
 
-class SendNotificationAction(ActionNode):
-    def __init__(self, message):
+class SendSlackNotificationAction(ActionNode):
+    """
+    ActionNode for sending Slack notifications.
+    """
+    def __init__(self, message, channel="#general"):
         self.message = message
+        self.channel = channel
 
     def to_shell(self):
-        # Génère la commande shell pour envoyer la notification
-        return f"echo 'Notification: {self.message}' >> /tmp/notifications.log"
+        return f"""# Send Slack notification
+if [ -n "$SLACK_WEBHOOK_URL" ]; then
+    curl -X POST -H 'Content-type: application/json' \\
+        --data '{{"text":"{self.message}","channel":"{self.channel}"}}' \\
+        "$SLACK_WEBHOOK_URL" \\
+        && echo "Slack notification sent to {self.channel}" \\
+        || (echo "Failed to send Slack notification" >&2 && exit 1)
+else
+    echo "SLACK_WEBHOOK_URL not configured" >&2
+    exit 1
+fi"""
+
 
 def handle(params):
-    message = params["message"]
-    return SendNotificationAction(message)
+    """
+    Handler entry point for Slack notifications.
+    """
+    message = params.get("message", "Default Slack message")
+    channel = params.get("channel", "#general")
+    return SendSlackNotificationAction(message, channel)
 ```
-- Le handler doit accepter uniquement `params` (pas de `context` sauf besoin avancé).
-- Le handler doit retourner un objet `ActionNode` avec une méthode `to_shell()` pour les actions shell.
-- **Ne pas utiliser `os.environ` ou des variables globales dans vos handlers.**
 
-## Étape 5 : Créer les Matchers de Validation
+## Étape 5 : Créer les Handlers de Validation
 
-### Matcher Principal (`matchers/notification_matcher.py`)
+### Handler de Validation (`handlers/notification_sent.py`)
 
 ```python
-"""
-Matchers pour les validations de notification.
-"""
-
 import os
-from typing import Dict, Any, Optional
-from shtest_compiler.core.context import CompileContext
+from shtest_compiler.ast.shell_framework_ast import ValidationCheck
 
-
-def verify_notification_sent(context: CompileContext, validation_text: str, **kwargs) -> str:
+def handle(params):
     """
-    Vérifie qu'une notification a été envoyée avec succès.
-
-    Args:
-        context: Contexte de compilation
-        validation_text: Texte de validation
-        **kwargs: Arguments supplémentaires
-
-    Returns:
-        Code shell pour vérifier la notification
+    Validation handler: Checks if a notification was sent successfully.
     """
-    notification_type = context.get_variable("NOTIFICATION_TYPE", "log")
-
-    if notification_type == "slack":
-        return _verify_slack_notification()
-    elif notification_type == "email":
-        return _verify_email_notification()
-    else:
-        return _verify_log_notification()
-
-
-def verify_slack_sent(context: CompileContext, validation_text: str, **kwargs) -> str:
-    """
-    Vérifie spécifiquement qu'une notification Slack a été envoyée.
-
-    Args:
-        context: Contexte de compilation
-        validation_text: Texte de validation
-        **kwargs: Arguments supplémentaires
-
-    Returns:
-        Code shell pour vérifier la notification Slack
-    """
-    return _verify_slack_notification()
-
-
-def _verify_slack_notification() -> str:
-    """Génère le code shell pour vérifier une notification Slack."""
-
-    return """# Vérifier notification Slack
-if [ -f /tmp/slack_notification_sent ]; then
-    echo "Notification Slack vérifiée"
-    rm /tmp/slack_notification_sent
+    target_dir = params.get("target_dir", ".")
+    log_file = os.path.join(target_dir, "notifications.log")
+    
+    # Return atomic command only - no if/then/else logic
+    actual_cmd = f"""# Check if notification was sent
+if [ -f "{log_file}" ] && grep -q "NOTIFICATION:" "{log_file}"; then
+    echo "Notification verified"
     exit 0
 else
-    echo "Notification Slack non trouvée" >&2
+    echo "Notification not found" >&2
     exit 1
 fi"""
 
+    return ValidationCheck(
+        expected="La notification a été envoyée",
+        actual_cmd=actual_cmd,
+        handler="notification_sent",
+        scope="last_action",
+        params={"log_file": log_file}
+    )
+```
 
-def _verify_email_notification() -> str:
-    """Génère le code shell pour vérifier une notification Email."""
+### Handler Slack Validation (`handlers/slack_notification_sent.py`)
 
-    return """# Vérifier notification Email
-if [ -f /tmp/email_notification_sent ]; then
-    echo "Notification Email vérifiée"
-    rm /tmp/email_notification_sent
+```python
+import os
+from shtest_compiler.ast.shell_framework_ast import ValidationCheck
+
+def handle(params):
+    """
+    Validation handler: Checks if a Slack notification was sent successfully.
+    """
+    target_dir = params.get("target_dir", ".")
+    log_file = os.path.join(target_dir, "slack_notifications.log")
+    
+    # Return atomic command only - no if/then/else logic
+    actual_cmd = f"""# Check if Slack notification was sent
+if [ -f "{log_file}" ] && grep -q "Slack notification sent" "{log_file}"; then
+    echo "Slack notification verified"
     exit 0
 else
-    echo "Notification Email non trouvée" >&2
+    echo "Slack notification not found" >&2
     exit 1
 fi"""
 
-
-def _verify_log_notification() -> str:
-    """Génère le code shell pour vérifier une notification loggée."""
-
-    return """# Vérifier notification loggée
-if [ -f /tmp/notifications.log ] && grep -q "NOTIFICATION:" /tmp/notifications.log; then
-    echo "Notification loggée vérifiée"
-    exit 0
-else
-    echo "Notification loggée non trouvée" >&2
-    exit 1
-fi"""
+    return ValidationCheck(
+        expected="La notification Slack a été envoyée",
+        actual_cmd=actual_cmd,
+        handler="slack_notification_sent",
+        scope="last_action",
+        params={"log_file": log_file}
+    )
 ```
 
 ## Étape 6 : Créer le Point d'Entrée du Plugin
@@ -229,100 +378,20 @@ Plugin de notification pour KnightBatch.
 
 Ce plugin permet d'envoyer des notifications via différents canaux
 (Slack, Email, Log) et de valider leur envoi.
+
+Structure:
+- config/: YAML files defining action and validation patterns
+- action_handlers/: Python modules implementing actions
+- handlers/: Python modules implementing validations
+
+To create your own plugin, copy this structure and update the YAML and handler files as needed.
 """
 
-from typing import Dict, Any
-from shtest_compiler.core.context import CompileContext
-
-
-def register_plugin(context: CompileContext) -> None:
-    """
-    Enregistre le plugin de notification dans le contexte.
-
-    Args:
-        context: Contexte de compilation où enregistrer le plugin
-    """
-    # Enregistrer les handlers d'action
-    _register_action_handlers(context)
-
-    # Enregistrer les matchers de validation
-    _register_validation_matchers(context)
-
-    # Définir les variables par défaut
-    _set_default_variables(context)
-
-    print("Plugin de notification enregistré avec succès")
-
-
-def _register_action_handlers(context: CompileContext) -> None:
-    """Enregistre les handlers d'action."""
-
-    from .handlers.send_notification import (
-        send_notification_handler,
-        send_slack_handler
-    )
-
-    context.register_action_handler("send_notification", send_notification_handler)
-    context.register_action_handler("send_slack_notification", send_slack_handler)
-
-
-def _register_validation_matchers(context: CompileContext) -> None:
-    """Enregistre les matchers de validation."""
-
-    from .matchers.notification_matcher import (
-        verify_notification_sent,
-        verify_slack_sent
-    )
-
-    context.register_validation_matcher("notification_sent", verify_notification_sent)
-    context.register_validation_matcher("slack_notification_sent", verify_slack_sent)
-
-
-def _set_default_variables(context: CompileContext) -> None:
-    """Définit les variables par défaut du plugin."""
-
-    defaults = {
-        "NOTIFICATION_TYPE": "log",
-        "NOTIFICATION_URL": "",
-        "SLACK_WEBHOOK_URL": "",
-        "SLACK_CHANNEL": "#general",
-        "NOTIFICATION_EMAIL": ""
-    }
-
-    for key, value in defaults.items():
-        if not context.get_variable(key):
-            context.set_variable(key, value)
+# The plugin is automatically discovered and loaded by the framework
+# No additional registration code is needed
 ```
 
 ## Étape 7 : Configurer le Plugin
-
-### Fichier de Configuration
-
-Créez un fichier de configuration pour votre plugin :
-
-```yaml
-# config/notification_config.yml
-notification:
-  # Type de notification par défaut
-  default_type: "log"
-
-  # Configuration Slack
-  slack:
-    webhook_url: "${SLACK_WEBHOOK_URL}"
-    default_channel: "#general"
-    username: "KnightBatch Bot"
-
-  # Configuration Email
-  email:
-    smtp_server: "localhost"
-    smtp_port: 25
-    from_address: "knightbatch@example.com"
-
-  # Configuration Log
-  log:
-    file_path: "/tmp/notifications.log"
-    format: "[{timestamp}] {type}: {message}"
-```
 
 ### Variables d'Environnement
 
@@ -341,22 +410,28 @@ export NOTIFICATION_TYPE="slack"
 
 ## Étape 8 : Tester votre Plugin
 
+### Workflow de Tests
+
+![Workflow de tests](assets/testing_workflow.png)
+
+> Workflow complet de tests montrant le processus de validation, compilation et exécution.
+
 ### Fichier de Test `.shtest`
 
 ```shtest
 # tests/notification_test.shtest
 Étape: Test des notifications
   Action: Envoyer une notification: Test de notification KnightBatch
-  Vérifier: La notification a été envoyée
+  Résultat: La notification a été envoyée
 
 Étape: Test des notifications Slack
   Action: Envoyer une notification Slack: Test Slack depuis KnightBatch
-  Vérifier: La notification Slack a été envoyée
+  Résultat: La notification Slack a été envoyée
 
 Étape: Test avec variables
   Action: Définir la variable: message = "Notification avec variable"
   Action: Envoyer une notification: ${message}
-  Vérifier: La notification a été envoyée
+  Résultat: La notification a été envoyée
 ```
 
 ### Tests Unitaires
@@ -364,47 +439,27 @@ export NOTIFICATION_TYPE="slack"
 ```python
 # tests/unit/test_notification_plugin.py
 import pytest
-from shtest_compiler.core.context import CompileContext
-from shtest_compiler.plugins.notification import register_plugin
-
-
-def test_notification_plugin_registration():
-    """Test l'enregistrement du plugin de notification."""
-    context = CompileContext()
-    register_plugin(context)
-
-    # Vérifier que les handlers sont enregistrés
-    assert context.get_action_handler("send_notification") is not None
-    assert context.get_action_handler("send_slack_notification") is not None
-
-    # Vérifier que les matchers sont enregistrés
-    assert context.get_validation_matcher("notification_sent") is not None
-    assert context.get_validation_matcher("slack_notification_sent") is not None
-
+from shtest_compiler.plugins.notification.action_handlers.send_notification import handle
 
 def test_notification_handler():
     """Test le handler de notification."""
-    context = CompileContext()
-    register_plugin(context)
-
-    handler = context.get_action_handler("send_notification")
-    result = handler(context, "Test message")
-
-    assert "Test message" in result
-    assert "echo" in result
-
+    params = {"message": "Test message"}
+    result = handle(params)
+    
+    assert result is not None
+    assert hasattr(result, 'to_shell')
+    assert "Test message" in result.to_shell()
 
 def test_slack_handler():
     """Test le handler Slack."""
-    context = CompileContext()
-    context.set_variable("SLACK_WEBHOOK_URL", "https://test.com")
-    register_plugin(context)
-
-    handler = context.get_action_handler("send_slack_notification")
-    result = handler(context, "Test Slack")
-
-    assert "curl" in result
-    assert "Test Slack" in result
+    from shtest_compiler.plugins.notification.action_handlers.send_slack_notification import handle as slack_handle
+    
+    params = {"message": "Test Slack"}
+    result = slack_handle(params)
+    
+    assert result is not None
+    assert hasattr(result, 'to_shell')
+    assert "curl" in result.to_shell()
 ```
 
 ### Tests E2E
@@ -414,7 +469,7 @@ def test_slack_handler():
 python -m shtest_compiler.run_all --input tests/notification_test.shtest
 
 # Vérifier la syntaxe
-python src/verify_syntax.py tests/notification_test.shtest
+python src/shtest_compiler/verify_syntax.py tests/notification_test.shtest
 
 # Exécuter le script généré
 bash output/notification_test.sh
@@ -429,16 +484,7 @@ bash output/notification_test.sh
 cp -r src/shtest_compiler/plugins/notification /path/to/knightbatch/plugins/
 ```
 
-2. **Enregistrer le plugin** dans la configuration principale :
-```yaml
-# config/plugins.yml
-plugins:
-  - notification
-  - file
-  - sql
-```
-
-3. **Configurer les variables** d'environnement :
+2. **Configurer les variables** d'environnement :
 ```bash
 export SLACK_WEBHOOK_URL="your_webhook_url"
 export NOTIFICATION_TYPE="slack"
@@ -450,16 +496,16 @@ export NOTIFICATION_TYPE="slack"
 # Exemple d'utilisation du plugin
 Étape: Notifier le succès d'un test
   Action: Exécuter le script: ./my_test.sh
-  Vérifier: Le code de retour est 0
+  Résultat: Le code de retour est 0
   Action: Envoyer une notification: Test réussi - $(date)
-  Vérifier: La notification a été envoyée
+  Résultat: La notification a été envoyée
 ```
 
 ## Bonnes Pratiques
 
 ### Conception du Plugin
 
-1. **Séparation des responsabilités** : Handlers, matchers, et configuration séparés
+1. **Séparation des responsabilités** : Handlers, validations, et configuration séparés
 2. **Gestion d'erreurs** : Toujours gérer les cas d'erreur et retourner des codes appropriés
 3. **Configuration flexible** : Utiliser des variables d'environnement et des valeurs par défaut
 4. **Documentation** : Documenter chaque fonction et paramètre
@@ -490,43 +536,57 @@ export NOTIFICATION_TYPE="slack"
 ### Plugin avec Base de Données
 
 ```python
-def database_handler(context: CompileContext, query: str, **kwargs) -> str:
-    """Handler pour exécuter des requêtes de base de données."""
+from shtest_compiler.ast.shell_framework_ast import ActionNode
 
-    db_url = context.get_variable("DATABASE_URL")
-    if not db_url:
-        return "echo 'Database URL not configured' >&2 && exit 1"
+class DatabaseQueryAction(ActionNode):
+    def __init__(self, query, database_url):
+        self.query = query
+        self.database_url = database_url
 
-    return f"""# Exécuter requête base de données
-psql "{db_url}" -c "{query}" \\
+    def to_shell(self):
+        return f"""# Execute database query
+psql "{self.database_url}" -c "{self.query}" \\
   && echo "Query executed successfully" \\
   || (echo "Database query failed" >&2 && exit 1)"""
+
+def handle(params):
+    query = params.get("query")
+    database_url = params.get("database_url", "$DATABASE_URL")
+    return DatabaseQueryAction(query, database_url)
 ```
 
 ### Plugin avec API REST
 
 ```python
-def api_handler(context: CompileContext, endpoint: str, method: str = "GET", **kwargs) -> str:
-    """Handler pour appeler des APIs REST."""
+from shtest_compiler.ast.shell_framework_ast import ActionNode
 
-    base_url = context.get_variable("API_BASE_URL")
-    api_key = context.get_variable("API_KEY")
+class APICallAction(ActionNode):
+    def __init__(self, endpoint, method="GET", api_key=None):
+        self.endpoint = endpoint
+        self.method = method
+        self.api_key = api_key
 
-    headers = f"-H 'Authorization: Bearer {api_key}'" if api_key else ""
-
-    return f"""# Appel API REST
-curl -X {method} {headers} "{base_url}{endpoint}" \\
+    def to_shell(self):
+        headers = f"-H 'Authorization: Bearer {self.api_key}'" if self.api_key else ""
+        return f"""# API REST call
+curl -X {self.method} {headers} "$API_BASE_URL{self.endpoint}" \\
   && echo "API call successful" \\
   || (echo "API call failed" >&2 && exit 1)"""
+
+def handle(params):
+    endpoint = params.get("endpoint")
+    method = params.get("method", "GET")
+    api_key = params.get("api_key", "$API_KEY")
+    return APICallAction(endpoint, method, api_key)
 ```
 
 ## Dépannage
 
 ### Problèmes Courants
 
-1. **Plugin non trouvé** : Vérifier le chemin et l'enregistrement
-2. **Handler non appelé** : Vérifier les patterns YAML
-3. **Variables non définies** : Vérifier la configuration
+1. **Plugin non trouvé** : Vérifier le chemin et la structure des dossiers
+2. **Handler non appelé** : Vérifier les patterns YAML et les noms de handlers
+3. **Variables non définies** : Vérifier la configuration et les variables d'environnement
 4. **Erreurs de syntaxe** : Vérifier les commandes shell générées
 
 ### Debug
@@ -537,10 +597,9 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 # Vérifier l'enregistrement
-context = CompileContext()
-register_plugin(context)
-print("Handlers:", list(context.action_handlers.keys()))
-print("Matchers:", list(context.validation_matchers.keys()))
+from shtest_compiler.command_loader import discover_plugins
+plugins = discover_plugins()
+print("Plugins trouvés:", plugins)
 ```
 
 ## Conclusion

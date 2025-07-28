@@ -14,8 +14,19 @@ PLUGINS_PATH = resource_path("plugins")
 
 # --- YAML Loader Utilities ---
 def load_yaml(path):
-    with open(resource_path(path), encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    try:
+        full_path = resource_path(path)
+        print(f"load_yaml: Loading {path} from {full_path}")
+        with open(full_path, encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+            print(f"load_yaml: Successfully loaded {path}")
+            return data
+    except FileNotFoundError as e:
+        print(f"load_yaml: File not found - {path}: {e}")
+        raise
+    except Exception as e:
+        print(f"load_yaml: Error loading {path}: {e}")
+        raise
 
 
 def discover_plugins():
@@ -54,28 +65,64 @@ def merge_yaml_lists(core_list, plugin_lists):
 
 
 def load_and_merge_patterns():
+    print(f"load_and_merge_patterns: CORE_CONFIG_PATH = {CORE_CONFIG_PATH}")
+    print(f"load_and_merge_patterns: PLUGINS_PATH = {PLUGINS_PATH}")
+    
     # Load core
-    core_actions = load_yaml(os.path.join(CORE_CONFIG_PATH, "patterns_actions.yml"))[
-        "actions"
-    ]
-    core_validations = load_yaml(
-        os.path.join(CORE_CONFIG_PATH, "patterns_validations.yml")
-    )["validations"]
+    try:
+        core_actions = load_yaml(os.path.join(CORE_CONFIG_PATH, "patterns_actions.yml"))[
+            "actions"
+        ]
+        print(f"load_and_merge_patterns: Loaded {len(core_actions)} core actions")
+    except Exception as e:
+        print(f"load_and_merge_patterns: Failed to load core actions: {e}")
+        core_actions = []
+    
+    try:
+        core_validations = load_yaml(
+            os.path.join(CORE_CONFIG_PATH, "patterns_validations.yml")
+        )["validations"]
+        print(f"load_and_merge_patterns: Loaded {len(core_validations)} core validations")
+    except Exception as e:
+        print(f"load_and_merge_patterns: Failed to load core validations: {e}")
+        core_validations = []
     # Load plugins
     plugin_actions, plugin_validations = [], []
-    for plugin in discover_plugins():
+    plugins = discover_plugins()
+    print(f"load_and_merge_patterns: Found {len(plugins)} plugins: {plugins}")
+    
+    for plugin in plugins:
+        print(f"load_and_merge_patterns: Processing plugin: {plugin}")
         actions_path = find_plugin_yaml(plugin, "actions")
         validations_path = find_plugin_yaml(plugin, "validations")
+        
         if actions_path:
-            plugin_actions.append(
-                load_yaml(actions_path).get("actions")
-                or load_yaml(actions_path).get("patterns", [])
-            )
+            print(f"load_and_merge_patterns: Found actions path: {actions_path}")
+            try:
+                actions_data = load_yaml(actions_path)
+                plugin_actions.append(
+                    actions_data.get("actions")
+                    or actions_data.get("patterns", [])
+                )
+                print(f"load_and_merge_patterns: Loaded actions for plugin {plugin}")
+            except Exception as e:
+                print(f"load_and_merge_patterns: Failed to load actions for plugin {plugin}: {e}")
+        else:
+            print(f"load_and_merge_patterns: No actions path found for plugin {plugin}")
+            
         if validations_path:
-            plugin_validations.append(
-                load_yaml(validations_path).get("validations")
-                or load_yaml(validations_path).get("patterns", [])
-            )
+            print(f"load_and_merge_patterns: Found validations path: {validations_path}")
+            try:
+                validations_data = load_yaml(validations_path)
+                plugin_validations.append(
+                    validations_data.get("validations")
+                    or validations_data.get("patterns", [])
+                )
+                print(f"load_and_merge_patterns: Loaded validations for plugin {plugin}")
+            except Exception as e:
+                print(f"load_and_merge_patterns: Failed to load validations for plugin {plugin}: {e}")
+        else:
+            print(f"load_and_merge_patterns: No validations path found for plugin {plugin}")
     all_actions = merge_yaml_lists(core_actions, plugin_actions)
     all_validations = merge_yaml_lists(core_validations, plugin_validations)
     return all_actions, all_validations

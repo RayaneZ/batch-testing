@@ -51,3 +51,4 @@ runs:
           src/dist/config/
           src/dist/plugins/
           src/dist/regex_config.yml
+          src/test_yaml_loading.py

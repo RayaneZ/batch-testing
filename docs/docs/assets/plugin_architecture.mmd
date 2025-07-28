@@ -1,0 +1,31 @@
+graph TD
+    A[Plugin Directory] --> B[Plugin Discovery]
+    B --> C[YAML Config Loading]
+    C --> D[Handler Registration]
+    
+    E[patterns_actions.yml] --> F[Action Patterns]
+    G[patterns_validations.yml] --> H[Validation Patterns]
+    I[handler_requirements.yml] --> J[Handler Documentation]
+    
+    F --> K[Action Handlers]
+    H --> L[Validation Handlers]
+    
+    K --> M[ActionNode Classes]
+    L --> N[ValidationCheck Objects]
+    
+    M --> O[Shell Code Generation]
+    N --> O
+    
+    P[Main Compiler] --> Q[Pattern Matching]
+    Q --> R[Handler Execution]
+    R --> O
+    
+    style A fill:#e1f5fe
+    style E fill:#f3e5f5
+    style G fill:#f3e5f5
+    style I fill:#f3e5f5
+    style K fill:#e8f5e8
+    style L fill:#e8f5e8
+    style M fill:#fff3e0
+    style N fill:#fff3e0
+    style O fill:#ffebee 

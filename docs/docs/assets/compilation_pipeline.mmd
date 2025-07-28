@@ -1,0 +1,34 @@
+graph TD
+    A[.shtest File] --> B[Lexer Configurable]
+    B --> C[Tokens]
+    C --> D[Parser Modulaire]
+    D --> E[AST Builder]
+    E --> F[AST with Validation]
+    F --> G[Binding]
+    G --> H[Bound AST]
+    H --> I[Générateur Shell]
+    I --> J[Shell Script]
+    J --> K[Execution]
+    
+    L[YAML Patterns] --> B
+    L --> D
+    
+    M[Plugins] --> N[Handler Registry]
+    N --> I
+    
+    O[Action Handlers] --> P[ActionNode Objects]
+    Q[Validation Handlers] --> R[ValidationCheck Objects]
+    
+    P --> I
+    R --> I
+    
+    style A fill:#e8f5e8
+    style C fill:#fff3e0
+    style F fill:#e3f2fd
+    style H fill:#f3e5f5
+    style J fill:#ffebee
+    style K fill:#e1f5fe
+    style L fill:#fce4ec
+    style M fill:#f1f8e9
+    style O fill:#e0f2f1
+    style Q fill:#fff8e1 

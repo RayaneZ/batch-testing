@@ -1,0 +1,33 @@
+graph TD
+    A[Plugin Root] --> B[__init__.py]
+    A --> C[config/]
+    A --> D[action_handlers/]
+    A --> E[handlers/]
+    
+    C --> F[patterns_actions.yml]
+    C --> G[patterns_validations.yml]
+    C --> H[handler_requirements.yml]
+    
+    D --> I[__init__.py]
+    D --> J[my_action.py]
+    D --> K[another_action.py]
+    
+    E --> L[__init__.py]
+    E --> M[my_validation.py]
+    E --> N[another_validation.py]
+    
+    J --> O[ActionNode Classes]
+    K --> O
+    M --> P[ValidationCheck Objects]
+    N --> P
+    
+    F --> Q[Action Patterns]
+    G --> R[Validation Patterns]
+    H --> S[Handler Documentation]
+    
+    style A fill:#e3f2fd
+    style C fill:#f3e5f5
+    style D fill:#e8f5e8
+    style E fill:#fff3e0
+    style O fill:#ffebee
+    style P fill:#ffebee 

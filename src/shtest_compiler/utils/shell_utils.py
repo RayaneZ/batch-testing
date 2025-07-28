@@ -8,7 +8,28 @@ def resource_path(relative_path):
         print(f"Running as compiled exe, base_path: {base_path}")
     else:
         base_path = os.path.dirname(os.path.dirname(__file__))
-    return os.path.join(base_path, relative_path)
+    
+    full_path = os.path.join(base_path, relative_path)
+    print(f"resource_path: {relative_path} -> {full_path}")
+    
+    # Check if file exists and log the result
+    if os.path.exists(full_path):
+        print(f"✓ File exists: {full_path}")
+    else:
+        print(f"✗ File not found: {full_path}")
+        # List contents of the directory to help debug
+        try:
+            dir_path = os.path.dirname(full_path)
+            if os.path.exists(dir_path):
+                print(f"Contents of {dir_path}:")
+                for item in os.listdir(dir_path):
+                    print(f"  - {item}")
+            else:
+                print(f"Directory does not exist: {dir_path}")
+        except Exception as e:
+            print(f"Error listing directory: {e}")
+    
+    return full_path
 
 def list_meipass():
     """Display the contents of the PyInstaller temporary directory (_MEIPASS)"""

@@ -15,18 +15,11 @@ from shtest_compiler.utils.shell_utils import resource_path
 # Chemin vers le fichier de configuration principal contenant les motifs regex
 CONFIG_PATH = resource_path("regex_config.yml")
 
-# Chemin vers un fichier YAML supplémentaire avec des règles simples
-SIMPLE_RULES_PATH = resource_path("simple_rules.yml")
-
 # Chargement des motifs regex depuis le fichier YAML
 with open(CONFIG_PATH, encoding="utf-8") as f:
     _PATTERNS = yaml.safe_load(
         f
     )  # _PATTERNS est un dictionnaire contenant les motifs regex nommés
-
-# Chargement d'une liste de règles simples depuis un autre fichier YAML
-with open(SIMPLE_RULES_PATH, encoding="utf-8") as f:
-    SIMPLE_RULES: List[Dict[str, str]] = yaml.safe_load(f)
 
 # Compilation des motifs regex à partir des valeurs du fichier YAML, avec l'option insensible à la casse
 STEP_RE = re.compile(
