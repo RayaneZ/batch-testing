@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#macro-syntax-error" class="md-skip">
+        <a href="#tutoriel-creer-un-plugin-knightbatch" class="md-skip">
           Skip to content
         </a>
       
@@ -545,6 +545,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Créer un Plugin
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -556,6 +569,484 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vue d'Ensemble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-dun-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture d'un Plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-1-planifier-votre-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 1 : Planifier votre Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 1 : Planifier votre Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definir-les-fonctionnalites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Définir les Fonctionnalités
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-plugin-de-notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple : Plugin de Notification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-2-creer-la-structure-du-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 2 : Créer la Structure du Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 2 : Créer la Structure du Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-des-dossiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure des Dossiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-dossier-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Créer le Dossier Principal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-3-definir-les-patterns-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 3 : Définir les Patterns YAML
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 3 : Définir les Patterns YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-configpatterns_actionsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier config/patterns_actions.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-configpatterns_validationsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier config/patterns_validations.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-confighandler_requirementsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier config/handler_requirements.yml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-4-creer-les-handlers-daction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 4 : Créer les Handlers d'Action
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 4 : Créer les Handlers d&#39;Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-des-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern des Handlers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handler-principal-action_handlerssend_notificationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Principal (action_handlers/send_notification.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handler-slack-action_handlerssend_slack_notificationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Slack (action_handlers/send_slack_notification.py)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-5-creer-les-handlers-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 5 : Créer les Handlers de Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 5 : Créer les Handlers de Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler-de-validation-handlersnotification_sentpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler de Validation (handlers/notification_sent.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handler-slack-validation-handlersslack_notification_sentpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Slack Validation (handlers/slack_notification_sent.py)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-6-creer-le-point-dentree-du-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 6 : Créer le Point d'Entrée du Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 6 : Créer le Point d&#39;Entrée du Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-__init__py-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier __init__.py Principal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-7-configurer-le-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 7 : Configurer le Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 7 : Configurer le Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables d'Environnement
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-8-tester-votre-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 8 : Tester votre Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 8 : Tester votre Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-de-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow de Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-de-test-shtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier de Test .shtest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-unitaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests Unitaires
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-e2e" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests E2E
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-9-deployer-votre-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 9 : Déployer votre Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 9 : Déployer votre Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonnes Pratiques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bonnes Pratiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conception-du-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conception du Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sécurité
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-avances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples Avancés
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples Avancés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugin-avec-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin avec Base de Données
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-avec-api-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin avec API REST
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dépannage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dépannage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problèmes Courants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -680,6 +1171,473 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vue-densemble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vue d'Ensemble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-dun-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture d'un Plugin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-1-planifier-votre-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 1 : Planifier votre Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 1 : Planifier votre Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definir-les-fonctionnalites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Définir les Fonctionnalités
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-plugin-de-notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemple : Plugin de Notification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-2-creer-la-structure-du-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 2 : Créer la Structure du Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 2 : Créer la Structure du Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-des-dossiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure des Dossiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-dossier-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Créer le Dossier Principal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-3-definir-les-patterns-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 3 : Définir les Patterns YAML
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 3 : Définir les Patterns YAML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-configpatterns_actionsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier config/patterns_actions.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-configpatterns_validationsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier config/patterns_validations.yml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-confighandler_requirementsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier config/handler_requirements.yml
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-4-creer-les-handlers-daction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 4 : Créer les Handlers d'Action
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 4 : Créer les Handlers d&#39;Action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-des-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern des Handlers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handler-principal-action_handlerssend_notificationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Principal (action_handlers/send_notification.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handler-slack-action_handlerssend_slack_notificationpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Slack (action_handlers/send_slack_notification.py)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-5-creer-les-handlers-de-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 5 : Créer les Handlers de Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 5 : Créer les Handlers de Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler-de-validation-handlersnotification_sentpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler de Validation (handlers/notification_sent.py)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handler-slack-validation-handlersslack_notification_sentpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handler Slack Validation (handlers/slack_notification_sent.py)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-6-creer-le-point-dentree-du-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 6 : Créer le Point d'Entrée du Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 6 : Créer le Point d&#39;Entrée du Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fichier-__init__py-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier __init__.py Principal
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-7-configurer-le-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 7 : Configurer le Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 7 : Configurer le Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables-denvironnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables d'Environnement
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-8-tester-votre-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 8 : Tester votre Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 8 : Tester votre Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-de-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow de Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fichier-de-test-shtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fichier de Test .shtest
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-unitaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests Unitaires
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests-e2e" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests E2E
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#etape-9-deployer-votre-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Étape 9 : Déployer votre Plugin
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Étape 9 : Déployer votre Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Utilisation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonnes-pratiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bonnes Pratiques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bonnes Pratiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conception-du-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conception du Plugin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sécurité
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemples-avances" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exemples Avancés
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exemples Avancés">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plugin-avec-base-de-donnees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin avec Base de Données
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-avec-api-rest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Plugin avec API REST
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dépannage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dépannage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problemes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problèmes Courants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -694,11 +1652,539 @@
 
 
 
-<h1 id="macro-syntax-error"><em>Macro Syntax Error</em></h1>
-<p><em>File</em>: <code>plugin_tutorial.md</code></p>
-<p><em>Line 230 in Markdown file:</em> <strong>expected token 'end of print statement', got ':'</strong>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>        --data &#39;{{&quot;text&quot;:&quot;{self.message}&quot;}}&#39; \\
+<h1 id="tutoriel-creer-un-plugin-knightbatch">Tutoriel : Créer un Plugin KnightBatch</h1>
+<p>Ce tutoriel vous guide à travers la création d'un plugin complet pour KnightBatch, depuis la conception jusqu'au déploiement.</p>
+<h2 id="vue-densemble">Vue d'Ensemble</h2>
+<p><img alt="Architecture des plugins" src="assets/plugin_architecture.png" /></p>
+<blockquote>
+<p>Architecture du système de plugins montrant comment les plugins s'intègrent dans le pipeline principal.</p>
+</blockquote>
+<p>Les plugins KnightBatch permettent d'étendre les fonctionnalités du compilateur avec :
+- <strong>Nouveaux types d'actions</strong> personnalisées
+- <strong>Validations spécialisées</strong> pour vos besoins
+- <strong>Générateurs de code</strong> spécifiques
+- <strong>Intégrations externes</strong> (APIs, bases de données, etc.)</p>
+<h2 id="architecture-dun-plugin">Architecture d'un Plugin</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│   Plugin        │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│   Principal     │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├─────────────────┤
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   Config/       │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│   YAML Files    │
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├─────────────────┤
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   Action        │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│   Handlers      │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├─────────────────┤
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│   Validation    │
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   Handlers      │
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>└─────────────────┘
+</span></code></pre></div>
+<h2 id="etape-1-planifier-votre-plugin">Étape 1 : Planifier votre Plugin</h2>
+<h3 id="definir-les-fonctionnalites">Définir les Fonctionnalités</h3>
+<p>Avant de commencer, identifiez :</p>
+<ol>
+<li><strong>Actions</strong> : Que voulez-vous que votre plugin puisse faire ?</li>
+<li><strong>Validations</strong> : Comment voulez-vous vérifier les résultats ?</li>
+<li><strong>Patterns</strong> : Quelle syntaxe utiliserez-vous dans les fichiers <code>.shtest</code> ?</li>
+<li><strong>Dépendances</strong> : Avez-vous besoin de bibliothèques externes ?</li>
+</ol>
+<h3 id="exemple-plugin-de-notification">Exemple : Plugin de Notification</h3>
+<p>Nous allons créer un plugin qui permet d'envoyer des notifications :
+- <strong>Action</strong> : Envoyer une notification Slack/Email
+- <strong>Validation</strong> : Vérifier que la notification a été envoyée
+- <strong>Pattern</strong> : <code>Envoyer une notification: message</code>
+- <strong>Validation</strong> : <code>La notification a été envoyée</code></p>
+<h2 id="etape-2-creer-la-structure-du-plugin">Étape 2 : Créer la Structure du Plugin</h2>
+<h3 id="structure-des-dossiers">Structure des Dossiers</h3>
+<p><img alt="Structure d'un plugin" src="assets/plugin_structure.png" /></p>
+<blockquote>
+<p>Structure typique d'un plugin montrant l'organisation des fichiers et dossiers.</p>
+</blockquote>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>src/shtest_compiler/plugins/notification/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── __init__.py
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── config/
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│   ├── patterns_actions.yml
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   ├── patterns_validations.yml
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│   └── handler_requirements.yml
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├── action_handlers/
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   ├── __init__.py
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   └── send_notification.py
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>└── handlers/
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    ├── __init__.py
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    └── notification_sent.py
+</span></code></pre></div>
+<h3 id="creer-le-dossier-principal">Créer le Dossier Principal</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>src/shtest_compiler/plugins/notification
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>src/shtest_compiler/plugins/notification/config
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>src/shtest_compiler/plugins/notification/action_handlers
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>src/shtest_compiler/plugins/notification/handlers
+</span></code></pre></div>
+<h2 id="etape-3-definir-les-patterns-yaml">Étape 3 : Définir les Patterns YAML</h2>
+<h3 id="fichier-configpatterns_actionsyml">Fichier <code>config/patterns_actions.yml</code></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># patterns_actions.yml</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">#</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Define action patterns for your plugin here.</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Each entry should have:</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1">#   - phrase: The user-facing pattern to match in .shtest files</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">#   - handler: The name of the Python function (in action_handlers/) to call</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">#   - aliases: List of alternative phrases or regexes for user input matching</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nt">actions</span><span class="p">:</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">phrase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Envoyer</span><span class="nv"> </span><span class="s">une</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">{message}&quot;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">send_notification</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nt">aliases</span><span class="p">:</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;envoyer</span><span class="nv"> </span><span class="s">une</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">{message}&quot;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;notifier</span><span class="nv"> </span><span class="s">{message}&quot;</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^envoyer</span><span class="nv"> </span><span class="s">une</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">(.+)$&quot;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^notifier</span><span class="nv"> </span><span class="s">(.+)$&quot;</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">phrase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Envoyer</span><span class="nv"> </span><span class="s">une</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">Slack</span><span class="nv"> </span><span class="s">{message}&quot;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">send_slack_notification</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="nt">aliases</span><span class="p">:</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;envoyer</span><span class="nv"> </span><span class="s">une</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">slack</span><span class="nv"> </span><span class="s">{message}&quot;</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;slack</span><span class="nv"> </span><span class="s">{message}&quot;</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^envoyer</span><span class="nv"> </span><span class="s">une</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">slack</span><span class="nv"> </span><span class="s">(.+)$&quot;</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^slack</span><span class="nv"> </span><span class="s">(.+)$&quot;</span>
+</span></code></pre></div>
+<h3 id="fichier-configpatterns_validationsyml">Fichier <code>config/patterns_validations.yml</code></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># patterns_validations.yml</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1">#</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Define validation patterns for your plugin here.</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Each entry should have:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">#   - phrase: The user-facing pattern to match in .shtest files</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1">#   - handler: The name of the Python function (in handlers/) to call</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">#   - scope: &#39;last_action&#39; (local, must follow an action) or &#39;global&#39; (can be checked independently)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">#   - aliases: List of alternative phrases or regexes for user input matching</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nt">validations</span><span class="p">:</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">phrase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;La</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">été</span><span class="nv"> </span><span class="s">envoyée&quot;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notification_sent</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last_action</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="nt">aliases</span><span class="p">:</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;la</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">été</span><span class="nv"> </span><span class="s">envoyée&quot;</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;notification</span><span class="nv"> </span><span class="s">envoyée&quot;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^la</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">été</span><span class="nv"> </span><span class="s">envoyée$&quot;</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^notification</span><span class="nv"> </span><span class="s">envoyée$&quot;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">phrase</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;La</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">Slack</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">été</span><span class="nv"> </span><span class="s">envoyée&quot;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slack_notification_sent</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">last_action</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="nt">aliases</span><span class="p">:</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;la</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">slack</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">été</span><span class="nv"> </span><span class="s">envoyée&quot;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;slack</span><span class="nv"> </span><span class="s">envoyé&quot;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^la</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">slack</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">été</span><span class="nv"> </span><span class="s">envoyée$&quot;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^slack</span><span class="nv"> </span><span class="s">envoyé$&quot;</span>
+</span></code></pre></div>
+<h3 id="fichier-confighandler_requirementsyml">Fichier <code>config/handler_requirements.yml</code></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># handler_requirements.yml</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">#</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># This file documents the requirements and expected parameters for each handler in the plugin.</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Use this to specify what parameters/actions/validations each handler expects or needs.</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nt">send_notification</span><span class="p">:</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sends</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">via</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">configured</span><span class="nv"> </span><span class="s">system&quot;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">send</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">notification&quot;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="nt">send_slack_notification</span><span class="p">:</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Sends</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Slack</span><span class="nv"> </span><span class="s">notification&quot;</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">  </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">message</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">send</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Slack&quot;</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="nt">notification_sent</span><span class="p">:</span>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Checks</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">sent</span><span class="nv"> </span><span class="s">successfully&quot;</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">  </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target_dir</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;.&#39;</span>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Directory</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">check</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">logs&quot;</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="nt">slack_notification_sent</span><span class="p">:</span>
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Checks</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Slack</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">was</span><span class="nv"> </span><span class="s">sent</span><span class="nv"> </span><span class="s">successfully&quot;</span>
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">  </span><span class="nt">params</span><span class="p">:</span>
+</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target_dir</span>
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a><span class="w">      </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;.&#39;</span>
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Directory</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">check</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">Slack</span><span class="nv"> </span><span class="s">notification</span><span class="nv"> </span><span class="s">logs&quot;</span>
+</span></code></pre></div>
+<h2 id="etape-4-creer-les-handlers-daction">Étape 4 : Créer les Handlers d'Action</h2>
+<h3 id="pattern-des-handlers">Pattern des Handlers</h3>
+<p><img alt="Pattern des handlers" src="assets/handler_pattern.png" /></p>
+<blockquote>
+<p>Flux de données montrant comment les paramètres passent des patterns YAML aux handlers.</p>
+</blockquote>
+<h3 id="handler-principal-action_handlerssend_notificationpy">Handler Principal (<code>action_handlers/send_notification.py</code>)</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.ast.shell_framework_ast</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionNode</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">SendNotificationAction</span><span class="p">(</span><span class="n">ActionNode</span><span class="p">):</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">    ActionNode for sending notifications via the configured system.</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">    This is a template for plugin developers: extend this pattern for your own actions!</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">notification_type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">):</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">notification_type</span> <span class="o">=</span> <span class="n">notification_type</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="c1"># Generates a shell command to send the notification.</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="c1"># The actual implementation depends on the notification type.</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">notification_type</span> <span class="o">==</span> <span class="s2">&quot;slack&quot;</span><span class="p">:</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_slack_command</span><span class="p">()</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">notification_type</span> <span class="o">==</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_email_command</span><span class="p">()</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_log_command</span><span class="p">()</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_slack_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate shell command for Slack notification.&quot;&quot;&quot;</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Send Slack notification</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="s2">if [ -n &quot;$SLACK_WEBHOOK_URL&quot; ]; then</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="s2">    curl -X POST -H &#39;Content-type: application/json&#39; </span><span class="se">\\</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="s2">        --data &#39;</span><span class="si">{</span><span class="s2">&quot;text&quot;</span><span class="si">:</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="si">}</span><span class="s2">&#39; </span><span class="se">\\</span>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="s2">        &quot;$SLACK_WEBHOOK_URL&quot; </span><span class="se">\\</span>
+</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a><span class="s2">        &amp;&amp; echo &quot;Slack notification sent&quot; </span><span class="se">\\</span>
+</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a><span class="s2">        || (echo &quot;Failed to send Slack notification&quot; &gt;&amp;2 &amp;&amp; exit 1)</span>
+</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a><span class="s2">else</span>
+</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a><span class="s2">    echo &quot;SLACK_WEBHOOK_URL not configured&quot; &gt;&amp;2</span>
+</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a><span class="s2">    exit 1</span>
+</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a><span class="s2">fi&quot;&quot;&quot;</span>
+</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>
+</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_email_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate shell command for email notification.&quot;&quot;&quot;</span>
+</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Send email notification</span>
+</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a><span class="s2">if [ -n &quot;$NOTIFICATION_EMAIL&quot; ]; then</span>
+</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a><span class="s2">    echo &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot; | mail -s &quot;KnightBatch Notification&quot; &quot;$NOTIFICATION_EMAIL&quot; </span><span class="se">\\</span>
+</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a><span class="s2">        &amp;&amp; echo &quot;Email notification sent&quot; </span><span class="se">\\</span>
+</span><span id="__span-6-43"><a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a><span class="s2">        || (echo &quot;Failed to send email notification&quot; &gt;&amp;2 &amp;&amp; exit 1)</span>
+</span><span id="__span-6-44"><a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a><span class="s2">else</span>
+</span><span id="__span-6-45"><a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a><span class="s2">    echo &quot;NOTIFICATION_EMAIL not configured&quot; &gt;&amp;2</span>
+</span><span id="__span-6-46"><a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a><span class="s2">    exit 1</span>
+</span><span id="__span-6-47"><a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a><span class="s2">fi&quot;&quot;&quot;</span>
+</span><span id="__span-6-48"><a id="__codelineno-6-48" name="__codelineno-6-48" href="#__codelineno-6-48"></a>
+</span><span id="__span-6-49"><a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_generate_log_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-6-50"><a id="__codelineno-6-50" name="__codelineno-6-50" href="#__codelineno-6-50"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate shell command for log notification.&quot;&quot;&quot;</span>
+</span><span id="__span-6-51"><a id="__codelineno-6-51" name="__codelineno-6-51" href="#__codelineno-6-51"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Log notification</span>
+</span><span id="__span-6-52"><a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a><span class="s2">echo &quot;[$(date)] NOTIFICATION: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot; &gt;&gt; /tmp/notifications.log </span><span class="se">\\</span>
+</span><span id="__span-6-53"><a id="__codelineno-6-53" name="__codelineno-6-53" href="#__codelineno-6-53"></a><span class="s2">    &amp;&amp; echo &quot;Notification logged&quot; </span><span class="se">\\</span>
+</span><span id="__span-6-54"><a id="__codelineno-6-54" name="__codelineno-6-54" href="#__codelineno-6-54"></a><span class="s2">    || (echo &quot;Failed to log notification&quot; &gt;&amp;2 &amp;&amp; exit 1)&quot;&quot;&quot;</span>
+</span><span id="__span-6-55"><a id="__codelineno-6-55" name="__codelineno-6-55" href="#__codelineno-6-55"></a>
+</span><span id="__span-6-56"><a id="__codelineno-6-56" name="__codelineno-6-56" href="#__codelineno-6-56"></a>
+</span><span id="__span-6-57"><a id="__codelineno-6-57" name="__codelineno-6-57" href="#__codelineno-6-57"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+</span><span id="__span-6-58"><a id="__codelineno-6-58" name="__codelineno-6-58" href="#__codelineno-6-58"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-6-59"><a id="__codelineno-6-59" name="__codelineno-6-59" href="#__codelineno-6-59"></a><span class="sd">    Handler entry point for the action. Expects a &#39;params&#39; dict with &#39;message&#39;.</span>
+</span><span id="__span-6-60"><a id="__codelineno-6-60" name="__codelineno-6-60" href="#__codelineno-6-60"></a><span class="sd">    Returns an ActionNode for shell script generation.</span>
+</span><span id="__span-6-61"><a id="__codelineno-6-61" name="__codelineno-6-61" href="#__codelineno-6-61"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-6-62"><a id="__codelineno-6-62" name="__codelineno-6-62" href="#__codelineno-6-62"></a>    <span class="n">message</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;Default notification message&quot;</span><span class="p">)</span>
+</span><span id="__span-6-63"><a id="__codelineno-6-63" name="__codelineno-6-63" href="#__codelineno-6-63"></a>    <span class="n">notification_type</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">)</span>
+</span><span id="__span-6-64"><a id="__codelineno-6-64" name="__codelineno-6-64" href="#__codelineno-6-64"></a>    <span class="k">return</span> <span class="n">SendNotificationAction</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">notification_type</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="handler-slack-action_handlerssend_slack_notificationpy">Handler Slack (<code>action_handlers/send_slack_notification.py</code>)</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.ast.shell_framework_ast</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionNode</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">SendSlackNotificationAction</span><span class="p">(</span><span class="n">ActionNode</span><span class="p">):</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    ActionNode for sending Slack notifications.</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;#general&quot;</span><span class="p">):</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Send Slack notification</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="s2">if [ -n &quot;$SLACK_WEBHOOK_URL&quot; ]; then</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="s2">    curl -X POST -H &#39;Content-type: application/json&#39; </span><span class="se">\\</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="s2">        --data &#39;</span><span class="si">{</span><span class="s2">&quot;text&quot;</span><span class="si">:</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;,&quot;channel&quot;:&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="si">}</span><span class="s2">&#39; </span><span class="se">\\</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="s2">        &quot;$SLACK_WEBHOOK_URL&quot; </span><span class="se">\\</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="s2">        &amp;&amp; echo &quot;Slack notification sent to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot; </span><span class="se">\\</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="s2">        || (echo &quot;Failed to send Slack notification&quot; &gt;&amp;2 &amp;&amp; exit 1)</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="s2">else</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="s2">    echo &quot;SLACK_WEBHOOK_URL not configured&quot; &gt;&amp;2</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="s2">    exit 1</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="s2">fi&quot;&quot;&quot;</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="sd">    Handler entry point for Slack notifications.</span>
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>    <span class="n">message</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span> <span class="s2">&quot;Default Slack message&quot;</span><span class="p">)</span>
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>    <span class="n">channel</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="s2">&quot;#general&quot;</span><span class="p">)</span>
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>    <span class="k">return</span> <span class="n">SendSlackNotificationAction</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="etape-5-creer-les-handlers-de-validation">Étape 5 : Créer les Handlers de Validation</h2>
+<h3 id="handler-de-validation-handlersnotification_sentpy">Handler de Validation (<code>handlers/notification_sent.py</code>)</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.ast.shell_framework_ast</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationCheck</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sd">    Validation handler: Checks if a notification was sent successfully.</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">target_dir</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;target_dir&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">log_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="s2">&quot;notifications.log&quot;</span><span class="p">)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="c1"># Return atomic command only - no if/then/else logic</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="n">actual_cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Check if notification was sent</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="s2">if [ -f &quot;</span><span class="si">{</span><span class="n">log_file</span><span class="si">}</span><span class="s2">&quot; ] &amp;&amp; grep -q &quot;NOTIFICATION:&quot; &quot;</span><span class="si">{</span><span class="n">log_file</span><span class="si">}</span><span class="s2">&quot;; then</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="s2">    echo &quot;Notification verified&quot;</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="s2">    exit 0</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="s2">else</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="s2">    echo &quot;Notification not found&quot; &gt;&amp;2</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="s2">    exit 1</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="s2">fi&quot;&quot;&quot;</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    <span class="k">return</span> <span class="n">ValidationCheck</span><span class="p">(</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>        <span class="n">expected</span><span class="o">=</span><span class="s2">&quot;La notification a été envoyée&quot;</span><span class="p">,</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>        <span class="n">actual_cmd</span><span class="o">=</span><span class="n">actual_cmd</span><span class="p">,</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>        <span class="n">handler</span><span class="o">=</span><span class="s2">&quot;notification_sent&quot;</span><span class="p">,</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>        <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;last_action&quot;</span><span class="p">,</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;log_file&quot;</span><span class="p">:</span> <span class="n">log_file</span><span class="p">}</span>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<h3 id="handler-slack-validation-handlersslack_notification_sentpy">Handler Slack Validation (<code>handlers/slack_notification_sent.py</code>)</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.ast.shell_framework_ast</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidationCheck</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="sd">    Validation handler: Checks if a Slack notification was sent successfully.</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">target_dir</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;target_dir&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">log_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="s2">&quot;slack_notifications.log&quot;</span><span class="p">)</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="c1"># Return atomic command only - no if/then/else logic</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="n">actual_cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Check if Slack notification was sent</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="s2">if [ -f &quot;</span><span class="si">{</span><span class="n">log_file</span><span class="si">}</span><span class="s2">&quot; ] &amp;&amp; grep -q &quot;Slack notification sent&quot; &quot;</span><span class="si">{</span><span class="n">log_file</span><span class="si">}</span><span class="s2">&quot;; then</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="s2">    echo &quot;Slack notification verified&quot;</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="s2">    exit 0</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="s2">else</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="s2">    echo &quot;Slack notification not found&quot; &gt;&amp;2</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="s2">    exit 1</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="s2">fi&quot;&quot;&quot;</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    <span class="k">return</span> <span class="n">ValidationCheck</span><span class="p">(</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>        <span class="n">expected</span><span class="o">=</span><span class="s2">&quot;La notification Slack a été envoyée&quot;</span><span class="p">,</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>        <span class="n">actual_cmd</span><span class="o">=</span><span class="n">actual_cmd</span><span class="p">,</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>        <span class="n">handler</span><span class="o">=</span><span class="s2">&quot;slack_notification_sent&quot;</span><span class="p">,</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>        <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;last_action&quot;</span><span class="p">,</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;log_file&quot;</span><span class="p">:</span> <span class="n">log_file</span><span class="p">}</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>    <span class="p">)</span>
+</span></code></pre></div>
+<h2 id="etape-6-creer-le-point-dentree-du-plugin">Étape 6 : Créer le Point d'Entrée du Plugin</h2>
+<h3 id="fichier-__init__py-principal">Fichier <code>__init__.py</code> Principal</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="sd">Plugin de notification pour KnightBatch.</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="sd">Ce plugin permet d&#39;envoyer des notifications via différents canaux</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="sd">(Slack, Email, Log) et de valider leur envoi.</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="sd">Structure:</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="sd">- config/: YAML files defining action and validation patterns</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="sd">- action_handlers/: Python modules implementing actions</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="sd">- handlers/: Python modules implementing validations</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="sd">To create your own plugin, copy this structure and update the YAML and handler files as needed.</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="c1"># The plugin is automatically discovered and loaded by the framework</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="c1"># No additional registration code is needed</span>
+</span></code></pre></div>
+<h2 id="etape-7-configurer-le-plugin">Étape 7 : Configurer le Plugin</h2>
+<h3 id="variables-denvironnement">Variables d'Environnement</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Configuration Slack</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SLACK_WEBHOOK_URL</span><span class="o">=</span><span class="s2">&quot;https://hooks.slack.com/services/YOUR/WEBHOOK/URL&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SLACK_CHANNEL</span><span class="o">=</span><span class="s2">&quot;#alerts&quot;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Configuration Email</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NOTIFICATION_EMAIL</span><span class="o">=</span><span class="s2">&quot;admin@example.com&quot;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SMTP_SERVER</span><span class="o">=</span><span class="s2">&quot;smtp.example.com&quot;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># Type de notification par défaut</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NOTIFICATION_TYPE</span><span class="o">=</span><span class="s2">&quot;slack&quot;</span>
+</span></code></pre></div>
+<h2 id="etape-8-tester-votre-plugin">Étape 8 : Tester votre Plugin</h2>
+<h3 id="workflow-de-tests">Workflow de Tests</h3>
+<p><img alt="Workflow de tests" src="assets/testing_workflow.png" /></p>
+<blockquote>
+<p>Workflow complet de tests montrant le processus de validation, compilation et exécution.</p>
+</blockquote>
+<h3 id="fichier-de-test-shtest">Fichier de Test <code>.shtest</code></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># tests/notification_test.shtest
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Étape: Test des notifications
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  Action: Envoyer une notification: Test de notification KnightBatch
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  Résultat: La notification a été envoyée
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Étape: Test des notifications Slack
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  Action: Envoyer une notification Slack: Test Slack depuis KnightBatch
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  Résultat: La notification Slack a été envoyée
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>Étape: Test avec variables
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>  Action: Définir la variable: message = &quot;Notification avec variable&quot;
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>  Action: Envoyer une notification: ${message}
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>  Résultat: La notification a été envoyée
+</span></code></pre></div>
+<h3 id="tests-unitaires">Tests Unitaires</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># tests/unit/test_notification_plugin.py</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.plugins.notification.action_handlers.send_notification</span><span class="w"> </span><span class="kn">import</span> <span class="n">handle</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_notification_handler</span><span class="p">():</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Test le handler de notification.&quot;&quot;&quot;</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Test message&quot;</span><span class="p">}</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">handle</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;to_shell&#39;</span><span class="p">)</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>    <span class="k">assert</span> <span class="s2">&quot;Test message&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">to_shell</span><span class="p">()</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_slack_handler</span><span class="p">():</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Test le handler Slack.&quot;&quot;&quot;</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.plugins.notification.action_handlers.send_slack_notification</span><span class="w"> </span><span class="kn">import</span> <span class="n">handle</span> <span class="k">as</span> <span class="n">slack_handle</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Test Slack&quot;</span><span class="p">}</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">slack_handle</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>    <span class="k">assert</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;to_shell&#39;</span><span class="p">)</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>    <span class="k">assert</span> <span class="s2">&quot;curl&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">to_shell</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="tests-e2e">Tests E2E</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Compiler et tester le plugin</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>python<span class="w"> </span>-m<span class="w"> </span>shtest_compiler.run_all<span class="w"> </span>--input<span class="w"> </span>tests/notification_test.shtest
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Vérifier la syntaxe</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>python<span class="w"> </span>src/shtest_compiler/verify_syntax.py<span class="w"> </span>tests/notification_test.shtest
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># Exécuter le script généré</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>bash<span class="w"> </span>output/notification_test.sh
+</span></code></pre></div>
+<h2 id="etape-9-deployer-votre-plugin">Étape 9 : Déployer votre Plugin</h2>
+<h3 id="installation">Installation</h3>
+<ol>
+<li>
+<p><strong>Copier le plugin</strong> dans le répertoire des plugins :
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cp<span class="w"> </span>-r<span class="w"> </span>src/shtest_compiler/plugins/notification<span class="w"> </span>/path/to/knightbatch/plugins/
 </span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Configurer les variables</strong> d'environnement :
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SLACK_WEBHOOK_URL</span><span class="o">=</span><span class="s2">&quot;your_webhook_url&quot;</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NOTIFICATION_TYPE</span><span class="o">=</span><span class="s2">&quot;slack&quot;</span>
+</span></code></pre></div></p>
+</li>
+</ol>
+<h3 id="utilisation">Utilisation</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a># Exemple d&#39;utilisation du plugin
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Étape: Notifier le succès d&#39;un test
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  Action: Exécuter le script: ./my_test.sh
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  Résultat: Le code de retour est 0
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>  Action: Envoyer une notification: Test réussi - $(date)
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>  Résultat: La notification a été envoyée
+</span></code></pre></div>
+<h2 id="bonnes-pratiques">Bonnes Pratiques</h2>
+<h3 id="conception-du-plugin">Conception du Plugin</h3>
+<ol>
+<li><strong>Séparation des responsabilités</strong> : Handlers, validations, et configuration séparés</li>
+<li><strong>Gestion d'erreurs</strong> : Toujours gérer les cas d'erreur et retourner des codes appropriés</li>
+<li><strong>Configuration flexible</strong> : Utiliser des variables d'environnement et des valeurs par défaut</li>
+<li><strong>Documentation</strong> : Documenter chaque fonction et paramètre</li>
+</ol>
+<h3 id="tests">Tests</h3>
+<ol>
+<li><strong>Tests unitaires</strong> : Tester chaque fonction individuellement</li>
+<li><strong>Tests d'intégration</strong> : Tester l'interaction avec le système principal</li>
+<li><strong>Tests E2E</strong> : Tester avec des fichiers <code>.shtest</code> réels</li>
+<li><strong>Tests négatifs</strong> : Tester les cas d'erreur et d'échec</li>
+</ol>
+<h3 id="performance">Performance</h3>
+<ol>
+<li><strong>Validation légère</strong> : Les validations doivent être rapides</li>
+<li><strong>Gestion des ressources</strong> : Libérer les ressources (connexions, fichiers)</li>
+<li><strong>Cache</strong> : Mettre en cache les résultats coûteux</li>
+<li><strong>Logging</strong> : Logger les opérations importantes pour le debug</li>
+</ol>
+<h3 id="securite">Sécurité</h3>
+<ol>
+<li><strong>Validation des entrées</strong> : Valider tous les paramètres d'entrée</li>
+<li><strong>Échappement</strong> : Échapper les caractères spéciaux dans les commandes shell</li>
+<li><strong>Permissions</strong> : Vérifier les permissions avant les opérations sensibles</li>
+<li><strong>Secrets</strong> : Ne pas exposer les secrets dans les logs</li>
+</ol>
+<h2 id="exemples-avances">Exemples Avancés</h2>
+<h3 id="plugin-avec-base-de-donnees">Plugin avec Base de Données</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.ast.shell_framework_ast</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionNode</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">DatabaseQueryAction</span><span class="p">(</span><span class="n">ActionNode</span><span class="p">):</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">database_url</span><span class="p">):</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="n">query</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">database_url</span> <span class="o">=</span> <span class="n">database_url</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# Execute database query</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="s2">psql &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">database_url</span><span class="si">}</span><span class="s2">&quot; -c &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot; </span><span class="se">\\</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="s2">  &amp;&amp; echo &quot;Query executed successfully&quot; </span><span class="se">\\</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="s2">  || (echo &quot;Database query failed&quot; &gt;&amp;2 &amp;&amp; exit 1)&quot;&quot;&quot;</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>    <span class="n">query</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">)</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>    <span class="n">database_url</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;database_url&quot;</span><span class="p">,</span> <span class="s2">&quot;$DATABASE_URL&quot;</span><span class="p">)</span>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>    <span class="k">return</span> <span class="n">DatabaseQueryAction</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">database_url</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="plugin-avec-api-rest">Plugin avec API REST</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.ast.shell_framework_ast</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActionNode</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">APICallAction</span><span class="p">(</span><span class="n">ActionNode</span><span class="p">):</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span> <span class="o">=</span> <span class="n">endpoint</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">api_key</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_shell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        <span class="n">headers</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;-H &#39;Authorization: Bearer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="si">}</span><span class="s2">&#39;&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;# API REST call</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="s2">curl -X </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">headers</span><span class="si">}</span><span class="s2"> &quot;$API_BASE_URL</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">endpoint</span><span class="si">}</span><span class="s2">&quot; </span><span class="se">\\</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="s2">  &amp;&amp; echo &quot;API call successful&quot; </span><span class="se">\\</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="s2">  || (echo &quot;API call failed&quot; &gt;&amp;2 &amp;&amp; exit 1)&quot;&quot;&quot;</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>    <span class="n">endpoint</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;endpoint&quot;</span><span class="p">)</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>    <span class="n">method</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;GET&quot;</span><span class="p">)</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>    <span class="n">api_key</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;api_key&quot;</span><span class="p">,</span> <span class="s2">&quot;$API_KEY&quot;</span><span class="p">)</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a>    <span class="k">return</span> <span class="n">APICallAction</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">api_key</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="depannage">Dépannage</h2>
+<h3 id="problemes-courants">Problèmes Courants</h3>
+<ol>
+<li><strong>Plugin non trouvé</strong> : Vérifier le chemin et la structure des dossiers</li>
+<li><strong>Handler non appelé</strong> : Vérifier les patterns YAML et les noms de handlers</li>
+<li><strong>Variables non définies</strong> : Vérifier la configuration et les variables d'environnement</li>
+<li><strong>Erreurs de syntaxe</strong> : Vérifier les commandes shell générées</li>
+</ol>
+<h3 id="debug">Debug</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Activer le debug pour le plugin</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># Vérifier l&#39;enregistrement</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">shtest_compiler.command_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">discover_plugins</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="n">plugins</span> <span class="o">=</span> <span class="n">discover_plugins</span><span class="p">()</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Plugins trouvés:&quot;</span><span class="p">,</span> <span class="n">plugins</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ce tutoriel vous a guidé à travers la création complète d'un plugin KnightBatch. Les plugins sont un moyen puissant d'étendre les fonctionnalités du système selon vos besoins spécifiques.</p>
+<p>Pour plus d'informations, consultez :
+- <a href="../modular_architecture/">Architecture Modulaire</a>
+- <a href="../developer_quickstart/">Guide Développeur</a>
+- <a href="../testing_and_validation/">Tests et Validation</a></p>
 
 
 
