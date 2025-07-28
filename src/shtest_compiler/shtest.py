@@ -122,7 +122,6 @@ def main():
 
     elif args.command == "verify":
         # Pass the file argument to verify_syntax
-        import sys
 
         # Temporarily modify sys.argv to pass the file argument
         original_argv = sys.argv.copy()
